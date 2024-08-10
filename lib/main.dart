@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
+import 'package:zentrio_admin/di/init.dart';
 
 import 'presentation/router/app_router.dart';
 
 void main() {
+  configureInjection();
   runApp(const MyApp());
 }
 

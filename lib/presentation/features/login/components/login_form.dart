@@ -3,6 +3,9 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
+import 'package:zentrio_admin/di/init.dart';
+
+import '../login_view_model.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -14,12 +17,17 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> with SignalsAutoDisposeMixin {
   late final obscure = createSignal(context, true);
 
-  final _formKey = GlobalKey<ShadFormState>();
+  final formKey = GlobalKey<ShadFormState>();
+
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
+
+  final viewModel = getIt<LoginViewModel>();
 
   @override
   Widget build(BuildContext context) {
     return ShadForm(
-      key: _formKey,
+      key: formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -34,6 +42,7 @@ class _LoginFormState extends State<LoginForm> with SignalsAutoDisposeMixin {
           const SizedBox(height: 16),
           ShadInputFormField(
             id: 'username',
+            controller: email,
             placeholder: const Text('Email'),
             keyboardType: TextInputType.emailAddress,
             validator: FormBuilderValidators.compose([
@@ -43,6 +52,7 @@ class _LoginFormState extends State<LoginForm> with SignalsAutoDisposeMixin {
           ),
           const SizedBox(height: 4),
           ShadInputFormField(
+            controller: password,
             placeholder: const Text('Password'),
             obscureText: obscure.value,
             validator: FormBuilderValidators.compose([
@@ -71,8 +81,18 @@ class _LoginFormState extends State<LoginForm> with SignalsAutoDisposeMixin {
             width: double.infinity,
             child: const Text('Continue'),
             onPressed: () {
-              GoRouter.of(context).go('/vendors');
-             /* if (_formKey.currentState?.saveAndValidate() == true) {
+              viewModel.login(email.text, password.text, () {
+                GoRouter.of(context).go('/vendors');
+              }, () {
+                ShadToaster.of(context).show(
+                  const ShadToast.destructive(
+                    alignment: Alignment.bottomCenter,
+                    title: Text('Uh oh! Something went wrong'),
+                    description: Text('There was a problem with your request'),
+                  ),
+                );
+              });
+              /* if (_formKey.currentState?.saveAndValidate() == true) {
                 print(_formKey.currentState!.value);
               }*/
             },
@@ -80,5 +100,12 @@ class _LoginFormState extends State<LoginForm> with SignalsAutoDisposeMixin {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    email.dispose();
+    password.dispose();
+    super.dispose();
   }
 }
