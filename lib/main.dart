@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
+import 'package:signals/signals_flutter.dart';
 
 import 'presentation/router/app_router.dart';
 
 void main() {
   runApp(const MyApp());
 }
+
+final brightness = signal(Brightness.light);
+final themeMode = computed(() {
+  if (brightness() == Brightness.dark) {
+    return ThemeMode.dark;
+  } else {
+    return ThemeMode.light;
+  }
+});
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -15,6 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShadApp.materialRouter(
       routerConfig: router,
+      debugShowCheckedModeBanner: false,
       builder: (context, child) => ResponsiveBreakpoints.builder(
         child: Material(child: child),
         breakpoints: [
@@ -24,6 +35,7 @@ class MyApp extends StatelessWidget {
           const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
         ],
       ),
+      themeMode: themeMode.watch(context),
       theme: ShadThemeData(
         brightness: Brightness.light,
         colorScheme: const ShadZincColorScheme.light(),
