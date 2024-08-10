@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 
@@ -70,9 +71,10 @@ class _LoginFormState extends State<LoginForm> with SignalsAutoDisposeMixin {
             width: double.infinity,
             child: const Text('Continue'),
             onPressed: () {
-              if (_formKey.currentState?.saveAndValidate() == true) {
+              GoRouter.of(context).go('/vendors');
+             /* if (_formKey.currentState?.saveAndValidate() == true) {
                 print(_formKey.currentState!.value);
-              }
+              }*/
             },
           ),
         ],

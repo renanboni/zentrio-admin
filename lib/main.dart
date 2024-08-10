@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-import 'package:zentrio_admin/presentation/features/login/login_page.dart';
+
+import 'presentation/router/app_router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,9 +13,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ShadApp(
+    return ShadApp.materialRouter(
+      routerConfig: router,
       builder: (context, child) => ResponsiveBreakpoints.builder(
-        child: child!,
+        child: Material(child: child),
         breakpoints: [
           const Breakpoint(start: 0, end: 450, name: MOBILE),
           const Breakpoint(start: 451, end: 800, name: TABLET),
@@ -29,9 +31,6 @@ class MyApp extends StatelessWidget {
       darkTheme: ShadThemeData(
         brightness: Brightness.dark,
         colorScheme: const ShadZincColorScheme.dark(),
-      ),
-      home: const Material(
-        child: LoginPage(),
       ),
     );
   }
