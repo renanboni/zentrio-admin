@@ -43,7 +43,10 @@ class DashboardPage extends StatelessWidget {
               const TopBar(),
               const Divider(height: 1,),
               Expanded(
-                child: child,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: child,
+                ),
               ),
             ],
           ),
