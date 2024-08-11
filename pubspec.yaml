@@ -27,6 +27,7 @@ dependencies:
   retrofit: '>=4.0.0 <5.0.0'
   json_annotation: ^4.8.1
   pretty_dio_logger: ^1.4.0
+  dotted_border: ^2.1.0
 
 dev_dependencies:
   flutter_test:

@@ -7,11 +7,13 @@ class HorizontalStepper extends StatefulWidget {
   final List<StepItemList> steps;
   final int currentStep;
   final bool showEsc;
+  final ValueChanged<int>? onStepTapped;
 
   const HorizontalStepper({
     super.key,
     this.currentStep = 0,
     this.showEsc = false,
+    this.onStepTapped,
     required this.steps,
   });
 
@@ -30,14 +32,21 @@ class _StepperState extends State<HorizontalStepper> {
             children: [
               if (widget.showEsc) const EscButton(),
               for (var i = 0; i < widget.steps.length; i++) ...[
-                widget.steps[i],
+                InkWell(
+                  onTap: () => widget.onStepTapped?.call(i),
+                  child: widget.steps[i],
+                ),
               ]
             ],
           ),
         ),
         const Divider(height: 1),
-        const SizedBox(height: 24),
-        Flexible(child: widget.steps[widget.currentStep].content),
+        Flexible(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: widget.steps[widget.currentStep].content,
+          ),
+        ),
         const Divider(height: 1),
         const StepperControls()
       ],
