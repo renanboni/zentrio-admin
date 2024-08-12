@@ -1,9 +1,17 @@
-
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
 class StepperControls extends StatelessWidget {
-  const StepperControls({super.key});
+  final VoidCallback onCancel;
+  final VoidCallback? onContinue;
+  final bool isContinueEnabled;
+
+  const StepperControls({
+    super.key,
+    this.isContinueEnabled = true,
+    required this.onCancel,
+    required this.onContinue,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,13 +21,14 @@ class StepperControls extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           ShadButton.outline(
-            onPressed: () {},
+            onPressed: onCancel,
             size: ShadButtonSize.sm,
             child: const Text('Cancel'),
           ),
           const SizedBox(width: 4),
           ShadButton(
-            onPressed: () {},
+            enabled: isContinueEnabled,
+            onPressed: onContinue,
             size: ShadButtonSize.sm,
             child: const Text('Continue'),
           ),

@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
@@ -10,12 +10,9 @@ class VendorForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveRowColumn(
       layout: ResponsiveRowColumnType.COLUMN,
-      // We'll manage rows manually
       rowSpacing: 4,
       columnSpacing: 8,
-      // Add some spacing between rows
       children: [
-        // First Row: First Name and Last Name
         ResponsiveRowColumnItem(
           child: ResponsiveRowColumn(
             layout: ResponsiveBreakpoints.of(context).smallerThan(DESKTOP)
@@ -29,6 +26,10 @@ class VendorForm extends StatelessWidget {
                 child: ShadInputFormField(
                   label: const Text('First name'),
                   placeholder: const Text("Enter first name"),
+                  validator: FormBuilderValidators.compose([
+                    FormBuilderValidators.required(),
+                    FormBuilderValidators.firstName(),
+                  ]),
                 ),
               ),
               ResponsiveRowColumnItem(
@@ -36,6 +37,10 @@ class VendorForm extends StatelessWidget {
                 child: ShadInputFormField(
                   label: const Text('Last name'),
                   placeholder: const Text("Enter last name"),
+                  validator: FormBuilderValidators.compose([
+                    FormBuilderValidators.required(),
+                    FormBuilderValidators.lastName(),
+                  ]),
                 ),
               ),
             ],
@@ -46,6 +51,10 @@ class VendorForm extends StatelessWidget {
           child: ShadInputFormField(
             label: const Text('Email'),
             placeholder: const Text("Enter email"),
+            validator: FormBuilderValidators.compose([
+              FormBuilderValidators.required(),
+              FormBuilderValidators.email(),
+            ]),
           ),
         ),
       ],
