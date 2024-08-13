@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals.dart';
+import 'package:signals/signals_flutter.dart';
+import 'package:zentrio_admin/main.dart';
 import 'package:zentrio_admin/presentation/components/stepper/esc_button.dart';
 import 'package:zentrio_admin/presentation/components/stepper/step_item_list.dart';
+import 'package:zentrio_admin/presentation/components/stepper/step_status.dart';
 import 'package:zentrio_admin/presentation/components/stepper/stepper_controls.dart';
 
 class HorizontalStepper extends StatefulWidget {
@@ -27,8 +30,25 @@ class HorizontalStepper extends StatefulWidget {
 }
 
 class _StepperState extends State<HorizontalStepper> {
-
   final Signal _currentIndex = signal(0);
+
+  final List<GlobalKey<ShadFormState>?> _formKeys = [];
+  late List<GlobalKey> _keys;
+
+  @override
+  void initState() {
+    super.initState();
+    _formKeys.addAll(
+      List.generate(
+        widget.steps.length,
+        (index) => GlobalKey<ShadFormState>(),
+      ),
+    );
+    _keys = List<GlobalKey>.generate(
+      widget.steps.length,
+          (int i) => GlobalKey(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +60,31 @@ class _StepperState extends State<HorizontalStepper> {
             children: [
               if (widget.showEsc) const EscButton(),
               for (var i = 0; i < widget.steps.length; i++) ...[
-                InkWell(
-                  onTap: widget.steps[i].state == HorizontalStepState.disabled
-                      ? null
-                      : () => widget.onStepTapped?.call(i),
-                  child: widget.steps[i],
+                Watch(
+                  (context) => InkWell(
+                    onTap: widget.steps[i].state == HorizontalStepState.disabled
+                        ? null
+                        : () => _currentIndex.value = i,
+                    child: SizedBox(
+                      width: widget.steps[i].width,
+                      child: Row(
+                        children: [
+                          const SizedBox(width: 16),
+                          StepStatus(state: _getState(i)),
+                          const SizedBox(width: 8),
+                          Text(
+                            widget.steps[i].title,
+                            style: ShadTheme.of(context)
+                                .textTheme
+                                .small
+                                .copyWith(fontWeight: FontWeight.w500),
+                          ),
+                          const Spacer(),
+                          const VerticalDivider(width: 1),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ]
             ],
@@ -52,11 +92,14 @@ class _StepperState extends State<HorizontalStepper> {
         ),
         const Divider(height: 1),
         Flexible(
+          key: _keys[_currentIndex.value],
           child: Padding(
             padding: const EdgeInsets.all(24.0),
-            child: ShadForm(
-              key: widget.steps[widget.currentStep].formKey,
-              child: widget.steps[widget.currentStep].content,
+            child: Watch(
+              (context) => ShadForm(
+                key: _formKeys[_currentIndex.value],
+                child: widget.steps[_currentIndex.value].content,
+              ),
             ),
           ),
         ),
@@ -66,13 +109,23 @@ class _StepperState extends State<HorizontalStepper> {
             GoRouter.of(context).pop();
           },
           onContinue: () {
-            if (widget.steps[widget.currentStep].formKey?.currentState
-                ?.saveAndValidate() == true) {
-              // widget.steps[_currentIndex.value].state = HorizontalStepState.completed;
+            if (_formKeys[_currentIndex.value]
+                    ?.currentState
+                    ?.saveAndValidate() ==
+                true) {
+              _currentIndex.value++;
             }
           },
         )
       ],
     );
+  }
+
+  HorizontalStepState _getState(int i) {
+    return _currentIndex.value > i
+        ? HorizontalStepState.completed
+        : (i == _currentIndex.value
+            ? HorizontalStepState.editing
+            : HorizontalStepState.disabled);
   }
 }

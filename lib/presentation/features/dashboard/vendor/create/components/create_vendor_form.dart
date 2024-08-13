@@ -13,7 +13,6 @@ class CreateVendorForm extends StatefulWidget {
 }
 
 class _CreateVendorFormState extends State<CreateVendorForm> {
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,11 +23,14 @@ class _CreateVendorFormState extends State<CreateVendorForm> {
             steps: [
               StepItemList(
                 title: 'Vendor',
-                formKey: GlobalKey<ShadFormState>(),
                 state: HorizontalStepState.editing,
-                content: const MaxWidthBox(
+                content: MaxWidthBox(
                   maxWidth: 500,
-                  child: VendorForm(),
+                  child: VendorForm(
+                    firstNameController: TextEditingController(),
+                    lastNameController: TextEditingController(),
+                    emailController: TextEditingController(),
+                  ),
                 ),
               ),
               StepItemList(
@@ -36,10 +38,13 @@ class _CreateVendorFormState extends State<CreateVendorForm> {
                 title: 'Store',
                 content: Container(),
               ),
+              StepItemList(
+                state: HorizontalStepState.completed,
+                title: 'Store',
+                content: Container(),
+              ),
             ],
-            onContinue: () {
-
-            },
+            onContinue: () {},
           ),
         ),
       ],
