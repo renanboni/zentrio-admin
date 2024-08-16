@@ -6,10 +6,12 @@ import 'package:zentrio_admin/presentation/components/sidebar/side_bar_item_list
 class SideBar extends StatefulWidget {
   final List<SideBarItem> items;
   final SideBarItem? footer;
+  final Function(SideBarItem item)? onTap;
 
   const SideBar({
     super.key,
     required this.items,
+    this.onTap,
     this.footer,
   });
 
@@ -29,7 +31,14 @@ class _SideBarState extends State<SideBar> {
             padding: const EdgeInsets.all(8.0),
             child: ListView(
               children: widget.items.map((item) {
-                return SideBarItemList(item: item);
+                return SideBarItemList(
+                  item: item,
+                  onTap: () {
+                    if (widget.onTap != null) {
+                      widget.onTap!(item);
+                    }
+                  },
+                );
               }).toList(),
             ),
           ),

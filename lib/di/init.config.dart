@@ -17,6 +17,8 @@ import 'package:zentrio_admin/data/remote/medusa_client.dart' as _i873;
 import 'package:zentrio_admin/di/modules/app_module.dart' as _i441;
 import 'package:zentrio_admin/di/modules/network_module.dart' as _i184;
 import 'package:zentrio_admin/domain/usecase/auth_usecase.dart' as _i620;
+import 'package:zentrio_admin/presentation/features/dashboard/side_bar_controller.dart'
+    as _i857;
 import 'package:zentrio_admin/presentation/features/login/login_view_model.dart'
     as _i939;
 
@@ -39,6 +41,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i873.MedusaClient>(() => networkModule.medusaClient);
     gh.lazySingleton<_i361.Dio>(() => networkModule.dio);
+    gh.lazySingleton<_i857.SideBarController>(() => _i857.SideBarController());
     gh.lazySingleton<_i132.AuthenticationRepository>(
         () => _i132.AuthenticationRepository(gh<_i873.MedusaClient>()));
     gh.factory<_i620.AuthUseCase>(

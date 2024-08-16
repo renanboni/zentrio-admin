@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
+import 'package:signals/signals_flutter.dart';
+import 'package:zentrio_admin/di/init.dart';
+import 'package:zentrio_admin/main.dart';
 import 'package:zentrio_admin/presentation/components/sidebar/models/side_bar_item.dart';
 import 'package:zentrio_admin/presentation/components/sidebar/side_bar.dart';
+import 'package:zentrio_admin/presentation/features/dashboard/side_bar_controller.dart';
 
+import '../../components/sidebar/side_bar_item_list.dart';
 import '../../components/topbar/topbar.dart';
 
 class DashboardPage extends StatelessWidget {
   final Widget child;
+  final SideBarController controller;
 
   const DashboardPage({
     super.key,
+    required this.controller,
     required this.child,
   });
 
@@ -20,19 +28,15 @@ class DashboardPage extends StatelessWidget {
         SizedBox(
           width: 300,
           child: SideBar(
-            items: [
-              SideBarItem(
-                label: "Vendors",
-                icon: LucideIcons.store,
-              ),
-              SideBarItem(
-                label: "Users",
-                icon: LucideIcons.user,
-              ),
-            ],
+            items: controller.menu.watch(context),
+            onTap: (item) {
+              controller.onTap(item);
+              GoRouter.of(context).go(item.route);
+            },
             footer: SideBarItem(
               label: "Sign out",
               icon: LucideIcons.logOut,
+              type: SideBarItemType.button,
             ),
           ),
         ),
