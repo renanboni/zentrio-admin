@@ -15,12 +15,14 @@ class HorizontalStepper extends StatefulWidget {
   final bool showEsc;
   final ValueChanged<int>? onStepTapped;
   final VoidCallback onContinue;
+  final VoidCallback? onEsc;
 
   const HorizontalStepper({
     super.key,
     this.currentStep = 0,
     this.showEsc = false,
     this.onStepTapped,
+    this.onEsc,
     required this.steps,
     required this.onContinue,
   });
@@ -46,26 +48,31 @@ class _StepperState extends State<HorizontalStepper> {
     );
     _keys = List<GlobalKey>.generate(
       widget.steps.length,
-          (int i) => GlobalKey(),
+      (int i) => GlobalKey(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = ShadTheme.of(context);
     return Column(
       children: [
         SizedBox(
           height: 56,
           child: Row(
             children: [
-              if (widget.showEsc) const EscButton(),
+              if (widget.showEsc) EscButton(onTap: widget.onEsc ?? () {}),
               for (var i = 0; i < widget.steps.length; i++) ...[
                 Watch(
                   (context) => InkWell(
                     onTap: widget.steps[i].state == HorizontalStepState.disabled
                         ? null
                         : () => _currentIndex.value = i,
-                    child: SizedBox(
+                    child: Container(
+                      color:
+                          widget.steps[i].state == HorizontalStepState.disabled
+                              ? theme.ghostButtonTheme.hoverBackgroundColor
+                              : theme.ghostButtonTheme.backgroundColor,
                       width: widget.steps[i].width,
                       child: Row(
                         children: [

@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
 class EscButton extends StatelessWidget {
-  const EscButton({super.key});
+  final VoidCallback onTap;
+
+  const EscButton({
+    super.key,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       child: const Row(
         children: [
           SizedBox(width: 20),

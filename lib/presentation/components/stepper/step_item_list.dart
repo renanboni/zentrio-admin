@@ -33,6 +33,8 @@ class StepItemListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = ShadTheme.of(context);
+
     return SizedBox(
       width: step.width,
       child: Row(

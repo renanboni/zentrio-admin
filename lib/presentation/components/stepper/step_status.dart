@@ -1,4 +1,3 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:zentrio_admin/presentation/components/stepper/step_completed_state.dart';
 import 'package:zentrio_admin/presentation/components/stepper/step_disabled_state.dart';
