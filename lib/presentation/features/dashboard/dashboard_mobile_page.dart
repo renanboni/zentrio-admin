@@ -4,6 +4,7 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/presentation/features/dashboard/side_bar_controller.dart';
 
+import '../../components/dark_mode_toggle.dart';
 import '../../components/sidebar/models/side_bar_item.dart';
 import '../../components/sidebar/side_bar.dart';
 import '../../components/sidebar/side_bar_item_list.dart';
@@ -30,8 +31,14 @@ class DashboardMobilePage extends StatelessWidget {
                 Scaffold.of(context).openDrawer();
               },
             );
-          }
+          },
         ),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 4.0),
+            child: DarkModeToggle(),
+          ),
+        ],
       ),
       drawer: Drawer(
         shape: const RoundedRectangleBorder(

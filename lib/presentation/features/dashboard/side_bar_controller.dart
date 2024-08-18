@@ -33,7 +33,7 @@ class SideBarController {
       SideBarItem(
         label: "App settings",
         icon: LucideIcons.settings,
-        route: "/users",
+        route: "/settings",
       ),
     ];
   }
