@@ -3,6 +3,7 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals.dart';
 
 import '../../components/sidebar/models/side_bar_item.dart';
+import '../../components/sidebar/side_bar_item_list.dart';
 
 @lazySingleton
 class SideBarController {
@@ -23,6 +24,15 @@ class SideBarController {
       SideBarItem(
         label: "Users",
         icon: LucideIcons.user,
+        route: "/users",
+      ),
+      SideBarItem(
+        label: "Settings",
+        type: SideBarItemType.title,
+      ),
+      SideBarItem(
+        label: "App settings",
+        icon: LucideIcons.settings,
         route: "/users",
       ),
     ];
