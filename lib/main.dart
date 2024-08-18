@@ -6,8 +6,9 @@ import 'package:zentrio_admin/di/init.dart';
 
 import 'presentation/router/app_router.dart';
 
-void main() {
-  configureInjection();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureInjection();
   runApp(const MyApp());
 }
 

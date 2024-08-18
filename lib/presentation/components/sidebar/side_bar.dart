@@ -22,35 +22,37 @@ class SideBar extends StatefulWidget {
 class _SideBarState extends State<SideBar> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Header(storeName: "Desapego do luxo"),
-        const SizedBox(height: 16),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ListView(
-              children: widget.items.map((item) {
-                return SideBarItemList(
-                  item: item,
-                  onTap: () {
-                    if (widget.onTap != null) {
-                      widget.onTap!(item);
-                    }
-                  },
-                );
-              }).toList(),
+    return SafeArea(
+      child: Column(
+        children: [
+          const Header(storeName: "Desapego do luxo"),
+          const SizedBox(height: 16),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView(
+                children: widget.items.map((item) {
+                  return SideBarItemList(
+                    item: item,
+                    onTap: () {
+                      if (widget.onTap != null) {
+                        widget.onTap!(item);
+                      }
+                    },
+                  );
+                }).toList(),
+              ),
             ),
           ),
-        ),
-        if (widget.footer != null)
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SideBarItemList(
-              item: widget.footer!,
+          if (widget.footer != null)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SideBarItemList(
+                item: widget.footer!,
+              ),
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -7,7 +7,7 @@ import '../models/req/auth_req.dart';
 
 part 'medusa_client.g.dart';
 
-@RestApi(baseUrl: 'http://localhost:9000')
+@RestApi()
 abstract class MedusaClient {
   factory MedusaClient(Dio dio, {String baseUrl}) = _MedusaClient;
 

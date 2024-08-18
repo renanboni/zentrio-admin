@@ -21,6 +21,6 @@ class StepStatus extends StatelessWidget {
          return const StepCompletedState();
       case HorizontalStepState.disabled:
          return const StepDisabledState();
-    };
+    }
   }
 }

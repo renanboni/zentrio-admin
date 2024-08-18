@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:shadcn_ui/shadcn_ui.dart';
-import 'package:signals/signals_flutter.dart';
-import 'package:zentrio_admin/di/init.dart';
-import 'package:zentrio_admin/main.dart';
-import 'package:zentrio_admin/presentation/components/sidebar/models/side_bar_item.dart';
-import 'package:zentrio_admin/presentation/components/sidebar/side_bar.dart';
 import 'package:zentrio_admin/presentation/features/dashboard/side_bar_controller.dart';
 
-import '../../components/sidebar/side_bar_item_list.dart';
-import '../../components/topbar/topbar.dart';
+import '../../components/responsive/screen_type_layout.dart';
+import 'dashboard_desktop_page.dart';
+import 'dashboard_mobile_page.dart';
 
 class DashboardPage extends StatelessWidget {
   final Widget child;
@@ -23,39 +17,10 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(
-          width: 300,
-          child: SideBar(
-            items: controller.menu.watch(context),
-            onTap: (item) {
-              controller.onTap(item);
-              GoRouter.of(context).go(item.route);
-            },
-            footer: SideBarItem(
-              label: "Sign out",
-              icon: LucideIcons.logOut,
-              type: SideBarItemType.button,
-            ),
-          ),
-        ),
-        const VerticalDivider(width: 1),
-        Expanded(
-          child: Column(
-            children: [
-              const TopBar(),
-              const Divider(height: 1,),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: child,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
+    return ScreenTypeLayout(
+      mobile: DashboardMobilePage(controller: controller, child: child),
+      desktop: DashboardDesktopPage(controller: controller, child: child),
+      tablet: DashboardMobilePage(controller: controller, child: child),
     );
   }
 }

@@ -5,4 +5,4 @@ import 'package:zentrio_admin/di/init.config.dart';
 final GetIt getIt = GetIt.instance;
 
 @InjectableInit()
-Future<void> configureInjection() async => getIt.init();
+Future<void> configureInjection() async => await getIt.init();

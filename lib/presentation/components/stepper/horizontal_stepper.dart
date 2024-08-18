@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-import 'package:signals/signals.dart';
 import 'package:signals/signals_flutter.dart';
-import 'package:zentrio_admin/main.dart';
 import 'package:zentrio_admin/presentation/components/stepper/esc_button.dart';
 import 'package:zentrio_admin/presentation/components/stepper/step_item_list.dart';
 import 'package:zentrio_admin/presentation/components/stepper/step_status.dart';
