@@ -16,9 +16,13 @@ import 'package:zentrio_admin/data/auth_repository_impl.dart' as _i132;
 import 'package:zentrio_admin/data/interceptors/auth_interceptor.dart' as _i660;
 import 'package:zentrio_admin/data/local/auth_local_data_source.dart' as _i671;
 import 'package:zentrio_admin/data/remote/medusa_client.dart' as _i873;
+import 'package:zentrio_admin/data/remote/vendor_service.dart' as _i451;
 import 'package:zentrio_admin/di/modules/data_module.dart' as _i555;
 import 'package:zentrio_admin/di/modules/network_module.dart' as _i184;
+import 'package:zentrio_admin/domain/repositories/vendor_repository.dart'
+    as _i74;
 import 'package:zentrio_admin/domain/usecase/auth_usecase.dart' as _i620;
+import 'package:zentrio_admin/domain/usecase/vendor_usecase.dart' as _i97;
 import 'package:zentrio_admin/presentation/features/dashboard/side_bar_controller.dart'
     as _i857;
 import 'package:zentrio_admin/presentation/features/login/login_view_model.dart'
@@ -41,11 +45,14 @@ extension GetItInjectableX on _i174.GetIt {
       () => dataModule.prefs,
       preResolve: true,
     );
+    gh.factory<_i97.VendorUseCase>(() => _i97.VendorUseCase());
     gh.lazySingleton<_i873.MedusaClient>(() => networkModule.medusaClient);
+    gh.lazySingleton<_i451.VendorService>(() => networkModule.vendorService);
     gh.lazySingleton<_i361.Dio>(() => networkModule.dio);
-    gh.lazySingleton<_i857.SideBarController>(() => _i857.SideBarController());
     gh.lazySingleton<_i671.AuthenticationLocalDataSource>(
         () => dataModule.medusaClient);
+    gh.lazySingleton<_i74.VendorRepository>(() => dataModule.vendorRepository);
+    gh.lazySingleton<_i857.SideBarController>(() => _i857.SideBarController());
     gh.lazySingleton<_i660.AuthInterceptor>(() => _i660.AuthInterceptor(
         authLocalDataSource: gh<_i671.AuthenticationLocalDataSource>()));
     gh.lazySingleton<_i132.AuthenticationRepository>(
