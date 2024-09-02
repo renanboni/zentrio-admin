@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:zentrio_admin/presentation/features/dashboard/vendor/create/components/create_vendor_form.dart';
 
-class CreateVendorPage extends StatelessWidget {
-  const CreateVendorPage({super.key});
+import 'components/create_vendor_form.dart';
+
+class VendorInvitePage extends StatelessWidget {
+  const VendorInvitePage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,7 @@ import 'package:zentrio_admin/presentation/features/dashboard/dashboard_page.dar
 import 'package:zentrio_admin/presentation/features/dashboard/vendor/vendors_page.dart';
 
 import '../features/dashboard/side_bar_controller.dart';
-import '../features/dashboard/vendor/create/create_vendor_page.dart';
+import '../features/invite/vendor_invite_page.dart';
 import '../features/login/login_page.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -18,6 +18,12 @@ final GoRouter router = GoRouter(
       path: "/login",
       builder: (BuildContext context, GoRouterState state) {
         return const LoginPage();
+      },
+    ),
+    GoRoute(
+      path: "/invite",
+      builder: (BuildContext context, GoRouterState state) {
+        return const VendorInvitePage();
       },
     ),
     ShellRoute(
@@ -39,7 +45,7 @@ final GoRouter router = GoRouter(
                 path: "create",
                 parentNavigatorKey: rootNavigatorKey,
                 pageBuilder: (BuildContext context, GoRouterState state) {
-                  return DialogPage(builder: (_) => const CreateVendorPage());
+                  return DialogPage(builder: (_) => const VendorInvitePage());
                 },
               ),
             ]),
