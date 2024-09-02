@@ -5,9 +5,10 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:zentrio_admin/data/remote/medusa_client.dart';
 import 'package:zentrio_admin/di/init.dart';
 
+import '../../data/interceptors/auth_interceptor.dart';
+
 @module
 abstract class NetworkModule {
-
   @lazySingleton
   MedusaClient get medusaClient => MedusaClient(getIt<Dio>());
 
@@ -23,8 +24,12 @@ abstract class NetworkModule {
 
   @lazySingleton
   Dio get dio => Dio(
-    BaseOptions(
-      baseUrl: kIsWeb ? 'http://localhost:9000' : 'http://10.0.2.2:9000'
-    ),
-  )..interceptors.add(_loggerInterceptor);
+        BaseOptions(
+            baseUrl: kIsWeb ? 'http://localhost:9000' : 'http://10.0.2.2:9000'),
+      )..interceptors.addAll(
+          [
+            getIt<AuthInterceptor>(),
+            _loggerInterceptor,
+          ],
+        );
 }

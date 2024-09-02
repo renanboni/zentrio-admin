@@ -13,8 +13,10 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import 'package:zentrio_admin/data/auth_repository_impl.dart' as _i132;
+import 'package:zentrio_admin/data/interceptors/auth_interceptor.dart' as _i660;
+import 'package:zentrio_admin/data/local/auth_local_data_source.dart' as _i671;
 import 'package:zentrio_admin/data/remote/medusa_client.dart' as _i873;
-import 'package:zentrio_admin/di/modules/app_module.dart' as _i441;
+import 'package:zentrio_admin/di/modules/data_module.dart' as _i555;
 import 'package:zentrio_admin/di/modules/network_module.dart' as _i184;
 import 'package:zentrio_admin/domain/usecase/auth_usecase.dart' as _i620;
 import 'package:zentrio_admin/presentation/features/dashboard/side_bar_controller.dart'
@@ -33,17 +35,26 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    final appModule = _$AppModule();
+    final dataModule = _$DataModule();
     final networkModule = _$NetworkModule();
     await gh.factoryAsync<_i460.SharedPreferences>(
-      () => appModule.prefs,
+      () => dataModule.prefs,
       preResolve: true,
     );
     gh.lazySingleton<_i873.MedusaClient>(() => networkModule.medusaClient);
     gh.lazySingleton<_i361.Dio>(() => networkModule.dio);
     gh.lazySingleton<_i857.SideBarController>(() => _i857.SideBarController());
+    gh.lazySingleton<_i671.AuthenticationLocalDataSource>(
+        () => dataModule.medusaClient);
+    gh.lazySingleton<_i660.AuthInterceptor>(() => _i660.AuthInterceptor(
+        authLocalDataSource: gh<_i671.AuthenticationLocalDataSource>()));
     gh.lazySingleton<_i132.AuthenticationRepository>(
-        () => _i132.AuthenticationRepository(gh<_i873.MedusaClient>()));
+        () => _i132.AuthenticationRepository(
+              gh<_i873.MedusaClient>(),
+              gh<_i671.AuthenticationLocalDataSource>(),
+            ));
+    gh.factory<_i671.AuthenticationLocalDataSourceImpl>(() =>
+        _i671.AuthenticationLocalDataSourceImpl(gh<_i460.SharedPreferences>()));
     gh.factory<_i620.AuthUseCase>(
         () => _i620.AuthUseCase(gh<_i132.AuthenticationRepository>()));
     gh.factory<_i939.LoginViewModel>(
@@ -52,6 +63,6 @@ extension GetItInjectableX on _i174.GetIt {
   }
 }
 
-class _$AppModule extends _i441.AppModule {}
+class _$DataModule extends _i555.DataModule {}
 
 class _$NetworkModule extends _i184.NetworkModule {}
