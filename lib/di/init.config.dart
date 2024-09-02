@@ -25,6 +25,8 @@ import 'package:zentrio_admin/domain/usecase/auth_usecase.dart' as _i620;
 import 'package:zentrio_admin/domain/usecase/vendor_usecase.dart' as _i97;
 import 'package:zentrio_admin/presentation/features/dashboard/side_bar_controller.dart'
     as _i857;
+import 'package:zentrio_admin/presentation/features/dashboard/vendor/vendors_controller.dart'
+    as _i60;
 import 'package:zentrio_admin/presentation/features/login/login_view_model.dart'
     as _i939;
 
@@ -45,7 +47,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => dataModule.prefs,
       preResolve: true,
     );
-    gh.factory<_i97.VendorUseCase>(() => _i97.VendorUseCase());
     gh.lazySingleton<_i873.MedusaClient>(() => networkModule.medusaClient);
     gh.lazySingleton<_i451.VendorService>(() => networkModule.vendorService);
     gh.lazySingleton<_i361.Dio>(() => networkModule.dio);
@@ -62,8 +63,12 @@ extension GetItInjectableX on _i174.GetIt {
             ));
     gh.factory<_i671.AuthenticationLocalDataSourceImpl>(() =>
         _i671.AuthenticationLocalDataSourceImpl(gh<_i460.SharedPreferences>()));
+    gh.factory<_i97.VendorUseCase>(
+        () => _i97.VendorUseCase(gh<_i74.VendorRepository>()));
     gh.factory<_i620.AuthUseCase>(
         () => _i620.AuthUseCase(gh<_i132.AuthenticationRepository>()));
+    gh.factory<_i60.VendorsController>(
+        () => _i60.VendorsController(gh<_i97.VendorUseCase>()));
     gh.factory<_i939.LoginViewModel>(
         () => _i939.LoginViewModel(gh<_i620.AuthUseCase>()));
     return this;

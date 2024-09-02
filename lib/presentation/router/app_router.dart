@@ -6,6 +6,7 @@ import 'package:zentrio_admin/presentation/features/dashboard/dashboard_page.dar
 import 'package:zentrio_admin/presentation/features/dashboard/vendor/vendors_page.dart';
 
 import '../features/dashboard/side_bar_controller.dart';
+import '../features/dashboard/vendor/vendors_controller.dart';
 import '../features/invite/vendor_invite_page.dart';
 import '../features/login/login_page.dart';
 
@@ -38,7 +39,9 @@ final GoRouter router = GoRouter(
         GoRoute(
             path: "/vendors",
             builder: (BuildContext context, GoRouterState state) {
-              return const VendorsPage();
+              return  VendorsPage(
+                controller: getIt<VendorsController>(),
+              );
             },
             routes: [
               GoRoute(

@@ -5,12 +5,12 @@ part 'api_vendor.g.dart';
 
 @JsonSerializable()
 class ApiVendor {
-  final String id;
-  final String name;
-  final String logo;
-  final String handle;
-  final String createdAt;
-  final String updatedAt;
+  final String? id;
+  final String? name;
+  final String? logo;
+  final String? handle;
+  final String? createdAt;
+  final String? updatedAt;
 
   ApiVendor({
     required this.id,
