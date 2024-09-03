@@ -4,6 +4,7 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/presentation/features/dashboard/vendor/vendors_controller.dart';
 
+import 'components/invite_vendor_dialog_button.dart';
 import 'components/vendors_table.dart';
 
 class VendorsPage extends StatelessWidget {
@@ -30,13 +31,7 @@ class VendorsPage extends StatelessWidget {
               "Vendors",
               style: ShadTheme.of(context).textTheme.table,
             ),
-            ShadButton(
-              size: ShadButtonSize.sm,
-              child: const Text("Create"),
-              onPressed: () {
-                GoRouter.of(context).go('/vendors/create');
-              },
-            )
+            InviteVendorDialogButton()
           ],
         ),
       ),
