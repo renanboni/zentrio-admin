@@ -22,6 +22,11 @@ class SideBarController {
         route: "/vendors",
       ),
       SideBarItem(
+        label: "Products",
+        icon: LucideIcons.tag,
+        route: "/products",
+      ),
+      SideBarItem(
         label: "Users",
         icon: LucideIcons.user,
         route: "/users",
