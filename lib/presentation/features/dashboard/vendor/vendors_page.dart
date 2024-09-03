@@ -31,7 +31,7 @@ class VendorsPage extends StatelessWidget {
               "Vendors",
               style: ShadTheme.of(context).textTheme.table,
             ),
-            InviteVendorDialogButton()
+            const InviteVendorDialogButton()
           ],
         ),
       ),
