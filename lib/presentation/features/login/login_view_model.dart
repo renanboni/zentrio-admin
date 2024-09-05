@@ -11,13 +11,18 @@ class LoginViewModel {
   );
 
   void login(
+    String path,
     String email,
     String password,
     VoidCallback onSuccess,
     VoidCallback onError,
   ) async {
     try {
-      await _authUseCase.login(email, password);
+      await _authUseCase.login(
+        path.contains("admin"),
+        email,
+        password,
+      );
       onSuccess();
     } catch (e) {
       onError();

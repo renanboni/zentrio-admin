@@ -29,6 +29,7 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   dotted_border: ^2.1.0
   equatable: ^2.0.5
+  dart_jsonwebtoken: ^2.14.0
 
 dev_dependencies:
   flutter_test:

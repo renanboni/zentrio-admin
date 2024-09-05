@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:zentrio_admin/data/remote/medusa_client.dart';
+import 'package:zentrio_admin/data/remote/auth_service.dart';
 import 'package:zentrio_admin/data/remote/vendor_service.dart';
 import 'package:zentrio_admin/di/init.dart';
 
@@ -11,10 +11,10 @@ import '../../data/interceptors/auth_interceptor.dart';
 @module
 abstract class NetworkModule {
   @lazySingleton
-  MedusaClient get medusaClient => MedusaClient(getIt<Dio>());
+  AuthService get authService => AuthService(getIt<Dio>(instanceName: 'unauthenticated'));
 
   @lazySingleton
-  VendorService get vendorService => VendorService(getIt<Dio>());
+  VendorService get vendorService => VendorService(getIt<Dio>(instanceName: 'authenticated'));
 
   final Interceptor _loggerInterceptor = PrettyDioLogger(
     requestHeader: true,
@@ -26,8 +26,20 @@ abstract class NetworkModule {
     maxWidth: 90,
   );
 
+  @Named("unauthenticated")
   @lazySingleton
-  Dio get dio => Dio(
+  Dio get unauthenticatedDio => Dio(
+    BaseOptions(
+        baseUrl: kIsWeb ? 'http://localhost:9000' : 'http://10.0.2.2:9000'),
+  )..interceptors.addAll(
+    [
+      _loggerInterceptor,
+    ],
+  );
+
+  @Named("authenticated")
+  @lazySingleton
+  Dio get authenticatedDio => Dio(
         BaseOptions(
             baseUrl: kIsWeb ? 'http://localhost:9000' : 'http://10.0.2.2:9000'),
       )..interceptors.addAll(

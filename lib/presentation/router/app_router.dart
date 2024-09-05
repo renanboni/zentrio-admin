@@ -22,6 +22,12 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
+      path: "/admin/login",
+      builder: (BuildContext context, GoRouterState state) {
+        return const LoginPage();
+      },
+    ),
+    GoRoute(
       path: "/invite",
       builder: (BuildContext context, GoRouterState state) {
         return const VendorInvitePage();

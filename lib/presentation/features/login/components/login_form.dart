@@ -81,20 +81,22 @@ class _LoginFormState extends State<LoginForm> with SignalsAutoDisposeMixin {
             width: double.infinity,
             child: const Text('Continue'),
             onPressed: () {
-              viewModel.login(email.text, password.text, () {
-                GoRouter.of(context).go('/vendors');
-              }, () {
-                ShadToaster.of(context).show(
+              final currentPath =
+                  GoRouter.of(context).routerDelegate.currentConfiguration.last;
+
+              viewModel.login(
+                currentPath.route.path,
+                email.text,
+                password.text,
+                () => GoRouter.of(context).go('/vendors'),
+                () => ShadToaster.of(context).show(
                   const ShadToast.destructive(
                     alignment: Alignment.bottomCenter,
                     title: Text('Uh oh! Something went wrong'),
                     description: Text('There was a problem with your request'),
                   ),
-                );
-              });
-              /* if (_formKey.currentState?.saveAndValidate() == true) {
-                print(_formKey.currentState!.value);
-              }*/
+                ),
+              );
             },
           ),
         ],

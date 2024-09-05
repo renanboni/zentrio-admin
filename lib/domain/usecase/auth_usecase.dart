@@ -11,10 +11,12 @@ class AuthUseCase {
   );
 
   Future<void> login(
+    bool admin,
     String email,
     String password,
   ) async {
     return _authenticationRepository.login(
+      admin,
       email,
       password,
     );
