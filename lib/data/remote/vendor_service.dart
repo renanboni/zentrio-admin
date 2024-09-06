@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/http.dart';
+import 'package:zentrio_admin/data/models/api_vendor_admin.dart';
 import 'package:zentrio_admin/data/models/res/api_vendors.dart';
 
 part 'vendor_service.g.dart';
@@ -11,4 +12,7 @@ abstract class VendorService {
 
   @GET("/vendors")
   Future<VendorsResponse> getAll();
+
+  @GET("/vendor")
+  Future<ApiVendorAdmin> getVendorAdmin();
 }

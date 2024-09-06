@@ -1,7 +1,10 @@
 import 'package:injectable/injectable.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals.dart';
+import 'package:zentrio_admin/domain/models/vendor.dart';
+import 'package:zentrio_admin/domain/models/vendor_admin.dart';
 import 'package:zentrio_admin/domain/usecase/auth_usecase.dart';
+import 'package:zentrio_admin/domain/usecase/vendor_usecase.dart';
 import 'package:zentrio_admin/presentation/features/dashboard/vendor_menu.dart';
 
 import '../../../domain/models/user_type.dart';
@@ -12,15 +15,30 @@ import 'admin_menu.dart';
 @lazySingleton
 class DashboardViewModel {
   final AuthUseCase _authUseCase;
+  final VendorUseCase _vendorUseCase;
 
   final Signal<List<SideBarItem>> menu = signal([]);
+  final Signal<Vendor> vendor = signal(const Vendor.empty());
 
   DashboardViewModel(
     this._authUseCase,
+    this._vendorUseCase,
   ) {
-    menu.value = _authUseCase.getUserType() == UserType.user
-        ? getAdminMenu()
-        : getVendorMenu();
+    if (_authUseCase.getUserType() == UserType.user) {
+      menu.value = getAdminMenu();
+    } else {
+      menu.value = getVendorMenu();
+      vendor.value = _getVendor();
+    }
+  }
+
+  _getVendor() async {
+    try {
+      final vendorAdmin = await _vendorUseCase.getVendorAdmin();
+      vendor.value = vendorAdmin.vendor;
+    } catch (e) {
+      print(e);
+    }
   }
 
   onTap(SideBarItem item) {

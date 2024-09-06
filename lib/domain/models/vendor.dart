@@ -21,6 +21,15 @@ class Vendor extends Equatable {
     this.deletedAt,
   });
 
+  const Vendor.empty()
+      : id = '',
+        handle = '',
+        name = '',
+        logo = '',
+        createdAt = null,
+        updatedAt = null,
+        deletedAt = null;
+
   @override
   List<Object?> get props => [
         id,

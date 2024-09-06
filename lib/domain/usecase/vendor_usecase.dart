@@ -1,6 +1,7 @@
 
 import 'package:injectable/injectable.dart';
 import 'package:zentrio_admin/domain/models/vendor.dart';
+import 'package:zentrio_admin/domain/models/vendor_admin.dart';
 import 'package:zentrio_admin/domain/repositories/vendor_repository.dart';
 
 @injectable
@@ -11,5 +12,9 @@ class VendorUseCase {
 
   Future<List<Vendor>> getAll() async {
     return _vendorRepository.getAll();
+  }
+
+  Future<VendorAdmin> getVendorAdmin() async {
+    return _vendorRepository.getVendorAdmin();
   }
 }

@@ -77,8 +77,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i60.VendorsController(gh<_i97.VendorUseCase>()));
     gh.factory<_i939.LoginViewModel>(
         () => _i939.LoginViewModel(gh<_i620.AuthUseCase>()));
-    gh.lazySingleton<_i857.DashboardViewModel>(
-        () => _i857.DashboardViewModel(gh<_i620.AuthUseCase>()));
+    gh.lazySingleton<_i857.DashboardViewModel>(() => _i857.DashboardViewModel(
+          gh<_i620.AuthUseCase>(),
+          gh<_i97.VendorUseCase>(),
+        ));
     return this;
   }
 }

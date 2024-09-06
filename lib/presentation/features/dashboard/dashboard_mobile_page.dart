@@ -47,6 +47,7 @@ class DashboardMobilePage extends StatelessWidget {
         child: Builder(
           builder: (context) {
             return SideBar(
+              vendor: controller.vendor.watch(context),
               items: controller.menu.watch(context),
               onTap: (item) {
                 Scaffold.of(context).closeDrawer();

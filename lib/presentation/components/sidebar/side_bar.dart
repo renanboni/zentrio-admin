@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zentrio_admin/domain/models/vendor.dart';
 import 'package:zentrio_admin/presentation/components/sidebar/header.dart';
 import 'package:zentrio_admin/presentation/components/sidebar/models/side_bar_item.dart';
 import 'package:zentrio_admin/presentation/components/sidebar/side_bar_item_list.dart';
@@ -7,10 +8,12 @@ class SideBar extends StatefulWidget {
   final List<SideBarItem> items;
   final SideBarItem? footer;
   final Function(SideBarItem item)? onTap;
+  final Vendor vendor;
 
   const SideBar({
     super.key,
     required this.items,
+    required this.vendor,
     this.onTap,
     this.footer,
   });
@@ -25,7 +28,7 @@ class _SideBarState extends State<SideBar> {
     return SafeArea(
       child: Column(
         children: [
-          const Header(storeName: "Desapego do luxo"),
+          Header(storeName: widget.vendor.name),
           const SizedBox(height: 16),
           Expanded(
             child: Padding(

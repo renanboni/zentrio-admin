@@ -27,6 +27,7 @@ class DashboardDesktopPage extends StatelessWidget {
           width: 300,
           child: SideBar(
             items: controller.menu.watch(context),
+            vendor: controller.vendor.watch(context),
             onTap: (item) {
               controller.onTap(item);
               GoRouter.of(context).go(item.route);
