@@ -37,9 +37,9 @@ class _SideBarState extends State<SideBar> {
                 children: widget.items.map((item) {
                   return SideBarItemList(
                     item: item,
-                    onTap: () {
+                    onTap: (selectedItem) {
                       if (widget.onTap != null) {
-                        widget.onTap!(item);
+                        widget.onTap!(selectedItem);
                       }
                     },
                   );

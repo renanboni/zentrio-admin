@@ -10,7 +10,7 @@ enum SideBarItemType {
 
 class SideBarItemList extends StatefulWidget {
   final SideBarItem item;
-  final VoidCallback? onTap;
+  final Function(SideBarItem)? onTap;
 
   const SideBarItemList({
     super.key,
@@ -31,7 +31,7 @@ class _SideBarItemListState extends State<SideBarItemList> {
       case SideBarItemType.title:
         return _buildTitle();
       case SideBarItemType.list:
-        return _buildList(theme, selected: widget.item.selected);
+        return _buildList(theme, widget.item);
       case SideBarItemType.button:
         return _buildButton();
     }
@@ -51,28 +51,83 @@ class _SideBarItemListState extends State<SideBarItemList> {
   }
 
   _buildList(
-    ShadThemeData theme, {
-    bool selected = false,
-  }) {
+    ShadThemeData theme,
+    SideBarItem item,
+  ) {
+    return Column(
+      children: [
+        _buildItemList(theme, item),
+        if (item.children.isNotEmpty && item.expanded) _buildChildList(theme, item)
+      ],
+    );
+  }
+
+  _buildChildList(
+    ShadThemeData theme,
+    SideBarItem item,
+  ) {
+    return Column(
+      children: item.children.map((child) {
+        return _buildChildItemList(theme, child);
+      }).toList(),
+    );
+  }
+
+  ShadButton _buildChildItemList(
+    ShadThemeData theme,
+    SideBarItem item,
+  ) {
     return ShadButton.ghost(
       width: double.infinity,
       onTapDown: (_) {
         if (widget.onTap != null) {
-          widget.onTap!();
+          widget.onTap!(item);
         }
       },
-      backgroundColor: selected
+      backgroundColor: item.selected
           ? theme.ghostButtonTheme.hoverBackgroundColor
           : theme.ghostButtonTheme.backgroundColor,
       mainAxisAlignment: MainAxisAlignment.start,
-      icon: widget.item.icon != null
+      icon: const Row(
+        children: [
+          SizedBox(width: 16,),
+          ShadImage.square(
+            size: 16,
+            LucideIcons.dot,
+          ),
+        ],
+      ),
+      size: ShadButtonSize.sm,
+      child: Text(
+        item.label,
+        style: ShadTheme.of(context).textTheme.small,
+      ),
+    );
+  }
+
+  ShadButton _buildItemList(
+    ShadThemeData theme,
+    SideBarItem item,
+  ) {
+    return ShadButton.ghost(
+      width: double.infinity,
+      onTapDown: (_) {
+        if (widget.onTap != null) {
+          widget.onTap!(item);
+        }
+      },
+      backgroundColor: item.selected
+          ? theme.ghostButtonTheme.hoverBackgroundColor
+          : theme.ghostButtonTheme.backgroundColor,
+      mainAxisAlignment: MainAxisAlignment.start,
+      icon: item.icon != null
           ? ShadImage.square(
               size: 16,
-              widget.item.icon!,
+              item.icon!,
             )
           : null,
       size: ShadButtonSize.sm,
-      child: Text(widget.item.label),
+      child: Text(item.label),
     );
   }
 
@@ -80,9 +135,9 @@ class _SideBarItemListState extends State<SideBarItemList> {
     return ShadButton.outline(
       width: double.infinity,
       onTapDown: (_) {
-        if (widget.onTap != null) {
-          widget.onTap!();
-        }
+       /* if (widget.onTap != null) {
+          widget.onTap!(item);
+        }*/
       },
       mainAxisAlignment: MainAxisAlignment.center,
       icon: widget.item.icon != null

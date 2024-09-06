@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zentrio_admin/di/init.dart';
 import 'package:zentrio_admin/presentation/components/dialog_page.dart';
+import 'package:zentrio_admin/presentation/features/categories/categories_page.dart';
 import 'package:zentrio_admin/presentation/features/dashboard/dashboard_page.dart';
 import 'package:zentrio_admin/presentation/features/dashboard/vendor/vendors_page.dart';
 
@@ -64,6 +65,12 @@ final GoRouter router = GoRouter(
           path: "/products",
           builder: (BuildContext context, GoRouterState state) {
             return const ProductsPage();
+          },
+        ),
+        GoRoute(
+          path: "/categories",
+          builder: (BuildContext context, GoRouterState state) {
+            return const CategoriesPage();
           },
         ),
       ],

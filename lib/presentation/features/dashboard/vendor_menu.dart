@@ -5,17 +5,28 @@ import '../../components/sidebar/side_bar_item_list.dart';
 
 getVendorMenu() {
   return [
-    SideBarItem(
+    const SideBarItem(
       label: "Products",
       icon: LucideIcons.tag,
       selected: true,
       route: "/products",
+      children: [
+        SideBarItem(
+            label: "Categories",
+            route: "/categories",
+        ),
+      ]
     ),
-    SideBarItem(
+    const SideBarItem(
+      label: "Customers",
+      icon: LucideIcons.users,
+      route: "/customers",
+    ),
+    const SideBarItem(
       label: "Settings",
       type: SideBarItemType.title,
     ),
-    SideBarItem(
+    const SideBarItem(
       label: "App settings",
       icon: LucideIcons.settings,
       route: "/settings",

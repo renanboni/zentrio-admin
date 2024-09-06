@@ -41,12 +41,40 @@ class DashboardViewModel {
     }
   }
 
-  onTap(SideBarItem item) {
-    menu.value = menu.value.map((e) {
-      if (e.label == item.label) {
-        return e.copyWith(selected: true);
+  onTap(SideBarItem selectedItem) {
+    menu.value = menu.value.map((item) {
+      // If it's the parent being clicked
+      if (selectedItem.label == item.label) {
+        return item.copyWith(
+          selected: true, // Select only if it has no children
+          expanded: item.children.isNotEmpty, // Expand if it has children
+          children: item.children.map((child) {
+            return child.copyWith(selected: false);
+          }).toList(),
+        );
       }
-      return e.copyWith(selected: false);
+
+      // If it's a child item being clicked
+      if (item.children.any((child) => selectedItem.label == child.label)) {
+        return item.copyWith(
+          selected: false,
+          expanded: true, // Keep the parent expanded
+          children: item.children.map((child) {
+            return child.copyWith(
+              selected: child.label == selectedItem.label, // Select the clicked child
+            );
+          }).toList(),
+        );
+      }
+
+      // For other items, collapse and deselect them
+      return item.copyWith(
+        selected: false,
+        expanded: false,
+        children: item.children.map((child) {
+          return child.copyWith(selected: false);
+        }).toList(),
+      );
     }).toList();
   }
 }
