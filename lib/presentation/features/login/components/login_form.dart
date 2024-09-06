@@ -81,14 +81,22 @@ class _LoginFormState extends State<LoginForm> with SignalsAutoDisposeMixin {
             width: double.infinity,
             child: const Text('Continue'),
             onPressed: () {
-              final currentPath =
-                  GoRouter.of(context).routerDelegate.currentConfiguration.last;
+              final isAdmin = GoRouter.of(context)
+                  .routerDelegate
+                  .currentConfiguration
+                  .last
+                  .route
+                  .path
+                  .contains("admin");
 
               viewModel.login(
-                currentPath.route.path,
+                isAdmin,
                 email.text,
                 password.text,
-                () => GoRouter.of(context).go('/vendors'),
+                () {
+                  final destination = isAdmin ? '/vendors' : '/products';
+                  GoRouter.of(context).go(destination);
+                },
                 () => ShadToaster.of(context).show(
                   const ShadToast.destructive(
                     alignment: Alignment.bottomCenter,

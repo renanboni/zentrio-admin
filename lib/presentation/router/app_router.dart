@@ -9,6 +9,7 @@ import '../features/dashboard/side_bar_controller.dart';
 import '../features/dashboard/vendor/vendors_controller.dart';
 import '../features/invite/vendor_invite_page.dart';
 import '../features/login/login_page.dart';
+import '../features/products/products_page.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -43,21 +44,28 @@ final GoRouter router = GoRouter(
       },
       routes: [
         GoRoute(
-            path: "/vendors",
-            builder: (BuildContext context, GoRouterState state) {
-              return  VendorsPage(
-                controller: getIt<VendorsController>(),
-              );
-            },
-            routes: [
-              GoRoute(
-                path: "create",
-                parentNavigatorKey: rootNavigatorKey,
-                pageBuilder: (BuildContext context, GoRouterState state) {
-                  return DialogPage(builder: (_) => const VendorInvitePage());
-                },
-              ),
-            ]),
+          path: "/vendors",
+          builder: (BuildContext context, GoRouterState state) {
+            return VendorsPage(
+              controller: getIt<VendorsController>(),
+            );
+          },
+          routes: [
+            GoRoute(
+              path: "create",
+              parentNavigatorKey: rootNavigatorKey,
+              pageBuilder: (BuildContext context, GoRouterState state) {
+                return DialogPage(builder: (_) => const VendorInvitePage());
+              },
+            ),
+          ],
+        ),
+        GoRoute(
+          path: "/products",
+          builder: (BuildContext context, GoRouterState state) {
+            return const ProductsPage();
+          },
+        ),
       ],
     )
   ],

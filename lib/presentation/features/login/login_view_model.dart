@@ -11,7 +11,7 @@ class LoginViewModel {
   );
 
   void login(
-    String path,
+    bool admin,
     String email,
     String password,
     VoidCallback onSuccess,
@@ -19,7 +19,7 @@ class LoginViewModel {
   ) async {
     try {
       await _authUseCase.login(
-        path.contains("admin"),
+        admin,
         email,
         password,
       );

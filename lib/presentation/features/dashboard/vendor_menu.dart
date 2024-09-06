@@ -8,6 +8,7 @@ getVendorMenu() {
     SideBarItem(
       label: "Products",
       icon: LucideIcons.tag,
+      selected: true,
       route: "/products",
     ),
     SideBarItem(
