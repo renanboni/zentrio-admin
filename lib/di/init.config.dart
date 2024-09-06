@@ -52,7 +52,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i671.AuthenticationLocalDataSource>(
         () => dataModule.medusaClient);
     gh.lazySingleton<_i74.VendorRepository>(() => dataModule.vendorRepository);
-    gh.lazySingleton<_i857.SideBarController>(() => _i857.SideBarController());
     gh.lazySingleton<_i660.AuthInterceptor>(() => _i660.AuthInterceptor(
         authLocalDataSource: gh<_i671.AuthenticationLocalDataSource>()));
     gh.lazySingleton<_i361.Dio>(
@@ -78,6 +77,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i60.VendorsController(gh<_i97.VendorUseCase>()));
     gh.factory<_i939.LoginViewModel>(
         () => _i939.LoginViewModel(gh<_i620.AuthUseCase>()));
+    gh.lazySingleton<_i857.DashboardViewModel>(
+        () => _i857.DashboardViewModel(gh<_i620.AuthUseCase>()));
     return this;
   }
 }

@@ -10,7 +10,7 @@ import '../../components/sidebar/side_bar_item_list.dart';
 import '../../components/topbar/topbar.dart';
 
 class DashboardDesktopPage extends StatelessWidget {
-  final SideBarController controller;
+  final DashboardViewModel controller;
   final Widget child;
 
   const DashboardDesktopPage({

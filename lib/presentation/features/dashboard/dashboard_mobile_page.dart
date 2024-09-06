@@ -10,7 +10,7 @@ import '../../components/sidebar/side_bar.dart';
 import '../../components/sidebar/side_bar_item_list.dart';
 
 class DashboardMobilePage extends StatelessWidget {
-  final SideBarController controller;
+  final DashboardViewModel controller;
   final Widget child;
 
   const DashboardMobilePage({

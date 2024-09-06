@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:zentrio_admin/domain/models/user_type.dart';
 
 import '../../data/auth_repository_impl.dart';
 
@@ -20,5 +21,9 @@ class AuthUseCase {
       email,
       password,
     );
+  }
+
+  UserType getUserType() {
+    return _authenticationRepository.getUserType();
   }
 }

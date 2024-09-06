@@ -37,7 +37,7 @@ final GoRouter router = GoRouter(
       navigatorKey: shellNavigatorKey,
       builder: (BuildContext context, GoRouterState state, Widget child) {
         return DashboardPage(
-          controller: getIt<SideBarController>(),
+          controller: getIt<DashboardViewModel>(),
           child: child,
         );
       },

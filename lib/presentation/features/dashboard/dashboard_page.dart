@@ -7,7 +7,7 @@ import 'dashboard_mobile_page.dart';
 
 class DashboardPage extends StatelessWidget {
   final Widget child;
-  final SideBarController controller;
+  final DashboardViewModel controller;
 
   const DashboardPage({
     super.key,

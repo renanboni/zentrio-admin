@@ -48,4 +48,8 @@ class AuthenticationRepository {
       rethrow;
     }
   }
+
+  UserType getUserType() {
+    return _localDataSource.getUserType();
+  }
 }
