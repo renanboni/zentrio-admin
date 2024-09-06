@@ -28,7 +28,7 @@ class DashboardViewModel {
       menu.value = getAdminMenu();
     } else {
       menu.value = getVendorMenu();
-      vendor.value = _getVendor();
+      _getVendor();
     }
   }
 
