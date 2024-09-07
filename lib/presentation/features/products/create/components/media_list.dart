@@ -1,12 +1,9 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
-import 'package:get_it/get_it.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-import 'package:signals/signals.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/domain/models/media_file.dart';
-import 'package:zentrio_admin/main.dart';
 import 'package:zentrio_admin/utils/extensions/string_ext.dart';
 
 import 'media_item_list.dart';
@@ -29,12 +26,11 @@ class MediaList extends StatefulWidget {
 
 class _MediaListState extends State<MediaList> {
   final _files = signal<List<MediaFile>>([]);
+  late DropzoneViewController controller;
 
   @override
   Widget build(BuildContext context) {
     final theme = ShadTheme.of(context);
-
-    late DropzoneViewController controller;
 
     return Column(
       children: [
@@ -140,9 +136,7 @@ class _MediaListState extends State<MediaList> {
                 return MediaItemList(
                   mediaFile: file,
                   onDelete: () {
-                    _files.value = [
-                      ..._files.value..removeAt(index),
-                    ];
+                    _files.value = List.from(_files.value)..removeAt(index);
                   },
                   onMakeThumbnail: () {
                     _files.value = _files.value.asMap().entries.map(
