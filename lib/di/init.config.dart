@@ -20,6 +20,8 @@ import 'package:zentrio_admin/data/remote/product_service.dart' as _i134;
 import 'package:zentrio_admin/data/remote/vendor_service.dart' as _i451;
 import 'package:zentrio_admin/di/modules/data_module.dart' as _i555;
 import 'package:zentrio_admin/di/modules/network_module.dart' as _i184;
+import 'package:zentrio_admin/domain/repositories/preferences_repository.dart'
+    as _i789;
 import 'package:zentrio_admin/domain/repositories/product_repository.dart'
     as _i999;
 import 'package:zentrio_admin/domain/repositories/vendor_repository.dart'
@@ -61,6 +63,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i74.VendorRepository>(() => dataModule.vendorRepository);
     gh.lazySingleton<_i999.ProductRepository>(
         () => dataModule.productRepository);
+    gh.lazySingleton<_i789.PreferencesRepository>(
+        () => dataModule.preferencesRepository);
     gh.lazySingleton<_i660.AuthInterceptor>(() => _i660.AuthInterceptor(
         authLocalDataSource: gh<_i671.AuthenticationLocalDataSource>()));
     gh.lazySingleton<_i361.Dio>(

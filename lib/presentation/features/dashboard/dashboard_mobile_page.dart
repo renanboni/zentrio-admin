@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
+import 'package:zentrio_admin/domain/repositories/preferences_repository.dart';
 import 'package:zentrio_admin/presentation/features/dashboard/side_bar_controller.dart';
 
+import '../../../di/init.dart';
 import '../../components/dark_mode_toggle.dart';
 import '../../components/sidebar/models/side_bar_item.dart';
 import '../../components/sidebar/side_bar.dart';
@@ -33,10 +35,12 @@ class DashboardMobilePage extends StatelessWidget {
             );
           },
         ),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 4.0),
-            child: DarkModeToggle(),
+            padding: const EdgeInsets.only(right: 4.0),
+            child: DarkModeToggle(
+              preferencesRepository: getIt<PreferencesRepository>(),
+            ),
           ),
         ],
       ),
@@ -44,24 +48,22 @@ class DashboardMobilePage extends StatelessWidget {
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.zero,
         ),
-        child: Builder(
-          builder: (context) {
-            return SideBar(
-              vendor: controller.vendor.watch(context),
-              items: controller.menu.watch(context),
-              onTap: (item) {
-                Scaffold.of(context).closeDrawer();
-                controller.onTap(item);
-                GoRouter.of(context).go(item.route);
-              },
-              footer: SideBarItem(
-                label: "Sign out",
-                icon: LucideIcons.logOut,
-                type: SideBarItemType.button,
-              ),
-            );
-          }
-        ),
+        child: Builder(builder: (context) {
+          return SideBar(
+            vendor: controller.vendor.watch(context),
+            items: controller.menu.watch(context),
+            onTap: (item) {
+              Scaffold.of(context).closeDrawer();
+              controller.onTap(item);
+              GoRouter.of(context).go(item.route);
+            },
+            footer: SideBarItem(
+              label: "Sign out",
+              icon: LucideIcons.logOut,
+              type: SideBarItemType.button,
+            ),
+          );
+        }),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

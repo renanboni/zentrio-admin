@@ -3,26 +3,27 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/di/init.dart';
+import 'package:zentrio_admin/domain/repositories/preferences_repository.dart';
 
 import 'presentation/router/app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureInjection();
-  runApp(const MyApp());
+  runApp(
+    MyApp(
+      preferencesRepository: getIt<PreferencesRepository>(),
+    ),
+  );
 }
 
-final brightness = signal(Brightness.light);
-final themeMode = computed(() {
-  if (brightness() == Brightness.dark) {
-    return ThemeMode.dark;
-  } else {
-    return ThemeMode.light;
-  }
-});
-
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final PreferencesRepository preferencesRepository;
+
+  const MyApp({
+    super.key,
+    required this.preferencesRepository,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
           const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
         ],
       ),
-      themeMode: themeMode.watch(context),
+      themeMode: preferencesRepository.theme().watch(context),
       theme: ShadThemeData(
         brightness: Brightness.light,
         colorScheme: const ShadZincColorScheme.light(),
