@@ -1,9 +1,18 @@
-
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
+import 'package:signals/signals_flutter.dart';
+import 'package:zentrio_admin/main.dart';
+import 'package:zentrio_admin/presentation/features/products/products_view_model.dart';
+
+import 'components/products_table.dart';
 
 class ProductsPage extends StatelessWidget {
-  const ProductsPage({super.key});
+  final ProductsViewModel viewModel;
+
+  const ProductsPage({
+    super.key,
+    required this.viewModel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +37,9 @@ class ProductsPage extends StatelessWidget {
         child: Column(
           children: [
             const Divider(height: 1),
-
+            Expanded(
+              child: ProductsTable(products: viewModel.products.watch(context)),
+            ),
           ],
         ),
       ),

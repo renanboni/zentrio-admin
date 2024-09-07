@@ -11,6 +11,7 @@ import '../features/dashboard/vendor/vendors_controller.dart';
 import '../features/invite/vendor_invite_page.dart';
 import '../features/login/login_page.dart';
 import '../features/products/products_page.dart';
+import '../features/products/products_view_model.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -64,7 +65,9 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: "/products",
           builder: (BuildContext context, GoRouterState state) {
-            return const ProductsPage();
+            return ProductsPage(
+              viewModel: getIt<ProductsViewModel>(),
+            );
           },
         ),
         GoRoute(

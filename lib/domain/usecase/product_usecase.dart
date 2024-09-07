@@ -1,5 +1,6 @@
 
 import 'package:injectable/injectable.dart';
+import 'package:zentrio_admin/domain/models/product.dart';
 import 'package:zentrio_admin/domain/repositories/product_repository.dart';
 
 @injectable
@@ -8,7 +9,7 @@ class ProductUseCase {
 
   ProductUseCase(this._productRepository);
 
-  Future<void> getAll() {
+  Future<List<Product>> getAll() {
     return _productRepository.getAll();
   }
 }
