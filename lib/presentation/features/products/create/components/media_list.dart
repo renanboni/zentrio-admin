@@ -53,7 +53,7 @@ class _MediaListState extends State<MediaList> {
                     final name = await controller.getFilename(file);
                     final size = await controller.getFileSize(file);
                     final mimeType = await controller.getFileMIME(file);
-                    final data = await controller.getFileData(file);
+                    final url = await controller.createFileUrl(file);
 
                     _files.value = [
                       ..._files.value,
@@ -61,13 +61,11 @@ class _MediaListState extends State<MediaList> {
                         name,
                         size,
                         mimeType,
-                        data,
+                        url,
                       ),
                     ];
                   }
-                } catch (e) {
-
-                }
+                } catch (e) {}
               },
               child: Stack(
                 children: [
@@ -78,16 +76,10 @@ class _MediaListState extends State<MediaList> {
                       onCreated: (ctrl) {
                         controller = ctrl;
                       },
-                      onError: (error) {
-
-                      },
+                      onError: (error) {},
                       onDropInvalid: (event) async {},
-                      onDrop: (event) async {
-
-                      },
-                      onHover: () async {
-
-                      },
+                      onDrop: (event) async {},
+                      onHover: () async {},
                     ),
                   ),
                   Center(
@@ -161,6 +153,9 @@ class _MediaListState extends State<MediaList> {
 
   @override
   void dispose() {
+    for (final file in _files.value) {
+      controller.releaseFileUrl(file.url);
+    }
     _files.dispose();
     super.dispose();
   }

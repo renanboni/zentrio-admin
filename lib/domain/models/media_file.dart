@@ -7,14 +7,14 @@ class MediaFile extends Equatable {
   final String name;
   final String mimeType;
   final int size;
-  final Uint8List data;
+  final String url;
   final bool isThumbnail;
 
   const MediaFile(
     this.name,
     this.size,
     this.mimeType,
-    this.data, {
+    this.url, {
     this.isThumbnail = false,
   });
 
@@ -24,14 +24,14 @@ class MediaFile extends Equatable {
     String? name,
     String? mimeType,
     int? size,
-    Uint8List? data,
+    String? url,
     bool? isThumbnail,
   }) {
     return MediaFile(
       name ?? this.name,
       size ?? this.size,
       mimeType ?? this.mimeType,
-      data ?? this.data,
+      url ?? this.url,
       isThumbnail: isThumbnail ?? this.isThumbnail,
     );
   }
@@ -41,7 +41,7 @@ class MediaFile extends Equatable {
         name,
         size,
         mimeType,
-        data,
+        url,
         isThumbnail,
       ];
 }

@@ -25,8 +25,8 @@ class MediaItemList extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
-            child: Image.memory(
-              mediaFile.data,
+            child: Image.network(
+              mediaFile.url,
               width: 32,
               height: 36,
               fit: BoxFit.cover,
