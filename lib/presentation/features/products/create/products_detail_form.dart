@@ -51,9 +51,6 @@ class ProductsDetailForm extends StatelessWidget {
                     child: ShadInputFormField(
                       label: const Text('Subtitle'),
                       placeholder: const Text("Warm and cosy"),
-                      validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(),
-                      ]),
                     ),
                   ),
                   ResponsiveRowColumnItem(
@@ -61,9 +58,6 @@ class ProductsDetailForm extends StatelessWidget {
                     child: ShadInputFormField(
                       label: const Text('Handle'),
                       placeholder: const Text("winter-jacket"),
-                      validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(),
-                      ]),
                     ),
                   ),
                 ],

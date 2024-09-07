@@ -64,7 +64,7 @@ class _StepperState extends State<HorizontalStepper> {
                 Watch(
                   (context) => InkWell(
                     onTap: widget.steps[i].state == HorizontalStepState.disabled
-                        ? null
+                        ? () => _validateStep()
                         : () => _currentIndex.value = i,
                     child: Container(
                       color:
@@ -124,6 +124,13 @@ class _StepperState extends State<HorizontalStepper> {
         )
       ],
     );
+  }
+
+  _validateStep() {
+    final isValid = _formKeys[_currentIndex.value]?.currentState?.validate();
+    if (isValid == true) {
+      _currentIndex.value = _currentIndex.value + 1;
+    }
   }
 
   HorizontalStepState _getState(int i) {
