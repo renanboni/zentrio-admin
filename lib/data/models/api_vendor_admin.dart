@@ -11,9 +11,9 @@ class ApiVendorAdmin {
   final String? lastName;
   final String? email;
   final ApiVendor? vendor;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
-  final DateTime? deletedAt;
+  final String? createdAt;
+  final String? updatedAt;
+  final String? deletedAt;
 
   ApiVendorAdmin({
     this.id,

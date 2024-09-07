@@ -22,9 +22,9 @@ extension ApiVendorAdminToVendorAdmin on ApiVendorAdmin {
       lastName: lastName ?? '',
       email: email ?? '',
       vendor: vendor?.toVendor() ?? const Vendor.empty(),
-      createdAt: createdAt ?? DateTime.now(),
-      updatedAt: updatedAt ?? DateTime.now(),
-      deletedAt: deletedAt ?? DateTime.now(),
+      createdAt: DateTime.tryParse(createdAt ?? ''),
+      updatedAt: DateTime.tryParse(updatedAt ?? ''),
+      deletedAt: DateTime.tryParse(deletedAt ?? ''),
     );
   }
 }
