@@ -10,12 +10,13 @@ class EditVendorContextMenu extends StatefulWidget {
 }
 
 class _EditVendorContextMenuState extends State<EditVendorContextMenu> {
-  final _isVisible = signal(false);
+  final _controller = ShadContextMenuController();
 
   @override
   Widget build(BuildContext context) {
     return ShadContextMenu(
-      visible: _isVisible.watch(context),
+      controller: _controller,
+      visible: _controller.isOpen,
       children: [
         ShadContextMenuItem(
           leading: const ShadImage.square(
@@ -40,7 +41,7 @@ class _EditVendorContextMenuState extends State<EditVendorContextMenu> {
           size: 16,
         ),
         onPressed: () {
-          _isVisible.value = !_isVisible.value;
+          _controller.toggle();
         },
       ),
     );
@@ -74,11 +75,5 @@ class _EditVendorContextMenuState extends State<EditVendorContextMenu> {
         );
       },
     );
-  }
-
-  @override
-  void dispose() {
-    _isVisible.dispose();
-    super.dispose();
   }
 }
