@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/main.dart';
@@ -30,6 +31,12 @@ class ProductsPage extends StatelessWidget {
               "Products",
               style: ShadTheme.of(context).textTheme.table,
             ),
+            ShadButton(
+              child: const Text('Create'),
+              onPressed: () {
+                GoRouter.of(context).go("/products/create");
+              },
+            )
           ],
         ),
       ),

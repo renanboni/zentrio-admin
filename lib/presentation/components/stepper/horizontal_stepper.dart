@@ -96,7 +96,7 @@ class _StepperState extends State<HorizontalStepper> {
           ),
         ),
         const Divider(height: 1),
-        Flexible(
+        Expanded(
           key: _keys[_currentIndex.value],
           child: Padding(
             padding: const EdgeInsets.all(24.0),
