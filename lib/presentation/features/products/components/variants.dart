@@ -11,7 +11,7 @@ class Variants extends StatefulWidget {
 }
 
 class _VariantsState extends State<Variants> {
-  final _showProductOptions = signal(true);
+  final _showProductOptions = signal(false);
 
   @override
   Widget build(BuildContext context) {

@@ -16,40 +16,34 @@ class CreateVendorForm extends StatefulWidget {
 class _CreateVendorFormState extends State<CreateVendorForm> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: HorizontalStepper(
-            showEsc: true,
-            steps: [
-              StepItemList(
-                title: 'Vendor',
-                state: HorizontalStepState.editing,
-                content: MaxWidthBox(
-                  maxWidth: 500,
-                  child: VendorForm(
-                    firstNameController: TextEditingController(),
-                    lastNameController: TextEditingController(),
-                    emailController: TextEditingController(),
-                  ),
-                ),
-              ),
-              const StepItemList(
-                state: HorizontalStepState.disabled,
-                title: 'Store',
-                content: MaxWidthBox(
-                  maxWidth: 500,
-                  child: StoreForm(),
-                ),
-              ),
-            ],
-            onContinue: () {},
-            onEsc: () {
-              GoRouter.of(context).pop();
-            },
+    return HorizontalStepper(
+      showEsc: true,
+      steps: [
+        StepItemList(
+          title: 'Vendor',
+          state: HorizontalStepState.editing,
+          content: MaxWidthBox(
+            maxWidth: 500,
+            child: VendorForm(
+              firstNameController: TextEditingController(),
+              lastNameController: TextEditingController(),
+              emailController: TextEditingController(),
+            ),
+          ),
+        ),
+        const StepItemList(
+          state: HorizontalStepState.disabled,
+          title: 'Store',
+          content: MaxWidthBox(
+            maxWidth: 500,
+            child: StoreForm(),
           ),
         ),
       ],
+      onContinue: () {},
+      onEsc: () {
+        GoRouter.of(context).pop();
+      },
     );
   }
 }

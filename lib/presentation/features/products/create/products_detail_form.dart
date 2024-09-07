@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:zentrio_admin/presentation/features/products/components/variants.dart';
+import 'package:zentrio_admin/presentation/features/products/create/components/media_list.dart';
 
 class ProductsDetailForm extends StatelessWidget {
   const ProductsDetailForm({super.key});
@@ -67,8 +69,14 @@ class ProductsDetailForm extends StatelessWidget {
                 ],
               ),
             ),
+            if (kIsWeb)
+              const ResponsiveRowColumnItem(
+                child: MediaList(),
+              ),
             const ResponsiveRowColumnItem(
-              child: Divider(height: 1,),
+              child: Divider(
+                height: 1,
+              ),
             ),
             const ResponsiveRowColumnItem(
               child: Variants(),
