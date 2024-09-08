@@ -62,6 +62,7 @@ class _ProductOptionListItemState extends State<ProductOptionListItem> {
                     Expanded(
                       child: Watch(
                         (_) => ChipsInput(
+                          placeholder: "Red, Green, Blue",
                           values: _values.value,
                           onChanged: (values) {
                             _values.value = values;

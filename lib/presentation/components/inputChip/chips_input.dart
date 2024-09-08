@@ -15,12 +15,14 @@ class ChipsInput<T> extends StatefulWidget {
     this.onChipTapped,
     this.onSubmitted,
     this.onTextChanged,
+    this.placeholder = "",
   });
 
   final List<T> values;
   final InputDecoration decoration;
   final TextStyle? style;
   final StrutStyle? strutStyle;
+  final String placeholder;
 
   final ValueChanged<List<T>> onChanged;
   final ValueChanged<T>? onChipTapped;
@@ -106,6 +108,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> {
 
     return ShadInput(
       maxLines: 1,
+      placeholder: Text(widget.placeholder),
       textInputAction: TextInputAction.done,
       controller: controller,
       onChanged: (String value) => widget.onTextChanged?.call(
