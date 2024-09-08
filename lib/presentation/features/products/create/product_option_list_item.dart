@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
+import 'package:signals/signals.dart';
+import 'package:signals/signals_flutter.dart';
+import 'package:zentrio_admin/presentation/components/inputChip/chips_input.dart';
+import 'package:zentrio_admin/presentation/components/inputChip/input_chip.dart';
 
-class ProductOptionListItem extends StatelessWidget {
+class ProductOptionListItem extends StatefulWidget {
   final bool enabled;
   final VoidCallback? onRemove;
 
@@ -10,6 +14,13 @@ class ProductOptionListItem extends StatelessWidget {
     this.onRemove,
     required this.enabled,
   });
+
+  @override
+  State<ProductOptionListItem> createState() => _ProductOptionListItemState();
+}
+
+class _ProductOptionListItemState extends State<ProductOptionListItem> {
+  final _values = signal<List<String>>([]);
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +59,32 @@ class ProductOptionListItem extends StatelessWidget {
                         style: theme.textTheme.small,
                       ),
                     ),
-                    const Expanded(
-                      child: ShadInput(
-                        placeholder: Text("Red, Green, Blue"),
+                    Expanded(
+                      child: Watch(
+                        (_) => ChipsInput(
+                          values: _values.value,
+                          onChanged: (values) {
+                            _values.value = values;
+                          },
+                          onTextChanged: (value) {
+                            if (value.contains(",")) {
+                              _values.value = [..._values.value, value.replaceAll(",", "")];
+                            }
+                          },
+                          onSubmitted: (value) {
+                            _values.value = [..._values.value, value];
+                          },
+                          chipBuilder: (context, data) {
+                            return TextInputChip(
+                              label: data,
+                              onDeleted: (value) {
+                                _values.value = _values.value
+                                    .where((v) => v != value)
+                                    .toList();
+                              },
+                            );
+                          },
+                        ),
                       ),
                     )
                   ],
@@ -59,9 +93,9 @@ class ProductOptionListItem extends StatelessWidget {
             ),
           ),
           ShadButton.ghost(
-            onPressed: onRemove,
+            onPressed: widget.onRemove,
             size: ShadButtonSize.sm,
-            enabled: enabled,
+            enabled: widget.enabled,
             icon: const ShadImage.square(
               size: 16,
               LucideIcons.x,

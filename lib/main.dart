@@ -43,10 +43,12 @@ class MyApp extends StatelessWidget {
       theme: ShadThemeData(
         brightness: Brightness.light,
         colorScheme: const ShadZincColorScheme.light(),
+        disableSecondaryBorder: true,
       ),
       darkTheme: ShadThemeData(
         brightness: Brightness.dark,
         colorScheme: const ShadZincColorScheme.dark(),
+        disableSecondaryBorder: true,
       ),
     );
   }
