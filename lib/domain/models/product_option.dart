@@ -13,6 +13,16 @@ class ProductOption extends Equatable {
       : title = "",
         values = [];
 
+  ProductOption copyWith({
+    String? title,
+    List<String>? values,
+  }) {
+    return ProductOption(
+      title: title ?? this.title,
+      values: values ?? this.values,
+    );
+  }
+
   @override
   List<Object?> get props => [
         title,

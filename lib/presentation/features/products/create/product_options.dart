@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/domain/models/product_option.dart';
+import 'package:zentrio_admin/presentation/components/form_action_label.dart';
 import 'package:zentrio_admin/presentation/features/products/create/product_option_list_item.dart';
 
 class ProductOptions extends StatefulWidget {
@@ -16,39 +17,25 @@ class _ProductOptionsState extends State<ProductOptions> {
     [ProductOption.empty()],
   );
 
+  late final _showAddOptionsAlert = computed(() {
+    return _options.value.where((e) => e == ProductOption.empty()).length == _options.value.length;
+  });
+
   @override
   Widget build(BuildContext context) {
-    final theme = ShadTheme.of(context);
-
     return Column(
       children: [
-        Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Product options",
-                  style: theme.textTheme.small,
-                ),
-                Text(
-                  "Define the options for the product, e.g. color, size, etc.",
-                  style: theme.textTheme.muted,
-                ),
-              ],
-            ),
-            const Spacer(),
-            ShadButton.outline(
-              size: ShadButtonSize.sm,
-              onPressed: () {
-                _options.value = [
-                  ..._options.value,
-                  ProductOption.empty(),
-                ];
-              },
-              child: const Text("Add"),
-            )
-          ],
+        FormActionLabel(
+          title: "Product options",
+          description:
+              "Define the options for the product, e.g. color, size, etc.",
+          cta: "Add",
+          onPressed: () {
+            _options.value = [
+              ..._options.value,
+              ProductOption.empty(),
+            ];
+          },
         ),
         const SizedBox(height: 16),
         ListView.separated(
@@ -66,8 +53,30 @@ class _ProductOptionsState extends State<ProductOptions> {
                   ..._options.value..removeAt(index),
                 ];
               },
+              onTitleChanged: (value) {
+                _options.value = [
+                  ..._options.value..replaceRange(index, index + 1, [option.copyWith(title: value)]),
+                ];
+              },
+              onValuesChanged: (values) {
+                _options.value = [
+                  ..._options.value..replaceRange(index, index + 1, [option.copyWith(values: values)]),
+                ];
+              },
             );
           },
+        ),
+        const SizedBox(height: 16),
+        const FormActionLabel(
+          title: "Product variants",
+          description:
+              "This ranking will affect the variants' order in your storefront.",
+        ),
+        const SizedBox(height: 16),
+        if (_showAddOptionsAlert.watch(context))
+        const ShadAlert(
+          iconSrc: LucideIcons.info,
+          description: Text('Add options to create variants.'),
         ),
       ],
     );
