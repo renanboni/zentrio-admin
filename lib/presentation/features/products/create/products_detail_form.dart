@@ -5,9 +5,24 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:zentrio_admin/presentation/features/products/components/variants.dart';
 import 'package:zentrio_admin/presentation/features/products/create/components/media_list.dart';
+import 'package:zentrio_admin/presentation/features/products/create/create_product_viewmodel.dart';
 
-class ProductsDetailForm extends StatelessWidget {
-  const ProductsDetailForm({super.key});
+class ProductsDetailForm extends StatefulWidget {
+  final CreateProductViewModel viewModel;
+
+  const ProductsDetailForm({
+    super.key,
+    required this.viewModel,
+  });
+
+  @override
+  State<ProductsDetailForm> createState() => _ProductsDetailFormState();
+}
+
+class _ProductsDetailFormState extends State<ProductsDetailForm> {
+  late TextEditingController title = TextEditingController(
+    text: widget.viewModel.productTitle.value,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +55,8 @@ class ProductsDetailForm extends StatelessWidget {
                     rowFlex: 1,
                     child: ShadInputFormField(
                       label: const Text('Title'),
+                      controller: title,
+                      onChanged: widget.viewModel.productTitle.set,
                       placeholder: const Text("Winter Jacket"),
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(),
@@ -64,16 +81,20 @@ class ProductsDetailForm extends StatelessWidget {
               ),
             ),
             if (kIsWeb)
-              const ResponsiveRowColumnItem(
-                child: MediaList(),
+              ResponsiveRowColumnItem(
+                child: MediaList(
+                  viewModel: widget.viewModel,
+                ),
               ),
             const ResponsiveRowColumnItem(
               child: Divider(
                 height: 1,
               ),
             ),
-            const ResponsiveRowColumnItem(
-              child: Variants(),
+            ResponsiveRowColumnItem(
+              child: Variants(
+                viewModel: widget.viewModel,
+              ),
             )
           ],
         ),

@@ -11,6 +11,7 @@ import '../features/dashboard/vendor/vendors_controller.dart';
 import '../features/invite/vendor_invite_page.dart';
 import '../features/login/login_page.dart';
 import '../features/products/create/create_product_form.dart';
+import '../features/products/create/create_product_viewmodel.dart';
 import '../features/products/products_page.dart';
 import '../features/products/products_view_model.dart';
 
@@ -75,7 +76,9 @@ final GoRouter router = GoRouter(
               path: "create",
               parentNavigatorKey: rootNavigatorKey,
               pageBuilder: (BuildContext context, GoRouterState state) {
-                return DialogPage(builder: (_) => const CreateProductForm());
+                return DialogPage(builder: (_) =>  CreateProductForm(
+                  viewModel: getIt<CreateProductViewModel>(),
+                ));
               },
             ),
           ]

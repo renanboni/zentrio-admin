@@ -4,6 +4,7 @@ import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/domain/models/media_file.dart';
+import 'package:zentrio_admin/presentation/features/products/create/create_product_viewmodel.dart';
 import 'package:zentrio_admin/utils/extensions/string_ext.dart';
 
 import 'media_item_list.dart';
@@ -18,14 +19,18 @@ const mime = [
 ];
 
 class MediaList extends StatefulWidget {
-  const MediaList({super.key});
+  final CreateProductViewModel viewModel;
+
+  const MediaList({
+    super.key,
+    required this.viewModel,
+  });
 
   @override
   State<MediaList> createState() => _MediaListState();
 }
 
 class _MediaListState extends State<MediaList> {
-  final _files = signal<List<MediaFile>>([]);
   late DropzoneViewController controller;
 
   @override
@@ -55,8 +60,8 @@ class _MediaListState extends State<MediaList> {
                     final mimeType = await controller.getFileMIME(file);
                     final url = await controller.createFileUrl(file);
 
-                    _files.value = [
-                      ..._files.value,
+                    widget.viewModel.files.value = [
+                      ..._getFiles().value,
                       MediaFile(
                         name,
                         size,
@@ -120,18 +125,19 @@ class _MediaListState extends State<MediaList> {
             ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: _files.watch(context).length,
+              itemCount: _getFiles().watch(context).length,
               separatorBuilder: (context, index) => const SizedBox(height: 8),
               itemBuilder: (context, index) {
-                final file = _files.watch(context)[index];
+                final file = _getFiles().watch(context)[index];
 
                 return MediaItemList(
                   mediaFile: file,
                   onDelete: () {
-                    _files.value = List.from(_files.value)..removeAt(index);
+                    _updateFiles(List.from(_getFiles().value)..removeAt(index));
                   },
                   onMakeThumbnail: () {
-                    _files.value = _files.value.asMap().entries.map(
+                    widget.viewModel.files.value =
+                        _getFiles().value.asMap().entries.map(
                       (entry) {
                         final i = entry.key;
                         final e = entry.value;
@@ -151,12 +157,19 @@ class _MediaListState extends State<MediaList> {
     );
   }
 
+  Signal<List<MediaFile>> _getFiles() {
+    return widget.viewModel.files;
+  }
+
+  _updateFiles(List<MediaFile> files) {
+    widget.viewModel.files.value = files;
+  }
+
   @override
   void dispose() {
-    for (final file in _files.value) {
+    for (final file in widget.viewModel.files.value) {
       controller.releaseFileUrl(file.url);
     }
-    _files.dispose();
     super.dispose();
   }
 }

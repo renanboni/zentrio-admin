@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/presentation/components/switch_card.dart';
+import 'package:zentrio_admin/presentation/features/products/create/create_product_viewmodel.dart';
 import 'package:zentrio_admin/presentation/features/products/create/product_options.dart';
+import 'package:zentrio_admin/presentation/features/products/products_view_model.dart';
 
-class Variants extends StatefulWidget {
-  const Variants({super.key});
+class Variants extends StatelessWidget {
+  final CreateProductViewModel viewModel;
 
-  @override
-  State<Variants> createState() => _VariantsState();
-}
-
-class _VariantsState extends State<Variants> {
-  final _showProductOptions = signal(false);
+  const Variants({
+    super.key,
+    required this.viewModel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,21 +28,16 @@ class _VariantsState extends State<Variants> {
         const SizedBox(height: 16),
         SwitchCard(
           title: "Yes, this is a product with variants",
-          description: "When unchecked, we will create a default variant for you",
-          value: _showProductOptions.watch(context),
+          description:
+              "When unchecked, we will create a default variant for you",
+          value: viewModel.showProductOptions.watch(context),
           onChanged: (value) {
-            _showProductOptions.value = value;
+            viewModel.showProductOptions.value = value;
           },
         ),
         const SizedBox(height: 16),
-        if (_showProductOptions.watch(context)) const ProductOptions()
+        if (viewModel.showProductOptions.watch(context)) const ProductOptions()
       ],
     );
-  }
-
-  @override
-  void dispose() {
-    _showProductOptions.dispose();
-    super.dispose();
   }
 }
