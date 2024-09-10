@@ -7,11 +7,13 @@ import 'package:zentrio_admin/presentation/features/products/create/product_opti
 import 'package:zentrio_admin/presentation/features/products/products_view_model.dart';
 
 class Variants extends StatelessWidget {
-  final CreateProductViewModel viewModel;
+  final bool showProductOptions;
+  final ValueChanged<bool> onChanged;
 
   const Variants({
     super.key,
-    required this.viewModel,
+    this.showProductOptions = false,
+    required this.onChanged,
   });
 
   @override
@@ -30,13 +32,9 @@ class Variants extends StatelessWidget {
           title: "Yes, this is a product with variants",
           description:
               "When unchecked, we will create a default variant for you",
-          value: viewModel.showProductOptions.watch(context),
-          onChanged: (value) {
-            viewModel.showProductOptions.value = value;
-          },
+          value: showProductOptions,
+          onChanged: onChanged,
         ),
-        const SizedBox(height: 16),
-        if (viewModel.showProductOptions.watch(context)) const ProductOptions()
       ],
     );
   }

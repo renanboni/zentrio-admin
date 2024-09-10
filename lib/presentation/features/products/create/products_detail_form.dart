@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
+import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/presentation/features/products/components/variants.dart';
 import 'package:zentrio_admin/presentation/features/products/create/components/media_list.dart';
 import 'package:zentrio_admin/presentation/features/products/create/create_product_viewmodel.dart';
+import 'package:zentrio_admin/presentation/features/products/create/product_options.dart';
 
 class ProductsDetailForm extends StatefulWidget {
   final CreateProductViewModel viewModel;
@@ -83,7 +85,10 @@ class _ProductsDetailFormState extends State<ProductsDetailForm> {
             if (kIsWeb)
               ResponsiveRowColumnItem(
                 child: MediaList(
-                  viewModel: widget.viewModel,
+                  files: widget.viewModel.files.watch(context),
+                  onDelete: widget.viewModel.onDeleteFile,
+                  onMakeThumbnail: widget.viewModel.onMakeThumbnail,
+                  onFilesAdded: widget.viewModel.onFilesAdded,
                 ),
               ),
             const ResponsiveRowColumnItem(
@@ -93,9 +98,34 @@ class _ProductsDetailFormState extends State<ProductsDetailForm> {
             ),
             ResponsiveRowColumnItem(
               child: Variants(
-                viewModel: widget.viewModel,
+                showProductOptions:
+                    widget.viewModel.showProductOptions.watch(context),
+                onChanged: widget.viewModel.onToggleProductOptions,
               ),
-            )
+            ),
+            if (widget.viewModel.showProductOptions.watch(context))
+              ResponsiveRowColumnItem(
+                child: ProductOptions(
+                  productOptions:
+                      widget.viewModel.productOptions.watch(context),
+                  showAddOptionsAlert:
+                      widget.viewModel.showAddOptionsAlert.watch(context),
+                  onRemove: widget.viewModel.onRemoveProductOption,
+                  onAddProductOption: widget.viewModel.onAddProductOption,
+                  onTitleChanged: (tuple) {
+                    widget.viewModel.onProductTitleChanged(
+                      tuple.item1,
+                      tuple.item2,
+                    );
+                  },
+                  onValuesChanged: (tuple) {
+                    widget.viewModel.onProductValuesChanged(
+                      tuple.item1,
+                      tuple.item2,
+                    );
+                  },
+                ),
+              )
           ],
         ),
       ),

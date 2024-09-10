@@ -4,6 +4,7 @@ import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/domain/models/media_file.dart';
+import 'package:zentrio_admin/presentation/features/products/create/components/media_list_dropzone_placeholder.dart';
 import 'package:zentrio_admin/presentation/features/products/create/create_product_viewmodel.dart';
 import 'package:zentrio_admin/utils/extensions/string_ext.dart';
 
@@ -19,11 +20,17 @@ const mime = [
 ];
 
 class MediaList extends StatefulWidget {
-  final CreateProductViewModel viewModel;
+  final List<MediaFile> files;
+  final ValueChanged<List<MediaFile>> onFilesAdded;
+  final ValueChanged<MediaFile> onMakeThumbnail;
+  final ValueChanged<int> onDelete;
 
   const MediaList({
     super.key,
-    required this.viewModel,
+    required this.files,
+    required this.onFilesAdded,
+    required this.onMakeThumbnail,
+    required this.onDelete,
   });
 
   @override
@@ -54,23 +61,28 @@ class _MediaListState extends State<MediaList> {
                     mime: mime,
                   );
 
+                  final List<MediaFile> mediaFiles = [];
+
                   for (final file in files) {
                     final name = await controller.getFilename(file);
                     final size = await controller.getFileSize(file);
                     final mimeType = await controller.getFileMIME(file);
                     final url = await controller.createFileUrl(file);
 
-                    widget.viewModel.files.value = [
-                      ..._getFiles().value,
+                    mediaFiles.add(
                       MediaFile(
                         name,
                         size,
                         mimeType,
                         url,
                       ),
-                    ];
+                    );
                   }
-                } catch (e) {}
+
+                  widget.onFilesAdded(mediaFiles);
+                } catch (e) {
+                  print(e);
+                }
               },
               child: Stack(
                 children: [
@@ -87,33 +99,7 @@ class _MediaListState extends State<MediaList> {
                       onHover: () async {},
                     ),
                   ),
-                  Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              size: 16,
-                              LucideIcons.upload,
-                              color: theme.colorScheme.mutedForeground,
-                            ),
-                            const SizedBox(width: 8),
-                            Text(
-                              "Upload images",
-                              style: theme.textTheme.muted,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'Drag and drop images here or click to upload',
-                          style: theme.textTheme.muted,
-                        ),
-                      ],
-                    ),
-                  ),
+                  const MediaListDropzonePlaceholder(),
                 ],
               ),
             ),
@@ -125,29 +111,18 @@ class _MediaListState extends State<MediaList> {
             ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: _getFiles().watch(context).length,
+              itemCount: widget.files.length,
               separatorBuilder: (context, index) => const SizedBox(height: 8),
               itemBuilder: (context, index) {
-                final file = _getFiles().watch(context)[index];
+                final file = widget.files[index];
 
                 return MediaItemList(
                   mediaFile: file,
-                  onDelete: () {
-                    _updateFiles(List.from(_getFiles().value)..removeAt(index));
+                  onDelete: () async {
+                    await controller.releaseFileUrl(file.url);
+                    widget.onDelete(index);
                   },
-                  onMakeThumbnail: () {
-                    widget.viewModel.files.value =
-                        _getFiles().value.asMap().entries.map(
-                      (entry) {
-                        final i = entry.key;
-                        final e = entry.value;
-
-                        return e.copyWith(
-                          isThumbnail: i == index,
-                        ); // Update to false for other indices
-                      },
-                    ).toList();
-                  },
+                  onMakeThumbnail: () => widget.onMakeThumbnail(file),
                 );
               },
             ),
@@ -155,21 +130,5 @@ class _MediaListState extends State<MediaList> {
         )
       ],
     );
-  }
-
-  Signal<List<MediaFile>> _getFiles() {
-    return widget.viewModel.files;
-  }
-
-  _updateFiles(List<MediaFile> files) {
-    widget.viewModel.files.value = files;
-  }
-
-  @override
-  void dispose() {
-    for (final file in widget.viewModel.files.value) {
-      controller.releaseFileUrl(file.url);
-    }
-    super.dispose();
   }
 }

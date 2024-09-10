@@ -31,6 +31,7 @@ dependencies:
   equatable: ^2.0.5
   dart_jsonwebtoken: ^2.14.0
   flutter_dropzone: ^4.0.2
+  tuple: ^2.0.2
 
 dev_dependencies:
   flutter_test:
