@@ -1,5 +1,7 @@
 
+import '../../domain/models/category.dart';
 import '../../domain/models/product.dart';
+import '../models/api_category.dart';
 import '../models/api_product.dart';
 
 extension ApiProductMapper on ApiProduct {
@@ -23,6 +25,23 @@ extension ApiProductMapper on ApiProduct {
       typeId: typeId ?? '',
       discountable: discountable ?? false,
       externalId: externalId ?? '',
+      createdAt: DateTime.tryParse(createdAt ?? ''),
+      updatedAt: DateTime.tryParse(updatedAt ?? ''),
+      deletedAt: DateTime.tryParse(deletedAt ?? ''),
+    );
+  }
+}
+
+extension ApiCategoryMapper on ApiCategory {
+  Category toCategory() {
+    return Category(
+      id: id ?? '',
+      name: name ?? '',
+      handle: handle ?? '',
+      description: description ?? '',
+      isActive: isActive ?? false,
+      isInternal: isInternal ?? false,
+      rank: rank ?? 0,
       createdAt: DateTime.tryParse(createdAt ?? ''),
       updatedAt: DateTime.tryParse(updatedAt ?? ''),
       deletedAt: DateTime.tryParse(deletedAt ?? ''),

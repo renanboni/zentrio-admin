@@ -1,5 +1,5 @@
-
 import 'package:injectable/injectable.dart';
+import 'package:zentrio_admin/domain/models/category.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
 import 'package:zentrio_admin/domain/repositories/product_repository.dart';
 
@@ -11,5 +11,9 @@ class ProductUseCase {
 
   Future<List<Product>> getAll() {
     return _productRepository.getAll();
+  }
+
+  Future<List<Category>> getCategories() {
+    return _productRepository.getCategories();
   }
 }

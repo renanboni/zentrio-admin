@@ -1,5 +1,6 @@
 import 'package:zentrio_admin/data/mappers/product_mapper.dart';
 import 'package:zentrio_admin/data/remote/product_service.dart';
+import 'package:zentrio_admin/domain/models/category.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
 
 import '../domain/repositories/product_repository.dart';
@@ -14,5 +15,12 @@ class ProductRepositoryImpl implements ProductRepository {
     return _service
         .getAll()
         .then((value) => value.products.map((e) => e.toProduct()).toList());
+  }
+
+  @override
+  Future<List<Category>> getCategories() {
+    return _service
+        .getCategories()
+        .then((value) => value.categories.map((e) => e.toCategory()).toList());
   }
 }
