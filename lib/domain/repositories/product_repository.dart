@@ -7,4 +7,6 @@ abstract class ProductRepository {
   Future<List<Product>> getAll();
 
   Future<List<Category>> getCategories();
+
+  Future<void> createCategory(Category category);
 }

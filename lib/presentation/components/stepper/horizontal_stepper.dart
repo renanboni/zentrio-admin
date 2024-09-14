@@ -12,7 +12,7 @@ class HorizontalStepper extends StatefulWidget {
   final int currentStep;
   final bool showEsc;
   final ValueChanged<int>? onStepTapped;
-  final VoidCallback onContinue;
+  final VoidCallback onComplete;
   final VoidCallback? onEsc;
 
   const HorizontalStepper({
@@ -22,7 +22,7 @@ class HorizontalStepper extends StatefulWidget {
     this.onStepTapped,
     this.onEsc,
     required this.steps,
-    required this.onContinue,
+    required this.onComplete,
   });
 
   @override
@@ -118,7 +118,13 @@ class _StepperState extends State<HorizontalStepper> {
                     ?.currentState
                     ?.saveAndValidate() ==
                 true) {
-              _currentIndex.value++;
+              final nextIndex = _currentIndex.value + 1;
+
+              if (nextIndex < widget.steps.length) {
+                _currentIndex.value = nextIndex;
+              } else {
+                widget.onComplete();
+              }
             }
           },
         )

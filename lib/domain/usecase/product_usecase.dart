@@ -16,4 +16,8 @@ class ProductUseCase {
   Future<List<Category>> getCategories() {
     return _productRepository.getCategories();
   }
+
+  Future<void> createCategory(Category category) {
+    return _productRepository.createCategory(category);
+  }
 }

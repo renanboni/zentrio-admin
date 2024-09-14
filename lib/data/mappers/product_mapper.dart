@@ -1,4 +1,6 @@
 
+import 'package:zentrio_admin/data/models/req/create_category_req.dart';
+
 import '../../domain/models/category.dart';
 import '../../domain/models/product.dart';
 import '../models/api_category.dart';
@@ -45,6 +47,19 @@ extension ApiCategoryMapper on ApiCategory {
       createdAt: DateTime.tryParse(createdAt ?? ''),
       updatedAt: DateTime.tryParse(updatedAt ?? ''),
       deletedAt: DateTime.tryParse(deletedAt ?? ''),
+    );
+  }
+}
+
+extension CategoryMapper on Category {
+  CreateCategoryRequest createCategoryRequest() {
+    return CreateCategoryRequest(
+      name: name,
+      handle: handle,
+      description: description,
+      isActive: isActive,
+      isInternal: isInternal,
+      rank: rank,
     );
   }
 }

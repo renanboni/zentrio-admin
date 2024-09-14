@@ -23,4 +23,9 @@ class ProductRepositoryImpl implements ProductRepository {
         .getCategories()
         .then((value) => value.categories.map((e) => e.toCategory()).toList());
   }
+
+  @override
+  Future<void> createCategory(Category category) {
+    return _service.createCategory(category.createCategoryRequest());
+  }
 }

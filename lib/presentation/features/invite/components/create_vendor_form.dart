@@ -40,7 +40,7 @@ class _CreateVendorFormState extends State<CreateVendorForm> {
           ),
         ),
       ],
-      onContinue: () {},
+      onComplete: () {},
       onEsc: () {
         GoRouter.of(context).pop();
       },

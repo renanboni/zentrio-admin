@@ -134,9 +134,9 @@ class _CategoryDetailsFormState extends State<CategoryDetailsForm> {
                       widget.viewModel.onCategoryVisibilityChanged(v),
                   options: CategoryVisibility.values
                       .map(
-                        (status) => ShadOption(
-                          value: status,
-                          child: SizedBox(width: 250, child: Text(status.name)),
+                        (visibility) => ShadOption(
+                          value: visibility,
+                          child: SizedBox(width: 250, child: Text(visibility.name)),
                         ),
                       )
                       .toList(),

@@ -40,7 +40,7 @@ class CreateProductForm extends StatelessWidget {
             ),
           ),
         ],
-        onContinue: () {},
+        onComplete: () {},
       ),
     );
   }
