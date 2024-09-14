@@ -6,6 +6,7 @@ import 'package:zentrio_admin/presentation/features/categories/categories_page.d
 import 'package:zentrio_admin/presentation/features/dashboard/dashboard_page.dart';
 import 'package:zentrio_admin/presentation/features/dashboard/vendor/vendors_page.dart';
 
+import '../features/categories/categories_view_model.dart';
 import '../features/dashboard/side_bar_controller.dart';
 import '../features/dashboard/vendor/vendors_controller.dart';
 import '../features/invite/vendor_invite_page.dart';
@@ -65,28 +66,31 @@ final GoRouter router = GoRouter(
           ],
         ),
         GoRoute(
-          path: "/products",
-          builder: (BuildContext context, GoRouterState state) {
-            return ProductsPage(
-              viewModel: getIt<ProductsViewModel>(),
-            );
-          },
-          routes: [
-            GoRoute(
-              path: "create",
-              parentNavigatorKey: rootNavigatorKey,
-              pageBuilder: (BuildContext context, GoRouterState state) {
-                return DialogPage(builder: (_) =>  CreateProductForm(
-                  viewModel: getIt<CreateProductViewModel>(),
-                ));
-              },
-            ),
-          ]
-        ),
+            path: "/products",
+            builder: (BuildContext context, GoRouterState state) {
+              return ProductsPage(
+                viewModel: getIt<ProductsViewModel>(),
+              );
+            },
+            routes: [
+              GoRoute(
+                path: "create",
+                parentNavigatorKey: rootNavigatorKey,
+                pageBuilder: (BuildContext context, GoRouterState state) {
+                  return DialogPage(
+                    builder: (_) => CreateProductForm(
+                      viewModel: getIt<CreateProductViewModel>(),
+                    ),
+                  );
+                },
+              ),
+            ]),
         GoRoute(
           path: "/categories",
           builder: (BuildContext context, GoRouterState state) {
-            return const CategoriesPage();
+            return CategoriesPage(
+              viewModel: getIt<CategoriesViewModel>(),
+            );
           },
         ),
       ],

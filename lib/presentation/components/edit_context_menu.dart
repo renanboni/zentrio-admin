@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-class EditVendorContextMenu extends StatefulWidget {
-  const EditVendorContextMenu({super.key});
+class EditContextMenu extends StatefulWidget {
+  final String deleteDialogTitle;
+  final String deleteDialogDescription;
+  final VoidCallback onEdit;
+  final VoidCallback onDelete;
+
+  const EditContextMenu({
+    super.key,
+    required this.deleteDialogTitle,
+    required this.deleteDialogDescription,
+    required this.onEdit,
+    required this.onDelete,
+  });
 
   @override
-  State<EditVendorContextMenu> createState() => _EditVendorContextMenuState();
+  State<EditContextMenu> createState() => _EditContextMenuState();
 }
 
-class _EditVendorContextMenuState extends State<EditVendorContextMenu> {
+class _EditContextMenuState extends State<EditContextMenu> {
   final _controller = ShadContextMenuController();
 
   @override
@@ -22,8 +33,8 @@ class _EditVendorContextMenuState extends State<EditVendorContextMenu> {
             LucideIcons.pencil,
             size: 16,
           ),
+          onPressed: widget.onEdit,
           child: const Text("Edit"),
-          onPressed: () {},
         ),
         const Divider(height: 8),
         ShadContextMenuItem(
@@ -31,7 +42,7 @@ class _EditVendorContextMenuState extends State<EditVendorContextMenu> {
             LucideIcons.trash,
             size: 16,
           ),
-          child: _deleteVendorDialog(),
+          child: _deleteDialog(),
         ),
       ],
       child: ShadButton.ghost(
@@ -46,28 +57,32 @@ class _EditVendorContextMenuState extends State<EditVendorContextMenu> {
     );
   }
 
-  _deleteVendorDialog() {
+  _deleteDialog() {
     return InkWell(
-      child: const Text('Delete'),
+      child: const Text("Delete"),
       onTap: () {
         showShadDialog(
           context: context,
           builder: (context) => ShadDialog.alert(
-            title: const Text('Are you sure?'),
-            description: const Padding(
-              padding: EdgeInsets.only(bottom: 8),
-              child: Text(
-                'You are about to delete this vendor. This action cannot be undone.',
-              ),
+            title: Text(widget.deleteDialogTitle),
+            description: Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text(widget.deleteDialogDescription),
             ),
             actions: [
               ShadButton.outline(
+                size: ShadButtonSize.sm,
                 child: const Text('Cancel'),
                 onPressed: () => Navigator.of(context).pop(false),
               ),
-              ShadButton(
+              const SizedBox(width: 8),
+              ShadButton.destructive(
+                size: ShadButtonSize.sm,
                 child: const Text('Continue'),
-                onPressed: () => Navigator.of(context).pop(true),
+                onPressed: () async {
+                  widget.onDelete();
+                  _controller.hide();
+                },
               ),
             ],
           ),

@@ -2,11 +2,8 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/domain/models/media_file.dart';
 import 'package:zentrio_admin/presentation/features/products/create/components/media_list_dropzone_placeholder.dart';
-import 'package:zentrio_admin/presentation/features/products/create/create_product_viewmodel.dart';
-import 'package:zentrio_admin/utils/extensions/string_ext.dart';
 
 import 'media_item_list.dart';
 

@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:equatable/equatable.dart';
 import 'package:zentrio_admin/utils/extensions/string_ext.dart';
 

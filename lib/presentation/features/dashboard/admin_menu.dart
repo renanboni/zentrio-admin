@@ -5,22 +5,22 @@ import '../../components/sidebar/side_bar_item_list.dart';
 
 getAdminMenu() {
   return [
-    SideBarItem(
+    const SideBarItem(
       label: "Vendors",
       selected: true,
       icon: LucideIcons.store,
       route: "/vendors",
     ),
-    SideBarItem(
+    const SideBarItem(
       label: "Users",
       icon: LucideIcons.user,
       route: "/users",
     ),
-    SideBarItem(
+    const SideBarItem(
       label: "Settings",
       type: SideBarItemType.title,
     ),
-    SideBarItem(
+    const SideBarItem(
       label: "App settings",
       icon: LucideIcons.settings,
       route: "/settings",

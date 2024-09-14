@@ -8,12 +8,14 @@ part 'product_service.g.dart';
 
 @RestApi()
 abstract class ProductService {
-  factory ProductService(@Named("authenticated") Dio dio, {String baseUrl}) =
-      _ProductService;
+  factory ProductService(
+    @Named("authenticated") Dio dio, {
+    String baseUrl,
+  }) = _ProductService;
 
   @GET("/vendors/products")
   Future<ProductsResponse> getAll();
 
-  @GET("/vendors/categories")
+  @GET("/vendor/categories")
   Future<CategoriesResponse> getCategories();
 }

@@ -57,7 +57,7 @@ class DashboardMobilePage extends StatelessWidget {
               controller.onTap(item);
               GoRouter.of(context).go(item.route);
             },
-            footer: SideBarItem(
+            footer: const SideBarItem(
               label: "Sign out",
               icon: LucideIcons.logOut,
               type: SideBarItemType.button,

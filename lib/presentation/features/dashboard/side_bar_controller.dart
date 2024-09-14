@@ -1,15 +1,12 @@
 import 'package:injectable/injectable.dart';
-import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals.dart';
 import 'package:zentrio_admin/domain/models/vendor.dart';
-import 'package:zentrio_admin/domain/models/vendor_admin.dart';
 import 'package:zentrio_admin/domain/usecase/auth_usecase.dart';
 import 'package:zentrio_admin/domain/usecase/vendor_usecase.dart';
 import 'package:zentrio_admin/presentation/features/dashboard/vendor_menu.dart';
 
 import '../../../domain/models/user_type.dart';
 import '../../components/sidebar/models/side_bar_item.dart';
-import '../../components/sidebar/side_bar_item_list.dart';
 import 'admin_menu.dart';
 
 @lazySingleton

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-import 'package:signals/signals.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/presentation/components/inputChip/chips_input.dart';
 import 'package:zentrio_admin/presentation/components/inputChip/input_chip.dart';

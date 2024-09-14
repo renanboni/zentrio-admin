@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/presentation/components/switch_card.dart';
-import 'package:zentrio_admin/presentation/features/products/create/create_product_viewmodel.dart';
-import 'package:zentrio_admin/presentation/features/products/create/product_options.dart';
-import 'package:zentrio_admin/presentation/features/products/products_view_model.dart';
 
 class Variants extends StatelessWidget {
   final bool showProductOptions;
