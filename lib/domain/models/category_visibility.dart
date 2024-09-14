@@ -1,0 +1,1 @@
+enum CategoryVisibility { public, internal }

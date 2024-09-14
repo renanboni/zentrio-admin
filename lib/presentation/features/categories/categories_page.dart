@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/presentation/features/categories/categories_view_model.dart';
@@ -30,9 +31,7 @@ class CategoriesPage extends StatelessWidget {
             ),
             ShadButton(
               child: const Text('Create'),
-              onPressed: () {
-
-              },
+              onPressed: () => GoRouter.of(context).go("/categories/create"),
             )
           ],
         ),

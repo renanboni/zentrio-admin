@@ -3,10 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:zentrio_admin/di/init.dart';
 import 'package:zentrio_admin/presentation/components/dialog_page.dart';
 import 'package:zentrio_admin/presentation/features/categories/categories_page.dart';
+import 'package:zentrio_admin/presentation/features/categories/create/create_category_page.dart';
 import 'package:zentrio_admin/presentation/features/dashboard/dashboard_page.dart';
 import 'package:zentrio_admin/presentation/features/dashboard/vendor/vendors_page.dart';
 
 import '../features/categories/categories_view_model.dart';
+import '../features/categories/create/create_category_view_model.dart';
 import '../features/dashboard/side_bar_controller.dart';
 import '../features/dashboard/vendor/vendors_controller.dart';
 import '../features/invite/vendor_invite_page.dart';
@@ -66,25 +68,26 @@ final GoRouter router = GoRouter(
           ],
         ),
         GoRoute(
-            path: "/products",
-            builder: (BuildContext context, GoRouterState state) {
-              return ProductsPage(
-                viewModel: getIt<ProductsViewModel>(),
-              );
-            },
-            routes: [
-              GoRoute(
-                path: "create",
-                parentNavigatorKey: rootNavigatorKey,
-                pageBuilder: (BuildContext context, GoRouterState state) {
-                  return DialogPage(
-                    builder: (_) => CreateProductForm(
-                      viewModel: getIt<CreateProductViewModel>(),
-                    ),
-                  );
-                },
-              ),
-            ]),
+          path: "/products",
+          builder: (BuildContext context, GoRouterState state) {
+            return ProductsPage(
+              viewModel: getIt<ProductsViewModel>(),
+            );
+          },
+          routes: [
+            GoRoute(
+              path: "create",
+              parentNavigatorKey: rootNavigatorKey,
+              pageBuilder: (BuildContext context, GoRouterState state) {
+                return DialogPage(
+                  builder: (_) => CreateProductForm(
+                    viewModel: getIt<CreateProductViewModel>(),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
         GoRoute(
           path: "/categories",
           builder: (BuildContext context, GoRouterState state) {
@@ -92,6 +95,19 @@ final GoRouter router = GoRouter(
               viewModel: getIt<CategoriesViewModel>(),
             );
           },
+          routes: [
+            GoRoute(
+              path: "create",
+              parentNavigatorKey: rootNavigatorKey,
+              pageBuilder: (BuildContext context, GoRouterState state) {
+                return DialogPage(
+                  builder: (_) => CreateCategoryPage(
+                    viewModel: getIt<CreateCategoryViewModel>(),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ],
     )
