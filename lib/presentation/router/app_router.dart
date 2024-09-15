@@ -4,6 +4,7 @@ import 'package:zentrio_admin/di/init.dart';
 import 'package:zentrio_admin/presentation/components/dialog_page.dart';
 import 'package:zentrio_admin/presentation/features/categories/categories_page.dart';
 import 'package:zentrio_admin/presentation/features/categories/create/create_category_page.dart';
+import 'package:zentrio_admin/presentation/features/category/category_page.dart';
 import 'package:zentrio_admin/presentation/features/dashboard/dashboard_page.dart';
 import 'package:zentrio_admin/presentation/features/dashboard/vendor/vendors_page.dart';
 
@@ -104,6 +105,15 @@ final GoRouter router = GoRouter(
                   builder: (_) => CreateCategoryPage(
                     viewModel: getIt<CreateCategoryViewModel>(),
                   ),
+                );
+              },
+            ),
+            GoRoute(
+              path: ':id',
+              builder: (BuildContext context, GoRouterState state) {
+                final categoryId = state.pathParameters['name'];
+                return CategoryPage(
+                  categoryId: categoryId ?? '',
                 );
               },
             ),

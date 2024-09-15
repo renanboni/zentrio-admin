@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
+import 'package:zentrio_admin/presentation/components/category/category_status.dart';
+import 'package:zentrio_admin/presentation/components/category/category_visibility.dart';
 import 'package:zentrio_admin/presentation/components/edit_context_menu.dart';
 
 final headings = ['Name', 'Handle', 'Status', 'Visibility', ''];
@@ -8,11 +10,13 @@ final headings = ['Name', 'Handle', 'Status', 'Visibility', ''];
 class CategoriesTable extends StatelessWidget {
   final List<Category> categories;
   final ValueChanged<Category> onDelete;
+  final ValueChanged<Category> onEdit;
 
   const CategoriesTable({
     super.key,
     required this.categories,
     required this.onDelete,
+    required this.onEdit,
   });
 
   @override
@@ -27,9 +31,9 @@ class CategoriesTable extends StatelessWidget {
           case 1:
             return ShadTableCell(child: Text(category.handle));
           case 2:
-            return ShadTableCell(child: _buildStatus(category.isActive));
+            return ShadTableCell(child: CategoryStatus(isActive: category.isActive));
           case 3:
-            return ShadTableCell(child: _buildVisibility(category.isInternal));
+            return ShadTableCell(child: CategoryVisibility(isInternal: category.isInternal));
           case 4:
             return ShadTableCell(
               alignment: Alignment.centerRight,
@@ -37,7 +41,7 @@ class CategoriesTable extends StatelessWidget {
                 deleteDialogTitle: "Are you sure?",
                 deleteDialogDescription:
                     "You are about to delete the category ${category.name}. This action cannot be undone.",
-                onEdit: () {},
+                onEdit: () => onEdit(category),
                 onDelete: () => onDelete(category),
               ),
             );
@@ -67,40 +71,6 @@ class CategoriesTable extends StatelessWidget {
         }
         return null;
       },
-    );
-  }
-
-  _buildStatus(bool isActive) {
-    return Row(
-      children: [
-        Container(
-          width: 8,
-          height: 8,
-          decoration: BoxDecoration(
-            color: isActive ? Colors.green : Colors.red,
-            borderRadius: BorderRadius.circular(2),
-          ),
-        ),
-        const SizedBox(width: 8),
-        Text(isActive ? 'Active' : 'Inactive'),
-      ],
-    );
-  }
-
-  _buildVisibility(bool isInternal) {
-    return Row(
-      children: [
-        Container(
-          width: 8,
-          height: 8,
-          decoration: BoxDecoration(
-            color: isInternal ? Colors.red : Colors.green,
-            borderRadius: BorderRadius.circular(2),
-          ),
-        ),
-        const SizedBox(width: 8),
-        Text(isInternal ? 'Internal' : 'Public'),
-      ],
     );
   }
 }

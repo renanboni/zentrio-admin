@@ -46,6 +46,9 @@ class CategoriesPage extends StatelessWidget {
             Expanded(
               child: CategoriesTable(
                 categories: viewModel.categories.watch(context),
+                onEdit: (Category category) {
+                  GoRouter.of(context).go("/categories/${category.id}");
+                },
                 onDelete: (Category value) async {
                   viewModel.deleteCategory(value, () {
                     ShadToaster.of(context).show(
