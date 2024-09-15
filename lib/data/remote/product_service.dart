@@ -22,4 +22,7 @@ abstract class ProductService {
 
   @POST("/vendor/categories")
   Future<void> createCategory(@Body() CreateCategoryRequest req);
+
+  @DELETE("/vendor/categories/{id}")
+  Future<void> deleteCategory(@Path("id") String id);
 }

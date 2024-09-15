@@ -1,4 +1,4 @@
-
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:signals/signals.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
@@ -20,6 +20,20 @@ class CategoriesViewModel {
       categories.value = await _productUseCase.getCategories();
     } catch (e) {
       print(e);
+    }
+  }
+
+  Future<void> deleteCategory(
+    Category category,
+    VoidCallback onSuccess,
+    VoidCallback onError,
+  ) async {
+    try {
+      await _productUseCase.deleteCategory(category.id ?? "");
+      _getCategories();
+      onSuccess();
+    } catch (e) {
+      onError();
     }
   }
 }

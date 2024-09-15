@@ -5,6 +5,8 @@ import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/presentation/features/categories/categories_view_model.dart';
 import 'package:zentrio_admin/presentation/features/categories/components/category_table.dart';
 
+import '../../../domain/models/category.dart';
+
 class CategoriesPage extends StatelessWidget {
   final CategoriesViewModel viewModel;
 
@@ -42,7 +44,29 @@ class CategoriesPage extends StatelessWidget {
           children: [
             const Divider(height: 1),
             Expanded(
-              child: CategoriesTable(categories: viewModel.categories.watch(context)),
+              child: CategoriesTable(
+                categories: viewModel.categories.watch(context),
+                onDelete: (Category value) async {
+                  viewModel.deleteCategory(value, () {
+                    ShadToaster.of(context).show(
+                      ShadToast(
+                        description: Text(
+                          'Category ${value.name} deleted successfully',
+                        ),
+                      ),
+                    );
+                    GoRouter.of(context).pop();
+                  }, () {
+                    ShadToaster.of(context).show(
+                      const ShadToast.destructive(
+                        title: Text('Uh oh! Something went wrong'),
+                        description:
+                        Text('There was a problem with your request'),
+                      ),
+                    );
+                  });
+                },
+              ),
             ),
           ],
         ),

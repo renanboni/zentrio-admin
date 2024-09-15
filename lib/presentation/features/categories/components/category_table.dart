@@ -7,10 +7,12 @@ final headings = ['Name', 'Handle', 'Status', 'Visibility', ''];
 
 class CategoriesTable extends StatelessWidget {
   final List<Category> categories;
+  final ValueChanged<Category> onDelete;
 
   const CategoriesTable({
     super.key,
     required this.categories,
+    required this.onDelete,
   });
 
   @override
@@ -36,7 +38,7 @@ class CategoriesTable extends StatelessWidget {
                 deleteDialogDescription:
                     "You are about to delete the category ${category.name}. This action cannot be undone.",
                 onEdit: () {},
-                onDelete: () {},
+                onDelete: () => onDelete(category),
               ),
             );
           default:
@@ -92,12 +94,12 @@ class CategoriesTable extends StatelessWidget {
           width: 8,
           height: 8,
           decoration: BoxDecoration(
-            color: isInternal ? Colors.green : Colors.red,
+            color: isInternal ? Colors.red : Colors.green,
             borderRadius: BorderRadius.circular(2),
           ),
         ),
         const SizedBox(width: 8),
-        Text(isInternal ? 'Public' : 'Internal'),
+        Text(isInternal ? 'Internal' : 'Public'),
       ],
     );
   }

@@ -9,4 +9,6 @@ abstract class ProductRepository {
   Future<List<Category>> getCategories();
 
   Future<void> createCategory(Category category);
+
+  Future<void> deleteCategory(String id);
 }

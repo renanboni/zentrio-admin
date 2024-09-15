@@ -28,4 +28,9 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<void> createCategory(Category category) {
     return _service.createCategory(category.createCategoryRequest());
   }
+
+  @override
+  Future<void> deleteCategory(String id) {
+    return _service.deleteCategory(id);
+  }
 }
