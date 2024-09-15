@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:tuple/tuple.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
@@ -49,7 +50,9 @@ class CategoryOrganizeCard extends StatelessWidget {
           ),
           const Spacer(),
           EditContextMenu(
-            onEdit: () {},
+            onEdit: () {
+              GoRouter.of(context).go("/categories/${category.id}/organize");
+            },
           ),
         ],
       ),

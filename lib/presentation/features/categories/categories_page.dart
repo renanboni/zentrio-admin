@@ -31,6 +31,13 @@ class CategoriesPage extends StatelessWidget {
               "Categories",
               style: ShadTheme.of(context).textTheme.table,
             ),
+            const Spacer(),
+            ShadButton(
+              size: ShadButtonSize.sm,
+              child: const Text('Edit ranking'),
+              onPressed: () => GoRouter.of(context).go("/categories/organize"),
+            ),
+            const SizedBox(width: 8),
             ShadButton(
               size: ShadButtonSize.sm,
               child: const Text('Create'),

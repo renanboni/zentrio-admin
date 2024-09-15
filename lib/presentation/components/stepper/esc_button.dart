@@ -11,24 +11,23 @@ class EscButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: const Row(
-        children: [
-          SizedBox(width: 20),
-          Icon(
+    return Row(
+      children: [
+        const SizedBox(width: 20),
+        IconButton(
+          onPressed: onTap,
+          icon: const Icon(
             Icons.close,
             color: Colors.grey,
             size: 16,
           ),
-          SizedBox(width: 8),
-          ShadBadge(
-            child: Text('esc'),
-          ),
-          SizedBox(width: 20),
-          VerticalDivider(width: 1),
-        ],
-      ),
+        ),
+        const ShadBadge(
+          child: Text('esc'),
+        ),
+        const SizedBox(width: 20),
+        const VerticalDivider(width: 1),
+      ],
     );
   }
 }

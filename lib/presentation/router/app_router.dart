@@ -7,6 +7,7 @@ import 'package:zentrio_admin/presentation/features/categories/create/create_cat
 import 'package:zentrio_admin/presentation/features/category/category_page.dart';
 import 'package:zentrio_admin/presentation/features/dashboard/dashboard_page.dart';
 import 'package:zentrio_admin/presentation/features/dashboard/vendor/vendors_page.dart';
+import 'package:zentrio_admin/presentation/features/ranking/ranking_page.dart';
 
 import '../features/categories/categories_view_model.dart';
 import '../features/categories/create/create_category_view_model.dart';
@@ -19,6 +20,7 @@ import '../features/products/create/create_product_form.dart';
 import '../features/products/create/create_product_viewmodel.dart';
 import '../features/products/products_page.dart';
 import '../features/products/products_view_model.dart';
+import '../features/ranking/ranking_view_model.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -110,6 +112,17 @@ final GoRouter router = GoRouter(
               },
             ),
             GoRoute(
+              path: "organize",
+              parentNavigatorKey: rootNavigatorKey,
+              pageBuilder: (BuildContext context, GoRouterState state) {
+                return DialogPage(
+                  builder: (_) => RankingPage(
+                    viewModel: getIt<RankingViewModel>(),
+                  ),
+                );
+              },
+            ),
+            GoRoute(
               path: ':id',
               builder: (BuildContext context, GoRouterState state) {
                 final categoryId = state.pathParameters['id'];
@@ -118,6 +131,19 @@ final GoRouter router = GoRouter(
                   categoryId: categoryId ?? '',
                 );
               },
+              routes: [
+                GoRoute(
+                  path: "organize",
+                  parentNavigatorKey: rootNavigatorKey,
+                  pageBuilder: (BuildContext context, GoRouterState state) {
+                    return DialogPage(
+                      builder: (_) => RankingPage(
+                        viewModel: getIt<RankingViewModel>(),
+                      ),
+                    );
+                  },
+                ),
+              ]
             ),
           ],
         ),

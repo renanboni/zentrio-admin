@@ -45,6 +45,8 @@ import 'package:zentrio_admin/presentation/features/products/create/create_produ
     as _i531;
 import 'package:zentrio_admin/presentation/features/products/products_view_model.dart'
     as _i91;
+import 'package:zentrio_admin/presentation/features/ranking/ranking_view_model.dart'
+    as _i473;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -110,6 +112,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1019.CreateCategoryViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i943.CategoryViewModel>(
         () => _i943.CategoryViewModel(gh<_i977.ProductUseCase>()));
+    gh.factory<_i473.RankingViewModel>(
+        () => _i473.RankingViewModel(gh<_i977.ProductUseCase>()));
     gh.lazySingleton<_i857.DashboardViewModel>(() => _i857.DashboardViewModel(
           gh<_i620.AuthUseCase>(),
           gh<_i97.VendorUseCase>(),
