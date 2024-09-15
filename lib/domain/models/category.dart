@@ -71,6 +71,16 @@ class Category extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
+        name,
+        description,
+        handle,
+        isActive,
+        isInternal,
         rank,
+        createdAt,
+        updatedAt,
+        deletedAt,
+        isNew,
       ];
 }

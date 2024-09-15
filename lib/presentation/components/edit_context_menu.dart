@@ -5,14 +5,14 @@ class EditContextMenu extends StatefulWidget {
   final String deleteDialogTitle;
   final String deleteDialogDescription;
   final VoidCallback onEdit;
-  final VoidCallback onDelete;
+  final VoidCallback? onDelete;
 
   const EditContextMenu({
     super.key,
-    required this.deleteDialogTitle,
-    required this.deleteDialogDescription,
+    this.deleteDialogTitle = "",
+    this.deleteDialogDescription = "",
+    this.onDelete,
     required this.onEdit,
-    required this.onDelete,
   });
 
   @override
@@ -36,14 +36,15 @@ class _EditContextMenuState extends State<EditContextMenu> {
           onPressed: widget.onEdit,
           child: const Text("Edit"),
         ),
-        const Divider(height: 8),
-        ShadContextMenuItem(
-          leading: const ShadImage.square(
-            LucideIcons.trash,
-            size: 16,
+        if (widget.onDelete != null) const Divider(height: 8),
+        if (widget.onDelete != null)
+          ShadContextMenuItem(
+            leading: const ShadImage.square(
+              LucideIcons.trash,
+              size: 16,
+            ),
+            child: _deleteDialog(),
           ),
-          child: _deleteDialog(),
-        ),
       ],
       child: ShadButton.ghost(
         icon: const Icon(
@@ -80,7 +81,7 @@ class _EditContextMenuState extends State<EditContextMenu> {
                 size: ShadButtonSize.sm,
                 child: const Text('Continue'),
                 onPressed: () async {
-                  widget.onDelete();
+                  widget.onDelete?.call();
                   _controller.hide();
                 },
               ),

@@ -49,11 +49,7 @@ class CategoryOrganizeCard extends StatelessWidget {
           ),
           const Spacer(),
           EditContextMenu(
-            deleteDialogTitle: "Are you sure?",
-            deleteDialogDescription:
-                "You are about to delete the category test. This action cannot be undone.",
             onEdit: () {},
-            onDelete: () {},
           ),
         ],
       ),
