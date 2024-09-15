@@ -24,7 +24,12 @@ class KeyValueItemList extends StatelessWidget {
               style: theme.textTheme.muted,
             ),
           ),
-          Expanded(child: Text(pair.item2.isEmpty ? '-' : pair.item2)),
+          Expanded(
+            child: Text(
+              pair.item2.isEmpty ? '-' : pair.item2,
+              style: theme.textTheme.muted,
+            ),
+          ),
         ],
       ),
     );

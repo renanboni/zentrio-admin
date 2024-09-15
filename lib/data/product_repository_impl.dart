@@ -33,4 +33,11 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<void> deleteCategory(String id) {
     return _service.deleteCategory(id);
   }
+
+  @override
+  Future<Category> getCategoryById(String id) {
+    return _service
+        .getCategoryById(id)
+        .then((value) => value.category.toCategory());
+  }
 }

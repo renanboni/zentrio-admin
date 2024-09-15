@@ -10,6 +10,7 @@ import 'package:zentrio_admin/presentation/features/dashboard/vendor/vendors_pag
 
 import '../features/categories/categories_view_model.dart';
 import '../features/categories/create/create_category_view_model.dart';
+import '../features/category/category_view_model.dart';
 import '../features/dashboard/side_bar_controller.dart';
 import '../features/dashboard/vendor/vendors_controller.dart';
 import '../features/invite/vendor_invite_page.dart';
@@ -111,8 +112,9 @@ final GoRouter router = GoRouter(
             GoRoute(
               path: ':id',
               builder: (BuildContext context, GoRouterState state) {
-                final categoryId = state.pathParameters['name'];
+                final categoryId = state.pathParameters['id'];
                 return CategoryPage(
+                  viewModel: getIt<CategoryViewModel>(),
                   categoryId: categoryId ?? '',
                 );
               },

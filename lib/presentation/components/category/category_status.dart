@@ -26,7 +26,7 @@ class CategoryStatus extends StatelessWidget {
         const SizedBox(width: 8),
         Text(
           isActive ? 'Active' : 'Inactive',
-          style: theme.textTheme.small,
+          style: theme.textTheme.muted,
         ),
       ],
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
 
 class CategoryVisibility extends StatelessWidget {
   final bool isInternal;
@@ -10,6 +11,8 @@ class CategoryVisibility extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = ShadTheme.of(context);
+
     return Row(
       children: [
         Container(
@@ -21,7 +24,10 @@ class CategoryVisibility extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 8),
-        Text(isInternal ? 'Internal' : 'Public'),
+        Text(
+          isInternal ? 'Internal' : 'Public',
+          style: theme.textTheme.muted,
+        ),
       ],
     );
   }

@@ -21,19 +21,35 @@ class CategoriesTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = ShadTheme.of(context);
+
     return ShadTable(
       builder: (context, index) {
         final category = categories[index.row];
 
         switch (index.column) {
           case 0:
-            return ShadTableCell(child: Text(category.name));
+            return ShadTableCell(
+              child: Text(
+                category.name,
+                style: theme.textTheme.muted,
+              ),
+            );
           case 1:
-            return ShadTableCell(child: Text(category.handle));
+            return ShadTableCell(
+              child: Text(
+                category.handle,
+                style: theme.textTheme.muted,
+              ),
+            );
           case 2:
-            return ShadTableCell(child: CategoryStatus(isActive: category.isActive));
+            return ShadTableCell(
+              child: CategoryStatus(isActive: category.isActive),
+            );
           case 3:
-            return ShadTableCell(child: CategoryVisibility(isInternal: category.isInternal));
+            return ShadTableCell(
+              child: CategoryVisibility(isInternal: category.isInternal),
+            );
           case 4:
             return ShadTableCell(
               alignment: Alignment.centerRight,

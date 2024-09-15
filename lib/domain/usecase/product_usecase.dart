@@ -24,4 +24,8 @@ class ProductUseCase {
   Future<void> deleteCategory(String id) {
     return _productRepository.deleteCategory(id);
   }
+
+  Future<Category> getCategoryById(String id) {
+    return _productRepository.getCategoryById(id);
+  }
 }

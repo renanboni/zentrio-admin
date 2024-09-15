@@ -5,6 +5,8 @@ import 'package:zentrio_admin/data/models/req/create_category_req.dart';
 import 'package:zentrio_admin/data/models/res/categories_response.dart';
 import 'package:zentrio_admin/data/models/res/products_response.dart';
 
+import '../models/res/category_response.dart';
+
 part 'product_service.g.dart';
 
 @RestApi()
@@ -25,4 +27,7 @@ abstract class ProductService {
 
   @DELETE("/vendor/categories/{id}")
   Future<void> deleteCategory(@Path("id") String id);
+
+  @GET("/vendor/categories/{id}")
+  Future<CategoryResponse> getCategoryById(@Path("id") String id);
 }

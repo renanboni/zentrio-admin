@@ -1,17 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:signals/signals_flutter.dart';
+import 'package:zentrio_admin/main.dart';
+import 'package:zentrio_admin/presentation/features/category/category_view_model.dart';
 import 'package:zentrio_admin/presentation/features/category/components/category_card.dart';
 import 'package:zentrio_admin/presentation/features/category/components/category_organize_card.dart';
 
 import '../../../domain/models/category.dart';
 
-class CategoryPage extends StatelessWidget {
+class CategoryPage extends StatefulWidget {
+  final CategoryViewModel viewModel;
   final String categoryId;
 
   const CategoryPage({
     super.key,
     required this.categoryId,
+    required this.viewModel,
   });
+
+  @override
+  State<CategoryPage> createState() => _CategoryPageState();
+}
+
+class _CategoryPageState extends State<CategoryPage> {
+
+  @override
+  void initState() {
+    widget.viewModel.getCategory(widget.categoryId);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +48,13 @@ class CategoryPage extends StatelessWidget {
               ResponsiveRowColumnItem(
                 rowFlex: 2,
                 child: CategoryCard(
-                  category: Category.empty().copyWith(name: "Tenis"),
+                  category: widget.viewModel.category.watch(context),
                 ),
               ),
               ResponsiveRowColumnItem(
                 rowFlex: 1,
                 child: CategoryOrganizeCard(
-                  category: Category.empty(),
+                  category: widget.viewModel.category.watch(context),
                 ),
               )
             ],
