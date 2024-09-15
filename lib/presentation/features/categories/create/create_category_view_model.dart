@@ -19,8 +19,6 @@ class CreateCategoryViewModel {
   final handle = signal("");
   final description = signal("");
 
-  var rank = -1;
-
   late final ranking = computed(
     () {
       final sortedCategories = categories.value
@@ -37,7 +35,6 @@ class CreateCategoryViewModel {
     _getCategories();
   }
 
-  // TODO : get rank by filtering the newly created category
   Future<void> createCategory(
     VoidCallback onSuccess,
     VoidCallback onError,
@@ -48,7 +45,7 @@ class CreateCategoryViewModel {
           name: title.value,
           handle: handle.value,
           description: description.value,
-          rank: rank,
+          rank: categories.value.indexWhere((element) => element.isNew),
           isActive: categoryStatus == CategoryStatus.active,
           isInternal: categoryVisibility == CategoryVisibility.internal,
         ),

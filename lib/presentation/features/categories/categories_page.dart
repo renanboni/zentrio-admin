@@ -30,6 +30,7 @@ class CategoriesPage extends StatelessWidget {
               style: ShadTheme.of(context).textTheme.table,
             ),
             ShadButton(
+              size: ShadButtonSize.sm,
               child: const Text('Create'),
               onPressed: () => GoRouter.of(context).go("/categories/create"),
             )
