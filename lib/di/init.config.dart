@@ -35,6 +35,8 @@ import 'package:zentrio_admin/presentation/features/categories/create/create_cat
     as _i1019;
 import 'package:zentrio_admin/presentation/features/category/category_view_model.dart'
     as _i943;
+import 'package:zentrio_admin/presentation/features/category/edit/category_edit_view_model.dart'
+    as _i632;
 import 'package:zentrio_admin/presentation/features/dashboard/side_bar_controller.dart'
     as _i857;
 import 'package:zentrio_admin/presentation/features/dashboard/vendor/vendors_controller.dart'
@@ -114,6 +116,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i943.CategoryViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i473.RankingViewModel>(
         () => _i473.RankingViewModel(gh<_i977.ProductUseCase>()));
+    gh.factory<_i632.CategoryEditViewModel>(
+        () => _i632.CategoryEditViewModel(gh<_i977.ProductUseCase>()));
     gh.lazySingleton<_i857.DashboardViewModel>(() => _i857.DashboardViewModel(
           gh<_i620.AuthUseCase>(),
           gh<_i97.VendorUseCase>(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:tuple/tuple.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
@@ -60,7 +61,11 @@ class CategoryCard extends StatelessWidget {
                 deleteDialogTitle: "Are you sure?",
                 deleteDialogDescription:
                     "You are about to delete the category test. This action cannot be undone.",
-                onEdit: () {},
+                onEdit: () {
+                  GoRouter.of(context).go(
+                    "/categories/${category.id}/edit",
+                  );
+                },
                 onDelete: () {},
               )
             ],

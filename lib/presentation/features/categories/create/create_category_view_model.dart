@@ -11,8 +11,8 @@ import '../../../../domain/models/category.dart';
 class CreateCategoryViewModel {
   final ProductUseCase _productUseCase;
 
-  CategoryStatus? categoryStatus = CategoryStatus.active;
-  CategoryVisibility? categoryVisibility = CategoryVisibility.public;
+  final Signal<CategoryStatus> categoryStatus = signal(CategoryStatus.active);
+  final Signal<CategoryVisibility> categoryVisibility = signal(CategoryVisibility.public);
   final Signal<List<Category>> categories = signal([]);
 
   final title = signal("");
@@ -72,10 +72,14 @@ class CreateCategoryViewModel {
   }
 
   void onCategoryStatusChanged(CategoryStatus? status) {
-    categoryStatus = status;
+    if (status != null) {
+      categoryStatus.value = status;
+    }
   }
 
   void onCategoryVisibilityChanged(CategoryVisibility? visibility) {
-    categoryVisibility = visibility;
+    if (visibility != null) {
+      categoryVisibility.value = visibility;
+    }
   }
 }

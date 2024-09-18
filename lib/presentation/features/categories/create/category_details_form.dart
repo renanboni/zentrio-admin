@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
+import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/domain/models/category_status.dart';
 import 'package:zentrio_admin/domain/models/category_visibility.dart';
+import 'package:zentrio_admin/main.dart';
+import 'package:zentrio_admin/presentation/features/categories/create/create_category_form.dart';
 
 import 'create_category_view_model.dart';
 
@@ -59,91 +62,17 @@ class _CategoryDetailsFormState extends State<CategoryDetailsForm> {
           ),
         ),
         ResponsiveRowColumnItem(
-          child: ResponsiveRowColumn(
-            layout: ResponsiveBreakpoints.of(context).smallerThan(DESKTOP)
-                ? ResponsiveRowColumnType.COLUMN
-                : ResponsiveRowColumnType.ROW,
-            rowSpacing: 8,
-            columnSpacing: 8,
-            children: [
-              ResponsiveRowColumnItem(
-                rowFlex: 1,
-                child: ShadInputFormField(
-                  label: const Text('Title'),
-                  controller: title,
-                  onChanged: widget.viewModel.title.set,
-                  validator: FormBuilderValidators.compose([
-                    FormBuilderValidators.required(),
-                  ]),
-                ),
-              ),
-              ResponsiveRowColumnItem(
-                rowFlex: 1,
-                child: ShadInputFormField(
-                  label: const Text('Handle'),
-                  controller: handle,
-                  onChanged: widget.viewModel.handle.set,
-                ),
-              ),
-            ],
-          ),
-        ),
-        ResponsiveRowColumnItem(
-          child: ShadInputFormField(
-            label: const Text('Description'),
-            controller: description,
-            onChanged: widget.viewModel.description.set,
-            maxLines: 5,
-          ),
-        ),
-        ResponsiveRowColumnItem(
-          child: ResponsiveRowColumn(
-            layout: ResponsiveBreakpoints.of(context).smallerThan(DESKTOP)
-                ? ResponsiveRowColumnType.COLUMN
-                : ResponsiveRowColumnType.ROW,
-            rowSpacing: 8,
-            columnSpacing: 8,
-            children: [
-              ResponsiveRowColumnItem(
-                rowFlex: 1,
-                child: ShadSelectFormField<CategoryStatus>(
-                  id: 'active',
-                  minWidth: double.infinity,
-                  label: const Text('Status'),
-                  initialValue: CategoryStatus.active,
-                  onChanged: (v) => widget.viewModel.onCategoryStatusChanged(v),
-                  options: CategoryStatus.values
-                      .map(
-                        (status) => ShadOption(
-                          value: status,
-                          child: Text(status.name),
-                        ),
-                      )
-                      .toList(),
-                  selectedOptionBuilder: (context, value) => Text(value.name),
-                ),
-              ),
-              ResponsiveRowColumnItem(
-                rowFlex: 1,
-                child: ShadSelectFormField<CategoryVisibility>(
-                  id: 'visibility',
-                  minWidth: double.infinity,
-                  label: const Text('Visibility'),
-                  initialValue: CategoryVisibility.public,
-                  onChanged: (v) =>
-                      widget.viewModel.onCategoryVisibilityChanged(v),
-                  options: CategoryVisibility.values
-                      .map(
-                        (visibility) => ShadOption(
-                          value: visibility,
-                          child: SizedBox(width: 250, child: Text(visibility.name)),
-                        ),
-                      )
-                      .toList(),
-                  selectedOptionBuilder: (context, value) => Text(value.name),
-                ),
-              ),
-            ],
+          child: CreateCategoryForm(
+            initialTitle: title.text,
+            initialHandle: handle.text,
+            initialDescription: description.text,
+            initialStatus: widget.viewModel.categoryStatus.watch(context),
+            initialVisibility: widget.viewModel.categoryVisibility.watch(context),
+            onTitleChanged: widget.viewModel.title.set,
+            onHandleChanged: widget.viewModel.handle.set,
+            onDescriptionChanged: widget.viewModel.description.set,
+            onStatusChanged: widget.viewModel.onCategoryStatusChanged,
+            onVisibilityChanged: widget.viewModel.onCategoryVisibilityChanged,
           ),
         ),
       ],
