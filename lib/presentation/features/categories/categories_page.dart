@@ -56,6 +56,9 @@ class CategoriesPage extends StatelessWidget {
                 onEdit: (Category category) {
                   GoRouter.of(context).go("/categories/${category.id}");
                 },
+                onClick: (Category category) {
+                  GoRouter.of(context).go("/categories/${category.id}");
+                },
                 onDelete: (Category value) async {
                   viewModel.deleteCategory(value, () {
                     ShadToaster.of(context).show(

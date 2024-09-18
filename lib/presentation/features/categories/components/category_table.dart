@@ -11,12 +11,14 @@ class CategoriesTable extends StatelessWidget {
   final List<Category> categories;
   final ValueChanged<Category> onDelete;
   final ValueChanged<Category> onEdit;
+  final ValueChanged<Category> onClick;
 
   const CategoriesTable({
     super.key,
     required this.categories,
     required this.onDelete,
     required this.onEdit,
+    required this.onClick,
   });
 
   @override
@@ -24,6 +26,7 @@ class CategoriesTable extends StatelessWidget {
     final theme = ShadTheme.of(context);
 
     return ShadTable(
+      onRowTap: (index) => onClick(categories[index - 1]),
       builder: (context, index) {
         final category = categories[index.row];
 
