@@ -10,10 +10,12 @@ import 'package:zentrio_admin/presentation/components/key_value_item_list.dart';
 
 class CategoryCard extends StatelessWidget {
   final Category category;
+  final VoidCallback? onRefresh;
 
   const CategoryCard({
     super.key,
     required this.category,
+    this.onRefresh,
   });
 
   @override
@@ -61,10 +63,13 @@ class CategoryCard extends StatelessWidget {
                 deleteDialogTitle: "Are you sure?",
                 deleteDialogDescription:
                     "You are about to delete the category test. This action cannot be undone.",
-                onEdit: () {
-                  GoRouter.of(context).go(
+                onEdit: () async {
+                  final refresh = await GoRouter.of(context).push(
                     "/categories/${category.id}/edit",
                   );
+                  if (refresh == true) {
+                    onRefresh?.call();
+                  }
                 },
                 onDelete: () {},
               )

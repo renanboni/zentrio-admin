@@ -20,7 +20,6 @@ class CategoryPage extends StatefulWidget {
 }
 
 class _CategoryPageState extends State<CategoryPage> {
-
   final CategoryViewModel viewModel = getIt<CategoryViewModel>();
 
   @override
@@ -40,6 +39,7 @@ class _CategoryPageState extends State<CategoryPage> {
           child: ResponsiveRowColumn(
             rowSpacing: 12,
             columnSpacing: 8,
+            rowCrossAxisAlignment: CrossAxisAlignment.start,
             layout: ResponsiveBreakpoints.of(context).smallerThan(DESKTOP)
                 ? ResponsiveRowColumnType.COLUMN
                 : ResponsiveRowColumnType.ROW,
@@ -48,6 +48,7 @@ class _CategoryPageState extends State<CategoryPage> {
                 rowFlex: 2,
                 child: CategoryCard(
                   category: viewModel.category.watch(context),
+                  onRefresh: () => viewModel.getCategory(widget.categoryId),
                 ),
               ),
               ResponsiveRowColumnItem(

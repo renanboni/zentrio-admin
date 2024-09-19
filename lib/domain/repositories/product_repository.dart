@@ -13,4 +13,6 @@ abstract class ProductRepository {
   Future<void> deleteCategory(String id);
 
   Future<Category> getCategoryById(String id);
+
+  Future<void> updateCategory(String id, Map<String, dynamic> fields);
 }

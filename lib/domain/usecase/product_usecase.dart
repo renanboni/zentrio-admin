@@ -28,4 +28,8 @@ class ProductUseCase {
   Future<Category> getCategoryById(String id) {
     return _productRepository.getCategoryById(id);
   }
+
+  Future<void> updateCategory(String id, Map<String, dynamic> fields) {
+    return _productRepository.updateCategory(id, fields);
+  }
 }

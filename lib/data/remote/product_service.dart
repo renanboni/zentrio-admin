@@ -30,4 +30,10 @@ abstract class ProductService {
 
   @GET("/vendor/categories/{id}")
   Future<CategoryResponse> getCategoryById(@Path("id") String id);
+
+  @POST("/vendor/categories/{id}")
+  Future<void> updateCategory(
+    @Path("id") String id,
+    @Body() Map<String, dynamic> fields,
+  );
 }

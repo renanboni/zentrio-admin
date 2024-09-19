@@ -40,4 +40,9 @@ class ProductRepositoryImpl implements ProductRepository {
         .getCategoryById(id)
         .then((value) => value.category.toCategory());
   }
+
+  @override
+  Future<void> updateCategory(String id, Map<String, dynamic> fields) {
+    return _service.updateCategory(id, fields);
+  }
 }
