@@ -1,5 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:signals/signals.dart';
+import 'package:zentrio_admin/domain/models/category.dart';
+import 'package:zentrio_admin/domain/usecase/product_usecase.dart';
 
 import '../../../../domain/models/media_file.dart';
 import '../../../../domain/models/product_option.dart';
@@ -9,6 +11,7 @@ class CreateProductViewModel {
   final showProductOptions = signal(false);
   final productTitle = signal('');
   final files = signal<List<MediaFile>>([]);
+  final categories = signal<List<Category>>([]);
   final productOptions = signal<List<ProductOption>>(
     [ProductOption.empty()],
   );
@@ -18,6 +21,20 @@ class CreateProductViewModel {
             .length ==
         productOptions.value.length;
   });
+
+  final ProductUseCase _productUseCase;
+
+  CreateProductViewModel(this._productUseCase) {
+    _getCategories();
+  }
+
+  _getCategories() async {
+    try {
+      categories.value = await _productUseCase.getCategories();
+    } catch (e) {
+      print(e);
+    }
+  }
 
   void onMakeThumbnail(MediaFile file) {
     files.value = files.value
