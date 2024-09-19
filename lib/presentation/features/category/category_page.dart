@@ -5,14 +5,14 @@ import 'package:zentrio_admin/presentation/features/category/category_view_model
 import 'package:zentrio_admin/presentation/features/category/components/category_card.dart';
 import 'package:zentrio_admin/presentation/features/category/components/category_organize_card.dart';
 
+import '../../../di/init.dart';
+
 class CategoryPage extends StatefulWidget {
-  final CategoryViewModel viewModel;
   final String categoryId;
 
   const CategoryPage({
     super.key,
     required this.categoryId,
-    required this.viewModel,
   });
 
   @override
@@ -21,9 +21,11 @@ class CategoryPage extends StatefulWidget {
 
 class _CategoryPageState extends State<CategoryPage> {
 
+  final CategoryViewModel viewModel = getIt<CategoryViewModel>();
+
   @override
   void initState() {
-    widget.viewModel.getCategory(widget.categoryId);
+    viewModel.getCategory(widget.categoryId);
     super.initState();
   }
 
@@ -45,13 +47,13 @@ class _CategoryPageState extends State<CategoryPage> {
               ResponsiveRowColumnItem(
                 rowFlex: 2,
                 child: CategoryCard(
-                  category: widget.viewModel.category.watch(context),
+                  category: viewModel.category.watch(context),
                 ),
               ),
               ResponsiveRowColumnItem(
                 rowFlex: 1,
                 child: CategoryOrganizeCard(
-                  category: widget.viewModel.category.watch(context),
+                  category: viewModel.category.watch(context),
                 ),
               )
             ],

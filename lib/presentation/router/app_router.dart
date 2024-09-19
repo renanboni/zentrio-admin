@@ -98,9 +98,7 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: "/categories",
           builder: (BuildContext context, GoRouterState state) {
-            return CategoriesPage(
-              viewModel: getIt<CategoriesViewModel>(),
-            );
+            return const CategoriesPage();
           },
           routes: [
             GoRoute(
@@ -130,7 +128,6 @@ final GoRouter router = GoRouter(
               builder: (BuildContext context, GoRouterState state) {
                 final categoryId = state.pathParameters['id'];
                 return CategoryPage(
-                  viewModel: getIt<CategoryViewModel>(),
                   categoryId: categoryId ?? '',
                 );
               },

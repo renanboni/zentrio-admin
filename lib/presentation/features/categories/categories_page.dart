@@ -2,18 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
+import 'package:zentrio_admin/di/init.dart';
 import 'package:zentrio_admin/presentation/features/categories/categories_view_model.dart';
 import 'package:zentrio_admin/presentation/features/categories/components/category_table.dart';
 
 import '../../../domain/models/category.dart';
 
-class CategoriesPage extends StatelessWidget {
-  final CategoriesViewModel viewModel;
+class CategoriesPage extends StatefulWidget {
 
   const CategoriesPage({
     super.key,
-    required this.viewModel,
   });
+
+  @override
+  State<CategoriesPage> createState() => _CategoriesPageState();
+}
+
+class _CategoriesPageState extends State<CategoriesPage> {
+  final CategoriesViewModel viewModel = getIt<CategoriesViewModel>();
 
   @override
   Widget build(BuildContext context) {
