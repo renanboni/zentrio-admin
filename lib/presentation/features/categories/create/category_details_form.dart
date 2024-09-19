@@ -63,9 +63,9 @@ class _CategoryDetailsFormState extends State<CategoryDetailsForm> {
         ),
         ResponsiveRowColumnItem(
           child: CreateCategoryForm(
-            title: title,
-            handle: handle,
-            description: description,
+            title: title.text,
+            handle: handle.text,
+            description: description.text,
             initialStatus: widget.viewModel.categoryStatus.watch(context),
             initialVisibility: widget.viewModel.categoryVisibility.watch(context),
             onTitleChanged: widget.viewModel.title.set,

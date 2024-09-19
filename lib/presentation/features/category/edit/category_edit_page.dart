@@ -39,15 +39,16 @@ class _CategoryEditPageState extends State<CategoryEditPage> {
             title: "Edit Category",
             onTap: () => GoRouter.of(context).pop(),
           ),
+          if (widget.viewModel.loading.watch(context))
+            const LinearProgressIndicator()
+          else
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: CreateCategoryForm(
-              title: TextEditingController(
-                  text: widget.viewModel.title.watch(context),),
-              handle: TextEditingController(
-                  text: widget.viewModel.handle.watch(context)),
-              description: TextEditingController(
-                  text: widget.viewModel.description.watch(context)),
+              title: widget.viewModel.category.watch(context)?.name ?? "",
+              handle: widget.viewModel.category.watch(context)?.handle ?? "",
+              description:
+                  widget.viewModel.category.watch(context)?.description ?? "",
               initialStatus: widget.viewModel.categoryStatus.watch(context),
               initialVisibility:
                   widget.viewModel.categoryVisibility.watch(context),

@@ -7,9 +7,9 @@ import '../../../../domain/models/category_status.dart';
 import '../../../../domain/models/category_visibility.dart';
 
 class CreateCategoryForm extends StatelessWidget {
-  final TextEditingController title;
-  final TextEditingController handle;
-  final TextEditingController description;
+  final String title;
+  final String handle;
+  final String description;
   final CategoryStatus? initialStatus;
   final CategoryVisibility? initialVisibility;
 
@@ -51,7 +51,7 @@ class CreateCategoryForm extends StatelessWidget {
                 rowFlex: 1,
                 child: ShadInputFormField(
                   label: const Text('Title'),
-                  controller: title,
+                  initialValue: title,
                   onChanged: onTitleChanged,
                   validator: FormBuilderValidators.compose([
                     FormBuilderValidators.required(),
@@ -62,7 +62,7 @@ class CreateCategoryForm extends StatelessWidget {
                 rowFlex: 1,
                 child: ShadInputFormField(
                   label: const Text('Handle'),
-                  controller: handle,
+                  initialValue: handle,
                   onChanged: onHandleChanged,
                 ),
               ),
@@ -72,7 +72,7 @@ class CreateCategoryForm extends StatelessWidget {
         ResponsiveRowColumnItem(
           child: ShadInputFormField(
             label: const Text('Description'),
-            controller: description,
+            initialValue: description,
             onChanged: onDescriptionChanged,
             maxLines: 5,
           ),

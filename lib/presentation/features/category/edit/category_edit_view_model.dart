@@ -19,7 +19,9 @@ class CategoryEditViewModel {
   final handle = signal("");
   final description = signal("");
 
-  late Category category;
+  final loading = signal(false);
+
+  final Signal<Category?> category = signal(null);
 
   final ProductUseCase _productUseCase;
 
@@ -27,18 +29,24 @@ class CategoryEditViewModel {
 
   void getCategory(String categoryId) async {
     try {
-      category = await _productUseCase.getCategoryById(categoryId);
+      loading.value = true;
 
-      title.value = category.name;
-      handle.value = category.handle;
-      description.value = category.description;
-      categoryStatus.value =
-          category.isActive ? CategoryStatus.active : CategoryStatus.inactive;
-      categoryVisibility.value = category.isInternal
+      category.value = await _productUseCase.getCategoryById(categoryId);
+
+      title.value = category.value?.name ?? "";
+      handle.value = category.value?.handle ?? "";
+      description.value = category.value?.description ?? "";
+
+      categoryStatus.value = category.value?.isActive == true
+          ? CategoryStatus.active
+          : CategoryStatus.inactive;
+      categoryVisibility.value = category.value?.isInternal == true
           ? CategoryVisibility.internal
           : CategoryVisibility.public;
     } catch (e) {
       print(e);
+    } finally {
+      loading.value = false;
     }
   }
 
@@ -48,25 +56,25 @@ class CategoryEditViewModel {
   ) async {
     final fields = <String, dynamic>{};
 
-    addIfChanged(fields, 'name', title.value, category.name);
-    addIfChanged(fields, 'handle', handle.value, category.handle);
+    addIfChanged(fields, 'name', title.value, category.value?.name);
+    addIfChanged(fields, 'handle', handle.value, category.value?.handle);
     addIfChanged(
       fields,
       'description',
       description.value,
-      category.description,
+      category.value?.description,
     );
     addIfChanged(
       fields,
       'is_active',
       categoryStatus.value == CategoryStatus.active ? true : false,
-      category.isActive,
+      category.value?.isActive,
     );
     addIfChanged(
       fields,
       'is_internal',
       categoryVisibility.value == CategoryVisibility.internal ? true : false,
-      category.isInternal,
+      category.value?.isInternal,
     );
 
     if (fields.isEmpty) {
@@ -74,7 +82,7 @@ class CategoryEditViewModel {
     }
 
     try {
-      await _productUseCase.updateCategory(category.id ?? "", fields);
+      await _productUseCase.updateCategory(category.value?.id ?? "", fields);
       onSuccess();
     } catch (e) {
       onError();
