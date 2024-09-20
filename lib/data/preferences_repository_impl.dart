@@ -1,7 +1,7 @@
 
-import 'package:flutter/src/material/app.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:signals_core/src/core/signals.dart';
+import 'package:signals/signals.dart';
 
 import '../domain/repositories/preferences_repository.dart';
 

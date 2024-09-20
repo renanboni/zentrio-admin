@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
-import 'package:zentrio_admin/domain/models/category_status.dart';
-import 'package:zentrio_admin/domain/models/category_visibility.dart';
-import 'package:zentrio_admin/main.dart';
 import 'package:zentrio_admin/presentation/features/categories/create/create_category_form.dart';
 
 import 'create_category_view_model.dart';

@@ -14,8 +14,8 @@ class LoginForm extends StatefulWidget {
   State<LoginForm> createState() => _LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> with SignalsAutoDisposeMixin {
-  late final obscure = createSignal(context, true);
+class _LoginFormState extends State<LoginForm>  {
+  late final obscure = signal(true);
 
   final formKey = GlobalKey<ShadFormState>();
 

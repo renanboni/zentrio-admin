@@ -46,8 +46,8 @@ class CreateCategoryViewModel {
           handle: handle.value,
           description: description.value,
           rank: categories.value.indexWhere((element) => element.isNew),
-          isActive: categoryStatus == CategoryStatus.active,
-          isInternal: categoryVisibility == CategoryVisibility.internal,
+          isActive: categoryStatus.value == CategoryStatus.active,
+          isInternal: categoryVisibility.value == CategoryVisibility.internal,
         ),
       );
       onSuccess();

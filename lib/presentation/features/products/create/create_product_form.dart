@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:signals/signals_flutter.dart';
-import 'package:zentrio_admin/main.dart';
 import 'package:zentrio_admin/presentation/features/products/create/create_product_viewmodel.dart';
 import 'package:zentrio_admin/presentation/features/products/create/product_organize_form.dart';
 import 'package:zentrio_admin/presentation/features/products/create/products_detail_form.dart';
