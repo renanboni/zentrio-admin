@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:zentrio_admin/data/remote/auth_service.dart';
+import 'package:zentrio_admin/data/remote/file_service.dart';
 import 'package:zentrio_admin/data/remote/product_service.dart';
 import 'package:zentrio_admin/data/remote/vendor_service.dart';
 import 'package:zentrio_admin/di/init.dart';
@@ -19,6 +20,9 @@ abstract class NetworkModule {
 
   @lazySingleton
   ProductService get productService => ProductService(getIt<Dio>(instanceName: 'authenticated'));
+
+  @lazySingleton
+  FileService get fileService => FileService(getIt<Dio>(instanceName: 'authenticated'));
 
   final Interceptor _loggerInterceptor = PrettyDioLogger(
     requestHeader: true,

@@ -210,10 +210,10 @@ packages:
     dependency: transitive
     description:
       name: dart_style
-      sha256: "99e066ce75c89d6b29903d788a7bb9369cf754f7b24bf70bf4b6d6d6b26853b9"
+      sha256: "7856d364b589d1f08986e140938578ed36ed948581fbc3bc9aef1805039ac5ab"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.6"
+    version: "2.3.7"
   dio:
     dependency: "direct main"
     description:
@@ -303,10 +303,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_dropzone
-      sha256: "47d07998745f7c85637b6fd0c95b78548938d5a45c50666f2cf75eefc8adb533"
+      sha256: "032966dfb104180935fd05d83c1fd3e10b83670611fbd75fb1578c65ae788817"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.2"
+    version: "4.0.3"
   flutter_dropzone_platform_interface:
     dependency: transitive
     description:
@@ -319,10 +319,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_dropzone_web
-      sha256: "463e127d5f4e0c99f116e8d8d276f5fed874de6a33d53156604db0b2c46b8e6e"
+      sha256: e852e07fd216969a1b0d9add717d27ec2b08e7c7d2bfc3ba8c06dc38e956dd26
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.1"
+    version: "4.0.2"
   flutter_form_builder:
     dependency: "direct main"
     description:
@@ -550,10 +550,10 @@ packages:
     dependency: transitive
     description:
       name: lucide_icons_flutter
-      sha256: "4111307b522898f1e62752dee92fea7f25b7ac73fdd085790e2dd951be04d0ac"
+      sha256: ed42c6197aad7fe429e3163f489808dbd3bd3d624536a0f598e906b98e3db7de
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.8"
+    version: "1.1.9"
   macros:
     dependency: transitive
     description:
@@ -698,6 +698,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  protobuf:
+    dependency: transitive
+    description:
+      name: protobuf
+      sha256: "68645b24e0716782e58948f8467fd42a880f255096a821f9e7d0ec625b00c84d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
   pub_semver:
     dependency: transitive
     description:
@@ -734,26 +742,26 @@ packages:
     dependency: "direct main"
     description:
       name: retrofit
-      sha256: f00d9b02c7d6c091c2b3347d8ed5f982cfa976e532c2567ed203608ee0edb50a
+      sha256: "3c9885ef3dbc5dc4b3fb0a40c972ab52e4dad04d52dac9bba24dfa76cf100451"
       url: "https://pub.dev"
     source: hosted
-    version: "4.4.0"
+    version: "4.4.1"
   retrofit_generator:
     dependency: "direct dev"
     description:
       name: retrofit_generator
-      sha256: "9499eb46b3657a62192ddbc208ff7e6c6b768b19e83c1ee6f6b119c864b99690"
+      sha256: f20982392512587b1cce6cd34e3cf953a01a3fe8f82e4c34e10afe65e70c3556
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.8"
+    version: "9.1.2"
   shadcn_ui:
     dependency: "direct main"
     description:
       name: shadcn_ui
-      sha256: c2ae28ec000a9bb0597c6d9e4cc56f9d9616d35e2a64a3896d96e4c8bf557c4f
+      sha256: ca91ebe0fda5e95a33b70bae41f919ded7fa1b3da0ea7c2eff265ed3990f6fe7
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.5"
+    version: "0.9.7"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -947,10 +955,10 @@ packages:
     dependency: transitive
     description:
       name: two_dimensional_scrollables
-      sha256: "7c3650cc1cc5fa8a9b003e2fd350b049fba1aaa3ed419ad6312ff124bb7a6d38"
+      sha256: "74ce1f35a8c74370b322049c9d00bf098938661e9f67054eae0f618e6dc0cb62"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.1"
+    version: "0.3.2"
   typed_data:
     dependency: transitive
     description:
