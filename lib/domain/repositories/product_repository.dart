@@ -10,6 +10,8 @@ abstract class ProductRepository {
 
   Future<void> createCategory(Category category);
 
+  Future<void> createProduct(Product product);
+
   Future<void> deleteCategory(String id);
 
   Future<Category> getCategoryById(String id);

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/http.dart';
+import 'package:zentrio_admin/data/models/api_product.dart';
 import 'package:zentrio_admin/data/models/req/create_category_req.dart';
 import 'package:zentrio_admin/data/models/res/categories_response.dart';
 import 'package:zentrio_admin/data/models/res/products_response.dart';
@@ -16,8 +17,11 @@ abstract class ProductService {
     String baseUrl,
   }) = _ProductService;
 
-  @GET("/vendors/products")
+  @GET("/vendor/products")
   Future<ProductsResponse> getAll();
+
+  @POST("/vendor/products")
+  Future<ApiProduct> createProduct(@Body() ApiProduct product);
 
   @GET("/vendor/categories")
   Future<CategoriesResponse> getCategories();

@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:zentrio_admin/data/models/api_product_option.dart';
 
 part 'api_product.g.dart';
 
@@ -12,6 +13,7 @@ class ApiProduct {
   final bool? isGiftcard;
   final String? status;
   final String? thumbnail;
+  final List<ApiProductOption>? options;
   final num? weight;
   final num? height;
   final num? length;
@@ -26,7 +28,7 @@ class ApiProduct {
   final String? updatedAt;
   final String? deletedAt;
 
-  ApiProduct(
+  ApiProduct({
     this.id,
     this.title,
     this.handle,
@@ -48,7 +50,8 @@ class ApiProduct {
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
-  );
+    this.options,
+  });
 
   factory ApiProduct.fromJson(Map<String, dynamic> json) => _$ApiProductFromJson(json);
 

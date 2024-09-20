@@ -1,5 +1,6 @@
 
 import 'package:equatable/equatable.dart';
+import 'package:zentrio_admin/domain/models/product_option.dart';
 
 class Product extends Equatable {
   final String id;
@@ -20,6 +21,7 @@ class Product extends Equatable {
   final String typeId;
   final bool discountable;
   final String externalId;
+  final List<ProductOption> options;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final DateTime? deletedAt;
@@ -46,6 +48,7 @@ class Product extends Equatable {
     required this.createdAt,
     required this.updatedAt,
     required this.deletedAt,
+    required this.options,
   });
 
   @override
@@ -68,6 +71,7 @@ class Product extends Equatable {
     typeId,
     discountable,
     externalId,
+    options,
     createdAt,
     updatedAt,
     deletedAt,

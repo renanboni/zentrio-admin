@@ -45,4 +45,9 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<void> updateCategory(String id, Map<String, dynamic> fields) {
     return _service.updateCategory(id, fields);
   }
+
+  @override
+  Future<void> createProduct(Product product) {
+    return _service.createProduct(product.createProductRequest());
+  }
 }

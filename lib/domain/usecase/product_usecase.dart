@@ -9,6 +9,10 @@ class ProductUseCase {
 
   ProductUseCase(this._productRepository);
 
+  Future<void> create(Product product) {
+    return _productRepository.createProduct(product);
+  }
+
   Future<List<Product>> getAll() {
     return _productRepository.getAll();
   }
