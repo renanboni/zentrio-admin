@@ -49,6 +49,9 @@ class _ProductsPageState extends State<ProductsPage> {
             Expanded(
               child: ProductsTable(
                 products: viewModel.products.watch(context),
+                onClick: (product) {
+                  GoRouter.of(context).go("/products/${product.id}");
+                },
               ),
             ),
           ],

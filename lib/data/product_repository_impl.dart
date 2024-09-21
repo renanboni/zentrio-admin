@@ -55,4 +55,11 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<void> createProduct(ApiProduct product) {
     return _service.createProduct(product);
   }
+
+  @override
+  Future<Product> getProductById(String id) {
+    return _service
+        .getProductById(id)
+        .then((value) => value.product.toProduct());
+  }
 }

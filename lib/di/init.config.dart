@@ -48,6 +48,8 @@ import 'package:zentrio_admin/presentation/features/dashboard/vendor/vendors_con
     as _i60;
 import 'package:zentrio_admin/presentation/features/login/login_view_model.dart'
     as _i939;
+import 'package:zentrio_admin/presentation/features/product/product_view_model.dart'
+    as _i1010;
 import 'package:zentrio_admin/presentation/features/products/create/create_product_viewmodel.dart'
     as _i531;
 import 'package:zentrio_admin/presentation/features/products/products_view_model.dart'
@@ -131,6 +133,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i722.CategoriesViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i1019.CreateCategoryViewModel>(
         () => _i1019.CreateCategoryViewModel(gh<_i977.ProductUseCase>()));
+    gh.factory<_i1010.ProductViewModel>(
+        () => _i1010.ProductViewModel(gh<_i977.ProductUseCase>()));
     gh.lazySingleton<_i857.DashboardViewModel>(() => _i857.DashboardViewModel(
           gh<_i620.AuthUseCase>(),
           gh<_i97.VendorUseCase>(),

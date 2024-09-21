@@ -21,7 +21,7 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShadCard(
-      padding: const EdgeInsets.all(0),
+      padding: EdgeInsets.zero,
       child: Column(
         children: [
           _buildHeader(context, category),

@@ -16,6 +16,10 @@ class ProductUseCase {
     return _productRepository.createProduct(product);
   }
 
+  Future<Product> getProductById(String id) {
+    return _productRepository.getProductById(id);
+  }
+
   Future<List<Product>> getAll() {
     return _productRepository.getAll();
   }

@@ -13,15 +13,18 @@ final headings = [
 
 class ProductsTable extends StatelessWidget {
   final List<Product> products;
+  final ValueChanged<Product> onClick;
 
   const ProductsTable({
     super.key,
     required this.products,
+    required this.onClick,
   });
 
   @override
   Widget build(BuildContext context) {
     return ShadTable(
+      onRowTap: (index) => onClick(products[index]),
       builder: (context, index) {
         final product = products[index.row];
 

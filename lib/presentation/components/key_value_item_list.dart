@@ -20,13 +20,13 @@ class KeyValueItemList extends StatelessWidget {
         children: [
           Expanded(
             child: Text(
-              pair.item1,
+              pair.item1.toString(),
               style: theme.textTheme.muted,
             ),
           ),
           Expanded(
             child: Text(
-              pair.item2.isEmpty ? '-' : pair.item2,
+              pair.item2.toString().isEmpty ? '-' : pair.item2.toString(),
               style: theme.textTheme.muted,
             ),
           ),

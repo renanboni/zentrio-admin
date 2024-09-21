@@ -9,6 +9,8 @@ import 'package:zentrio_admin/presentation/features/category/edit/category_edit_
 import 'package:zentrio_admin/presentation/features/dashboard/dashboard_page.dart';
 import 'package:zentrio_admin/presentation/features/dashboard/vendor/vendors_page.dart';
 import 'package:zentrio_admin/presentation/features/ranking/ranking_page.dart';
+import 'package:zentrio_admin/presentation/router/categories_route.dart';
+import 'package:zentrio_admin/presentation/router/products_route.dart';
 
 import '../components/sheet_page.dart';
 import '../features/categories/create/create_category_view_model.dart';
@@ -17,6 +19,7 @@ import '../features/dashboard/side_bar_controller.dart';
 import '../features/dashboard/vendor/vendors_controller.dart';
 import '../features/invite/vendor_invite_page.dart';
 import '../features/login/login_page.dart';
+import '../features/product/product_page.dart';
 import '../features/products/create/create_product_form.dart';
 import '../features/products/create/create_product_viewmodel.dart';
 import '../features/products/products_page.dart';
@@ -72,88 +75,8 @@ final GoRouter router = GoRouter(
             ),
           ],
         ),
-        GoRoute(
-          path: "/products",
-          builder: (BuildContext context, GoRouterState state) {
-            return const ProductsPage();
-          },
-          routes: [
-            GoRoute(
-              path: "create",
-              parentNavigatorKey: rootNavigatorKey,
-              pageBuilder: (BuildContext context, GoRouterState state) {
-                return DialogPage(
-                  builder: (_) => const CreateProductForm(),
-                );
-              },
-            ),
-          ],
-        ),
-        GoRoute(
-          path: "/categories",
-          builder: (BuildContext context, GoRouterState state) {
-            return const CategoriesPage();
-          },
-          routes: [
-            GoRoute(
-              path: "create",
-              parentNavigatorKey: rootNavigatorKey,
-              pageBuilder: (BuildContext context, GoRouterState state) {
-                return DialogPage(
-                  builder: (_) => CreateCategoryPage(
-                    viewModel: getIt<CreateCategoryViewModel>(),
-                  ),
-                );
-              },
-            ),
-            GoRoute(
-              path: "organize",
-              parentNavigatorKey: rootNavigatorKey,
-              pageBuilder: (BuildContext context, GoRouterState state) {
-                return DialogPage(
-                  builder: (_) => RankingPage(
-                    viewModel: getIt<RankingViewModel>(),
-                  ),
-                );
-              },
-            ),
-            GoRoute(
-              path: ':id',
-              builder: (BuildContext context, GoRouterState state) {
-                final categoryId = state.pathParameters['id'];
-                return CategoryPage(
-                  categoryId: categoryId ?? '',
-                );
-              },
-              routes: [
-                GoRoute(
-                  path: "organize",
-                  parentNavigatorKey: rootNavigatorKey,
-                  pageBuilder: (BuildContext context, GoRouterState state) {
-                    return DialogPage(
-                      builder: (_) => RankingPage(
-                        viewModel: getIt<RankingViewModel>(),
-                      ),
-                    );
-                  },
-                ),
-                GoRoute(
-                  path: "edit",
-                  parentNavigatorKey: rootNavigatorKey,
-                  pageBuilder: (BuildContext context, GoRouterState state) {
-                    final categoryId = state.pathParameters['id'];
-                    return SheetPage(
-                      builder: (_) => CategoryEditPage(
-                        categoryId: categoryId ?? '',
-                        viewModel: getIt<CategoryEditViewModel>(),
-                      ),
-                    );
-                  },
-                ),
-              ]
-            ),
-          ],
-        ),
+        productsRoute,
+        categoriesRoute,
       ],
     )
   ],

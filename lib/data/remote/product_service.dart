@@ -7,6 +7,7 @@ import 'package:zentrio_admin/data/models/res/categories_response.dart';
 import 'package:zentrio_admin/data/models/res/products_response.dart';
 
 import '../models/res/category_response.dart';
+import '../models/res/product_response.dart';
 
 part 'product_service.g.dart';
 
@@ -22,6 +23,9 @@ abstract class ProductService {
 
   @POST("/vendor/products")
   Future<ApiProduct> createProduct(@Body() ApiProduct product);
+
+  @GET("/vendor/products/{id}")
+  Future<ProductResponse> getProductById(@Path("id") String id);
 
   @GET("/vendor/categories")
   Future<CategoriesResponse> getCategories();

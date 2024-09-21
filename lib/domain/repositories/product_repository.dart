@@ -20,4 +20,6 @@ abstract class ProductRepository {
   Future<Category> getCategoryById(String id);
 
   Future<void> updateCategory(String id, Map<String, dynamic> fields);
+
+  Future<Product> getProductById(String id);
 }
