@@ -6,13 +6,15 @@ import 'package:zentrio_admin/domain/models/product.dart';
 import 'package:zentrio_admin/domain/models/product_option.dart';
 import 'package:zentrio_admin/domain/repositories/product_repository.dart';
 
+import '../../data/models/create_product_request.dart';
+
 @injectable
 class ProductUseCase {
   final ProductRepository _productRepository;
 
   ProductUseCase(this._productRepository);
 
-  Future<void> createProduct(ApiProduct product) {
+  Future<void> createProduct(CreateProductRequest product) {
     return _productRepository.createProduct(product);
   }
 

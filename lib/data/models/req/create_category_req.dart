@@ -5,14 +5,16 @@ part 'create_category_req.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class CreateCategoryRequest {
-  final String name;
-  final String description;
-  final String handle;
-  final bool isActive;
-  final bool isInternal;
-  final int rank;
+  final String? id;
+  final String? name;
+  final String? description;
+  final String? handle;
+  final bool? isActive;
+  final bool? isInternal;
+  final int? rank;
 
   CreateCategoryRequest({
+    this.id,
     required this.name,
     required this.description,
     required this.handle,

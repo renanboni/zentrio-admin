@@ -9,6 +9,7 @@ import '../domain/models/medusa_file.dart';
 import '../domain/models/product_option.dart';
 import '../domain/repositories/product_repository.dart';
 import 'models/api_product_option.dart';
+import 'models/create_product_request.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
   final ProductService _service;
@@ -23,7 +24,7 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<void> createProduct(ApiProduct product) {
+  Future<void> createProduct(CreateProductRequest product) {
     return _service.createProduct(product);
   }
 

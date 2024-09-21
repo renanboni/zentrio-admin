@@ -6,6 +6,7 @@ import 'package:zentrio_admin/data/models/req/create_category_req.dart';
 import 'package:zentrio_admin/data/models/res/categories_response.dart';
 import 'package:zentrio_admin/data/models/res/products_response.dart';
 
+import '../models/create_product_request.dart';
 import '../models/res/category_response.dart';
 import '../models/res/product_response.dart';
 
@@ -22,7 +23,7 @@ abstract class ProductService {
   Future<ProductsResponse> getAll();
 
   @POST("/vendor/products")
-  Future<ApiProduct> createProduct(@Body() ApiProduct product);
+  Future<ApiProduct> createProduct(@Body() CreateProductRequest product);
 
   @GET("/vendor/products/{id}")
   Future<ProductResponse> getProductById(

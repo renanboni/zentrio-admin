@@ -11,6 +11,7 @@ import 'package:zentrio_admin/domain/usecase/category_usecase.dart';
 import 'package:zentrio_admin/domain/usecase/file_usecase.dart';
 import 'package:zentrio_admin/domain/usecase/product_usecase.dart';
 
+import '../../../../data/models/create_product_request.dart';
 import '../../../../domain/models/media_file.dart';
 import '../../../../domain/models/product_option.dart';
 
@@ -52,7 +53,7 @@ class CreateProductViewModel {
       final uploadedFiles = await _fileUseCase.uploadBytes(bytes);
 
       await _productUseCase.createProduct(
-        ApiProduct(
+        CreateProductRequest(
           title: productTitle.value,
           options: productOptions.value
               .map(
