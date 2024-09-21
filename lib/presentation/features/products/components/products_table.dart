@@ -27,7 +27,15 @@ class ProductsTable extends StatelessWidget {
 
         switch (index.column) {
           case 0:
-            return ShadTableCell(child: Text(product.title));
+            return ShadTableCell(
+              child: Row(
+                children: [
+                  ShadImage(product.thumbnail),
+                  const SizedBox(width: 8),
+                  Text(product.title),
+                ],
+              ),
+            );
           case 1:
             return const ShadTableCell(child: Text("-"));
           case 2:
@@ -50,7 +58,7 @@ class ProductsTable extends StatelessWidget {
         );
       },
       columnSpanExtent: (index) {
-        if (index == 0) return const FixedTableSpanExtent(150);
+        if (index == 0) return const FixedTableSpanExtent(250);
         if (index == 1) return const FixedTableSpanExtent(200);
         if (index == 2) return const FixedTableSpanExtent(250);
         if (index == 3) return const FixedTableSpanExtent(150);
