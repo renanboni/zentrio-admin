@@ -75,9 +75,7 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: "/products",
           builder: (BuildContext context, GoRouterState state) {
-            return ProductsPage(
-              viewModel: getIt<ProductsViewModel>(),
-            );
+            return const ProductsPage();
           },
           routes: [
             GoRoute(
@@ -85,9 +83,7 @@ final GoRouter router = GoRouter(
               parentNavigatorKey: rootNavigatorKey,
               pageBuilder: (BuildContext context, GoRouterState state) {
                 return DialogPage(
-                  builder: (_) => CreateProductForm(
-                    viewModel: getIt<CreateProductViewModel>(),
-                  ),
+                  builder: (_) => const CreateProductForm(),
                 );
               },
             ),

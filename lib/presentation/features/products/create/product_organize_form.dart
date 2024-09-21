@@ -6,10 +6,14 @@ import 'package:zentrio_admin/presentation/components/switch_card.dart';
 
 class ProductOrganizeForm extends StatelessWidget {
   final List<Category> categories;
+  final bool discountable;
+  final ValueChanged<bool> onDiscountableChanged;
 
   const ProductOrganizeForm({
     super.key,
     required this.categories,
+    required this.discountable,
+    required this.onDiscountableChanged,
   });
 
   @override
@@ -28,11 +32,13 @@ class ProductOrganizeForm extends StatelessWidget {
             style: theme.textTheme.large,
           ),
         ),
-        const ResponsiveRowColumnItem(
+        ResponsiveRowColumnItem(
           child: SwitchCard(
             title: "Discountable",
             description:
                 "When unchecked, discounts will not be applied to this product",
+            value: discountable,
+            onChanged: onDiscountableChanged,
           ),
         ),
         ResponsiveRowColumnItem(
@@ -80,22 +86,28 @@ class ProductOrganizeForm extends StatelessWidget {
             children: [
               ResponsiveRowColumnItem(
                 rowFlex: 1,
-                child: ShadSelectFormField<Category>(
-                  id: 'category',
-                  minWidth: double.infinity,
-                  placeholder: const Text(""),
-                  label: const Text('Categories (optional)'),
-                  initialValue: null,
-                  onChanged: (value) {},
-                  options: categories
-                      .map(
-                        (e) => ShadOption(
-                          value: e,
-                          child: Text(e.name),
-                        ),
-                      )
-                      .toList(),
-                  selectedOptionBuilder: (context, value) => Text(value.name),
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    return ShadSelectFormField<Category>(
+                      id: 'category',
+                      maxWidth: constraints.maxWidth,
+                      minWidth: constraints.maxWidth,
+                      placeholder: const Text(""),
+                      label: const Text('Categories (optional)'),
+                      initialValue: null,
+                      onChanged: (value) {},
+                      options: categories
+                          .map(
+                            (e) => ShadOption(
+                              value: e,
+                              child: Text(e.name),
+                            ),
+                          )
+                          .toList(),
+                      selectedOptionBuilder: (context, value) =>
+                          Text(value.name),
+                    );
+                  },
                 ),
               ),
               ResponsiveRowColumnItem(

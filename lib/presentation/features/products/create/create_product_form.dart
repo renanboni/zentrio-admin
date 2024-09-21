@@ -7,60 +7,63 @@ import 'package:zentrio_admin/presentation/features/products/create/create_produ
 import 'package:zentrio_admin/presentation/features/products/create/product_organize_form.dart';
 import 'package:zentrio_admin/presentation/features/products/create/products_detail_form.dart';
 
+import '../../../../di/init.dart';
 import '../../../components/stepper/horizontal_stepper.dart';
 import '../../../components/stepper/step_item_list.dart';
 
-class CreateProductForm extends StatelessWidget {
-  final CreateProductViewModel viewModel;
+class CreateProductForm extends StatefulWidget {
+  const CreateProductForm({super.key});
 
-  const CreateProductForm({
-    super.key,
-    required this.viewModel,
-  });
+  @override
+  State<CreateProductForm> createState() => _CreateProductFormState();
+}
+
+class _CreateProductFormState extends State<CreateProductForm> {
+  final CreateProductViewModel viewModel = getIt<CreateProductViewModel>();
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: HorizontalStepper(
-        showEsc: true,
-        steps: [
-          StepItemList(
-            title: 'Details',
-            state: HorizontalStepState.editing,
-            content: MaxWidthBox(
-              maxWidth: MediaQuery.sizeOf(context).width * 0.5,
-              child: ProductsDetailForm(
-                viewModel: viewModel,
-              ),
+    return HorizontalStepper(
+      showEsc: true,
+      steps: [
+        StepItemList(
+          title: 'Details',
+          state: HorizontalStepState.editing,
+          content: MaxWidthBox(
+            maxWidth: MediaQuery.sizeOf(context).width * 0.5,
+            child: ProductsDetailForm(
+              viewModel: viewModel,
             ),
           ),
-          StepItemList(
-            title: 'Organize',
-            state: HorizontalStepState.disabled,
-            content: MaxWidthBox(
-              maxWidth: MediaQuery.sizeOf(context).width * 0.5,
-              child: ProductOrganizeForm(
-                categories: viewModel.categories.watch(context),
-              ),
+        ),
+        StepItemList(
+          title: 'Organize',
+          state: HorizontalStepState.disabled,
+          content: MaxWidthBox(
+            maxWidth: MediaQuery.sizeOf(context).width * 0.5,
+            child: ProductOrganizeForm(
+              categories: viewModel.categories.watch(context),
+              discountable: viewModel.discountable.watch(context),
+              onDiscountableChanged: viewModel.discountable.set,
             ),
           ),
-        ],
-        onComplete: () async  {
-          viewModel.createProduct(
-            () {
-              ShadToaster.of(context).show(
-                const ShadToast(
-                  description: Text('Product created successfully'),
-                ),
-              );
-              GoRouter.of(context).pop();
-            },
-            () {
-              print('Error creating product');
-            },
-          );
-        },
-      ),
+        ),
+      ],
+      onComplete: () async {
+        viewModel.createProduct(
+          () {
+            ShadToaster.of(context).show(
+              const ShadToast(
+                description: Text('Product created successfully'),
+              ),
+            );
+            GoRouter.of(context).pop();
+          },
+          () {
+            print('Error creating product');
+          },
+        );
+      },
     );
   }
 }

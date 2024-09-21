@@ -19,6 +19,7 @@ class CreateProductViewModel {
   final productTitle = signal('');
   final files = listSignal<MediaFile>([]);
   final categories = signal<List<Category>>([]);
+  final discountable = signal(false);
   final productOptions = signal<List<ProductOption>>(
     [ProductOption.empty()],
   );
