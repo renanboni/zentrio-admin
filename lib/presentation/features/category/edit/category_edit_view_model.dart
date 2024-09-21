@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:injectable/injectable.dart';
 import 'package:signals/signals.dart';
+import 'package:zentrio_admin/domain/usecase/category_usecase.dart';
 
 import '../../../../domain/models/category.dart';
 import '../../../../domain/models/category_status.dart';
@@ -23,15 +24,15 @@ class CategoryEditViewModel {
 
   final Signal<Category?> category = signal(null);
 
-  final ProductUseCase _productUseCase;
+  final CategoryUseCase _categoryUseCase;
 
-  CategoryEditViewModel(this._productUseCase);
+  CategoryEditViewModel(this._categoryUseCase);
 
   void getCategory(String categoryId) async {
     try {
       loading.value = true;
 
-      category.value = await _productUseCase.getCategoryById(categoryId);
+      category.value = await _categoryUseCase.getCategoryById(categoryId);
 
       title.value = category.value?.name ?? "";
       handle.value = category.value?.handle ?? "";
@@ -82,7 +83,7 @@ class CategoryEditViewModel {
     }
 
     try {
-      await _productUseCase.updateCategory(category.value?.id ?? "", fields);
+      await _categoryUseCase.updateCategory(category.value?.id ?? "", fields);
       onSuccess();
     } catch (e) {
       onError();

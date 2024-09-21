@@ -7,6 +7,7 @@ import 'package:zentrio_admin/data/models/api_file.dart';
 import 'package:zentrio_admin/data/models/api_product.dart';
 import 'package:zentrio_admin/data/models/api_product_option.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
+import 'package:zentrio_admin/domain/usecase/category_usecase.dart';
 import 'package:zentrio_admin/domain/usecase/file_usecase.dart';
 import 'package:zentrio_admin/domain/usecase/product_usecase.dart';
 
@@ -31,11 +32,13 @@ class CreateProductViewModel {
   });
 
   final ProductUseCase _productUseCase;
+  final CategoryUseCase _categoryUseCase;
   final FileUseCase _fileUseCase;
 
   CreateProductViewModel(
     this._productUseCase,
     this._fileUseCase,
+    this._categoryUseCase,
   ) {
     _getCategories();
   }
@@ -76,7 +79,7 @@ class CreateProductViewModel {
 
   _getCategories() async {
     try {
-      categories.value = await _productUseCase.getCategories();
+      categories.value = await _categoryUseCase.getCategories();
     } catch (e) {
       print(e);
     }

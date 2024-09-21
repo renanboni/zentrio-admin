@@ -23,35 +23,6 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<List<Category>> getCategories() {
-    return _service
-        .getCategories()
-        .then((value) => value.categories.map((e) => e.toCategory()).toList());
-  }
-
-  @override
-  Future<void> createCategory(Category category) {
-    return _service.createCategory(category.createCategoryRequest());
-  }
-
-  @override
-  Future<void> deleteCategory(String id) {
-    return _service.deleteCategory(id);
-  }
-
-  @override
-  Future<Category> getCategoryById(String id) {
-    return _service
-        .getCategoryById(id)
-        .then((value) => value.category.toCategory());
-  }
-
-  @override
-  Future<void> updateCategory(String id, Map<String, dynamic> fields) {
-    return _service.updateCategory(id, fields);
-  }
-
-  @override
   Future<void> createProduct(ApiProduct product) {
     return _service.createProduct(product);
   }

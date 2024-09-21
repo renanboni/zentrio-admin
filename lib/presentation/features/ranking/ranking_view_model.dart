@@ -1,24 +1,24 @@
 
 import 'package:injectable/injectable.dart';
 import 'package:signals/signals.dart';
+import 'package:zentrio_admin/domain/usecase/category_usecase.dart';
 
 import '../../../domain/models/category.dart';
-import '../../../domain/usecase/product_usecase.dart';
 
 @injectable
 class RankingViewModel {
 
-  final ProductUseCase _productUseCase;
+  final CategoryUseCase _categoryUseCase;
 
   final Signal<List<Category>> categories = signal([]);
 
-  RankingViewModel(this._productUseCase) {
+  RankingViewModel(this._categoryUseCase) {
     _getCategories();
   }
 
   _getCategories() async {
     try {
-      categories.value = await _productUseCase.getCategories();
+      categories.value = await _categoryUseCase.getCategories();
     } catch (e) {
       print(e);
     }

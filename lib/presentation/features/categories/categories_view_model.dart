@@ -2,22 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:signals/signals.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
+import 'package:zentrio_admin/domain/usecase/category_usecase.dart';
 
 import '../../../domain/usecase/product_usecase.dart';
 
 @injectable
 class CategoriesViewModel {
-  final ProductUseCase _productUseCase;
+  final CategoryUseCase _categoryUseCase;
 
   final Signal<List<Category>> categories = signal([]);
 
-  CategoriesViewModel(this._productUseCase) {
+  CategoriesViewModel(this._categoryUseCase) {
     _getCategories();
   }
 
   _getCategories() async {
     try {
-      categories.value = await _productUseCase.getCategories();
+      categories.value = await _categoryUseCase.getCategories();
     } catch (e) {
       print(e);
     }
@@ -29,7 +30,7 @@ class CategoriesViewModel {
     VoidCallback onError,
   ) async {
     try {
-      await _productUseCase.deleteCategory(category.id ?? "");
+      await _categoryUseCase.deleteCategory(category.id ?? "");
       _getCategories();
       onSuccess();
     } catch (e) {
