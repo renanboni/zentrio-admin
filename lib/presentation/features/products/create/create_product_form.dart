@@ -41,10 +41,14 @@ class _CreateProductFormState extends State<CreateProductForm> {
           state: HorizontalStepState.disabled,
           content: MaxWidthBox(
             maxWidth: MediaQuery.sizeOf(context).width * 0.5,
-            child: ProductOrganizeForm(
-              categories: viewModel.categories.watch(context),
-              discountable: viewModel.discountable.watch(context),
-              onDiscountableChanged: viewModel.discountable.set,
+            child: Watch(
+              (_) {
+                return ProductOrganizeForm(
+                  categories: viewModel.categories.value,
+                  discountable: viewModel.discountable.value,
+                  onDiscountableChanged: viewModel.discountable.set,
+                );
+              },
             ),
           ),
         ),
