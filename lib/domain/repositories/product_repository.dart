@@ -8,5 +8,5 @@ abstract class ProductRepository {
 
   Future<void> createProduct(ApiProduct product);
 
-  Future<Product> getProductById(String id);
+  Future<Product> getProductById(String id, {List<String> expand = const []});
 }

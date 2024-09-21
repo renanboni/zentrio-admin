@@ -28,9 +28,9 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<Product> getProductById(String id) {
+  Future<Product> getProductById(String id, {List<String> expand = const []}) {
     return _service
-        .getProductById(id)
+        .getProductById(id, expand.join(','))
         .then((value) => value.product.toProduct());
   }
 }

@@ -24,7 +24,7 @@ class ProductsTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShadTable(
-      onRowTap: (index) => onClick(products[index]),
+      onRowTap: (index) => onClick(products[index - 1]),
       builder: (context, index) {
         final product = products[index.row];
 

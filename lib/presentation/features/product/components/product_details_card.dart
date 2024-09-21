@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:tuple/tuple.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
+import 'package:zentrio_admin/presentation/components/item_status.dart';
 
+import '../../../components/edit_context_menu.dart';
 import '../../../components/key_value_item_list.dart';
 
 class ProductDetailsCard extends StatelessWidget {
@@ -51,6 +53,23 @@ class ProductDetailsCard extends StatelessWidget {
             style: theme.textTheme.table,
           ),
           const Spacer(),
+          Wrap(
+            direction: Axis.horizontal,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 16,
+            children: [
+              ItemStatus(isActive: product.status == "published", activeText: "published", inactiveText: "draft"),
+              EditContextMenu(
+                deleteDialogTitle: "Are you sure?",
+                deleteDialogDescription:
+                "You are about to delete the ${product.title}. This action cannot be undone.",
+                onEdit: () async {
+
+                },
+                onDelete: () {},
+              )
+            ],
+          )
         ],
       ),
     );

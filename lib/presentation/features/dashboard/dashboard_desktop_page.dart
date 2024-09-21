@@ -24,7 +24,7 @@ class DashboardDesktopPage extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: 300,
+          width: 250,
           child: SideBar(
             items: controller.menu.watch(context),
             vendor: controller.vendor.watch(context),

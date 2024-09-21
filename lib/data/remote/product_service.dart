@@ -25,7 +25,10 @@ abstract class ProductService {
   Future<ApiProduct> createProduct(@Body() ApiProduct product);
 
   @GET("/vendor/products/{id}")
-  Future<ProductResponse> getProductById(@Path("id") String id);
+  Future<ProductResponse> getProductById(
+    @Path("id") String id,
+    @Query("expand") String expand,
+  );
 
   @GET("/vendor/categories")
   Future<CategoriesResponse> getCategories();
