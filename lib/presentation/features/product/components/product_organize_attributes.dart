@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:tuple/tuple.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
@@ -47,12 +48,17 @@ class ProductAttributesCard extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            "Organize",
+            "Attributes",
             style: theme.textTheme.table,
           ),
           const Spacer(),
           EditContextMenu(
-            onEdit: () async {},
+            onEdit: () {
+              GoRouter.of(context).go(
+                "/products/${product.id}/attributes",
+                extra: product,
+              );
+            },
           )
         ],
       ),

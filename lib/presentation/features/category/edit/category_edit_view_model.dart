@@ -7,7 +7,6 @@ import 'package:zentrio_admin/domain/usecase/category_usecase.dart';
 import '../../../../domain/models/category.dart';
 import '../../../../domain/models/category_status.dart';
 import '../../../../domain/models/category_visibility.dart';
-import '../../../../domain/usecase/product_usecase.dart';
 
 @Injectable()
 class CategoryEditViewModel {
