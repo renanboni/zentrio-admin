@@ -1,16 +1,21 @@
+import 'dart:typed_data';
+import 'dart:ui';
+
 import 'package:injectable/injectable.dart';
 import 'package:signals/signals.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
+import 'package:zentrio_admin/domain/usecase/file_usecase.dart';
 import 'package:zentrio_admin/domain/usecase/product_usecase.dart';
 
 import '../../../../domain/models/media_file.dart';
+import '../../../../domain/models/product.dart';
 import '../../../../domain/models/product_option.dart';
 
 @injectable
 class CreateProductViewModel {
   final showProductOptions = signal(false);
   final productTitle = signal('');
-  final files = signal<List<MediaFile>>([]);
+  final files = listSignal<MediaFile>([]);
   final categories = signal<List<Category>>([]);
   final productOptions = signal<List<ProductOption>>(
     [ProductOption.empty()],
@@ -23,9 +28,35 @@ class CreateProductViewModel {
   });
 
   final ProductUseCase _productUseCase;
+  final FileUseCase _fileUseCase;
 
-  CreateProductViewModel(this._productUseCase) {
+  CreateProductViewModel(
+    this._productUseCase,
+    this._fileUseCase,
+  ) {
     _getCategories();
+  }
+
+  void createProduct(
+    VoidCallback onSuccess,
+    VoidCallback onError,
+  ) async {
+    try {
+      final bytes = files.value.map((e) => e.bytes ?? Uint8List(0)).toList();
+      final urls = files.value.map((e) => e.url).toList();
+      final uploadedFiles = await _fileUseCase.uploadBytes(bytes);
+
+      await _productUseCase.createProduct(
+        title: productTitle.value,
+        options: productOptions.value,
+        status: 'published',
+        images: uploadedFiles,
+      );
+      onSuccess();
+    } catch (e) {
+      onError();
+      print(e);
+    }
   }
 
   _getCategories() async {
@@ -39,13 +70,13 @@ class CreateProductViewModel {
   void onMakeThumbnail(MediaFile file) {
     files.value = files.value
         .map(
-          (e) => e.copyWith(isThumbnail: e == file),
+          (e) => e.copyWith(isThumbnail: e.url == file.url),
         )
         .toList();
   }
 
   void onDeleteFile(int index) {
-    files.value = files.value..removeAt(index);
+    files.value = List.from(files.value)..removeAt(index);
   }
 
   void onFilesAdded(List<MediaFile> mediaFiles) {

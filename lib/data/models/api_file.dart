@@ -5,8 +5,8 @@ part 'api_file.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class ApiFile {
-  final String id;
-  final String url;
+  final String? id;
+  final String? url;
 
   ApiFile({
     required this.id,

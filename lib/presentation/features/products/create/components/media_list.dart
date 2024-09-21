@@ -65,12 +65,14 @@ class _MediaListState extends State<MediaList> {
                     final size = await controller.getFileSize(file);
                     final mimeType = await controller.getFileMIME(file);
                     final url = await controller.createFileUrl(file);
+                    final bytes = await controller.getFileData(file);
 
                     mediaFiles.add(
                       MediaFile(
                         name,
                         size,
                         mimeType,
+                        bytes,
                         url,
                       ),
                     );

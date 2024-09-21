@@ -1,5 +1,6 @@
 
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:injectable/injectable.dart';
 import 'package:zentrio_admin/domain/models/medusa_file.dart';
@@ -12,7 +13,11 @@ class FileUseCase {
 
   FileUseCase(this._fileRepository);
 
-  Future<List<MedusaFile>> upload(List<File> files) {
-    return _fileRepository.upload(files);
+  Future<List<MedusaFile>> upload(List<String> paths) {
+    return _fileRepository.upload(paths);
+  }
+
+  Future<List<MedusaFile>> uploadBytes(List<Uint8List> bytes) {
+    return _fileRepository.uploadBytes(bytes);
   }
 }

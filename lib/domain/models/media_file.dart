@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:equatable/equatable.dart';
 import 'package:zentrio_admin/utils/extensions/string_ext.dart';
 
@@ -7,11 +9,13 @@ class MediaFile extends Equatable {
   final int size;
   final String url;
   final bool isThumbnail;
+  final Uint8List? bytes;
 
   const MediaFile(
     this.name,
     this.size,
     this.mimeType,
+    this.bytes,
     this.url, {
     this.isThumbnail = false,
   });
@@ -20,15 +24,17 @@ class MediaFile extends Equatable {
 
   MediaFile copyWith({
     String? name,
-    String? mimeType,
     int? size,
+    String? mimeType,
     String? url,
     bool? isThumbnail,
+    Uint8List? bytes,
   }) {
     return MediaFile(
       name ?? this.name,
       size ?? this.size,
       mimeType ?? this.mimeType,
+      bytes ?? this.bytes,
       url ?? this.url,
       isThumbnail: isThumbnail ?? this.isThumbnail,
     );

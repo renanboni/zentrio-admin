@@ -1,3 +1,4 @@
+import 'package:zentrio_admin/data/mappers/file_mapper.dart';
 import 'package:zentrio_admin/data/models/req/create_category_req.dart';
 import 'package:zentrio_admin/domain/models/product_option.dart';
 
@@ -32,6 +33,7 @@ extension ApiProductMapper on ApiProduct {
       updatedAt: DateTime.tryParse(updatedAt ?? ''),
       deletedAt: DateTime.tryParse(deletedAt ?? ''),
       options: options?.map((e) => e.toProductOption()).toList() ?? [],
+      images: images?.map((e) => e.toMediaFile()).toList() ?? [],
     );
   }
 }

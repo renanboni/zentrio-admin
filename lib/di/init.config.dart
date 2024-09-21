@@ -113,14 +113,16 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i620.AuthUseCase(gh<_i132.AuthenticationRepository>()));
     gh.factory<_i60.VendorsController>(
         () => _i60.VendorsController(gh<_i97.VendorUseCase>()));
+    gh.factory<_i531.CreateProductViewModel>(() => _i531.CreateProductViewModel(
+          gh<_i977.ProductUseCase>(),
+          gh<_i850.FileUseCase>(),
+        ));
     gh.factory<_i939.LoginViewModel>(
         () => _i939.LoginViewModel(gh<_i620.AuthUseCase>()));
     gh.factory<_i473.RankingViewModel>(
         () => _i473.RankingViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i91.ProductsViewModel>(
         () => _i91.ProductsViewModel(gh<_i977.ProductUseCase>()));
-    gh.factory<_i531.CreateProductViewModel>(
-        () => _i531.CreateProductViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i943.CategoryViewModel>(
         () => _i943.CategoryViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i632.CategoryEditViewModel>(

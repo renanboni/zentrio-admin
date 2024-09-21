@@ -1,9 +1,14 @@
 import 'package:zentrio_admin/data/mappers/product_mapper.dart';
+import 'package:zentrio_admin/data/models/api_file.dart';
+import 'package:zentrio_admin/data/models/api_product.dart';
 import 'package:zentrio_admin/data/remote/product_service.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
 
+import '../domain/models/medusa_file.dart';
+import '../domain/models/product_option.dart';
 import '../domain/repositories/product_repository.dart';
+import 'models/api_product_option.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
   final ProductService _service;
@@ -47,7 +52,23 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<void> createProduct(Product product) {
-    return _service.createProduct(product.createProductRequest());
+  Future<void> createProduct({
+    required String title,
+    required List<ProductOption> options,
+    required String status,
+    List<MedusaFile>? images,
+  }) {
+    return _service.createProduct(
+      ApiProduct(
+        title: title,
+        options: options
+            .map((e) => ApiProductOption(title: title, values: e.values))
+            .toList(),
+        status: status,
+        images: images?.map((e) => ApiFile(id: e.id, url: e.url)).toList(),
+        isGiftcard: false,
+        discountable: false,
+      ),
+    );
   }
 }

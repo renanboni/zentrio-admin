@@ -1,5 +1,6 @@
 
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
@@ -17,12 +18,20 @@ class FileRepositoryImpl implements FileRepository {
   FileRepositoryImpl(this._fileService);
 
   @override
-  Future<List<MedusaFile>> upload(List<File> files) async {
+  Future<List<MedusaFile>> upload(List<String> paths) async {
     final multipartFiles = await Future.wait(
-        files.map((e) => MultipartFile.fromFile(e.path))
+        paths.map((e) => MultipartFile.fromFile(e))
     );
 
     return _fileService.upload(multipartFiles)
-        .then((value) => value.map((e) => e.toMediaFile()).toList());
+        .then((value) => value.files.map((e) => e.toMediaFile()).toList());
+  }
+
+  @override
+  Future<List<MedusaFile>> uploadBytes(List<Uint8List> bytes) async {
+    final multipartFiles = bytes.map((e) => MultipartFile.fromBytes(e, filename: "test")).toList();
+
+    return _fileService.upload(multipartFiles)
+        .then((value) => value.files.map((e) => e.toMediaFile()).toList());
   }
 }

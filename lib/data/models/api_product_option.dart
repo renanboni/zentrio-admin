@@ -18,4 +18,6 @@ class ApiProductOption {
       values: List<String>.from(json['values']),
     );
   }
+
+  Map<String, dynamic> toJson() => _$ApiProductOptionToJson(this);
 }

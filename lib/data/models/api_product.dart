@@ -1,9 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:zentrio_admin/data/models/api_file.dart';
 import 'package:zentrio_admin/data/models/api_product_option.dart';
 
 part 'api_product.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class ApiProduct {
   final String? id;
   final String? title;
@@ -14,6 +15,7 @@ class ApiProduct {
   final String? status;
   final String? thumbnail;
   final List<ApiProductOption>? options;
+  final List<ApiFile>? images;
   final num? weight;
   final num? height;
   final num? length;
@@ -51,6 +53,7 @@ class ApiProduct {
     this.updatedAt,
     this.deletedAt,
     this.options,
+    this.images,
   });
 
   factory ApiProduct.fromJson(Map<String, dynamic> json) => _$ApiProductFromJson(json);
