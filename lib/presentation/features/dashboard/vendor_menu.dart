@@ -12,6 +12,10 @@ getVendorMenu() {
       route: "/products",
       children: [
         SideBarItem(
+          label: "Collections",
+          route: "/collections",
+        ),
+        SideBarItem(
             label: "Categories",
             route: "/categories",
         ),

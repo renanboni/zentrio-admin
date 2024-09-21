@@ -45,7 +45,7 @@ class _SideBarItemListState extends State<SideBarItemList> {
       ),
       child: Text(
         widget.item.label,
-        style: ShadTheme.of(context).textTheme.table,
+        style: ShadTheme.of(context).textTheme.small,
       ),
     );
   }
@@ -57,7 +57,8 @@ class _SideBarItemListState extends State<SideBarItemList> {
     return Column(
       children: [
         _buildItemList(theme, item),
-        if (item.children.isNotEmpty && item.expanded) _buildChildList(theme, item)
+        if (item.children.isNotEmpty && item.expanded)
+          _buildChildList(theme, item)
       ],
     );
   }
@@ -90,7 +91,7 @@ class _SideBarItemListState extends State<SideBarItemList> {
       mainAxisAlignment: MainAxisAlignment.start,
       icon: const Row(
         children: [
-          SizedBox(width: 16,),
+          SizedBox(width: 16),
           ShadImage.square(
             size: 16,
             LucideIcons.dot,
@@ -135,7 +136,7 @@ class _SideBarItemListState extends State<SideBarItemList> {
     return ShadButton.outline(
       width: double.infinity,
       onTapDown: (_) {
-       /* if (widget.onTap != null) {
+        /* if (widget.onTap != null) {
           widget.onTap!(item);
         }*/
       },
