@@ -1,4 +1,3 @@
-
 import 'package:equatable/equatable.dart';
 import 'package:zentrio_admin/domain/models/medusa_file.dart';
 import 'package:zentrio_admin/domain/models/product_option.dart';
@@ -13,6 +12,7 @@ class Product extends Equatable {
   final String status;
   final String thumbnail;
   final num weight;
+  final num width;
   final num height;
   final num length;
   final String originCountry;
@@ -38,6 +38,7 @@ class Product extends Equatable {
     required this.status,
     required this.thumbnail,
     required this.weight,
+    required this.width,
     required this.height,
     required this.length,
     required this.originCountry,
@@ -64,6 +65,7 @@ class Product extends Equatable {
         status = '',
         thumbnail = '',
         weight = 0,
+        width = 0,
         height = 0,
         length = 0,
         originCountry = '',
@@ -89,6 +91,7 @@ class Product extends Equatable {
     String? status,
     String? thumbnail,
     num? weight,
+    num? width,
     num? height,
     num? length,
     String? originCountry,
@@ -114,6 +117,7 @@ class Product extends Equatable {
       status: status ?? this.status,
       thumbnail: thumbnail ?? this.thumbnail,
       weight: weight ?? this.weight,
+      width: width ?? this.width,
       height: height ?? this.height,
       length: length ?? this.length,
       originCountry: originCountry ?? this.originCountry,
@@ -133,28 +137,29 @@ class Product extends Equatable {
 
   @override
   List<Object?> get props => [
-    id,
-    title,
-    handle,
-    description,
-    subtitle,
-    isGiftcard,
-    status,
-    thumbnail,
-    weight,
-    height,
-    length,
-    originCountry,
-    hsCode,
-    midCode,
-    material,
-    typeId,
-    discountable,
-    externalId,
-    options,
-    images,
-    createdAt,
-    updatedAt,
-    deletedAt,
-  ];
+        id,
+        title,
+        handle,
+        description,
+        subtitle,
+        isGiftcard,
+        status,
+        thumbnail,
+        weight,
+        width,
+        height,
+        length,
+        originCountry,
+        hsCode,
+        midCode,
+        material,
+        typeId,
+        discountable,
+        externalId,
+        options,
+        images,
+        createdAt,
+        updatedAt,
+        deletedAt,
+      ];
 }

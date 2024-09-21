@@ -19,6 +19,7 @@ extension ApiProductMapper on ApiProduct {
       isGiftcard: isGiftcard ?? false,
       status: status ?? '',
       thumbnail: thumbnail ?? '',
+      width: width ?? 0,
       weight: weight ?? 0,
       height: height ?? 0,
       length: length ?? 0,

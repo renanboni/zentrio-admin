@@ -17,6 +17,7 @@ class ApiProduct {
   final List<ApiProductOption>? options;
   final List<ApiFile>? images;
   final num? weight;
+  final num? width;
   final num? height;
   final num? length;
   final String? originCountry;
@@ -40,6 +41,7 @@ class ApiProduct {
     this.status,
     this.thumbnail,
     this.weight,
+    this.width,
     this.height,
     this.length,
     this.originCountry,
