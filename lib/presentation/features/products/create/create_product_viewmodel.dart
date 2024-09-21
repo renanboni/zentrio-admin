@@ -3,12 +3,14 @@ import 'dart:ui';
 
 import 'package:injectable/injectable.dart';
 import 'package:signals/signals.dart';
+import 'package:zentrio_admin/data/models/api_file.dart';
+import 'package:zentrio_admin/data/models/api_product.dart';
+import 'package:zentrio_admin/data/models/api_product_option.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
 import 'package:zentrio_admin/domain/usecase/file_usecase.dart';
 import 'package:zentrio_admin/domain/usecase/product_usecase.dart';
 
 import '../../../../domain/models/media_file.dart';
-import '../../../../domain/models/product.dart';
 import '../../../../domain/models/product_option.dart';
 
 @injectable
@@ -43,14 +45,26 @@ class CreateProductViewModel {
   ) async {
     try {
       final bytes = files.value.map((e) => e.bytes ?? Uint8List(0)).toList();
-      final urls = files.value.map((e) => e.url).toList();
       final uploadedFiles = await _fileUseCase.uploadBytes(bytes);
 
       await _productUseCase.createProduct(
-        title: productTitle.value,
-        options: productOptions.value,
-        status: 'published',
-        images: uploadedFiles,
+        ApiProduct(
+          title: productTitle.value,
+          options: productOptions.value
+              .map(
+                (e) => ApiProductOption(
+                  title: e.title,
+                  values: e.values,
+                ),
+              )
+              .toList(),
+          status: 'published',
+          images: uploadedFiles
+              .map(
+                (e) => ApiFile(id: e.id, url: e.url),
+              )
+              .toList(),
+        ),
       );
       onSuccess();
     } catch (e) {

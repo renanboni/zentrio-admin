@@ -30,7 +30,12 @@ class ProductsTable extends StatelessWidget {
             return ShadTableCell(
               child: Row(
                 children: [
-                  ShadImage(product.thumbnail),
+                  ShadImage(
+                    product.thumbnail,
+                    width: 40,
+                    height: 40,
+                    fit: BoxFit.cover,
+                  ),
                   const SizedBox(width: 8),
                   Text(product.title),
                 ],

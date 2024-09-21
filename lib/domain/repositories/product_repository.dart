@@ -1,4 +1,5 @@
 
+import 'package:zentrio_admin/data/models/api_product.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
 
 import '../models/medusa_file.dart';
@@ -12,12 +13,7 @@ abstract class ProductRepository {
 
   Future<void> createCategory(Category category);
 
-  Future<void> createProduct({
-    required String title,
-    required List<ProductOption> options,
-    required String status,
-    List<MedusaFile>? images,
-  });
+  Future<void> createProduct(ApiProduct product);
 
   Future<void> deleteCategory(String id);
 

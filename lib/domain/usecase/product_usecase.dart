@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:zentrio_admin/data/models/api_product.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
 import 'package:zentrio_admin/domain/models/medusa_file.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
@@ -11,18 +12,8 @@ class ProductUseCase {
 
   ProductUseCase(this._productRepository);
 
-  Future<void> createProduct({
-    required String title,
-    required List<ProductOption> options,
-    required String status,
-    List<MedusaFile>? images,
-  }) {
-    return _productRepository.createProduct(
-      title: title,
-      options: options,
-      status: status,
-      images: images,
-    );
+  Future<void> createProduct(ApiProduct product) {
+    return _productRepository.createProduct(product);
   }
 
   Future<List<Product>> getAll() {

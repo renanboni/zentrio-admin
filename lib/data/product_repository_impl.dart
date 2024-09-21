@@ -52,23 +52,7 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<void> createProduct({
-    required String title,
-    required List<ProductOption> options,
-    required String status,
-    List<MedusaFile>? images,
-  }) {
-    return _service.createProduct(
-      ApiProduct(
-        title: title,
-        options: options
-            .map((e) => ApiProductOption(title: title, values: e.values))
-            .toList(),
-        status: status,
-        images: images?.map((e) => ApiFile(id: e.id, url: e.url)).toList(),
-        isGiftcard: false,
-        discountable: false,
-      ),
-    );
+  Future<void> createProduct(ApiProduct product) {
+    return _service.createProduct(product);
   }
 }
