@@ -54,21 +54,21 @@ class _LoginFormState extends State<LoginForm>  {
           ShadInputFormField(
             controller: password,
             placeholder: const Text('Password'),
-            obscureText: obscure.value,
+            obscureText: obscure.watch(context),
             validator: FormBuilderValidators.compose([
               FormBuilderValidators.required(),
               FormBuilderValidators.password(),
             ]),
             suffix: ShadButton(
-              width: 24,
-              height: 24,
+              width: 16,
+              height: 16,
               padding: EdgeInsets.zero,
               decoration: const ShadDecoration(
                 secondaryBorder: ShadBorder.none,
                 secondaryFocusedBorder: ShadBorder.none,
               ),
               icon: ShadImage.square(
-                size: 16,
+                size: 12,
                 obscure.value ? LucideIcons.eyeOff : LucideIcons.eye,
               ),
               onPressed: () {
