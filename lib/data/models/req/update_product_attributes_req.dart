@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'update_product_attributes_req.g.dart';
 
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable(includeIfNull: false, fieldRename: FieldRename.snake)
 class UpdateProductAttributesReq {
   final num? width;
   final num? height;

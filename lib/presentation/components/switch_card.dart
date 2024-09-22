@@ -29,21 +29,23 @@ class SwitchCard extends StatelessWidget {
             onChanged: onChanged,
           ),
           const SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: theme.textTheme.small,
-              ),
-              const SizedBox(height: 2),
-              if (description != null)
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 Text(
-                  description ?? '',
-                  style: theme.textTheme.muted,
+                  title,
+                  style: theme.textTheme.small,
                 ),
-            ],
-          )
+                const SizedBox(height: 2),
+                if (description != null)
+                  Text(
+                    description!,
+                    style: theme.textTheme.muted,
+                  ),
+              ],
+            ),
+          ),
         ],
       ),
     );

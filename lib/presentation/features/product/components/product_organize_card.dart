@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:tuple/tuple.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
@@ -8,10 +9,12 @@ import '../../../components/edit_context_menu.dart';
 
 class ProductOrganizeCard extends StatelessWidget {
   final Product product;
+  final VoidCallback onRefresh;
 
   const ProductOrganizeCard({
     super.key,
     required this.product,
+    required this.onRefresh,
   });
 
   @override

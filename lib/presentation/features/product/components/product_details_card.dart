@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:tuple/tuple.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
@@ -9,10 +10,12 @@ import '../../../components/key_value_item_list.dart';
 
 class ProductDetailsCard extends StatelessWidget {
   final Product product;
+  final VoidCallback onRefresh;
 
   const ProductDetailsCard({
     super.key,
     required this.product,
+    required this.onRefresh,
   });
 
   @override
@@ -64,7 +67,14 @@ class ProductDetailsCard extends StatelessWidget {
                 deleteDialogDescription:
                 "You are about to delete the ${product.title}. This action cannot be undone.",
                 onEdit: () async {
+                  final result = await GoRouter.of(context).push(
+                    "/products/${product.id}/edit",
+                    extra: product,
+                  );
 
+                  if (result == true) {
+                    onRefresh();
+                  }
                 },
                 onDelete: () {},
               )

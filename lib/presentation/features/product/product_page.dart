@@ -56,6 +56,9 @@ class _ProductPageState extends State<ProductPage> {
                       ResponsiveRowColumnItem(
                         child: ProductDetailsCard(
                           product: viewModel.product.watch(context),
+                          onRefresh: () {
+                            viewModel.getProductById(widget.productId);
+                          },
                         ),
                       ),
                       ResponsiveRowColumnItem(
@@ -75,6 +78,9 @@ class _ProductPageState extends State<ProductPage> {
                       ResponsiveRowColumnItem(
                         child: ProductOrganizeCard(
                           product: viewModel.product.watch(context),
+                          onRefresh: () {
+                            viewModel.getProductById(widget.productId);
+                          },
                         ),
                       ),
                       ResponsiveRowColumnItem(
