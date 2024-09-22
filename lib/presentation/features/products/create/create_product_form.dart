@@ -6,6 +6,7 @@ import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/presentation/features/products/create/create_product_viewmodel.dart';
 import 'package:zentrio_admin/presentation/features/products/create/product_organize_form.dart';
 import 'package:zentrio_admin/presentation/features/products/create/products_detail_form.dart';
+import 'package:zentrio_admin/utils/extensions/context_ext.dart';
 
 import '../../../../di/init.dart';
 import '../../../components/stepper/horizontal_stepper.dart';
@@ -30,7 +31,7 @@ class _CreateProductFormState extends State<CreateProductForm> {
           title: 'Details',
           state: HorizontalStepState.editing,
           content: MaxWidthBox(
-            maxWidth: MediaQuery.sizeOf(context).width * 0.5,
+            maxWidth: context.maxWidth,
             child: ProductsDetailForm(
               viewModel: viewModel,
             ),
@@ -40,7 +41,7 @@ class _CreateProductFormState extends State<CreateProductForm> {
           title: 'Organize',
           state: HorizontalStepState.disabled,
           content: MaxWidthBox(
-            maxWidth: MediaQuery.sizeOf(context).width * 0.5,
+            maxWidth: context.maxWidth,
             child: Watch(
               (_) {
                 return ProductOrganizeForm(

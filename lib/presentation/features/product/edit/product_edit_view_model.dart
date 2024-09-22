@@ -55,6 +55,7 @@ class ProductEditViewModel {
         product.value.id,
         updateProductReq.toJson(),
       );
+      // TODO is this called twice?
       onSuccess();
     } catch (e) {
       onError();

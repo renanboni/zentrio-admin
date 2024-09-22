@@ -60,38 +60,45 @@ class _StepperState extends State<HorizontalStepper> {
           child: Row(
             children: [
               if (widget.showEsc) EscButton(onTap: widget.onEsc ?? () {}),
-              for (var i = 0; i < widget.steps.length; i++) ...[
-                Watch(
-                  (context) => InkWell(
-                    onTap: widget.steps[i].state == HorizontalStepState.disabled
-                        ? () => _validateStep()
-                        : () => _currentIndex.value = i,
-                    child: Container(
-                      color:
-                          widget.steps[i].state == HorizontalStepState.disabled
-                              ? theme.ghostButtonTheme.hoverBackgroundColor
-                              : theme.ghostButtonTheme.backgroundColor,
-                      width: widget.steps[i].width,
-                      child: Row(
-                        children: [
-                          const SizedBox(width: 16),
-                          StepStatus(state: _getState(i)),
-                          const SizedBox(width: 8),
-                          Text(
-                            widget.steps[i].title,
-                            style: ShadTheme.of(context)
-                                .textTheme
-                                .small
-                                .copyWith(fontWeight: FontWeight.w500),
+              Expanded(
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    const SizedBox(width: 16),
+                    for (var i = 0; i < widget.steps.length; i++) ...[
+                      Watch(
+                        (context) => InkWell(
+                          onTap: widget.steps[i].state == HorizontalStepState.disabled
+                              ? () => _validateStep()
+                              : () => _currentIndex.value = i,
+                          child: Container(
+                            color: widget.steps[i].state == HorizontalStepState.disabled
+                                ? theme.ghostButtonTheme.hoverBackgroundColor
+                                : theme.ghostButtonTheme.backgroundColor,
+                            width: widget.steps[i].width,
+                            child: Row(
+                              children: [
+                                const SizedBox(width: 16),
+                                StepStatus(state: _getState(i)),
+                                const SizedBox(width: 8),
+                                Text(
+                                  widget.steps[i].title,
+                                  style: ShadTheme.of(context)
+                                      .textTheme
+                                      .small
+                                      .copyWith(fontWeight: FontWeight.w500),
+                                ),
+                                const Spacer(),
+                                const VerticalDivider(width: 1),
+                              ],
+                            ),
                           ),
-                          const Spacer(),
-                          const VerticalDivider(width: 1),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
+                    ]
+                  ],
                 ),
-              ]
+              ),
             ],
           ),
         ),

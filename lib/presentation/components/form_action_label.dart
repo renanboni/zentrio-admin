@@ -21,20 +21,21 @@ class FormActionLabel extends StatelessWidget {
 
     return Row(
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: theme.textTheme.small,
-            ),
-            Text(
-              description,
-              style: theme.textTheme.muted,
-            ),
-          ],
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: theme.textTheme.small,
+              ),
+              Text(
+                description,
+                style: theme.textTheme.muted,
+              ),
+            ],
+          ),
         ),
-        const Spacer(),
         if (cta != null)
           ShadButton.outline(
             size: ShadButtonSize.sm,
