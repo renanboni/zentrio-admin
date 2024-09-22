@@ -9,10 +9,12 @@ import '../../../components/edit_context_menu.dart';
 
 class ProductAttributesCard extends StatelessWidget {
   final Product product;
+  final VoidCallback onRefresh;
 
   const ProductAttributesCard({
     super.key,
     required this.product,
+    required this.onRefresh,
   });
 
   @override
@@ -53,11 +55,15 @@ class ProductAttributesCard extends StatelessWidget {
           ),
           const Spacer(),
           EditContextMenu(
-            onEdit: () {
-              GoRouter.of(context).go(
+            onEdit: () async {
+              final result = await GoRouter.of(context).push(
                 "/products/${product.id}/attributes",
                 extra: product,
               );
+
+              if (result == true) {
+                onRefresh();
+              }
             },
           )
         ],

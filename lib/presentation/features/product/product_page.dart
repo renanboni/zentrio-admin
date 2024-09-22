@@ -80,6 +80,9 @@ class _ProductPageState extends State<ProductPage> {
                       ResponsiveRowColumnItem(
                         child: ProductAttributesCard(
                           product: viewModel.product.watch(context),
+                          onRefresh: () {
+                            viewModel.getProductById(widget.productId);
+                          },
                         ),
                       ),
                     ],

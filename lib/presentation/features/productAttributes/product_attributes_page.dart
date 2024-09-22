@@ -4,7 +4,6 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/di/init.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
-import 'package:zentrio_admin/main.dart';
 import 'package:zentrio_admin/presentation/features/productAttributes/product_attributes_view_model.dart';
 
 import '../../components/sheet_footer.dart';
@@ -47,37 +46,60 @@ class _ProductAttributesPageState extends State<ProductAttributesPage> {
                 ShadInputFormField(
                   label: const Text("Width"),
                   initialValue: viewModel.product.watch(context).width,
+                  onChanged: viewModel.width.set,
                   keyboardType: TextInputType.number,
                 ),
                 const SizedBox(height: 16),
                 ShadInputFormField(
                   label: const Text("Height"),
                   initialValue: viewModel.product.watch(context).height,
+                  onChanged: viewModel.height.set,
                   keyboardType: TextInputType.number,
                 ),
                 const SizedBox(height: 16),
                 ShadInputFormField(
                   label: const Text("Length"),
                   initialValue: viewModel.product.watch(context).length,
+                  onChanged: viewModel.length.set,
                   keyboardType: TextInputType.number,
                 ),
                 const SizedBox(height: 16),
                 ShadInputFormField(
                   label: const Text("Weight"),
                   initialValue: viewModel.product.watch(context).weight,
+                  onChanged: viewModel.weight.set,
                   keyboardType: TextInputType.number,
                 ),
                 const SizedBox(height: 16),
                 ShadInputFormField(
                   label: const Text("MID"),
                   initialValue: viewModel.product.watch(context).midCode,
+                  onChanged: viewModel.midCode.set,
                 ),
               ],
             ),
           ),
           const Spacer(),
           SheetFooter(
-            onSave: () {},
+            onSave: () async {
+              viewModel.onSave(
+                () {
+                  ShadToaster.of(context).show(
+                    const ShadToast(
+                      description: Text('Product updated successfully'),
+                    ),
+                  );
+                  GoRouter.of(context).pop(true);
+                },
+                () {
+                  ShadToaster.of(context).show(
+                    const ShadToast.destructive(
+                      description: Text('Failed to update product attributes'),
+                    ),
+                  );
+                },
+              );
+            },
             onCancel: () {
               GoRouter.of(context).pop(false);
             },

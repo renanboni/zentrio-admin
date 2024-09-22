@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:injectable/injectable.dart';
 import 'package:signals/signals.dart';
 import 'package:zentrio_admin/data/models/req/update_product_attributes_req.dart';
@@ -27,7 +29,10 @@ class ProductAttributesViewModel {
     midCode.value = product.midCode;
   }
 
-  void onSave() async {
+  void onSave(
+    VoidCallback onSuccess,
+    VoidCallback onError,
+  ) async {
     final attributesReq = UpdateProductAttributesReq(
       width: width.value != product.value.width.toString()
           ? double.parse(width.value)
@@ -49,8 +54,9 @@ class ProductAttributesViewModel {
         product.value.id,
         attributesReq.toJson(),
       );
+      onSuccess();
     } catch (e) {
-
+      onError();
     }
   }
 }
