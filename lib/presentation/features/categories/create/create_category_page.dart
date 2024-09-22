@@ -4,6 +4,8 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/presentation/features/categories/create/create_category_view_model.dart';
+import 'package:zentrio_admin/presentation/features/products/create/create_product_form.dart';
+import 'package:zentrio_admin/utils/extensions/context_ext.dart';
 
 import '../../../components/stepper/horizontal_stepper.dart';
 import '../../../components/stepper/step_item_list.dart';
@@ -20,8 +22,6 @@ class CreateCategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final maxWidth = MediaQuery.sizeOf(context).width * 0.5;
-
     return HorizontalStepper(
       showEsc: true,
       steps: [
@@ -29,7 +29,7 @@ class CreateCategoryPage extends StatelessWidget {
           title: 'Details',
           state: HorizontalStepState.editing,
           content: MaxWidthBox(
-            maxWidth: maxWidth,
+            maxWidth: context.maxWidth,
             child: CategoryDetailsForm(
               viewModel: viewModel,
             ),
@@ -39,7 +39,7 @@ class CreateCategoryPage extends StatelessWidget {
           title: 'Organize Ranking',
           state: HorizontalStepState.disabled,
           content: MaxWidthBox(
-            maxWidth: double.infinity,
+            maxWidth: context.maxWidth,
             child: CategoriesRank(
               categories: viewModel.ranking.watch(context),
               newCategoryName: viewModel.title.value,
