@@ -128,7 +128,7 @@ class _ProductEditPageState extends State<ProductEditPage> {
                 () {
                   ShadToaster.of(context).show(
                     const ShadToast.destructive(
-                      description: Text('Failed to update product attributes'),
+                      description: Text('Failed to update product'),
                     ),
                   );
                 },
