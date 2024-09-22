@@ -11,10 +11,10 @@ class Product extends Equatable {
   final bool isGiftcard;
   final String status;
   final String thumbnail;
-  final num weight;
-  final num width;
-  final num height;
-  final num length;
+  final String weight;
+  final String width;
+  final String height;
+  final String length;
   final String originCountry;
   final String hsCode;
   final String midCode;
@@ -64,10 +64,10 @@ class Product extends Equatable {
         isGiftcard = false,
         status = '',
         thumbnail = '',
-        weight = 0,
-        width = 0,
-        height = 0,
-        length = 0,
+        weight = '',
+        width = '',
+        height = '',
+        length = '',
         originCountry = '',
         hsCode = '',
         midCode = '',
@@ -90,10 +90,10 @@ class Product extends Equatable {
     bool? isGiftcard,
     String? status,
     String? thumbnail,
-    num? weight,
-    num? width,
-    num? height,
-    num? length,
+    String? weight,
+    String? width,
+    String? height,
+    String? length,
     String? originCountry,
     String? hsCode,
     String? midCode,

@@ -16,10 +16,10 @@ class ApiProduct {
   final String? thumbnail;
   final List<ApiProductOption>? options;
   final List<ApiFile>? images;
-  final num? weight;
-  final num? width;
-  final num? height;
-  final num? length;
+  final String? weight;
+  final String? width;
+  final String? height;
+  final String? length;
   final String? originCountry;
   final String? hsCode;
   final String? midCode;

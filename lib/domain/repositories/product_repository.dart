@@ -10,4 +10,6 @@ abstract class ProductRepository {
   Future<void> createProduct(CreateProductRequest product);
 
   Future<Product> getProductById(String id, {List<String> expand = const []});
+
+  Future<void> updateProduct(String productId, Map<String, dynamic> fields);
 }

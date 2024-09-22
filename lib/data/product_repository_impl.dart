@@ -34,4 +34,9 @@ class ProductRepositoryImpl implements ProductRepository {
         .getProductById(id, expand.join(','))
         .then((value) => value.product.toProduct());
   }
+
+  @override
+  Future<void> updateProduct(String productId, Map<String, dynamic> fields) {
+    return _service.updateProduct(productId, fields);
+  }
 }

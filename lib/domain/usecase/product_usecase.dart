@@ -28,4 +28,11 @@ class ProductUseCase {
   Future<List<Product>> getAll() {
     return _productRepository.getAll();
   }
+
+  Future<void> updateProduct(
+    String id,
+    Map<String, dynamic> fields,
+  ) {
+    return _productRepository.updateProduct(id, fields);
+  }
 }

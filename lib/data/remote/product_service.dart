@@ -31,20 +31,8 @@ abstract class ProductService {
     @Query("expand") String expand,
   );
 
-  @GET("/vendor/categories")
-  Future<CategoriesResponse> getCategories();
-
-  @POST("/vendor/categories")
-  Future<void> createCategory(@Body() CreateCategoryRequest req);
-
-  @DELETE("/vendor/categories/{id}")
-  Future<void> deleteCategory(@Path("id") String id);
-
-  @GET("/vendor/categories/{id}")
-  Future<CategoryResponse> getCategoryById(@Path("id") String id);
-
-  @POST("/vendor/categories/{id}")
-  Future<void> updateCategory(
+  @POST("/vendor/products/{id}")
+  Future<ApiProduct> updateProduct(
     @Path("id") String id,
     @Body() Map<String, dynamic> fields,
   );
