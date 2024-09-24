@@ -1,25 +1,21 @@
-
 import 'package:injectable/injectable.dart';
 import 'package:signals/signals.dart';
 import 'package:zentrio_admin/domain/models/vendor.dart';
 import 'package:zentrio_admin/domain/usecase/vendor_usecase.dart';
 
-@injectable
-class VendorsController {
-
+@Injectable()
+class VendorViewModel {
   final VendorUseCase _vendorUseCase;
 
-  final Signal<List<Vendor>> vendors = signal([]);
+  final Signal<Vendor> vendor = Signal(const Vendor.empty());
 
-  VendorsController(this._vendorUseCase) {
-    _getAll();
-  }
+  VendorViewModel(this._vendorUseCase);
 
-  _getAll() async {
+  void getVendorById(String vendorId) async {
     try {
-      vendors.value = await _vendorUseCase.getAll();
+      vendor.value = await _vendorUseCase.getVendor(vendorId);
     } catch (e) {
-      print(e);
+      print("");
     }
   }
 }

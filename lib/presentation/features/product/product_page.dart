@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/di/init.dart';
-import 'package:zentrio_admin/main.dart';
 import 'package:zentrio_admin/presentation/features/product/components/product_details_card.dart';
 import 'package:zentrio_admin/presentation/features/product/components/product_images_card.dart';
 import 'package:zentrio_admin/presentation/features/product/components/product_organize_attributes.dart';

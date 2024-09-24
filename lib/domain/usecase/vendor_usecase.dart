@@ -17,4 +17,8 @@ class VendorUseCase {
   Future<VendorAdmin> getVendorAdmin() async {
     return _vendorRepository.getVendorAdmin();
   }
+
+  Future<Vendor> getVendor(String vendorId) async {
+    return _vendorRepository.getVendorById(vendorId);
+  }
 }

@@ -7,4 +7,6 @@ abstract class VendorRepository {
   Future<List<Vendor>> getAll();
 
   Future<VendorAdmin> getVendorAdmin();
+
+  Future<Vendor> getVendorById(String vendorId);
 }

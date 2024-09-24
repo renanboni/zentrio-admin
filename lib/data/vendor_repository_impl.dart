@@ -21,4 +21,9 @@ class VendorRepositoryImpl implements VendorRepository {
   Future<VendorAdmin> getVendorAdmin() {
     return _service.getVendorAdmin().then((value) => value.vendorAdmin.toVendorAdmin());
   }
+
+  @override
+  Future<Vendor> getVendorById(String vendorId) {
+    return _service.getVendorById(vendorId).then((value) => value.vendor.toVendor());
+  }
 }

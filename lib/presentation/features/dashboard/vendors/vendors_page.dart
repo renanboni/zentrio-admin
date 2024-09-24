@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
-import 'package:zentrio_admin/presentation/features/dashboard/vendor/vendors_controller.dart';
+import 'package:zentrio_admin/presentation/features/dashboard/vendors/vendors_view_model.dart';
 
+import '../../../../di/init.dart';
 import 'components/invite_vendor_dialog_button.dart';
 import 'components/vendors_table.dart';
 
-class VendorsPage extends StatelessWidget {
-  final VendorsController controller;
+class VendorsPage extends StatefulWidget {
 
   const VendorsPage({
     super.key,
-    required this.controller,
   });
+
+  @override
+  State<VendorsPage> createState() => _VendorsPageState();
+}
+
+class _VendorsPageState extends State<VendorsPage> {
+  final VendorsViewModel viewModel = getIt<VendorsViewModel>();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +48,10 @@ class VendorsPage extends StatelessWidget {
             Expanded(
               child: Watch(
                 (context) => VendorsTable(
-                  vendors: controller.vendors.watch(context),
+                  vendors: viewModel.vendors.watch(context),
+                  onClick: (vendor) {
+                    GoRouter.of(context).go('/vendors/${vendor.id}');
+                  },
                 ),
               ),
             ),

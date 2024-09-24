@@ -48,8 +48,8 @@ import 'package:zentrio_admin/presentation/features/category/edit/category_edit_
     as _i632;
 import 'package:zentrio_admin/presentation/features/dashboard/side_bar_controller.dart'
     as _i857;
-import 'package:zentrio_admin/presentation/features/dashboard/vendor/vendors_controller.dart'
-    as _i60;
+import 'package:zentrio_admin/presentation/features/dashboard/vendors/vendors_view_model.dart'
+    as _i149;
 import 'package:zentrio_admin/presentation/features/login/login_view_model.dart'
     as _i939;
 import 'package:zentrio_admin/presentation/features/product/edit/product_edit_view_model.dart'
@@ -64,6 +64,8 @@ import 'package:zentrio_admin/presentation/features/products/products_view_model
     as _i91;
 import 'package:zentrio_admin/presentation/features/ranking/ranking_view_model.dart'
     as _i473;
+import 'package:zentrio_admin/presentation/features/vendor/vendor_view_model.dart'
+    as _i78;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -137,8 +139,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i774.FileRepositoryImpl(gh<_i1013.FileService>()));
     gh.factory<_i620.AuthUseCase>(
         () => _i620.AuthUseCase(gh<_i132.AuthenticationRepository>()));
-    gh.factory<_i60.VendorsController>(
-        () => _i60.VendorsController(gh<_i97.VendorUseCase>()));
+    gh.factory<_i149.VendorsViewModel>(
+        () => _i149.VendorsViewModel(gh<_i97.VendorUseCase>()));
+    gh.factory<_i78.VendorViewModel>(
+        () => _i78.VendorViewModel(gh<_i97.VendorUseCase>()));
     gh.factory<_i531.CreateProductViewModel>(() => _i531.CreateProductViewModel(
           gh<_i977.ProductUseCase>(),
           gh<_i850.FileUseCase>(),
@@ -148,12 +152,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i939.LoginViewModel(gh<_i620.AuthUseCase>()));
     gh.factory<_i91.ProductsViewModel>(
         () => _i91.ProductsViewModel(gh<_i977.ProductUseCase>()));
+    gh.factory<_i137.ProductEditViewModel>(
+        () => _i137.ProductEditViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i1010.ProductViewModel>(
         () => _i1010.ProductViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i740.ProductAttributesViewModel>(
         () => _i740.ProductAttributesViewModel(gh<_i977.ProductUseCase>()));
-    gh.factory<_i137.ProductEditViewModel>(
-        () => _i137.ProductEditViewModel(gh<_i977.ProductUseCase>()));
     gh.lazySingleton<_i857.DashboardViewModel>(() => _i857.DashboardViewModel(
           gh<_i620.AuthUseCase>(),
           gh<_i97.VendorUseCase>(),
