@@ -20,7 +20,9 @@ class DashboardViewModel {
   DashboardViewModel(
     this._authUseCase,
     this._vendorUseCase,
-  ) {
+  );
+
+  void getSideMenu() {
     if (_authUseCase.getUserType() == UserType.user) {
       menu.value = getAdminMenu();
     } else {

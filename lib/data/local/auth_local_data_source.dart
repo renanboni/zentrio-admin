@@ -39,9 +39,9 @@ class AuthenticationLocalDataSourceImpl implements AuthenticationLocalDataSource
   @override
   UserType getUserType() {
     final userType = _preferences.getString(_userType);
-    if (userType == UserType.user.toString()) {
+    if (userType == UserType.user.name) {
       return UserType.user;
-    } else if (userType == UserType.vendor.toString()) {
+    } else if (userType == UserType.vendor.name) {
       return UserType.vendor;
     } else {
       return UserType.none;

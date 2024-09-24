@@ -19,7 +19,7 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
       mobile: DashboardMobilePage(controller: controller, child: child),
-      desktop: DashboardDesktopPage(controller: controller, child: child),
+      desktop: DashboardDesktopPage(child: child),
       tablet: DashboardMobilePage(controller: controller, child: child),
     );
   }
