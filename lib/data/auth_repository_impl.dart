@@ -38,8 +38,8 @@ class AuthenticationRepository {
 
       final token = authResponse.token;
       final jwt = JWT.decode(token);
-      _localDataSource.setToken(authResponse.token);
-      _localDataSource.setUserType(
+      await _localDataSource.setToken(authResponse.token);
+      await _localDataSource.setUserType(
         UserType.fromString(
           jwt.payload['actor_type'],
         ),
