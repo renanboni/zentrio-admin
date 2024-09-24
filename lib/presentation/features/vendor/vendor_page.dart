@@ -56,8 +56,10 @@ class _VendorPageState extends State<VendorPage> {
                         vendor: viewModel.vendor.watch(context),
                       ),
                     ),
-                    const ResponsiveRowColumnItem(
-                      child: VendorApiKeyCard(),
+                    ResponsiveRowColumnItem(
+                      child: VendorApiKeyCard(
+                        apiKey: viewModel.apiKey.watch(context),
+                      ),
                     ),
                   ],
                 ),

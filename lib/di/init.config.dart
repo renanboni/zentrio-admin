@@ -16,6 +16,7 @@ import 'package:zentrio_admin/data/auth_repository_impl.dart' as _i132;
 import 'package:zentrio_admin/data/file_repository_impl.dart' as _i774;
 import 'package:zentrio_admin/data/interceptors/auth_interceptor.dart' as _i660;
 import 'package:zentrio_admin/data/local/auth_local_data_source.dart' as _i671;
+import 'package:zentrio_admin/data/remote/api_key_service.dart' as _i216;
 import 'package:zentrio_admin/data/remote/auth_service.dart' as _i311;
 import 'package:zentrio_admin/data/remote/category_service.dart' as _i676;
 import 'package:zentrio_admin/data/remote/file_service.dart' as _i1013;
@@ -23,6 +24,8 @@ import 'package:zentrio_admin/data/remote/product_service.dart' as _i134;
 import 'package:zentrio_admin/data/remote/vendor_service.dart' as _i451;
 import 'package:zentrio_admin/di/modules/data_module.dart' as _i555;
 import 'package:zentrio_admin/di/modules/network_module.dart' as _i184;
+import 'package:zentrio_admin/domain/repositories/api_key_repository.dart'
+    as _i830;
 import 'package:zentrio_admin/domain/repositories/category_repository.dart'
     as _i785;
 import 'package:zentrio_admin/domain/repositories/file_repository.dart'
@@ -33,6 +36,7 @@ import 'package:zentrio_admin/domain/repositories/product_repository.dart'
     as _i999;
 import 'package:zentrio_admin/domain/repositories/vendor_repository.dart'
     as _i74;
+import 'package:zentrio_admin/domain/usecase/api_key_usecase.dart' as _i116;
 import 'package:zentrio_admin/domain/usecase/auth_usecase.dart' as _i620;
 import 'package:zentrio_admin/domain/usecase/category_usecase.dart' as _i311;
 import 'package:zentrio_admin/domain/usecase/file_usecase.dart' as _i850;
@@ -90,6 +94,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i676.CategoryService>(
         () => networkModule.categoryService);
     gh.lazySingleton<_i1013.FileService>(() => networkModule.fileService);
+    gh.lazySingleton<_i216.ApiKeyService>(() => networkModule.apiKeyService);
     gh.lazySingleton<_i671.AuthenticationLocalDataSource>(
         () => dataModule.medusaClient);
     gh.lazySingleton<_i74.VendorRepository>(() => dataModule.vendorRepository);
@@ -100,6 +105,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i789.PreferencesRepository>(
         () => dataModule.preferencesRepository);
     gh.lazySingleton<_i182.FileRepository>(() => dataModule.fileRepository);
+    gh.lazySingleton<_i830.ApiKeyRepository>(() => dataModule.apiKeyRepository);
     gh.lazySingleton<_i660.AuthInterceptor>(() => _i660.AuthInterceptor(
         authLocalDataSource: gh<_i671.AuthenticationLocalDataSource>()));
     gh.lazySingleton<_i361.Dio>(
@@ -116,6 +122,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i850.FileUseCase(gh<_i182.FileRepository>()));
     gh.factory<_i977.ProductUseCase>(
         () => _i977.ProductUseCase(gh<_i999.ProductRepository>()));
+    gh.factory<_i116.ApiKeyUseCase>(
+        () => _i116.ApiKeyUseCase(gh<_i830.ApiKeyRepository>()));
     gh.factory<_i473.RankingViewModel>(
         () => _i473.RankingViewModel(gh<_i311.CategoryUseCase>()));
     gh.factory<_i943.CategoryViewModel>(
@@ -135,14 +143,16 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i311.AuthService>(),
               gh<_i671.AuthenticationLocalDataSource>(),
             ));
+    gh.factory<_i78.VendorViewModel>(() => _i78.VendorViewModel(
+          gh<_i97.VendorUseCase>(),
+          gh<_i116.ApiKeyUseCase>(),
+        ));
     gh.lazySingleton<_i774.FileRepositoryImpl>(
         () => _i774.FileRepositoryImpl(gh<_i1013.FileService>()));
     gh.factory<_i620.AuthUseCase>(
         () => _i620.AuthUseCase(gh<_i132.AuthenticationRepository>()));
     gh.factory<_i149.VendorsViewModel>(
         () => _i149.VendorsViewModel(gh<_i97.VendorUseCase>()));
-    gh.factory<_i78.VendorViewModel>(
-        () => _i78.VendorViewModel(gh<_i97.VendorUseCase>()));
     gh.factory<_i531.CreateProductViewModel>(() => _i531.CreateProductViewModel(
           gh<_i977.ProductUseCase>(),
           gh<_i850.FileUseCase>(),

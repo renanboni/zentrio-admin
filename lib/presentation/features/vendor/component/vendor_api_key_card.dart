@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:tuple/tuple.dart';
+import 'package:zentrio_admin/domain/models/api_key.dart';
 
 import '../../../components/edit_context_menu.dart';
 import '../../../components/key_value_item_list.dart';
 
 class VendorApiKeyCard extends StatelessWidget {
-  const VendorApiKeyCard({super.key});
+  final ApiKey apiKey;
+
+  const VendorApiKeyCard({
+    super.key,
+    required this.apiKey,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +22,7 @@ class VendorApiKeyCard extends StatelessWidget {
         children: [
           _buildHeader(context),
           const Divider(height: 1),
-          const KeyValueItemList(pair: Tuple2("Api Key", "")),
+          KeyValueItemList(pair: Tuple2(apiKey.title, apiKey.redacted)),
         ],
       ),
     );
