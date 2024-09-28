@@ -29,7 +29,12 @@ class ProductOrganizeCard extends StatelessWidget {
           const Divider(height: 1),
           const KeyValueItemList(pair: Tuple2("Type", "")),
           const Divider(height: 1),
-          const KeyValueItemList(pair: Tuple2("Collection", "")),
+          KeyValueItemList(
+            pair: const Tuple2("Collection", null),
+            child: ShadBadge.secondary(
+              child: Text(product.collection.title),
+            ),
+          ),
           const Divider(height: 1),
           const KeyValueItemList(pair: Tuple2("Categories", "")),
         ],

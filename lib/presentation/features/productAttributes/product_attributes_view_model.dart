@@ -8,7 +8,7 @@ import 'package:zentrio_admin/domain/usecase/product_usecase.dart';
 
 @Injectable()
 class ProductAttributesViewModel {
-  final Signal<Product> product = signal(const Product.empty());
+  final Signal<Product> product = signal(Product.empty());
 
   final ProductUseCase _productUseCase;
 

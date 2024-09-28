@@ -4,10 +4,12 @@ import 'package:tuple/tuple.dart';
 
 class KeyValueItemList extends StatelessWidget {
   final Tuple2 pair;
+  final Widget? child;
 
   const KeyValueItemList({
     super.key,
     required this.pair,
+    this.child,
   });
 
   @override
@@ -25,9 +27,13 @@ class KeyValueItemList extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Text(
-              pair.item2.toString().isEmpty ? '-' : pair.item2.toString(),
-              style: theme.textTheme.muted,
+            child: Row(
+              children: [
+                child ?? Text(
+                  pair.item2.toString().isEmpty ? '-' : pair.item2.toString(),
+                  style: theme.textTheme.muted,
+                ),
+              ],
             ),
           ),
         ],

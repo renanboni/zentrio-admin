@@ -10,7 +10,7 @@ import '../../../../domain/usecase/product_usecase.dart';
 
 @Injectable()
 class ProductEditViewModel {
-  final Signal<Product> product = signal(const Product.empty());
+  final Signal<Product> product = signal(Product.empty());
 
   final Signal<ProductStatus> status = signal(ProductStatus.published);
   final Signal<String> title = signal('');

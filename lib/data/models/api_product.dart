@@ -1,6 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:zentrio_admin/data/models/api_collection.dart';
 import 'package:zentrio_admin/data/models/api_file.dart';
 import 'package:zentrio_admin/data/models/api_product_option.dart';
+import 'package:zentrio_admin/data/models/api_product_type.dart';
+
+import 'api_product_tag.dart';
 
 part 'api_product.g.dart';
 
@@ -27,6 +31,9 @@ class ApiProduct {
   final String? typeId;
   final bool? discountable;
   final String? externalId;
+  final ApiCollection? collection;
+  final ApiProductType? type;
+  final List<ApiProductTag>? tags;
   final String? createdAt;
   final String? updatedAt;
   final String? deletedAt;
@@ -56,6 +63,9 @@ class ApiProduct {
     this.deletedAt,
     this.options,
     this.images,
+    this.collection,
+    this.type,
+    this.tags,
   });
 
   factory ApiProduct.fromJson(Map<String, dynamic> json) => _$ApiProductFromJson(json);

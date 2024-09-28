@@ -7,6 +7,7 @@ import 'package:zentrio_admin/domain/models/collection.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
 import 'package:zentrio_admin/presentation/features/product/organization/product_organization_view_model.dart';
 
+import '../../../components/select.dart';
 import '../../../components/sheet_footer.dart';
 import '../../../components/sheet_header.dart';
 
@@ -28,6 +29,7 @@ class _ProductOrganizationPageState extends State<ProductOrganizationPage> {
 
   @override
   void initState() {
+    _viewModel.init(widget.product);
     super.initState();
   }
 
@@ -63,11 +65,10 @@ class _ProductOrganizationPageState extends State<ProductOrganizationPage> {
                       selectedOptionBuilder: (context, value) => const Text(""),
                     ),
                     const SizedBox(height: 16),
-                    ShadSelectFormField<Collection>(
+                    Select<Collection>(
                       id: 'collection',
-                      minWidth: double.infinity,
-                      label: const Text('Collection'),
-                      initialValue: Collection.empty(),
+                      label: "Collection",
+                      initialValue: _viewModel.product.watch(context).collection,
                       onChanged: (collection) {},
                       options: _viewModel.collections.watch(context)
                           .map(
@@ -81,10 +82,9 @@ class _ProductOrganizationPageState extends State<ProductOrganizationPage> {
                           Text(value.title),
                     ),
                     const SizedBox(height: 16),
-                    ShadSelectFormField<String>(
+                    Select<String>(
                       id: 'categories',
-                      minWidth: double.infinity,
-                      label: const Text('Categories'),
+                      label: "Categories",
                       initialValue: "",
                       onChanged: (status) {},
                       options: []

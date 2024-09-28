@@ -7,7 +7,7 @@ import 'package:zentrio_admin/domain/usecase/product_usecase.dart';
 class ProductViewModel {
   final ProductUseCase _productUseCase;
 
-  final Signal<Product> product = signal(const Product.empty());
+  final Signal<Product> product = signal(Product.empty());
 
   ProductViewModel(this._productUseCase);
 
@@ -15,7 +15,7 @@ class ProductViewModel {
     try {
       product.value = await _productUseCase.getProductById(
         id,
-        expand: ['images'],
+        expand: ['images', 'collection'],
       );
     } catch (e) {
       print(e);

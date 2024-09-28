@@ -1,6 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:zentrio_admin/domain/models/collection.dart';
 import 'package:zentrio_admin/domain/models/medusa_file.dart';
 import 'package:zentrio_admin/domain/models/product_option.dart';
+import 'package:zentrio_admin/domain/models/product_tag.dart';
+import 'package:zentrio_admin/domain/models/product_type.dart';
 
 class Product extends Equatable {
   final String id;
@@ -24,6 +27,9 @@ class Product extends Equatable {
   final String externalId;
   final List<ProductOption> options;
   final List<MedusaFile> images;
+  final ProductType type;
+  final List<ProductTag> tags;
+  final Collection collection;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final DateTime? deletedAt;
@@ -53,33 +59,42 @@ class Product extends Equatable {
     required this.deletedAt,
     required this.options,
     required this.images,
+    required this.type,
+    required this.tags,
+    required this.collection,
   });
 
-  const Product.empty()
-      : id = '',
-        title = '',
-        handle = '',
-        description = '',
-        subtitle = '',
-        isGiftcard = false,
-        status = '',
-        thumbnail = '',
-        weight = '',
-        width = '',
-        height = '',
-        length = '',
-        originCountry = '',
-        hsCode = '',
-        midCode = '',
-        material = '',
-        typeId = '',
-        discountable = false,
-        externalId = '',
-        createdAt = null,
-        updatedAt = null,
-        deletedAt = null,
-        options = const [],
-        images = const [];
+  factory Product.empty() {
+    return Product(
+      id: '',
+      title: '',
+      handle: '',
+      description: '',
+      subtitle: '',
+      isGiftcard: false,
+      status: '',
+      thumbnail: '',
+      weight: '',
+      width: '',
+      height: '',
+      length: '',
+      originCountry: '',
+      hsCode: '',
+      midCode: '',
+      material: '',
+      typeId: '',
+      discountable: false,
+      externalId: '',
+      options: const [],
+      images: const [],
+      type: ProductType.empty(),
+      collection: Collection.empty(),
+      tags: const [],
+      createdAt: null,
+      updatedAt: null,
+      deletedAt: null,
+    );
+  }
 
   Product copyWith({
     String? id,
@@ -103,6 +118,9 @@ class Product extends Equatable {
     String? externalId,
     List<ProductOption>? options,
     List<MedusaFile>? images,
+    ProductType? type,
+    List<ProductTag>? tags,
+    Collection? collection,
     DateTime? createdAt,
     DateTime? updatedAt,
     DateTime? deletedAt,
@@ -129,6 +147,9 @@ class Product extends Equatable {
       externalId: externalId ?? this.externalId,
       options: options ?? this.options,
       images: images ?? this.images,
+      type: type ?? this.type,
+      tags: tags ?? this.tags,
+      collection: collection ?? this.collection,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       deletedAt: deletedAt ?? this.deletedAt,
@@ -158,6 +179,9 @@ class Product extends Equatable {
         externalId,
         options,
         images,
+        type,
+        tags,
+        collection,
         createdAt,
         updatedAt,
         deletedAt,

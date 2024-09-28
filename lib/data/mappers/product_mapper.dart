@@ -1,12 +1,18 @@
+import 'package:zentrio_admin/data/mappers/collection_mapper.dart';
 import 'package:zentrio_admin/data/mappers/file_mapper.dart';
+import 'package:zentrio_admin/data/models/api_product_tag.dart';
 import 'package:zentrio_admin/data/models/req/create_category_req.dart';
 import 'package:zentrio_admin/domain/models/product_option.dart';
+import 'package:zentrio_admin/domain/models/product_tag.dart';
+import 'package:zentrio_admin/domain/models/product_type.dart';
 
 import '../../domain/models/category.dart';
+import '../../domain/models/collection.dart';
 import '../../domain/models/product.dart';
 import '../models/api_category.dart';
 import '../models/api_product.dart';
 import '../models/api_product_option.dart';
+import '../models/api_product_type.dart';
 
 extension ApiProductMapper on ApiProduct {
   Product toProduct() {
@@ -30,6 +36,9 @@ extension ApiProductMapper on ApiProduct {
       typeId: typeId ?? '',
       discountable: discountable ?? false,
       externalId: externalId ?? '',
+      collection: collection?.toCollection() ?? Collection.empty(),
+      type: type?.toProductType() ?? ProductType.empty(),
+      tags: tags?.map((e) => e.toProductTag()).toList() ?? [],
       createdAt: DateTime.tryParse(createdAt ?? ''),
       updatedAt: DateTime.tryParse(updatedAt ?? ''),
       deletedAt: DateTime.tryParse(deletedAt ?? ''),
@@ -101,6 +110,24 @@ extension CategoryMapper on Category {
       isActive: isActive,
       isInternal: isInternal,
       rank: rank,
+    );
+  }
+}
+
+extension ProductTagMapper on ApiProductTag {
+  ProductTag toProductTag() {
+    return ProductTag(
+      id: id ?? '',
+      value: value ?? '',
+    );
+  }
+}
+
+extension ProductTypeMapper on ApiProductType {
+  ProductType toProductType() {
+    return ProductType(
+      id: id ?? '',
+      value: value ?? '',
     );
   }
 }
