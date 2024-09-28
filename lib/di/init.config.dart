@@ -54,6 +54,8 @@ import 'package:zentrio_admin/presentation/features/category/category_view_model
     as _i943;
 import 'package:zentrio_admin/presentation/features/category/edit/category_edit_view_model.dart'
     as _i632;
+import 'package:zentrio_admin/presentation/features/collections/collections_view_model.dart'
+    as _i255;
 import 'package:zentrio_admin/presentation/features/collections/create/create_collection_view_model.dart'
     as _i440;
 import 'package:zentrio_admin/presentation/features/dashboard/side_bar_controller.dart'
@@ -94,8 +96,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => dataModule.prefs,
       preResolve: true,
     );
-    gh.factory<_i440.CreateCollectionViewModel>(
-        () => _i440.CreateCollectionViewModel());
     gh.lazySingleton<_i311.AuthService>(() => networkModule.authService);
     gh.lazySingleton<_i451.VendorService>(() => networkModule.vendorService);
     gh.lazySingleton<_i134.ProductService>(() => networkModule.productService);
@@ -132,6 +132,10 @@ extension GetItInjectableX on _i174.GetIt {
       () => networkModule.authenticatedDio,
       instanceName: 'authenticated',
     );
+    gh.factory<_i440.CreateCollectionViewModel>(
+        () => _i440.CreateCollectionViewModel(gh<_i464.CollectionUseCase>()));
+    gh.factory<_i255.CollectionsViewModel>(
+        () => _i255.CollectionsViewModel(gh<_i464.CollectionUseCase>()));
     gh.factory<_i850.FileUseCase>(
         () => _i850.FileUseCase(gh<_i182.FileRepository>()));
     gh.factory<_i977.ProductUseCase>(
