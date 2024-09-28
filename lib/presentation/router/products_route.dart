@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
 import 'package:zentrio_admin/presentation/features/product/edit/product_edit_page.dart';
+import 'package:zentrio_admin/presentation/features/product/organization/product_organization_page.dart';
 
 import '../components/dialog_page.dart';
 import '../components/sheet_page.dart';
@@ -54,6 +55,18 @@ final productsRoute = GoRoute(
             final product = state.extra as Product;
             return SheetPage(
               builder: (_) => ProductEditPage(
+                product: product,
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: "organization",
+          parentNavigatorKey: rootNavigatorKey,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            final product = state.extra as Product;
+            return SheetPage(
+              builder: (_) => ProductOrganizationPage(
                 product: product,
               ),
             );

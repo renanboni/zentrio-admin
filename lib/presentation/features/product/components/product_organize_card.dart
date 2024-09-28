@@ -54,7 +54,10 @@ class ProductOrganizeCard extends StatelessWidget {
           const Spacer(),
           EditContextMenu(
             onEdit: () async {
-
+              final result = await GoRouter.of(context).push(
+                "/products/${product.id}/organization",
+                extra: product,
+              );
             },
           )
         ],
