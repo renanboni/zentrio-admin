@@ -19,6 +19,7 @@ import 'package:zentrio_admin/data/local/auth_local_data_source.dart' as _i671;
 import 'package:zentrio_admin/data/remote/api_key_service.dart' as _i216;
 import 'package:zentrio_admin/data/remote/auth_service.dart' as _i311;
 import 'package:zentrio_admin/data/remote/category_service.dart' as _i676;
+import 'package:zentrio_admin/data/remote/collection_service.dart' as _i658;
 import 'package:zentrio_admin/data/remote/file_service.dart' as _i1013;
 import 'package:zentrio_admin/data/remote/product_service.dart' as _i134;
 import 'package:zentrio_admin/data/remote/vendor_service.dart' as _i451;
@@ -28,6 +29,8 @@ import 'package:zentrio_admin/domain/repositories/api_key_repository.dart'
     as _i830;
 import 'package:zentrio_admin/domain/repositories/category_repository.dart'
     as _i785;
+import 'package:zentrio_admin/domain/repositories/collection_repository.dart'
+    as _i612;
 import 'package:zentrio_admin/domain/repositories/file_repository.dart'
     as _i182;
 import 'package:zentrio_admin/domain/repositories/preferences_repository.dart'
@@ -39,6 +42,7 @@ import 'package:zentrio_admin/domain/repositories/vendor_repository.dart'
 import 'package:zentrio_admin/domain/usecase/api_key_usecase.dart' as _i116;
 import 'package:zentrio_admin/domain/usecase/auth_usecase.dart' as _i620;
 import 'package:zentrio_admin/domain/usecase/category_usecase.dart' as _i311;
+import 'package:zentrio_admin/domain/usecase/collection_use_case.dart' as _i464;
 import 'package:zentrio_admin/domain/usecase/file_usecase.dart' as _i850;
 import 'package:zentrio_admin/domain/usecase/product_usecase.dart' as _i977;
 import 'package:zentrio_admin/domain/usecase/vendor_usecase.dart' as _i97;
@@ -50,6 +54,8 @@ import 'package:zentrio_admin/presentation/features/category/category_view_model
     as _i943;
 import 'package:zentrio_admin/presentation/features/category/edit/category_edit_view_model.dart'
     as _i632;
+import 'package:zentrio_admin/presentation/features/collections/create/create_collection_view_model.dart'
+    as _i440;
 import 'package:zentrio_admin/presentation/features/dashboard/side_bar_controller.dart'
     as _i857;
 import 'package:zentrio_admin/presentation/features/dashboard/vendors/vendors_view_model.dart'
@@ -88,11 +94,15 @@ extension GetItInjectableX on _i174.GetIt {
       () => dataModule.prefs,
       preResolve: true,
     );
+    gh.factory<_i440.CreateCollectionViewModel>(
+        () => _i440.CreateCollectionViewModel());
     gh.lazySingleton<_i311.AuthService>(() => networkModule.authService);
     gh.lazySingleton<_i451.VendorService>(() => networkModule.vendorService);
     gh.lazySingleton<_i134.ProductService>(() => networkModule.productService);
     gh.lazySingleton<_i676.CategoryService>(
         () => networkModule.categoryService);
+    gh.lazySingleton<_i658.CollectionService>(
+        () => networkModule.collectionService);
     gh.lazySingleton<_i1013.FileService>(() => networkModule.fileService);
     gh.lazySingleton<_i216.ApiKeyService>(() => networkModule.apiKeyService);
     gh.lazySingleton<_i671.AuthenticationLocalDataSource>(
@@ -106,6 +116,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => dataModule.preferencesRepository);
     gh.lazySingleton<_i182.FileRepository>(() => dataModule.fileRepository);
     gh.lazySingleton<_i830.ApiKeyRepository>(() => dataModule.apiKeyRepository);
+    gh.lazySingleton<_i612.CollectionRepository>(
+        () => dataModule.collectionRepository);
     gh.lazySingleton<_i660.AuthInterceptor>(() => _i660.AuthInterceptor(
         authLocalDataSource: gh<_i671.AuthenticationLocalDataSource>()));
     gh.lazySingleton<_i361.Dio>(
@@ -114,6 +126,8 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i311.CategoryUseCase>(
         () => _i311.CategoryUseCase(gh<_i785.CategoryRepository>()));
+    gh.factory<_i464.CollectionUseCase>(
+        () => _i464.CollectionUseCase(gh<_i612.CollectionRepository>()));
     gh.lazySingleton<_i361.Dio>(
       () => networkModule.authenticatedDio,
       instanceName: 'authenticated',

@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zentrio_admin/data/local/auth_local_data_source.dart';
 import 'package:zentrio_admin/data/remote/api_key_service.dart';
 import 'package:zentrio_admin/data/remote/category_service.dart';
+import 'package:zentrio_admin/data/remote/collection_service.dart';
 import 'package:zentrio_admin/data/remote/file_service.dart';
 import 'package:zentrio_admin/data/remote/product_service.dart';
 import 'package:zentrio_admin/data/remote/vendor_service.dart';
@@ -15,9 +16,11 @@ import 'package:zentrio_admin/domain/repositories/product_repository.dart';
 
 import '../../data/api_key_repository_impl.dart';
 import '../../data/category_repository_impl.dart';
+import '../../data/collection_repository_impl.dart';
 import '../../data/file_repository_impl.dart';
 import '../../data/preferences_repository_impl.dart';
 import '../../data/product_repository_impl.dart';
+import '../../domain/repositories/collection_repository.dart';
 import '../../domain/repositories/preferences_repository.dart';
 import '../../domain/repositories/vendor_repository.dart';
 import '../init.dart';
@@ -54,4 +57,8 @@ abstract class DataModule {
   @lazySingleton
   ApiKeyRepository get apiKeyRepository =>
       ApiKeyRepositoryImpl(getIt<ApiKeyService>());
+
+  @lazySingleton
+  CollectionRepository get collectionRepository =>
+      CollectionRepositoryImpl(getIt<CollectionService>());
 }

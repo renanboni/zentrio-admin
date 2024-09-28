@@ -6,6 +6,7 @@ import 'package:zentrio_admin/data/remote/api_key_service.dart';
 import 'package:zentrio_admin/data/remote/api_key_service.dart';
 import 'package:zentrio_admin/data/remote/auth_service.dart';
 import 'package:zentrio_admin/data/remote/category_service.dart';
+import 'package:zentrio_admin/data/remote/collection_service.dart';
 import 'package:zentrio_admin/data/remote/file_service.dart';
 import 'package:zentrio_admin/data/remote/product_service.dart';
 import 'package:zentrio_admin/data/remote/vendor_service.dart';
@@ -26,6 +27,9 @@ abstract class NetworkModule {
 
   @lazySingleton
   CategoryService get categoryService => CategoryService(getIt<Dio>(instanceName: 'authenticated'));
+
+  @lazySingleton
+  CollectionService get collectionService => CollectionService(getIt<Dio>(instanceName: 'authenticated'));
 
   @lazySingleton
   FileService get fileService => FileService(getIt<Dio>(instanceName: 'authenticated'));

@@ -5,6 +5,7 @@ import 'package:zentrio_admin/presentation/components/stepper/horizontal_stepper
 import 'package:zentrio_admin/presentation/components/stepper/step_item_list.dart';
 import 'package:zentrio_admin/presentation/features/invite/components/store_form.dart';
 import 'package:zentrio_admin/presentation/features/invite/components/vendor_form.dart';
+import 'package:zentrio_admin/utils/extensions/context_ext.dart';
 
 class CreateVendorForm extends StatefulWidget {
   const CreateVendorForm({super.key});
@@ -23,7 +24,7 @@ class _CreateVendorFormState extends State<CreateVendorForm> {
           title: 'Vendor',
           state: HorizontalStepState.editing,
           content: MaxWidthBox(
-            maxWidth: 500,
+            maxWidth: context.maxWidth,
             child: VendorForm(
               firstNameController: TextEditingController(),
               lastNameController: TextEditingController(),
@@ -31,12 +32,12 @@ class _CreateVendorFormState extends State<CreateVendorForm> {
             ),
           ),
         ),
-        const StepItemList(
+        StepItemList(
           state: HorizontalStepState.disabled,
           title: 'Store',
           content: MaxWidthBox(
-            maxWidth: 500,
-            child: StoreForm(),
+            maxWidth: context.maxWidth,
+            child: const StoreForm(),
           ),
         ),
       ],
