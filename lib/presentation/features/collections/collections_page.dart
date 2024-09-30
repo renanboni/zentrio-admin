@@ -55,7 +55,7 @@ class _CollectionsPageState extends State<CollectionsPage> {
               child: CollectionsTable(
                 collections: _viewModel.collections.watch(context),
                 onClick: (collection) {
-                  //GoRouter.of(context).go("/collections/${collection.id}");
+                  GoRouter.of(context).go("/collections/${collection.id}");
                 },
                 onEdit: (collection) {
                   //GoRouter.of(context).go("/collections/${collection.id}/edit");

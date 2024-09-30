@@ -55,7 +55,8 @@ class _CategoryPageState extends State<CategoryPage> {
                         onRefresh: () => viewModel.getCategory(widget.categoryId),
                       ),
                       const SizedBox(height: 16),
-                      const ProductsCard(products: []),
+                      // TODO Fix: Layout broken due to collection page
+                      // const ProductsCard(products: []),
                     ],
                   ),
                 ),

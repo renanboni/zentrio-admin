@@ -2,6 +2,7 @@ import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
+import 'package:zentrio_admin/presentation/features/products/components/products_table.dart';
 
 import '../../../components/edit_context_menu.dart';
 
@@ -17,12 +18,21 @@ class ProductsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShadCard(
       padding: const EdgeInsets.all(0),
-      child: Column(
-        children: [
-          _buildHeader(context),
-          const Divider(height: 1),
-          if (products.isEmpty) _emptyProducts(context),
-        ],
+      child: Expanded(
+        child: Column(
+          children: [
+            _buildHeader(context),
+            const Divider(height: 1),
+            if (products.isEmpty) _emptyProducts(context),
+            if (products.isNotEmpty)
+              Expanded(
+                child: ProductsTable(
+                  products: products,
+                  onClick: (product) {},
+                ),
+              )
+          ],
+        ),
       ),
     );
   }

@@ -58,16 +58,17 @@ class ProductsTable extends StatelessWidget {
           case 4:
             return ShadTableCell(child: Text(product.status));
           default:
-            return  ShadTableCell(
+            return ShadTableCell(
               alignment: Alignment.centerRight,
               child: EditContextMenu(
                 deleteDialogTitle: "Are you sure?",
                 deleteDialogDescription:
-                "You are about to delete the product ${product.title}. This action cannot be undone.",
+                    "You are about to delete the product ${product.title}. This action cannot be undone.",
                 onEdit: () => {},
                 onDelete: () => {},
               ),
-            );;
+            );
+            ;
         }
       },
       columnCount: headings.length,

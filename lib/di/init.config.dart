@@ -100,7 +100,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => dataModule.prefs,
       preResolve: true,
     );
-    gh.factory<_i864.CollectionViewModel>(() => _i864.CollectionViewModel());
     gh.lazySingleton<_i311.AuthService>(() => networkModule.authService);
     gh.lazySingleton<_i451.VendorService>(() => networkModule.vendorService);
     gh.lazySingleton<_i134.ProductService>(() => networkModule.productService);
@@ -141,6 +140,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i255.CollectionsViewModel(gh<_i464.CollectionUseCase>()));
     gh.factory<_i440.CreateCollectionViewModel>(
         () => _i440.CreateCollectionViewModel(gh<_i464.CollectionUseCase>()));
+    gh.factory<_i864.CollectionViewModel>(
+        () => _i864.CollectionViewModel(gh<_i464.CollectionUseCase>()));
     gh.factory<_i850.FileUseCase>(
         () => _i850.FileUseCase(gh<_i182.FileRepository>()));
     gh.factory<_i977.ProductUseCase>(
