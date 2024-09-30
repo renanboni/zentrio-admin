@@ -20,4 +20,11 @@ class CollectionRepositoryImpl implements CollectionRepository {
     return _service.getAll().then((value) =>
         value.collections?.map((e) => e.toCollection()).toList() ?? []);
   }
+
+  @override
+  Future<Collection> getCollectionById(String id, List<String> expand) {
+    return _service
+        .getCollectionById(id, expand.join(','))
+        .then((value) => value.toCollection());
+  }
 }

@@ -1,5 +1,6 @@
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:zentrio_admin/data/models/api_product.dart';
 
 part 'api_collection.g.dart';
 
@@ -8,6 +9,7 @@ class ApiCollection {
   final String? id;
   final String? title;
   final String? handle;
+  final List<ApiProduct>? products;
   final String? createdAt;
   final String? updatedAt;
   final String? deletedAt;
@@ -16,6 +18,7 @@ class ApiCollection {
     this.id,
     this.title,
     this.handle,
+    this.products,
     this.createdAt,
     this.updatedAt,
     this.deletedAt,

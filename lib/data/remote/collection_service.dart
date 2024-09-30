@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/http.dart';
+import 'package:zentrio_admin/data/models/api_collection.dart';
 import 'package:zentrio_admin/data/models/api_product.dart';
 import 'package:zentrio_admin/data/models/req/create_category_req.dart';
 import 'package:zentrio_admin/data/models/res/categories_response.dart';
@@ -23,6 +24,12 @@ abstract class CollectionService {
 
   @GET("/vendor/collections")
   Future<CollectionsResponse> getAll();
+
+  @GET("/vendor/collections/{id}")
+  Future<ApiCollection> getCollectionById(
+    @Path("id") String id,
+    @Query("expand") String expand,
+  );
 
   @POST("/vendor/collections")
   Future<void> createCollection(@Body() CreateCollectionRequest collection);

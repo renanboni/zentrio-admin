@@ -1,4 +1,3 @@
-
 import 'package:injectable/injectable.dart';
 
 import '../../data/models/create_collection_request.dart';
@@ -13,6 +12,13 @@ class CollectionUseCase {
 
   Future<List<Collection>> getCollections() {
     return _collectionRepository.getCollections();
+  }
+
+  Future<Collection> getCollectionById(
+    String id, {
+    List<String> expand = const [],
+  }) {
+    return _collectionRepository.getCollectionById(id, expand);
   }
 
   Future<void> createCollection(CreateCollectionRequest collection) {

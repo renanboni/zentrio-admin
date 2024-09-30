@@ -54,6 +54,8 @@ import 'package:zentrio_admin/presentation/features/category/category_view_model
     as _i943;
 import 'package:zentrio_admin/presentation/features/category/edit/category_edit_view_model.dart'
     as _i632;
+import 'package:zentrio_admin/presentation/features/collection/collection_view_model.dart'
+    as _i864;
 import 'package:zentrio_admin/presentation/features/collections/collections_view_model.dart'
     as _i255;
 import 'package:zentrio_admin/presentation/features/collections/create/create_collection_view_model.dart'
@@ -98,6 +100,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => dataModule.prefs,
       preResolve: true,
     );
+    gh.factory<_i864.CollectionViewModel>(() => _i864.CollectionViewModel());
     gh.lazySingleton<_i311.AuthService>(() => networkModule.authService);
     gh.lazySingleton<_i451.VendorService>(() => networkModule.vendorService);
     gh.lazySingleton<_i134.ProductService>(() => networkModule.productService);
