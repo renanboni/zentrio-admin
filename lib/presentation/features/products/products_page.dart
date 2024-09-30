@@ -49,8 +49,14 @@ class _ProductsPageState extends State<ProductsPage> {
             Expanded(
               child: ProductsTable(
                 products: viewModel.products.watch(context),
-                onClick: (product) {
-                  GoRouter.of(context).go("/products/${product.id}");
+                onClick: (product) async {
+                  final result = await GoRouter.of(context).push(
+                    "/products/${product.id}",
+                  );
+
+                  if (result != null) {
+                    viewModel.refresh();
+                  }
                 },
               ),
             ),

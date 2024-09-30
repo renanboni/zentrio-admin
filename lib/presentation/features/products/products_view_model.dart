@@ -14,6 +14,10 @@ class ProductsViewModel {
     _getProducts();
   }
 
+  void refresh() {
+    _getProducts();
+  }
+
   _getProducts() async {
     try {
       products.value = await _productUseCase.getAll();

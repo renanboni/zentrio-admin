@@ -1,5 +1,6 @@
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:zentrio_admin/data/models/api_product.dart';
 
 part 'api_category.g.dart';
 
@@ -12,6 +13,7 @@ class ApiCategory {
   final bool? isActive;
   final bool? isInternal;
   final int? rank;
+  final List<ApiProduct>? products;
   final String? createdAt;
   final String? updatedAt;
   final String? deletedAt;
@@ -24,38 +26,13 @@ class ApiCategory {
     this.isActive,
     this.isInternal,
     this.rank,
+    this.products,
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
   );
 
-  factory ApiCategory.fromJson(Map<String, dynamic> json) {
-    return ApiCategory(
-      json['id'],
-      json['name'],
-      json['description'],
-      json['handle'],
-      json['is_active'],
-      json['is_internal'],
-      json['rank'],
-      json['created_at'],
-      json['updated_at'],
-      json['deleted_at'],
-    );
-  }
+  factory ApiCategory.fromJson(Map<String, dynamic> json) => _$ApiCategoryFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'description': description,
-      'handle': handle,
-      'is_active': isActive,
-      'is_internal': isInternal,
-      'rank': rank,
-      'created_at': createdAt,
-      'updated_at': updatedAt,
-      'deleted_at': deletedAt,
-    };
-  }
+  Map<String, dynamic> toJson() => _$ApiCategoryToJson(this);
 }

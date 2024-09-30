@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
 
+import '../../../components/edit_context_menu.dart';
+
 final headings = [
   'Product',
   'Collection',
@@ -56,7 +58,16 @@ class ProductsTable extends StatelessWidget {
           case 4:
             return ShadTableCell(child: Text(product.status));
           default:
-            return const ShadTableCell(child: SizedBox());
+            return  ShadTableCell(
+              alignment: Alignment.centerRight,
+              child: EditContextMenu(
+                deleteDialogTitle: "Are you sure?",
+                deleteDialogDescription:
+                "You are about to delete the product ${product.title}. This action cannot be undone.",
+                onEdit: () => {},
+                onDelete: () => {},
+              ),
+            );;
         }
       },
       columnCount: headings.length,
@@ -73,7 +84,8 @@ class ProductsTable extends StatelessWidget {
         if (index == 1) return const FixedTableSpanExtent(200);
         if (index == 2) return const FixedTableSpanExtent(250);
         if (index == 3) return const FixedTableSpanExtent(150);
-        if (index == 4) {
+        if (index == 4) return const FixedTableSpanExtent(250);
+        if (index == 5) {
           return const MaxTableSpanExtent(
             FixedTableSpanExtent(120),
             RemainingTableSpanExtent(),

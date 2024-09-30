@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:zentrio_admin/domain/models/product.dart';
 
 class Category extends Equatable {
   final String? id;
@@ -8,6 +9,7 @@ class Category extends Equatable {
   final bool isActive;
   final bool isInternal;
   final int rank;
+  final List<Product> products;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final DateTime? deletedAt;
@@ -25,6 +27,7 @@ class Category extends Equatable {
     this.updatedAt,
     this.deletedAt,
     this.isNew = false,
+    this.products = const [],
   });
 
   factory Category.empty() => const Category(
@@ -39,6 +42,7 @@ class Category extends Equatable {
         updatedAt: null,
         deletedAt: null,
         isNew: false,
+        products: []
       );
 
   Category copyWith({
@@ -49,10 +53,11 @@ class Category extends Equatable {
     bool? isActive,
     bool? isInternal,
     int? rank,
-    bool? isNew,
     DateTime? createdAt,
     DateTime? updatedAt,
     DateTime? deletedAt,
+    bool? isNew,
+    List<Product>? products,
   }) {
     return Category(
       id: id ?? this.id,
@@ -66,6 +71,7 @@ class Category extends Equatable {
       updatedAt: updatedAt ?? this.updatedAt,
       deletedAt: deletedAt ?? this.deletedAt,
       isNew: isNew ?? this.isNew,
+      products: products ?? this.products,
     );
   }
 
@@ -82,5 +88,6 @@ class Category extends Equatable {
         updatedAt,
         deletedAt,
         isNew,
+        products,
       ];
 }

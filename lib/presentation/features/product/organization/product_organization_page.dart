@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/di/init.dart';
+import 'package:zentrio_admin/domain/models/category.dart';
 import 'package:zentrio_admin/domain/models/collection.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
 import 'package:zentrio_admin/presentation/features/product/organization/product_organization_view_model.dart';
@@ -82,20 +83,22 @@ class _ProductOrganizationPageState extends State<ProductOrganizationPage> {
                           Text(value.title),
                     ),
                     const SizedBox(height: 16),
-                    Select<String>(
+                    Select<Category>(
                       id: 'categories',
                       label: "Categories",
-                      initialValue: "",
-                      onChanged: (status) {},
-                      options: []
+                      initialValue: _viewModel.selectedCategory.watch(context),
+                      onChanged: (category) {
+                        _viewModel.selectedCategory.value = category ?? Category.empty();
+                      },
+                      options: _viewModel.categories.watch(context)
                           .map(
-                            (status) => ShadOption(
-                              value: status,
-                              child: Text(status.name),
+                            (category) => ShadOption(
+                              value: category,
+                              child: Text(category.name),
                             ),
                           )
                           .toList(),
-                      selectedOptionBuilder: (context, value) => const Text(""),
+                      selectedOptionBuilder: (context, category) => Text(category.name),
                     ),
                     const SizedBox(height: 16),
                     ShadSelectFormField<String>(

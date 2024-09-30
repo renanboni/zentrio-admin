@@ -134,16 +134,19 @@ extension GetItInjectableX on _i174.GetIt {
       () => networkModule.authenticatedDio,
       instanceName: 'authenticated',
     );
-    gh.factory<_i440.CreateCollectionViewModel>(
-        () => _i440.CreateCollectionViewModel(gh<_i464.CollectionUseCase>()));
     gh.factory<_i255.CollectionsViewModel>(
         () => _i255.CollectionsViewModel(gh<_i464.CollectionUseCase>()));
-    gh.factory<_i790.ProductOrganizationViewModel>(() =>
-        _i790.ProductOrganizationViewModel(gh<_i464.CollectionUseCase>()));
+    gh.factory<_i440.CreateCollectionViewModel>(
+        () => _i440.CreateCollectionViewModel(gh<_i464.CollectionUseCase>()));
     gh.factory<_i850.FileUseCase>(
         () => _i850.FileUseCase(gh<_i182.FileRepository>()));
     gh.factory<_i977.ProductUseCase>(
         () => _i977.ProductUseCase(gh<_i999.ProductRepository>()));
+    gh.factory<_i790.ProductOrganizationViewModel>(
+        () => _i790.ProductOrganizationViewModel(
+              gh<_i464.CollectionUseCase>(),
+              gh<_i311.CategoryUseCase>(),
+            ));
     gh.factory<_i116.ApiKeyUseCase>(
         () => _i116.ApiKeyUseCase(gh<_i830.ApiKeyRepository>()));
     gh.factory<_i473.RankingViewModel>(

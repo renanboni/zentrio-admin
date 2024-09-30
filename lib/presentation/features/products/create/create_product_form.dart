@@ -57,12 +57,8 @@ class _CreateProductFormState extends State<CreateProductForm> {
       onComplete: () async {
         viewModel.createProduct(
           () {
-            ShadToaster.of(context).show(
-              const ShadToast(
-                description: Text('Product created successfully'),
-              ),
-            );
-            GoRouter.of(context).pop();
+            context.success("Product created successfully");
+            GoRouter.of(context).pop(true);
           },
           () {
             print('Error creating product');

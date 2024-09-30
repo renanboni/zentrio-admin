@@ -94,6 +94,7 @@ extension ApiCategoryMapper on ApiCategory {
       isActive: isActive ?? false,
       isInternal: isInternal ?? false,
       rank: rank ?? 0,
+      products: products?.map((e) => e.toProduct()).toList() ?? [],
       createdAt: DateTime.tryParse(createdAt ?? ''),
       updatedAt: DateTime.tryParse(updatedAt ?? ''),
       deletedAt: DateTime.tryParse(deletedAt ?? ''),
