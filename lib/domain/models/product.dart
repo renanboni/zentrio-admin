@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:zentrio_admin/domain/models/category.dart';
 import 'package:zentrio_admin/domain/models/collection.dart';
 import 'package:zentrio_admin/domain/models/medusa_file.dart';
 import 'package:zentrio_admin/domain/models/product_option.dart';
@@ -30,6 +31,7 @@ class Product extends Equatable {
   final ProductType type;
   final List<ProductTag> tags;
   final Collection collection;
+  final List<Category> categories;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final DateTime? deletedAt;
@@ -62,6 +64,7 @@ class Product extends Equatable {
     required this.type,
     required this.tags,
     required this.collection,
+    required this.categories,
   });
 
   factory Product.empty() {
@@ -90,6 +93,7 @@ class Product extends Equatable {
       type: ProductType.empty(),
       collection: Collection.empty(),
       tags: const [],
+      categories: const [],
       createdAt: null,
       updatedAt: null,
       deletedAt: null,
@@ -121,6 +125,7 @@ class Product extends Equatable {
     ProductType? type,
     List<ProductTag>? tags,
     Collection? collection,
+    List<Category>? categories,
     DateTime? createdAt,
     DateTime? updatedAt,
     DateTime? deletedAt,
@@ -150,6 +155,7 @@ class Product extends Equatable {
       type: type ?? this.type,
       tags: tags ?? this.tags,
       collection: collection ?? this.collection,
+      categories: categories ?? this.categories,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       deletedAt: deletedAt ?? this.deletedAt,
@@ -181,6 +187,7 @@ class Product extends Equatable {
         images,
         type,
         tags,
+        categories,
         collection,
         createdAt,
         updatedAt,

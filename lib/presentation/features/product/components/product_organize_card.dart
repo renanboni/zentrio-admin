@@ -31,12 +31,32 @@ class ProductOrganizeCard extends StatelessWidget {
           const Divider(height: 1),
           KeyValueItemList(
             pair: const Tuple2("Collection", null),
-            child: ShadBadge.secondary(
-              child: Text(product.collection.title),
-            ),
+            children: [
+              ShadBadge.secondary(
+                child: Text(product.collection.title),
+              )
+            ],
           ),
           const Divider(height: 1),
-          const KeyValueItemList(pair: Tuple2("Categories", "")),
+          KeyValueItemList(
+            pair: const Tuple2(
+              "Categories",
+              null,
+            ),
+            children: product.categories
+                .map(
+                  (e) => MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: ShadBadge.secondary(
+                      child: Text(e.name),
+                      onPressed: () => GoRouter.of(context).push(
+                        "/categories/${e.id}",
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
         ],
       ),
     );
@@ -61,8 +81,11 @@ class ProductOrganizeCard extends StatelessWidget {
             onEdit: () async {
               final result = await GoRouter.of(context).push(
                 "/products/${product.id}/organization",
-                extra: product,
               );
+
+              if (result == true) {
+                onRefresh();
+              }
             },
           )
         ],

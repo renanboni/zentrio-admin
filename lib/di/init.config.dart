@@ -146,11 +146,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i850.FileUseCase(gh<_i182.FileRepository>()));
     gh.factory<_i977.ProductUseCase>(
         () => _i977.ProductUseCase(gh<_i999.ProductRepository>()));
-    gh.factory<_i790.ProductOrganizationViewModel>(
-        () => _i790.ProductOrganizationViewModel(
-              gh<_i464.CollectionUseCase>(),
-              gh<_i311.CategoryUseCase>(),
-            ));
     gh.factory<_i116.ApiKeyUseCase>(
         () => _i116.ApiKeyUseCase(gh<_i830.ApiKeyRepository>()));
     gh.factory<_i473.RankingViewModel>(
@@ -178,6 +173,12 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.lazySingleton<_i774.FileRepositoryImpl>(
         () => _i774.FileRepositoryImpl(gh<_i1013.FileService>()));
+    gh.factory<_i790.ProductOrganizationViewModel>(
+        () => _i790.ProductOrganizationViewModel(
+              gh<_i464.CollectionUseCase>(),
+              gh<_i311.CategoryUseCase>(),
+              gh<_i977.ProductUseCase>(),
+            ));
     gh.factory<_i620.AuthUseCase>(
         () => _i620.AuthUseCase(gh<_i132.AuthenticationRepository>()));
     gh.factory<_i149.VendorsViewModel>(

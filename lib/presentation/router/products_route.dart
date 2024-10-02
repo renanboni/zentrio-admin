@@ -64,10 +64,10 @@ final productsRoute = GoRoute(
           path: "organization",
           parentNavigatorKey: rootNavigatorKey,
           pageBuilder: (BuildContext context, GoRouterState state) {
-            final product = state.extra as Product;
+            final productId = state.pathParameters['id'];
             return SheetPage(
               builder: (_) => ProductOrganizationPage(
-                product: product,
+                productId: productId ?? '',
               ),
             );
           },

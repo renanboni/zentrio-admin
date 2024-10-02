@@ -44,6 +44,7 @@ extension ApiProductMapper on ApiProduct {
       deletedAt: DateTime.tryParse(deletedAt ?? ''),
       options: options?.map((e) => e.toProductOption()).toList() ?? [],
       images: images?.map((e) => e.toMediaFile()).toList() ?? [],
+      categories: categories.map((e) => e.toCategory()).toList(),
     );
   }
 }

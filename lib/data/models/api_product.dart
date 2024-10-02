@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:zentrio_admin/data/models/api_category.dart';
 import 'package:zentrio_admin/data/models/api_collection.dart';
 import 'package:zentrio_admin/data/models/api_file.dart';
 import 'package:zentrio_admin/data/models/api_product_option.dart';
@@ -34,6 +35,7 @@ class ApiProduct {
   final ApiCollection? collection;
   final ApiProductType? type;
   final List<ApiProductTag>? tags;
+  final List<ApiCategory> categories;
   final String? createdAt;
   final String? updatedAt;
   final String? deletedAt;
@@ -66,6 +68,7 @@ class ApiProduct {
     this.collection,
     this.type,
     this.tags,
+    this.categories = const [],
   });
 
   factory ApiProduct.fromJson(Map<String, dynamic> json) => _$ApiProductFromJson(json);

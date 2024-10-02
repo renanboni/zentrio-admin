@@ -73,7 +73,7 @@ class MediaItemList extends StatelessWidget {
               ShadContextMenu(
                 controller: controller,
                 visible: controller.isOpen,
-                children: [
+                items: [
                   ShadContextMenuItem(
                     onPressed: onMakeThumbnail,
                     leading: const ShadImage.square(

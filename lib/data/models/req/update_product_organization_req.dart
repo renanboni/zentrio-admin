@@ -7,13 +7,13 @@ part 'update_product_organization_req.g.dart';
 class UpdateProductOrganizationReq {
   final String? type;
   final String? collection;
-  final List<String>? categories;
+  final List<String>? categoryIds;
   final List<String>? tags;
 
   UpdateProductOrganizationReq({
     this.type,
     this.collection,
-    this.categories,
+    this.categoryIds,
     this.tags,
   });
 

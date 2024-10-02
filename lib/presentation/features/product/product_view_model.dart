@@ -15,7 +15,7 @@ class ProductViewModel {
     try {
       product.value = await _productUseCase.getProductById(
         id,
-        expand: ['images', 'collection'],
+        expand: ['images', 'collection', 'categories'],
       );
     } catch (e) {
       print(e);

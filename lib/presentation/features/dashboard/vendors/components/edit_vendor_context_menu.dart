@@ -16,7 +16,7 @@ class _EditVendorContextMenuState extends State<EditVendorContextMenu> {
     return ShadContextMenu(
       controller: _controller,
       visible: _controller.isOpen,
-      children: [
+      items: [
         ShadContextMenuItem(
           leading: const ShadImage.square(
             LucideIcons.pencil,
