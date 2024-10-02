@@ -32,8 +32,14 @@ class ProductOrganizeCard extends StatelessWidget {
           KeyValueItemList(
             pair: const Tuple2("Collection", null),
             children: [
-              ShadBadge.secondary(
-                child: Text(product.collection.title),
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: ShadBadge.secondary(
+                  child: Text(product.collection.title),
+                  onPressed: () => GoRouter.of(context).push(
+                    "/collections/${product.collection.id}",
+                  ),
+                ),
               )
             ],
           ),
