@@ -72,12 +72,16 @@ class _ProductOrganizationPageState extends State<ProductOrganizationPage> {
                       selectedOptionBuilder: (context, value) => const Text(""),
                     ),
                     const SizedBox(height: 16),
-                    Select<Collection>(
-                      id: 'collection',
-                      label: "Collection",
+                    const OptionalLabel(label: "Collection"),
+                    const SizedBox(height: 8),
+                    ShadSelect.raw(
+                      variant: ShadSelectVariant.primary,
+                      minWidth: double.infinity,
                       initialValue:
                           _viewModel.product.watch(context).collection,
-                      onChanged: (collection) {},
+                      onChanged: (collection) {
+                        _viewModel.onCollectionChanged(collection);
+                      },
                       options: _viewModel.collections
                           .watch(context)
                           .map(

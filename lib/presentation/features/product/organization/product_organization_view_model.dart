@@ -48,8 +48,10 @@ class ProductOrganizationViewModel {
     selectedCategories.addAll(categories);
   }
 
-  void onCollectionChanged(Collection collection) {
-    selectedCollection = collection;
+  void onCollectionChanged(Collection? collection) {
+    if (collection != null) {
+      selectedCollection = collection;
+    }
   }
 
   void onSave(
@@ -62,11 +64,15 @@ class ProductOrganizationViewModel {
       await _productUseCase.updateProduct(
           product.value.id,
           UpdateProductOrganizationReq(
-            categoryIds: categoryIds !=
-                    product.value.categories.map((e) => e.id ?? '').toList()
+            categoryIds: categoryIds.isNotEmpty &&
+                    categoryIds !=
+                        product.value.categories.map((e) => e.id ?? '').toList()
                 ? categoryIds
                 : null,
-            collection: null,
+            collection: selectedCollection != Collection.empty() &&
+                    selectedCollection.id != product.value.collection.id
+                ? selectedCollection.id
+                : null,
           ).toJson());
       onSuccess();
     } catch (e) {
