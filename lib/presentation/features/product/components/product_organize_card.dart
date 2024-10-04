@@ -47,7 +47,7 @@ class ProductOrganizeCard extends StatelessWidget {
           KeyValueItemList(
             pair: const Tuple2(
               "Categories",
-              null,
+              "",
             ),
             children: product.categories
                 .map(

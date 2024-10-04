@@ -64,9 +64,8 @@ class ProductOrganizationViewModel {
       await _productUseCase.updateProduct(
           product.value.id,
           UpdateProductOrganizationReq(
-            categoryIds: categoryIds.isNotEmpty &&
-                    categoryIds !=
-                        product.value.categories.map((e) => e.id ?? '').toList()
+            categoryIds: categoryIds !=
+                    product.value.categories.map((e) => e.id ?? '').toList()
                 ? categoryIds
                 : null,
             collection: selectedCollection != Collection.empty() &&
