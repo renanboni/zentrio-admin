@@ -6,6 +6,7 @@ import 'package:zentrio_admin/presentation/features/product/organization/product
 
 import '../components/dialog_page.dart';
 import '../components/sheet_page.dart';
+import '../features/product/metadata/product_metadata_page.dart';
 import '../features/product/product_page.dart';
 import '../features/productAttributes/product_attributes_page.dart';
 import '../features/products/create/create_product_form.dart';
@@ -67,6 +68,18 @@ final productsRoute = GoRoute(
             final productId = state.pathParameters['id'];
             return SheetPage(
               builder: (_) => ProductOrganizationPage(
+                productId: productId ?? '',
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: "metadata/edit",
+          parentNavigatorKey: rootNavigatorKey,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            final productId = state.pathParameters['id'];
+            return SheetPage(
+              builder: (_) => ProductMetadataPage(
                 productId: productId ?? '',
               ),
             );

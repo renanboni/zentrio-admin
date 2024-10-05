@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/di/init.dart';
@@ -66,8 +67,15 @@ class _ProductPageState extends State<ProductPage> {
                           images: viewModel.product.watch(context).images,
                         ),
                       ),
-                      const ResponsiveRowColumnItem(
-                        child: ActionItemList(title: "Metadata", label: "2 keys"),
+                      ResponsiveRowColumnItem(
+                        child: ActionItemList(
+                          title: "Metadata",
+                          label: "2 keys",
+                          onTap: () => {
+                            GoRouter.of(context).push(
+                                "/products/${widget.productId}/metadata/edit")
+                          },
+                        ),
                       ),
                       const ResponsiveRowColumnItem(
                         child: ActionItemList(title: "JSON", label: "2 keys"),
