@@ -1,3 +1,4 @@
+import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
@@ -26,38 +27,27 @@ class MetadataListItem extends StatefulWidget {
 }
 
 class _MetadataListItemState extends State<MetadataListItem> {
-  final ShadContextMenuController controller = ShadContextMenuController();
-  final isHovering = signal(false);
-  late final isMenuOpen = computed(() {
-    print("visible");
-    return controller.isOpen.asSignal().value;
-  });
-  final groupId = UniqueKey();
+  final _controller = ShadContextMenuController();
 
   @override
   Widget build(BuildContext context) {
     final theme = ShadTheme.of(context);
 
-    return ShadMouseArea(
-      groupId: groupId,
-      onEnter: (_) {
-        isHovering.value = true;
-      },
-      onExit: (_) {
-        isHovering.value = false;
-      },
-      child: Stack(
-        clipBehavior: Clip.none,
+    return SizedBox(
+      height: 36,
+      child: Row(
         children: [
-          SizedBox(
-            height: 36,
+          Expanded(
             child: Row(
               children: [
                 Expanded(
                   child: ShadInput(
+                    initialValue: widget.metadata.key,
                     placeholder: Text(
                       "Key",
-                      style: theme.textTheme.small,
+                      style: theme.textTheme.small.copyWith(
+                          color: Colors.grey
+                      ),
                     ),
                     onChanged: widget.onKeyChanged,
                     style: theme.textTheme.small,
@@ -74,9 +64,12 @@ class _MetadataListItemState extends State<MetadataListItem> {
                 ),
                 Expanded(
                   child: ShadInput(
+                    initialValue: widget.metadata.value.toString(),
                     placeholder: Text(
                       "Value",
-                      style: theme.textTheme.small,
+                      style: theme.textTheme.small.copyWith(
+                        color: Colors.grey
+                      ),
                     ),
                     style: theme.textTheme.small,
                     onChanged: widget.onValueChanged,
@@ -91,11 +84,8 @@ class _MetadataListItemState extends State<MetadataListItem> {
               ],
             ),
           ),
-          if (isHovering.watch(context) || isMenuOpen.watch(context))
-            Positioned(
-              right: -16,
-              child: _buildTrailing(),
-            )
+          const VerticalDivider(width: 1),
+          _buildTrailing(),
         ],
       ),
     );
@@ -103,8 +93,7 @@ class _MetadataListItemState extends State<MetadataListItem> {
 
   _buildTrailing() {
     return ShadContextMenu(
-      groupId: groupId,
-      controller: controller,
+      controller: _controller,
       items: [
         ShadContextMenuItem(
           leading: const ShadImage.square(
@@ -133,13 +122,17 @@ class _MetadataListItemState extends State<MetadataListItem> {
         ),
       ],
       child: ShadButton.outline(
-        icon: const Icon(
+        size: ShadButtonSize.sm,
+        decoration: const ShadDecoration(
+          border: ShadBorder(),
+          shape: null,
+          fallbackToBorder: false,
+        ),
+        onPressed: _controller.toggle,
+        child: const Icon(
           LucideIcons.ellipsisVertical,
           size: 16,
         ),
-        onPressed: () {
-          controller.toggle();
-        },
       ),
     );
   }

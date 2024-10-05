@@ -15,6 +15,14 @@ class ProductMetadataViewModel {
     );
   }
 
+  void onKeyChanged(int index, String value) {
+    metadata[index] = metadata[index].copyWith(key: value);
+  }
+
+  void onValueChanged(int index, String value) {
+    metadata[index] = metadata[index].copyWith(value: value);
+  }
+
   void onAddRowAbove(int index) {
     metadata.insert(
       index,

@@ -10,6 +10,8 @@ class MetadataList extends StatelessWidget {
   final Function(int) onAddRowAbove;
   final Function(int) onAddRowBelow;
   final Function(int) onDeleteRow;
+  final Function(int, String) onKeyChanged;
+  final Function(int, String) onValueChanged;
 
   const MetadataList({
     super.key,
@@ -17,6 +19,8 @@ class MetadataList extends StatelessWidget {
     required this.onAddRowAbove,
     required this.onAddRowBelow,
     required this.onDeleteRow,
+    required this.onKeyChanged,
+    required this.onValueChanged,
   });
 
   @override
@@ -27,15 +31,15 @@ class MetadataList extends StatelessWidget {
         children: [
           _buildHeader(context),
           ListView.separated(
+            key: Key(metadata.length.toString()),
             shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
             itemCount: metadata.length,
             itemBuilder: (context, index) {
               final item = metadata[index];
               return MetadataListItem(
                 metadata: item,
-                onKeyChanged: (value) {},
-                onValueChanged: (value) {},
+                onKeyChanged: (value) => onKeyChanged(index, value),
+                onValueChanged: (value) => onValueChanged(index, value),
                 onAddRowAbove: () => onAddRowAbove(index),
                 onAddRowBelow: () => onAddRowBelow(index),
                 onDeleteRow: () => onDeleteRow(index),
@@ -56,11 +60,11 @@ class MetadataList extends StatelessWidget {
     final theme = ShadTheme.of(context);
 
     return Container(
-      height: 32,
+      height: 36,
       color: theme.colorScheme.secondary,
       child: Row(
         children: [
-          const SizedBox(width: 8),
+          const SizedBox(width: 12),
           Expanded(
             child: Text(
               "Key",
@@ -70,13 +74,17 @@ class MetadataList extends StatelessWidget {
           const VerticalDivider(
             width: 2,
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 12),
           Expanded(
             child: Text(
               "Value",
               style: theme.textTheme.small,
             ),
           ),
+          const VerticalDivider(
+            width: 2,
+          ),
+          const SizedBox(width: 42)
         ],
       ),
     );

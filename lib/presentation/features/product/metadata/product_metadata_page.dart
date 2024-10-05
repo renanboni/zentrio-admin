@@ -42,6 +42,8 @@ class _ProductMetadataPageState extends State<ProductMetadataPage> {
               onAddRowAbove: _viewModel.onAddRowAbove,
               onAddRowBelow: _viewModel.onAddRowBelow,
               onDeleteRow: _viewModel.onDeleteRow,
+              onKeyChanged: _viewModel.onKeyChanged,
+              onValueChanged: _viewModel.onValueChanged,
             ),
           ),
           const Spacer(),
