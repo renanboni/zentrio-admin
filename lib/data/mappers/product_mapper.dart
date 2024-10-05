@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:zentrio_admin/data/mappers/collection_mapper.dart';
 import 'package:zentrio_admin/data/mappers/file_mapper.dart';
 import 'package:zentrio_admin/data/models/api_product_tag.dart';
 import 'package:zentrio_admin/data/models/req/create_category_req.dart';
+import 'package:zentrio_admin/domain/models/metadata.dart';
 import 'package:zentrio_admin/domain/models/product_option.dart';
 import 'package:zentrio_admin/domain/models/product_tag.dart';
 import 'package:zentrio_admin/domain/models/product_type.dart';
@@ -45,6 +47,10 @@ extension ApiProductMapper on ApiProduct {
       options: options?.map((e) => e.toProductOption()).toList() ?? [],
       images: images?.map((e) => e.toMediaFile()).toList() ?? [],
       categories: categories.map((e) => e.toCategory()).toList(),
+      metadata: metadata?.entries
+          .map((e) => Metadata(key: e.key, value: e.value.toString()))
+          .toList() ??
+          [],
     );
   }
 }

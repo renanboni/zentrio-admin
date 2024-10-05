@@ -70,7 +70,7 @@ class _ProductPageState extends State<ProductPage> {
                       ResponsiveRowColumnItem(
                         child: ActionItemList(
                           title: "Metadata",
-                          label: "2 keys",
+                          label: "${viewModel.product.watch(context).metadata.length} keys",
                           onTap: () => {
                             GoRouter.of(context).push(
                                 "/products/${widget.productId}/metadata/edit")

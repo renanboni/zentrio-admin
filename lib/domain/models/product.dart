@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
 import 'package:zentrio_admin/domain/models/collection.dart';
 import 'package:zentrio_admin/domain/models/medusa_file.dart';
+import 'package:zentrio_admin/domain/models/metadata.dart';
 import 'package:zentrio_admin/domain/models/product_option.dart';
 import 'package:zentrio_admin/domain/models/product_tag.dart';
 import 'package:zentrio_admin/domain/models/product_type.dart';
@@ -32,6 +33,7 @@ class Product extends Equatable {
   final List<ProductTag> tags;
   final Collection collection;
   final List<Category> categories;
+  final List<Metadata> metadata;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final DateTime? deletedAt;
@@ -65,6 +67,7 @@ class Product extends Equatable {
     required this.tags,
     required this.collection,
     required this.categories,
+    required this.metadata,
   });
 
   factory Product.empty() {
@@ -92,6 +95,7 @@ class Product extends Equatable {
       images: const [],
       type: ProductType.empty(),
       collection: Collection.empty(),
+      metadata: const [],
       tags: const [],
       categories: const [],
       createdAt: null,
@@ -120,15 +124,16 @@ class Product extends Equatable {
     String? typeId,
     bool? discountable,
     String? externalId,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    DateTime? deletedAt,
     List<ProductOption>? options,
     List<MedusaFile>? images,
     ProductType? type,
     List<ProductTag>? tags,
     Collection? collection,
     List<Category>? categories,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-    DateTime? deletedAt,
+    List<Metadata>? metadata,
   }) {
     return Product(
       id: id ?? this.id,
@@ -150,15 +155,16 @@ class Product extends Equatable {
       typeId: typeId ?? this.typeId,
       discountable: discountable ?? this.discountable,
       externalId: externalId ?? this.externalId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
       options: options ?? this.options,
       images: images ?? this.images,
       type: type ?? this.type,
       tags: tags ?? this.tags,
       collection: collection ?? this.collection,
       categories: categories ?? this.categories,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
-      deletedAt: deletedAt ?? this.deletedAt,
+      metadata: metadata ?? this.metadata,
     );
   }
 
@@ -187,6 +193,7 @@ class Product extends Equatable {
         images,
         type,
         tags,
+        metadata,
         categories,
         collection,
         createdAt,

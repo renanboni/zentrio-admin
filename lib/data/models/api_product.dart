@@ -36,6 +36,7 @@ class ApiProduct {
   final ApiProductType? type;
   final List<ApiProductTag>? tags;
   final List<ApiCategory> categories;
+  final Map<String, Object>? metadata;
   final String? createdAt;
   final String? updatedAt;
   final String? deletedAt;
@@ -68,6 +69,7 @@ class ApiProduct {
     this.collection,
     this.type,
     this.tags,
+    this.metadata,
     this.categories = const [],
   });
 
