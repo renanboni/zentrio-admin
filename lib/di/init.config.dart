@@ -138,12 +138,12 @@ extension GetItInjectableX on _i174.GetIt {
       () => networkModule.authenticatedDio,
       instanceName: 'authenticated',
     );
+    gh.factory<_i864.CollectionViewModel>(
+        () => _i864.CollectionViewModel(gh<_i464.CollectionUseCase>()));
     gh.factory<_i255.CollectionsViewModel>(
         () => _i255.CollectionsViewModel(gh<_i464.CollectionUseCase>()));
     gh.factory<_i440.CreateCollectionViewModel>(
         () => _i440.CreateCollectionViewModel(gh<_i464.CollectionUseCase>()));
-    gh.factory<_i864.CollectionViewModel>(
-        () => _i864.CollectionViewModel(gh<_i464.CollectionUseCase>()));
     gh.factory<_i850.FileUseCase>(
         () => _i850.FileUseCase(gh<_i182.FileRepository>()));
     gh.factory<_i977.ProductUseCase>(
@@ -198,10 +198,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i137.ProductEditViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i1010.ProductViewModel>(
         () => _i1010.ProductViewModel(gh<_i977.ProductUseCase>()));
-    gh.factory<_i740.ProductAttributesViewModel>(
-        () => _i740.ProductAttributesViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i922.ProductMetadataViewModel>(
         () => _i922.ProductMetadataViewModel(gh<_i977.ProductUseCase>()));
+    gh.factory<_i740.ProductAttributesViewModel>(
+        () => _i740.ProductAttributesViewModel(gh<_i977.ProductUseCase>()));
     gh.lazySingleton<_i857.DashboardViewModel>(() => _i857.DashboardViewModel(
           gh<_i620.AuthUseCase>(),
           gh<_i97.VendorUseCase>(),

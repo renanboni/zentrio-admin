@@ -1,6 +1,10 @@
 
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'product_type.g.dart';
+
+@JsonSerializable()
 class ProductType extends Equatable {
   final String id;
   final String value;
@@ -16,4 +20,8 @@ class ProductType extends Equatable {
 
   @override
   List<Object?> get props => [id, value];
+
+  Map<String, dynamic> toJson() => _$ProductTypeToJson(this);
+
+  factory ProductType.fromJson(Map<String, dynamic> json) => _$ProductTypeFromJson(json);
 }

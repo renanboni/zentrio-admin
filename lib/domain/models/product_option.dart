@@ -1,5 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'product_option.g.dart';
+
+@JsonSerializable()
 class ProductOption extends Equatable {
   final String title;
   final List<String> values;
@@ -28,4 +32,8 @@ class ProductOption extends Equatable {
         title,
         values,
       ];
+
+  Map<String, dynamic> toJson() => _$ProductOptionToJson(this);
+
+  factory ProductOption.fromJson(Map<String, dynamic> json) => _$ProductOptionFromJson(json);
 }
