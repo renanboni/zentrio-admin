@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:zentrio_admin/domain/models/product_option.dart';
 import 'package:zentrio_admin/presentation/components/edit_context_menu.dart';
@@ -16,15 +16,18 @@ class ProductOptionsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView.separated(
       shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: options.length,
       itemBuilder: (context, index) {
+        final option = options[index];
         return _ProductOptionItemList(
-          option: options[index],
-          onDelete: () => onDelete(options[index]),
+          option: option,
+          onDelete: () => onDelete(option),
         );
       },
+      separatorBuilder: (context, index) => const Divider(height: 1),
     );
   }
 }
