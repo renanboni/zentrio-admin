@@ -1,13 +1,10 @@
 import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:zentrio_admin/domain/models/product_option_value.dart';
 
-part 'product_option.g.dart';
-
-@JsonSerializable()
 class ProductOption extends Equatable {
   final String id;
   final String title;
-  final List<String> values;
+  final List<ProductOptionValue> values;
 
   const ProductOption({
     required this.title,
@@ -23,7 +20,7 @@ class ProductOption extends Equatable {
   ProductOption copyWith({
     String? id,
     String? title,
-    List<String>? values,
+    List<ProductOptionValue>? values,
   }) {
     return ProductOption(
       id: id ?? this.id,
@@ -38,9 +35,4 @@ class ProductOption extends Equatable {
         title,
         values,
       ];
-
-  Map<String, dynamic> toJson() => _$ProductOptionToJson(this);
-
-  factory ProductOption.fromJson(Map<String, dynamic> json) =>
-      _$ProductOptionFromJson(json);
 }

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:tuple/tuple.dart';
 import 'package:zentrio_admin/domain/models/product_option.dart';
+import 'package:zentrio_admin/domain/models/product_option_value.dart';
 import 'package:zentrio_admin/presentation/components/form_action_label.dart';
 import 'package:zentrio_admin/presentation/features/products/create/product_option_list_item.dart';
 
@@ -10,7 +11,7 @@ class ProductOptions extends StatelessWidget {
   final VoidCallback onAddProductOption;
   final ValueChanged<int> onRemove;
   final ValueChanged<Tuple2<int, String>> onTitleChanged;
-  final ValueChanged<Tuple2<int, List<String>>> onValuesChanged;
+  final ValueChanged<Tuple2<int, List<ProductOptionValue>>> onValuesChanged;
   final bool showAddOptionsAlert;
 
   const ProductOptions({

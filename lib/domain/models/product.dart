@@ -8,9 +8,6 @@ import 'package:zentrio_admin/domain/models/product_option.dart';
 import 'package:zentrio_admin/domain/models/product_tag.dart';
 import 'package:zentrio_admin/domain/models/product_type.dart';
 
-part 'product.g.dart';
-
-@JsonSerializable()
 class Product extends Equatable {
   final String id;
   final String title;
@@ -204,8 +201,4 @@ class Product extends Equatable {
         updatedAt,
         deletedAt,
       ];
-
-  Map<String, dynamic> toJson() => _$ProductToJson(this);
-
-  factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
 }

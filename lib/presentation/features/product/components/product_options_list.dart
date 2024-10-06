@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:zentrio_admin/domain/models/product_option.dart';
+import 'package:zentrio_admin/domain/models/product_option_value.dart';
 import 'package:zentrio_admin/presentation/components/edit_context_menu.dart';
 import 'package:zentrio_admin/utils/extensions/miscellaneous_ext.dart';
 
@@ -68,14 +69,14 @@ class _ProductOptionItemList extends StatelessWidget {
   }
 
   _buildOptionValues(
-    List<String> values,
+    List<ProductOptionValue> values,
   ) {
     return Row(
       children: values
           .map(
             (value) => ShadBadge.secondary(
               child: Text(
-                value,
+                value.value,
               ),
             ),
           )

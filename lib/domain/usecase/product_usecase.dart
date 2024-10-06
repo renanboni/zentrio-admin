@@ -50,4 +50,8 @@ class ProductUseCase {
   ) {
     return _productRepository.deleteProductOption(productId, optionId);
   }
+
+  Future<List<ProductOption>> getProductOptions(String productId) {
+    return _productRepository.getProductOptions(productId);
+  }
 }

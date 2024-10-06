@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
+import 'package:zentrio_admin/domain/models/product_option_value.dart';
 import 'package:zentrio_admin/presentation/components/inputChip/chips_input.dart';
 import 'package:zentrio_admin/presentation/components/inputChip/input_chip.dart';
 
@@ -8,7 +9,7 @@ class ProductOptionListItem extends StatefulWidget {
   final bool enabled;
   final VoidCallback? onRemove;
   final ValueChanged<String>? onTitleChanged;
-  final ValueChanged<List<String>>? onValuesChanged;
+  final ValueChanged<List<ProductOptionValue>>? onValuesChanged;
 
   const ProductOptionListItem({
     super.key,
@@ -23,7 +24,7 @@ class ProductOptionListItem extends StatefulWidget {
 }
 
 class _ProductOptionListItemState extends State<ProductOptionListItem> {
-  final _values = signal<List<String>>([]);
+  final _values = signal<List<ProductOptionValue>>([]);
 
   @override
   void initState() {
@@ -82,19 +83,19 @@ class _ProductOptionListItemState extends State<ProductOptionListItem> {
                             _values.value = values;
                           },
                           onTextChanged: (value) {
-                            if (value.contains(",")) {
+                          /*  if (value.contains(",")) {
                               _values.value = [
                                 ..._values.value,
                                 value.replaceAll(",", "")
                               ];
-                            }
+                            }*/
                           },
                           onSubmitted: (value) {
-                            _values.value = [..._values.value, value];
+                            // _values.value = [..._values.value, "value"];
                           },
                           chipBuilder: (context, data) {
                             return TextInputChip(
-                              label: data,
+                              label: "data",
                               onDeleted: (value) {
                                 _values.value = _values.value
                                     .where((v) => v != value)

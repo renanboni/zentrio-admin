@@ -9,6 +9,7 @@ import '../components/sheet_page.dart';
 import '../features/product/metadata/product_metadata_page.dart';
 import '../features/product/options/create_product_option_page.dart';
 import '../features/product/product_page.dart';
+import '../features/product/variants/create/product_create_variant_page.dart';
 import '../features/productAttributes/product_attributes_page.dart';
 import '../features/products/create/create_product_form.dart';
 import '../features/products/products_page.dart';
@@ -98,7 +99,19 @@ final productsRoute = GoRoute(
             );
           },
         ),
-      ]
+        GoRoute(
+          path: "variants/create",
+          parentNavigatorKey: rootNavigatorKey,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            final productId = state.pathParameters['id'];
+            return DialogPage(
+              builder: (_) => ProductCreateVariantPage(
+                productId: productId ?? '',
+              ),
+            );
+          },
+        ),
+      ],
     ),
   ],
 );

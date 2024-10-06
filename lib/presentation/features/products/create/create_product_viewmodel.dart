@@ -8,6 +8,7 @@ import 'package:zentrio_admin/data/models/api_product.dart';
 import 'package:zentrio_admin/data/models/api_product_option.dart';
 import 'package:zentrio_admin/data/models/create_product_option_req.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
+import 'package:zentrio_admin/domain/models/product_option_value.dart';
 import 'package:zentrio_admin/domain/usecase/category_usecase.dart';
 import 'package:zentrio_admin/domain/usecase/file_usecase.dart';
 import 'package:zentrio_admin/domain/usecase/product_usecase.dart';
@@ -60,7 +61,7 @@ class CreateProductViewModel {
               .map(
                 (e) => CreateProductOptionRequest(
                   title: e.title,
-                  values: e.values,
+                  values: e.values.map((e) => e.value).toList(),
                 ),
               )
               .toList(),
@@ -133,7 +134,7 @@ class CreateProductViewModel {
     ];
   }
 
-  void onProductValuesChanged(int index, List<String> values) {
+  void onProductValuesChanged(int index, List<ProductOptionValue> values) {
     productOptions.value = [
       ...productOptions.value
         ..replaceRange(

@@ -2,9 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
 
-part 'category.g.dart';
-
-@JsonSerializable()
 class Category extends Equatable {
   final String? id;
   final String name;
@@ -83,8 +80,4 @@ class Category extends Equatable {
   List<Object?> get props => [
         id,
       ];
-
-  Map<String, dynamic> toJson() => _$CategoryToJson(this);
-
-  factory Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
 }

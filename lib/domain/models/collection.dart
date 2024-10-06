@@ -2,9 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
 
-part 'collection.g.dart';
-
-@JsonSerializable()
 class Collection extends Equatable {
   final String id;
   final String title;
@@ -29,8 +26,4 @@ class Collection extends Equatable {
 
   @override
   List<Object?> get props => [id, title, handle, products];
-
-  Map<String, dynamic> toJson() => _$CollectionToJson(this);
-
-  factory Collection.fromJson(Map<String, dynamic> json) => _$CollectionFromJson(json);
 }

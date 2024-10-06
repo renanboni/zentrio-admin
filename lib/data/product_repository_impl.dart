@@ -53,4 +53,11 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<void> deleteProductOption(String productId, String optionId) {
     return _service.deleteProductOption(productId, optionId);
   }
+
+  @override
+  Future<List<ProductOption>> getProductOptions(String productId) {
+    return _service
+        .getProductOptions(productId)
+        .then((value) => value.map((e) => e.toProductOption()).toList());
+  }
 }

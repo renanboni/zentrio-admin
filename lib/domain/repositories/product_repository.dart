@@ -1,4 +1,5 @@
 import 'package:zentrio_admin/data/models/api_product.dart';
+import 'package:zentrio_admin/domain/models/product_option.dart';
 
 import '../../data/models/create_product_option_req.dart';
 import '../../data/models/create_product_request.dart';
@@ -19,4 +20,6 @@ abstract class ProductRepository {
   );
 
   Future<void> deleteProductOption(String productId, String optionId);
+
+  Future<List<ProductOption>> getProductOptions(String productId);
 }

@@ -11,6 +11,7 @@ import 'package:zentrio_admin/presentation/features/product/components/product_d
 import 'package:zentrio_admin/presentation/features/product/components/product_images_card.dart';
 import 'package:zentrio_admin/presentation/features/product/components/product_organize_attributes.dart';
 import 'package:zentrio_admin/presentation/features/product/components/product_organize_card.dart';
+import 'package:zentrio_admin/presentation/features/product/components/product_variant_card.dart';
 import 'package:zentrio_admin/presentation/features/product/product_view_model.dart';
 
 import 'components/product_options_card.dart';
@@ -81,6 +82,11 @@ class _ProductPageState extends State<ProductPage> {
                           onDelete: (option) {
                             viewModel.deleteProductOption(option);
                           },
+                        ),
+                      ),
+                      ResponsiveRowColumnItem(
+                        child: ProductVariantCard(
+                          product: viewModel.product.watch(context),
                         ),
                       ),
                       ResponsiveRowColumnItem(
