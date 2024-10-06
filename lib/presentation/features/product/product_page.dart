@@ -13,6 +13,8 @@ import 'package:zentrio_admin/presentation/features/product/components/product_o
 import 'package:zentrio_admin/presentation/features/product/components/product_organize_card.dart';
 import 'package:zentrio_admin/presentation/features/product/product_view_model.dart';
 
+import 'components/product_options_card.dart';
+
 class ProductPage extends StatefulWidget {
   final String productId;
 
@@ -71,18 +73,19 @@ class _ProductPageState extends State<ProductPage> {
                         ),
                       ),
                       ResponsiveRowColumnItem(
+                        child: ProductOptionsCard(
+                          product: viewModel.product.watch(context),
+                        ),
+                      ),
+                      ResponsiveRowColumnItem(
                         child: ActionItemList(
                           title: "Metadata",
-                          label: "${viewModel.product.watch(context).metadata.length} keys",
+                          label:
+                              "${viewModel.product.watch(context).metadata.length} keys",
                           onTap: () => {
                             GoRouter.of(context).push(
                                 "/products/${widget.productId}/metadata/edit")
                           },
-                        ),
-                      ),
-                      ResponsiveRowColumnItem(
-                        child: JsonItemList(
-                          json: viewModel.product.watch(context).toJson(),
                         ),
                       ),
                     ],
