@@ -3,6 +3,8 @@ import 'package:zentrio_admin/data/models/api_file.dart';
 import 'package:zentrio_admin/data/models/api_product_option.dart';
 import 'package:zentrio_admin/data/models/req/create_category_req.dart';
 
+import 'create_product_option_req.dart';
+
 part 'create_product_request.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
@@ -15,7 +17,7 @@ class CreateProductRequest {
   final bool? isGiftcard;
   final String? status;
   final String? thumbnail;
-  final List<ApiProductOption>? options;
+  final List<CreateProductOptionRequest>? options;
   final List<CreateCategoryRequest>? categories;
   final List<ApiFile>? images;
   final num? weight;

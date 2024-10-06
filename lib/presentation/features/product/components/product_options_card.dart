@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
 import 'package:zentrio_admin/presentation/components/context_menu.dart';
+import 'package:zentrio_admin/presentation/features/product/components/product_options_list.dart';
 
 const menu = [
   ContextMenuItem(
@@ -28,6 +29,7 @@ class ProductOptionsCard extends StatelessWidget {
         children: [
           _buildHeader(context),
           const Divider(height: 1),
+          ProductOptionsList(options: product.options),
         ],
       ),
     );

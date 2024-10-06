@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:zentrio_admin/data/mappers/collection_mapper.dart';
 import 'package:zentrio_admin/data/mappers/file_mapper.dart';
 import 'package:zentrio_admin/data/models/api_product_tag.dart';
@@ -55,38 +54,11 @@ extension ApiProductMapper on ApiProduct {
   }
 }
 
-extension ProductMapper on Product {
-  ApiProduct createProductRequest() {
-    return ApiProduct(
-      title: title,
-      handle: handle,
-      description: description,
-      subtitle: subtitle,
-      isGiftcard: isGiftcard,
-      status: status,
-      thumbnail: thumbnail,
-      weight: weight,
-      height: height,
-      length: length,
-      originCountry: originCountry,
-      hsCode: hsCode,
-      midCode: midCode,
-      material: material,
-      typeId: typeId,
-      discountable: discountable,
-      externalId: externalId,
-      options: options
-          .map((e) => ApiProductOption(title: title, values: e.values))
-          .toList(),
-    );
-  }
-}
-
 extension ApiProductOptionMapper on ApiProductOption {
   ProductOption toProductOption() {
     return ProductOption(
       title: title ?? '',
-      values: values ?? [],
+      values: values?.map((e) => e.value ?? "").toList() ?? [],
     );
   }
 }
