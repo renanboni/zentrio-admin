@@ -57,6 +57,7 @@ extension ApiProductMapper on ApiProduct {
 extension ApiProductOptionMapper on ApiProductOption {
   ProductOption toProductOption() {
     return ProductOption(
+      id: id ?? '',
       title: title ?? '',
       values: values?.map((e) => e.value ?? "").toList() ?? [],
     );

@@ -1,6 +1,7 @@
 import 'package:zentrio_admin/data/mappers/product_mapper.dart';
 import 'package:zentrio_admin/data/models/api_file.dart';
 import 'package:zentrio_admin/data/models/api_product.dart';
+import 'package:zentrio_admin/data/models/create_product_option_req.dart';
 import 'package:zentrio_admin/data/remote/product_service.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
@@ -38,5 +39,18 @@ class ProductRepositoryImpl implements ProductRepository {
   @override
   Future<void> updateProduct(String productId, Map<String, dynamic> fields) {
     return _service.updateProduct(productId, fields);
+  }
+
+  @override
+  Future<void> createProductOption(
+    String productId,
+    CreateProductOptionRequest request,
+  ) {
+    return _service.createProductOption(productId, request);
+  }
+
+  @override
+  Future<void> deleteProductOption(String productId, String optionId) {
+    return _service.deleteProductOption(productId, optionId);
   }
 }

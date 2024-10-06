@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/http.dart';
 import 'package:zentrio_admin/data/models/api_product.dart';
+import 'package:zentrio_admin/data/models/create_product_option_req.dart';
 import 'package:zentrio_admin/data/models/req/create_category_req.dart';
 import 'package:zentrio_admin/data/models/res/categories_response.dart';
 import 'package:zentrio_admin/data/models/res/products_response.dart';
@@ -35,5 +36,17 @@ abstract class ProductService {
   Future<ApiProduct> updateProduct(
     @Path("id") String id,
     @Body() Map<String, dynamic> fields,
+  );
+
+  @POST("/vendor/products/{id}/options")
+  Future<ApiProduct> createProductOption(
+    @Path("id") String id,
+    @Body() CreateProductOptionRequest product,
+  );
+
+  @DELETE("/vendor/products/{id}/options/{option_id}")
+  Future<void> deleteProductOption(
+    @Path("id") String id,
+    @Path("option_id") String optionId,
   );
 }

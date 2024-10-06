@@ -5,12 +5,10 @@ part 'create_product_option_req.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class CreateProductOptionRequest {
-  String? productId;
   String? title;
   List<String>? values;
 
   CreateProductOptionRequest({
-    this.productId,
     this.title,
     this.values,
   });

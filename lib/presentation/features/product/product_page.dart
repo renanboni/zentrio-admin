@@ -75,6 +75,12 @@ class _ProductPageState extends State<ProductPage> {
                       ResponsiveRowColumnItem(
                         child: ProductOptionsCard(
                           product: viewModel.product.watch(context),
+                          onRefresh: () {
+                            viewModel.getProductById(widget.productId);
+                          },
+                          onDelete: (option) {
+                            viewModel.deleteProductOption(option);
+                          },
                         ),
                       ),
                       ResponsiveRowColumnItem(
@@ -84,7 +90,8 @@ class _ProductPageState extends State<ProductPage> {
                               "${viewModel.product.watch(context).metadata.length} keys",
                           onTap: () => {
                             GoRouter.of(context).push(
-                                "/products/${widget.productId}/metadata/edit")
+                              "/products/${widget.productId}/metadata/edit",
+                            )
                           },
                         ),
                       ),

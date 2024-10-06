@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/di/init.dart';
 import 'package:zentrio_admin/presentation/features/product/options/create_product_option_view_model.dart';
+import 'package:zentrio_admin/utils/extensions/context_ext.dart';
 
 import '../../../components/inputChip/chips_input.dart';
 import '../../../components/inputChip/input_chip.dart';
@@ -28,6 +30,12 @@ class _CreateProductOptionPageState extends State<CreateProductOptionPage> {
       getIt<CreateProductOptionViewModel>();
 
   @override
+  void initState() {
+    _viewModel.init(widget.productId);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = ShadTheme.of(context);
 
@@ -46,6 +54,10 @@ class _CreateProductOptionPageState extends State<CreateProductOptionPage> {
                 ShadInputFormField(
                   label: const Text("Option title"),
                   placeholder: const Text("Color"),
+                  onChanged: _viewModel.title.set,
+                  validator: FormBuilderValidators.compose([
+                    FormBuilderValidators.required(),
+                  ]),
                 ),
                 const SizedBox(height: 16),
                 Text(
@@ -80,13 +92,13 @@ class _CreateProductOptionPageState extends State<CreateProductOptionPage> {
           const Spacer(),
           SheetFooter(
             onSave: () async {
-              /*       _viewModel.onSave(
-                    () {
-                  context.success("Metadata saved successfully");
+              _viewModel.onSave(
+                () {
+                  context.success("Option created successfully");
                   GoRouter.of(context).pop(true);
                 },
-                    () => context.error("Failed to save metadata"),
-              );*/
+                () => context.error("Failed to create option"),
+              );
             },
             onCancel: () => GoRouter.of(context).pop(false),
           ),

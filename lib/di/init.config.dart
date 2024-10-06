@@ -104,8 +104,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => dataModule.prefs,
       preResolve: true,
     );
-    gh.factory<_i462.CreateProductOptionViewModel>(
-        () => _i462.CreateProductOptionViewModel());
     gh.lazySingleton<_i311.AuthService>(() => networkModule.authService);
     gh.lazySingleton<_i451.VendorService>(() => networkModule.vendorService);
     gh.lazySingleton<_i134.ProductService>(() => networkModule.productService);
@@ -198,6 +196,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i939.LoginViewModel(gh<_i620.AuthUseCase>()));
     gh.factory<_i91.ProductsViewModel>(
         () => _i91.ProductsViewModel(gh<_i977.ProductUseCase>()));
+    gh.factory<_i462.CreateProductOptionViewModel>(
+        () => _i462.CreateProductOptionViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i137.ProductEditViewModel>(
         () => _i137.ProductEditViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i1010.ProductViewModel>(
