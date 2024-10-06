@@ -1,8 +1,7 @@
-import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:tuple/tuple.dart';
-import 'package:zentrio_admin/presentation/features/category/components/products_card.dart';
+import 'package:zentrio_admin/utils/extensions/sizes_ext.dart';
 
 class KeyValueItemList extends StatelessWidget {
   final Tuple2 pair;

@@ -1,10 +1,10 @@
-import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/di/init.dart';
 import 'package:zentrio_admin/presentation/features/category/components/products_card.dart';
 import 'package:zentrio_admin/presentation/features/collection/collection_view_model.dart';
 import 'package:zentrio_admin/presentation/features/collection/components/collection_detail_card.dart';
+import 'package:zentrio_admin/utils/extensions/miscellaneous_ext.dart';
 
 class CollectionPage extends StatefulWidget {
   final String collectionId;

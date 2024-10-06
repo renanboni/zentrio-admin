@@ -1,19 +1,14 @@
-import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/di/init.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
-import 'package:zentrio_admin/domain/models/collection.dart';
-import 'package:zentrio_admin/domain/models/product.dart';
 import 'package:zentrio_admin/presentation/components/optional_label.dart';
-import 'package:zentrio_admin/presentation/features/categories/create/create_category_page.dart';
-import 'package:zentrio_admin/presentation/features/category/components/products_card.dart';
 import 'package:zentrio_admin/presentation/features/product/organization/product_organization_view_model.dart';
 import 'package:zentrio_admin/utils/extensions/context_ext.dart';
+import 'package:zentrio_admin/utils/extensions/string_ext.dart';
 
-import '../../../components/select.dart';
 import '../../../components/sheet_footer.dart';
 import '../../../components/sheet_header.dart';
 
