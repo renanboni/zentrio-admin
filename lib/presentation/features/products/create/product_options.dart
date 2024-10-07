@@ -10,8 +10,9 @@ class ProductOptions extends StatelessWidget {
   final List<ProductOption> productOptions;
   final VoidCallback onAddProductOption;
   final ValueChanged<int> onRemove;
-  final ValueChanged<Tuple2<int, String>> onTitleChanged;
-  final ValueChanged<Tuple2<int, List<ProductOptionValue>>> onValuesChanged;
+  final Function(int index, String title) onTitleChanged;
+  final Function(int index, List<ProductOptionValue> options) onValuesChanged;
+  final Function(int index, String value) onValueRemoved;
   final bool showAddOptionsAlert;
 
   const ProductOptions({
@@ -21,6 +22,7 @@ class ProductOptions extends StatelessWidget {
     required this.onAddProductOption,
     required this.onTitleChanged,
     required this.onValuesChanged,
+    required this.onValueRemoved,
     required this.onRemove,
   });
 
@@ -37,15 +39,18 @@ class ProductOptions extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         ListView.separated(
+          key: ValueKey(productOptions.length),
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: productOptions.length,
           separatorBuilder: (context, index) => const SizedBox(height: 16),
           itemBuilder: (context, index) => ProductOptionListItem(
             enabled: index != 0,
+            productOption: productOptions[index],
             onRemove: () => onRemove(index),
-            onTitleChanged: (value) => onTitleChanged(Tuple2(index, value)),
-            onValuesChanged: (values) => onValuesChanged(Tuple2(index, values)),
+            onTitleChanged: (value) => onTitleChanged(index, value),
+            onValuesChanged: (values) => onValuesChanged(index, values),
+            onValueRemoved: (value) => onValueRemoved(index, value),
           ),
         ),
         const SizedBox(height: 16),

@@ -2,11 +2,11 @@
 import 'package:equatable/equatable.dart';
 
 class ProductOptionValue extends Equatable {
-  final String id;
+  final String? id;
   final String value;
 
   const ProductOptionValue({
-    required this.id,
+    this.id = "",
     required this.value,
   });
 

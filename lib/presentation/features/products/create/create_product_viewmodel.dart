@@ -24,9 +24,10 @@ class CreateProductViewModel {
   final files = listSignal<MediaFile>([]);
   final categories = signal<List<Category>>([]);
   final discountable = signal(false);
-  final productOptions = signal<List<ProductOption>>(
+  final ListSignal<ProductOption> productOptions = ListSignal(
     [ProductOption.empty()],
   );
+
   late final showAddOptionsAlert = computed(() {
     return productOptions.value
             .where((e) => e == ProductOption.empty())
@@ -109,41 +110,31 @@ class CreateProductViewModel {
   }
 
   void onAddProductOption() {
-    productOptions.value = [
-      ...productOptions.value,
-      ProductOption.empty(),
-    ];
+    productOptions.add(ProductOption.empty());
   }
 
   void onRemoveProductOption(int index) {
-    productOptions.value = [
-      ...productOptions.value..removeAt(index),
-    ];
+    productOptions.removeAt(index);
   }
 
-  void onProductTitleChanged(int index, String title) {
-    productOptions.value = [
-      ...productOptions.value
-        ..replaceRange(
-          index,
-          index + 1,
-          [
-            productOptions.value[index].copyWith(title: title),
-          ],
-        ),
-    ];
+  void onProductOptionTitleChanged(int index, String title) {
+    productOptions[index] = productOptions[index].copyWith(title: title);
   }
 
-  void onProductValuesChanged(int index, List<ProductOptionValue> values) {
-    productOptions.value = [
-      ...productOptions.value
-        ..replaceRange(
-          index,
-          index + 1,
-          [
-            productOptions.value[index].copyWith(values: values),
-          ],
-        ),
-    ];
+  void onProductOptionValuesChanged(int index, List<ProductOptionValue> values) {
+    productOptions[index] = productOptions[index].copyWith(values: values);
+  }
+
+  void onProductOptionValueRemoved(int index, String value) {
+    productOptions[index] = productOptions[index].copyWith(
+      values: productOptions[index].values.where((e) => e.value != value).toList(),
+    );
   }
 }
+
+
+
+
+
+
+

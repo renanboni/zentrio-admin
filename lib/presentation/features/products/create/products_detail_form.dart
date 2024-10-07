@@ -112,18 +112,9 @@ class _ProductsDetailFormState extends State<ProductsDetailForm> {
                       widget.viewModel.showAddOptionsAlert.watch(context),
                   onRemove: widget.viewModel.onRemoveProductOption,
                   onAddProductOption: widget.viewModel.onAddProductOption,
-                  onTitleChanged: (tuple) {
-                    widget.viewModel.onProductTitleChanged(
-                      tuple.item1,
-                      tuple.item2,
-                    );
-                  },
-                  onValuesChanged: (tuple) {
-                    widget.viewModel.onProductValuesChanged(
-                      tuple.item1,
-                      tuple.item2,
-                    );
-                  },
+                  onTitleChanged: widget.viewModel.onProductOptionTitleChanged,
+                  onValuesChanged: widget.viewModel.onProductOptionValuesChanged,
+                  onValueRemoved: widget.viewModel.onProductOptionValueRemoved,
                 ),
               )
           ],

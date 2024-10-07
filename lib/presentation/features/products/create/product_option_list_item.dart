@@ -1,38 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
+import 'package:zentrio_admin/domain/models/product_option.dart';
 import 'package:zentrio_admin/domain/models/product_option_value.dart';
 import 'package:zentrio_admin/presentation/components/inputChip/chips_input.dart';
 import 'package:zentrio_admin/presentation/components/inputChip/input_chip.dart';
 
-class ProductOptionListItem extends StatefulWidget {
+class ProductOptionListItem extends StatelessWidget {
   final bool enabled;
+  final ProductOption productOption;
   final VoidCallback? onRemove;
   final ValueChanged<String>? onTitleChanged;
   final ValueChanged<List<ProductOptionValue>>? onValuesChanged;
+  final ValueChanged<String> onValueRemoved;
 
   const ProductOptionListItem({
     super.key,
-    this.onRemove,
     required this.enabled,
+    required this.productOption,
+    required this.onValueRemoved,
+    this.onRemove,
     this.onTitleChanged,
     this.onValuesChanged,
   });
-
-  @override
-  State<ProductOptionListItem> createState() => _ProductOptionListItemState();
-}
-
-class _ProductOptionListItemState extends State<ProductOptionListItem> {
-  final _values = signal<List<ProductOptionValue>>([]);
-
-  @override
-  void initState() {
-    computed(() {
-      widget.onValuesChanged?.call(_values.value);
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +47,9 @@ class _ProductOptionListItemState extends State<ProductOptionListItem> {
                     Expanded(
                       child: ShadInput(
                         placeholder: const Text("Color"),
+                        initialValue: productOption.title,
                         onChanged: (value) {
-                          widget.onTitleChanged?.call(value);
+                          onTitleChanged?.call(value);
                         },
                       ),
                     )
@@ -75,35 +66,50 @@ class _ProductOptionListItemState extends State<ProductOptionListItem> {
                       ),
                     ),
                     Expanded(
-                      child: Watch(
-                        (_) => ChipsInput(
-                          placeholder: "Red, Green, Blue",
-                          values: _values.value,
-                          onChanged: (values) {
-                            _values.value = values;
-                          },
-                          onTextChanged: (value) {
-                          /*  if (value.contains(",")) {
-                              _values.value = [
-                                ..._values.value,
-                                value.replaceAll(",", "")
-                              ];
-                            }*/
-                          },
-                          onSubmitted: (value) {
-                            // _values.value = [..._values.value, "value"];
-                          },
-                          chipBuilder: (context, data) {
-                            return TextInputChip(
-                              label: "data",
-                              onDeleted: (value) {
-                                _values.value = _values.value
-                                    .where((v) => v != value)
-                                    .toList();
-                              },
-                            );
-                          },
-                        ),
+                      child: ChipsInput(
+                        placeholder: "Red, Green, Blue",
+                        values: productOption.values,
+                        onChanged: (values) {
+                          //onValuesChanged?.call(values);
+                        },
+                        onTextChanged: (value) {
+                          if (value.contains(",")) {
+                            final newValues = value
+                                .split(",")
+                                .where((v) => v.isNotEmpty)
+                                .map((v) => ProductOptionValue(value: v))
+                                .toList();
+
+                            final currentValues = productOption.values;
+
+                            if (currentValues.isEmpty) {
+                              onValuesChanged?.call(newValues);
+                            } else {
+                              onValuesChanged?.call([...currentValues, ...newValues]);
+                            }
+                          }
+                        },
+                        onSubmitted: (value) {
+                          final newValues = value
+                              .split(",")
+                              .where((v) => v.isNotEmpty)
+                              .map((v) => ProductOptionValue(value: v))
+                              .toList();
+
+                          final currentValues = productOption.values;
+
+                          if (currentValues.isEmpty) {
+                            onValuesChanged?.call(newValues);
+                          } else {
+                            onValuesChanged?.call([...currentValues, ...newValues]);
+                          }
+                        },
+                        chipBuilder: (context, data) {
+                          return TextInputChip(
+                            label: data.value,
+                            onDeleted: onValueRemoved,
+                          );
+                        },
                       ),
                     )
                   ],
@@ -112,9 +118,9 @@ class _ProductOptionListItemState extends State<ProductOptionListItem> {
             ),
           ),
           ShadButton.ghost(
-            onPressed: widget.onRemove,
+            onPressed: onRemove,
             size: ShadButtonSize.sm,
-            enabled: widget.enabled,
+            enabled: enabled,
             icon: const ShadImage.square(
               size: 16,
               LucideIcons.x,
