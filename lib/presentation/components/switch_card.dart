@@ -6,6 +6,7 @@ class SwitchCard extends StatelessWidget {
   final String? description;
   final bool value;
   final ValueChanged<bool>? onChanged;
+  final bool enabled;
 
   const SwitchCard({
     super.key,
@@ -13,6 +14,7 @@ class SwitchCard extends StatelessWidget {
     required this.title,
     this.description,
     this.value = false,
+    this.enabled = true,
   });
 
   @override
@@ -25,6 +27,7 @@ class SwitchCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ShadSwitch(
+            enabled: enabled,
             value: value,
             onChanged: onChanged,
           ),

@@ -4,15 +4,40 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:zentrio_admin/domain/models/product_option.dart';
 import 'package:zentrio_admin/domain/models/product_option_value.dart';
+import 'package:zentrio_admin/utils/extensions/miscellaneous_ext.dart';
 
 import '../../../../../components/switch_card.dart';
 
 class ProductVariantDetailsForm extends StatelessWidget {
   final List<ProductOption> options;
+  final String title;
+  final String sku;
+  final bool manageInventory;
+  final bool allowBackorders;
+  final bool inventoryKit;
+  final ValueChanged<bool> onManageInventoryChanged;
+  final ValueChanged<bool> onAllowBackordersChanged;
+  final ValueChanged<bool> onInventoryKitChanged;
+  final ValueChanged<String> onTitleChanged;
+  final ValueChanged<String> onSkuChanged;
+  final Map<String, String> optionValues;
+  final Function(String option, String value) onOptionValueSelected;
 
   const ProductVariantDetailsForm({
     super.key,
     required this.options,
+    required this.title,
+    required this.sku,
+    required this.manageInventory,
+    required this.allowBackorders,
+    required this.inventoryKit,
+    required this.optionValues,
+    required this.onManageInventoryChanged,
+    required this.onAllowBackordersChanged,
+    required this.onInventoryKitChanged,
+    required this.onTitleChanged,
+    required this.onSkuChanged,
+    required this.onOptionValueSelected,
   });
 
   @override
@@ -53,6 +78,8 @@ class ProductVariantDetailsForm extends StatelessWidget {
                     rowFlex: 1,
                     child: ShadInputFormField(
                       label: const Text('Title'),
+                      initialValue: title,
+                      onChanged: onTitleChanged,
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(),
                       ]),
@@ -62,6 +89,8 @@ class ProductVariantDetailsForm extends StatelessWidget {
                     rowFlex: 1,
                     child: ShadInputFormField(
                       label: const Text('SKU'),
+                      initialValue: sku,
+                      onChanged: onSkuChanged,
                     ),
                   ),
                 ],
@@ -70,6 +99,8 @@ class ProductVariantDetailsForm extends StatelessWidget {
             ResponsiveRowColumnItem(
               child: _ProductOptionsChunked(
                 options: _chunkOptions(options, 2),
+                optionValues: optionValues,
+                onOptionValueSelected: onOptionValueSelected,
               ),
             ),
             const ResponsiveRowColumnItem(child: SizedBox(height: 16)),
@@ -77,27 +108,29 @@ class ProductVariantDetailsForm extends StatelessWidget {
               child: SwitchCard(
                 title: "Manage inventory",
                 description:
-                "When enabled, we'll change the inventory quantity for you when orders and returns are created.",
-                value: true,
-                onChanged: (value) {},
+                    "When enabled, we'll change the inventory quantity for you when orders and returns are created.",
+                value: manageInventory,
+                onChanged: onManageInventoryChanged,
               ),
             ),
             ResponsiveRowColumnItem(
               child: SwitchCard(
                 title: "Allow backorders",
+                enabled: manageInventory,
                 description:
-                "When enabled, customers can purchase the variant even if there's no available quantity.",
-                value: true,
-                onChanged: (value) {},
+                    "When enabled, customers can purchase the variant even if there's no available quantity.",
+                value: allowBackorders,
+                onChanged: onAllowBackordersChanged,
               ),
             ),
             ResponsiveRowColumnItem(
               child: SwitchCard(
                 title: "Inventory Kit",
+                enabled: manageInventory,
                 description:
-                "Does this variant consist of several inventory items?",
-                value: true,
-                onChanged: (value) {},
+                    "Does this variant consist of several inventory items?",
+                value: inventoryKit,
+                onChanged: onInventoryKitChanged,
               ),
             ),
           ],
@@ -107,21 +140,34 @@ class ProductVariantDetailsForm extends StatelessWidget {
   }
 
   List<List<ProductOption>> _chunkOptions(
-      List<ProductOption> options, int chunkSize) {
+    List<ProductOption> options,
+    int chunkSize,
+  ) {
     List<List<ProductOption>> chunks = [];
     for (var i = 0; i < options.length; i += chunkSize) {
-      chunks.add(options.sublist(
-          i, i + chunkSize > options.length ? options.length : i + chunkSize));
+      chunks.add(
+        options.sublist(
+          i,
+          i + chunkSize > options.length ? options.length : i + chunkSize,
+        ),
+      );
     }
     return chunks;
   }
 }
 
+final formKey = GlobalKey<ShadFormState>();
+
 class _ProductOptionsChunked extends StatelessWidget {
   final List<List<ProductOption>> options;
+  final Map<String, String> optionValues;
+
+  final Function(String option, String value) onOptionValueSelected;
 
   const _ProductOptionsChunked({
     required this.options,
+    required this.optionValues,
+    required this.onOptionValueSelected,
   });
 
   @override
@@ -148,6 +194,11 @@ class _ProductOptionsChunked extends StatelessWidget {
                           child: LayoutBuilder(
                             builder: (context, constraints) {
                               return ShadSelectFormField<ProductOptionValue>(
+                                initialValue: ProductOptionValue(
+                                  id: productOption.title,
+                                  value: optionValues[productOption.title] ?? '',
+                                ),
+                                id: ValueKey(productOption.title),
                                 label: Text(productOption.title),
                                 maxWidth: e.length == 1
                                     ? constraints.maxWidth / 2
@@ -156,6 +207,12 @@ class _ProductOptionsChunked extends StatelessWidget {
                                     ? constraints.maxWidth / 2
                                     : constraints.maxWidth,
                                 placeholder: const Text(""),
+                                onChangedNullable: (value) {
+                                  onOptionValueSelected(
+                                    productOption.title,
+                                    value?.value ?? '',
+                                  );
+                                },
                                 validator: FormBuilderValidators.compose(
                                   [FormBuilderValidators.required()],
                                 ),
@@ -180,7 +237,8 @@ class _ProductOptionsChunked extends StatelessWidget {
             ),
           )
           .values
-          .toList(),
+          .toList()
+          .separatedBy(const SizedBox(height: 16)),
     );
   }
 }

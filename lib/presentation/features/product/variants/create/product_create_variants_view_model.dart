@@ -8,6 +8,13 @@ class ProductCreateVariantsViewModel {
   final ProductUseCase _productUseCase;
 
   final ListSignal<ProductOption> options = ListSignal<ProductOption>([]);
+  final Signal<String> title = Signal<String>('');
+  final Signal<String> sku = Signal<String>('');
+  final Signal<bool> manageInventory = Signal<bool>(false);
+  final Signal<bool> allowBackorders = Signal<bool>(false);
+  final Signal<bool> inventoryKit = Signal<bool>(false);
+
+  final Map<String, String> optionValues = {};
 
   ProductCreateVariantsViewModel(
     this._productUseCase,
@@ -19,5 +26,10 @@ class ProductCreateVariantsViewModel {
     } catch (e) {
       print(e);
     }
+  }
+
+  void addOptionValue(String option, String value) {
+    optionValues[option] = value;
+    print(optionValues);
   }
 }

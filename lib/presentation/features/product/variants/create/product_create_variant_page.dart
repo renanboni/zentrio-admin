@@ -41,12 +41,26 @@ class _ProductCreateVariantPageState extends State<ProductCreateVariantPage> {
         StepItemList(
           title: 'Details',
           state: HorizontalStepState.editing,
-          content: MaxWidthBox(
-            maxWidth: context.maxWidth,
-            child: ProductVariantDetailsForm(
-              options: _viewModel.options.watch(context),
-            ),
-          ),
+          content: Watch((context) {
+            return MaxWidthBox(
+              maxWidth: context.maxWidth,
+              child: ProductVariantDetailsForm(
+                options: _viewModel.options.value,
+                title: _viewModel.title.value,
+                sku: _viewModel.sku.value,
+                manageInventory: _viewModel.manageInventory.value,
+                allowBackorders: _viewModel.allowBackorders.value,
+                inventoryKit: _viewModel.inventoryKit.value,
+                onManageInventoryChanged: _viewModel.manageInventory.set,
+                onAllowBackordersChanged: _viewModel.allowBackorders.set,
+                onInventoryKitChanged: _viewModel.inventoryKit.set,
+                onTitleChanged: _viewModel.title.set,
+                onSkuChanged: _viewModel.sku.set,
+                onOptionValueSelected: _viewModel.addOptionValue,
+                optionValues: _viewModel.optionValues,
+              ),
+            );
+          }),
         ),
         StepItemList(
           state: HorizontalStepState.disabled,
