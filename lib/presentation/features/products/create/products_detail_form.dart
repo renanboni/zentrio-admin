@@ -108,6 +108,7 @@ class _ProductsDetailFormState extends State<ProductsDetailForm> {
                 child: ProductOptions(
                   productOptions:
                       widget.viewModel.productOptions.watch(context),
+                  productVariants: widget.viewModel.variants.watch(context),
                   showAddOptionsAlert:
                       widget.viewModel.showAddOptionsAlert.watch(context),
                   onRemove: widget.viewModel.onRemoveProductOption,

@@ -9,6 +9,7 @@ import 'package:zentrio_admin/data/models/api_product_option.dart';
 import 'package:zentrio_admin/data/models/create_product_option_req.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
 import 'package:zentrio_admin/domain/models/product_option_value.dart';
+import 'package:zentrio_admin/domain/models/product_variant.dart';
 import 'package:zentrio_admin/domain/usecase/category_usecase.dart';
 import 'package:zentrio_admin/domain/usecase/file_usecase.dart';
 import 'package:zentrio_admin/domain/usecase/product_usecase.dart';
@@ -24,9 +25,13 @@ class CreateProductViewModel {
   final files = listSignal<MediaFile>([]);
   final categories = signal<List<Category>>([]);
   final discountable = signal(false);
-  final ListSignal<ProductOption> productOptions = ListSignal(
+  late final ListSignal<ProductOption> productOptions = ListSignal(
     [ProductOption.empty()],
   );
+
+  late final Computed<List<ProductVariant>> variants = computed(() {
+    return _generateVariants(productOptions.value);
+  });
 
   late final showAddOptionsAlert = computed(() {
     return productOptions.value
@@ -121,20 +126,60 @@ class CreateProductViewModel {
     productOptions[index] = productOptions[index].copyWith(title: title);
   }
 
-  void onProductOptionValuesChanged(int index, List<ProductOptionValue> values) {
+  void onProductOptionValuesChanged(
+      int index, List<ProductOptionValue> values) {
     productOptions[index] = productOptions[index].copyWith(values: values);
   }
 
   void onProductOptionValueRemoved(int index, String value) {
     productOptions[index] = productOptions[index].copyWith(
-      values: productOptions[index].values.where((e) => e.value != value).toList(),
+      values:
+          productOptions[index].values.where((e) => e.value != value).toList(),
     );
   }
+
+  List<ProductVariant> _generateVariants(List<ProductOption> options) {
+    if (options.isEmpty) {
+      return [];
+    }
+
+    // Step 1: Extract the list of option values
+    List<List<ProductOptionValue>> optionValues = options.map((option) => option.values).toList();
+
+    // Step 2: Generate the Cartesian product of the option values
+    List<List<ProductOptionValue>> combinations = _cartesianProduct(optionValues);
+
+    // Step 3: Map the combinations to ProductVariant objects
+    return combinations.map((combination) {
+      // Create a map of option titles and selected values
+      Map<String, String> optionMap = {
+        for (int i = 0; i < combination.length; i++) options[i].title: combination[i].value
+      };
+
+      // Create a title by concatenating the selected values with '/'
+      String title = combination.map((e) => e.value).join('/');
+
+      return ProductVariant(
+        title: title,
+        options: optionMap,
+      );
+    }).toList();
+  }
+
+// Helper function to generate the Cartesian product
+  List<List<ProductOptionValue>> _cartesianProduct(List<List<ProductOptionValue>> lists) {
+    List<List<ProductOptionValue>> result = [[]];
+
+    for (List<ProductOptionValue> list in lists) {
+      List<List<ProductOptionValue>> newResult = [];
+      for (List<ProductOptionValue> prefix in result) {
+        for (ProductOptionValue value in list) {
+          newResult.add([...prefix, value]);
+        }
+      }
+      result = newResult;
+    }
+
+    return result;
+  }
 }
-
-
-
-
-
-
-
