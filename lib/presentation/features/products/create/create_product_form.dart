@@ -11,6 +11,7 @@ import 'package:zentrio_admin/utils/extensions/context_ext.dart';
 import '../../../../di/init.dart';
 import '../../../components/stepper/horizontal_stepper.dart';
 import '../../../components/stepper/step_item_list.dart';
+import 'create_product_variants_form.dart';
 
 class CreateProductForm extends StatefulWidget {
   const CreateProductForm({super.key});
@@ -48,6 +49,25 @@ class _CreateProductFormState extends State<CreateProductForm> {
                   categories: viewModel.categories.value,
                   discountable: viewModel.discountable.value,
                   onDiscountableChanged: viewModel.discountable.set,
+                );
+              },
+            ),
+          ),
+        ),
+        StepItemList(
+          title: 'Variants',
+          state: HorizontalStepState.disabled,
+          content: MaxWidthBox(
+            maxWidth: double.infinity,
+            child: Watch(
+              (_) {
+                return CreateProductVariantsForm(
+                  variants: viewModel.variants.value,
+                  onManageInventoryChanged: viewModel.onManageInventoryChanged,
+                  onAllowBackorderChanged: viewModel.onAllowBackorderChanged,
+                  onHasInventoryKitChanged: viewModel.onHasInventoryKitChanged,
+                  onTitleChanged: viewModel.onVariantTitleChanged,
+                  onSkuChanged: viewModel.onVariantSkuChanged,
                 );
               },
             ),

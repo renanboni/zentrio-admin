@@ -146,6 +146,26 @@ class CreateProductViewModel {
     variants.value = variants.value.map((e) => e.copyWith(selected: isChecked)).toList();
   }
 
+  void onManageInventoryChanged(int index, bool manageInventory) {
+    variants[index] = variants[index].copyWith(manageInventory: manageInventory);
+  }
+
+  void onAllowBackorderChanged(int index, bool allowBackorder) {
+    variants[index] = variants[index].copyWith(allowBackorder: allowBackorder);
+  }
+
+  void onHasInventoryKitChanged(int index, bool hasInventoryKit) {
+    variants[index] = variants[index].copyWith(hasInventoryKit: hasInventoryKit);
+  }
+
+  void onVariantTitleChanged(int index, String title) {
+    variants[index] = variants[index].copyWith(title: title);
+  }
+
+  void onVariantSkuChanged(int index, String sku) {
+    variants[index] = variants[index].copyWith(sku: sku);
+  }
+
   void onVariantSelected(int index, bool isSelected) {
     variants[index] = variants[index].copyWith(selected: isSelected);
   }
