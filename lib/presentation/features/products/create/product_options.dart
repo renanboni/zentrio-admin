@@ -16,10 +16,13 @@ class ProductOptions extends StatelessWidget {
   final List<ProductVariant> productVariants;
   final VoidCallback onAddProductOption;
   final ValueChanged<int> onRemove;
+  final bool showAddOptionsAlert;
+  final bool checkAll;
+  final ValueChanged<bool> onCheckAll;
   final Function(int index, String title) onTitleChanged;
   final Function(int index, List<ProductOptionValue> options) onValuesChanged;
   final Function(int index, String value) onValueRemoved;
-  final bool showAddOptionsAlert;
+  final Function(int index, bool isChecked) onVariantChecked;
 
   const ProductOptions({
     super.key,
@@ -31,6 +34,9 @@ class ProductOptions extends StatelessWidget {
     required this.onValuesChanged,
     required this.onValueRemoved,
     required this.onRemove,
+    required this.checkAll,
+    required this.onCheckAll,
+    required this.onVariantChecked,
   });
 
   @override
@@ -67,10 +73,16 @@ class ProductOptions extends StatelessWidget {
               "This ranking will affect the variants' order in your storefront.",
         ),
         const SizedBox(height: 16),
-        _ProductVariants(
-          options: productOptions,
-          variants: productVariants,
-        ),
+        if (productOptions.any(
+          (e) => e.title.isNotEmpty && e.values.isNotEmpty,
+        ))
+          _ProductVariants(
+            options: productOptions,
+            variants: productVariants,
+            checkAll: checkAll,
+            onCheckAll: onCheckAll,
+            onVariantChecked: onVariantChecked,
+          ),
         if (showAddOptionsAlert)
           const ShadAlert(
             iconSrc: LucideIcons.info,
@@ -84,10 +96,16 @@ class ProductOptions extends StatelessWidget {
 class _ProductVariants extends StatelessWidget {
   final List<ProductOption> options;
   final List<ProductVariant> variants;
+  final bool checkAll;
+  final ValueChanged<bool> onCheckAll;
+  final Function(int index, bool isChecked) onVariantChecked;
 
   const _ProductVariants({
     required this.options,
     required this.variants,
+    required this.checkAll,
+    required this.onCheckAll,
+    required this.onVariantChecked,
   });
 
   @override
@@ -96,9 +114,16 @@ class _ProductVariants extends StatelessWidget {
       padding: 0.paddingAll(),
       child: Column(
         children: [
-          _ProductVariantsHeader(options: options),
+          _ProductVariantsHeader(
+            options: options,
+            checkAll: checkAll,
+            onCheckAll: onCheckAll,
+          ),
           const Divider(height: 1),
-          _ProductVariantsTable(variants: variants),
+          _ProductVariantsTable(
+            variants: variants,
+            onVariantChecked: onVariantChecked,
+          ),
         ],
       ),
     );
@@ -107,9 +132,13 @@ class _ProductVariants extends StatelessWidget {
 
 class _ProductVariantsHeader extends StatelessWidget {
   final List<ProductOption> options;
+  final bool checkAll;
+  final ValueChanged<bool> onCheckAll;
 
   const _ProductVariantsHeader({
     required this.options,
+    required this.checkAll,
+    required this.onCheckAll,
   });
 
   @override
@@ -121,7 +150,7 @@ class _ProductVariantsHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const ShadCheckbox(value: false),
+          ShadCheckbox(value: checkAll, onChanged: onCheckAll),
           const SizedBox(width: 16),
           for (final option in options)
             if (option != ProductOption.empty())
@@ -134,9 +163,11 @@ class _ProductVariantsHeader extends StatelessWidget {
 
 class _ProductVariantsTable extends StatelessWidget {
   final List<ProductVariant> variants;
+  final Function(int index, bool isChecked) onVariantChecked;
 
   const _ProductVariantsTable({
     required this.variants,
+    required this.onVariantChecked,
   });
 
   @override
@@ -148,7 +179,10 @@ class _ProductVariantsTable extends StatelessWidget {
       separatorBuilder: (context, index) => const Divider(height: 1),
       itemBuilder: (context, index) {
         final variant = variants[index];
-        return _ProductVariantItemList(variant: variant);
+        return _ProductVariantItemList(
+          variant: variant,
+          onVariantChecked: (isChecked) => onVariantChecked(index, isChecked),
+        );
       },
     );
   }
@@ -156,9 +190,11 @@ class _ProductVariantsTable extends StatelessWidget {
 
 class _ProductVariantItemList extends StatelessWidget {
   final ProductVariant variant;
+  final Function(bool isChecked) onVariantChecked;
 
   const _ProductVariantItemList({
     required this.variant,
+    required this.onVariantChecked,
   });
 
   @override
@@ -171,7 +207,10 @@ class _ProductVariantItemList extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const ShadCheckbox(value: false),
+          ShadCheckbox(
+            value: variant.selected,
+            onChanged: onVariantChecked,
+          ),
           const SizedBox(width: 16),
           for (final value in variant.options.values)
             Expanded(

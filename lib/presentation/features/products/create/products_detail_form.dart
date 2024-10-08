@@ -116,6 +116,9 @@ class _ProductsDetailFormState extends State<ProductsDetailForm> {
                   onTitleChanged: widget.viewModel.onProductOptionTitleChanged,
                   onValuesChanged: widget.viewModel.onProductOptionValuesChanged,
                   onValueRemoved: widget.viewModel.onProductOptionValueRemoved,
+                  onCheckAll: widget.viewModel.onCheckAll,
+                  onVariantChecked: widget.viewModel.onVariantSelected,
+                  checkAll: widget.viewModel.checkAll.watch(context),
                 ),
               )
           ],
