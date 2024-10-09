@@ -15,7 +15,10 @@ class OptionalLabel extends StatelessWidget {
 
     return Row(
       children: [
-        Text(label),
+        Text(
+          label,
+          style: theme.textTheme.small,
+        ),
         Text(
           ' (Optional)',
           style: theme.textTheme.muted,

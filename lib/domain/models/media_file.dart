@@ -20,6 +20,16 @@ class MediaFile extends Equatable {
     this.isThumbnail = false,
   });
 
+  factory MediaFile.empty() {
+    return const MediaFile(
+      '',
+      0,
+      '',
+      null,
+      '',
+    );
+  }
+
   String get sizeFormatted => size.formatBytes(2);
 
   MediaFile copyWith({

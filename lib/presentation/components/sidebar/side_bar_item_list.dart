@@ -6,6 +6,7 @@ enum SideBarItemType {
   title,
   list,
   button,
+  spacer
 }
 
 class SideBarItemList extends StatefulWidget {
@@ -34,6 +35,8 @@ class _SideBarItemListState extends State<SideBarItemList> {
         return _buildList(theme, widget.item);
       case SideBarItemType.button:
         return _buildButton();
+      case SideBarItemType.spacer:
+        return const SizedBox(height: 16);
     }
   }
 

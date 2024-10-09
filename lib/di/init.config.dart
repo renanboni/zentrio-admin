@@ -46,6 +46,8 @@ import 'package:zentrio_admin/domain/usecase/collection_use_case.dart' as _i464;
 import 'package:zentrio_admin/domain/usecase/file_usecase.dart' as _i850;
 import 'package:zentrio_admin/domain/usecase/product_usecase.dart' as _i977;
 import 'package:zentrio_admin/domain/usecase/vendor_usecase.dart' as _i97;
+import 'package:zentrio_admin/presentation/features/banners/create/create_banner_view_model.dart'
+    as _i986;
 import 'package:zentrio_admin/presentation/features/categories/categories_view_model.dart'
     as _i722;
 import 'package:zentrio_admin/presentation/features/categories/create/create_category_view_model.dart'
@@ -106,6 +108,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => dataModule.prefs,
       preResolve: true,
     );
+    gh.factory<_i986.CreateBannerViewModel>(
+        () => _i986.CreateBannerViewModel());
     gh.lazySingleton<_i311.AuthService>(() => networkModule.authService);
     gh.lazySingleton<_i451.VendorService>(() => networkModule.vendorService);
     gh.lazySingleton<_i134.ProductService>(() => networkModule.productService);
@@ -200,6 +204,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i91.ProductsViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i462.CreateProductOptionViewModel>(
         () => _i462.CreateProductOptionViewModel(gh<_i977.ProductUseCase>()));
+    gh.factory<_i264.ProductCreateVariantsViewModel>(
+        () => _i264.ProductCreateVariantsViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i137.ProductEditViewModel>(
         () => _i137.ProductEditViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i1010.ProductViewModel>(
@@ -208,8 +214,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i922.ProductMetadataViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i740.ProductAttributesViewModel>(
         () => _i740.ProductAttributesViewModel(gh<_i977.ProductUseCase>()));
-    gh.factory<_i264.ProductCreateVariantsViewModel>(
-        () => _i264.ProductCreateVariantsViewModel(gh<_i977.ProductUseCase>()));
     gh.lazySingleton<_i857.DashboardViewModel>(() => _i857.DashboardViewModel(
           gh<_i620.AuthUseCase>(),
           gh<_i97.VendorUseCase>(),

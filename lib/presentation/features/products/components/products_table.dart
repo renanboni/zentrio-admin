@@ -50,7 +50,7 @@ class ProductsTable extends StatelessWidget {
               ),
             );
           case 1:
-            return const ShadTableCell(child: Text("-"));
+            return ShadTableCell(child: Text(product.collection.title));
           case 2:
             return const ShadTableCell(child: Text("-"));
           case 3:

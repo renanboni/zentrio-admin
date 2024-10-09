@@ -10,6 +10,7 @@ import 'package:zentrio_admin/presentation/router/vendors_route.dart';
 import '../features/dashboard/side_bar_controller.dart';
 import '../features/invite/vendor_invite_page.dart';
 import '../features/login/login_page.dart';
+import 'banners_route.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -47,6 +48,7 @@ final GoRouter router = GoRouter(
         productsRoute,
         categoriesRoute,
         collectionsRoute,
+        bannersRoute,
       ],
     )
   ],

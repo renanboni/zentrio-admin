@@ -5,13 +5,13 @@ import 'package:zentrio_admin/domain/models/media_file.dart';
 class MediaItemList extends StatelessWidget {
   final MediaFile mediaFile;
   final VoidCallback onDelete;
-  final VoidCallback onMakeThumbnail;
+  final VoidCallback? onMakeThumbnail;
 
   const MediaItemList({
     super.key,
     required this.mediaFile,
     required this.onDelete,
-    required this.onMakeThumbnail,
+    this.onMakeThumbnail,
   });
 
   @override
@@ -74,17 +74,18 @@ class MediaItemList extends StatelessWidget {
                 controller: controller,
                 visible: controller.isOpen,
                 items: [
-                  ShadContextMenuItem(
-                    onPressed: onMakeThumbnail,
-                    leading: const ShadImage.square(
-                      LucideIcons.galleryHorizontalEnd,
-                      size: 16,
+                  if (onMakeThumbnail != null)
+                    ShadContextMenuItem(
+                      onPressed: onMakeThumbnail,
+                      leading: const ShadImage.square(
+                        LucideIcons.galleryHorizontalEnd,
+                        size: 16,
+                      ),
+                      child: Text(
+                        "Make thumbnail",
+                        style: theme.textTheme.muted,
+                      ),
                     ),
-                    child: Text(
-                      "Make thumbnail",
-                      style: theme.textTheme.muted,
-                    ),
-                  ),
                   const Divider(height: 8),
                   ShadContextMenuItem(
                     onPressed: onDelete,

@@ -39,6 +39,9 @@ class _ProductsDetailFormState extends State<ProductsDetailForm> {
           columnSpacing: 16,
           columnCrossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const ResponsiveRowColumnItem(
+              child: SizedBox(height: 16),
+            ),
             ResponsiveRowColumnItem(
               child: Text(
                 "General",
@@ -114,7 +117,8 @@ class _ProductsDetailFormState extends State<ProductsDetailForm> {
                   onRemove: widget.viewModel.onRemoveProductOption,
                   onAddProductOption: widget.viewModel.onAddProductOption,
                   onTitleChanged: widget.viewModel.onProductOptionTitleChanged,
-                  onValuesChanged: widget.viewModel.onProductOptionValuesChanged,
+                  onValuesChanged:
+                      widget.viewModel.onProductOptionValuesChanged,
                   onValueRemoved: widget.viewModel.onProductOptionValueRemoved,
                   onCheckAll: widget.viewModel.onCheckAll,
                   onVariantChecked: widget.viewModel.onVariantSelected,

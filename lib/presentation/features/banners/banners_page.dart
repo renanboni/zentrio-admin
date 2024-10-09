@@ -1,21 +1,10 @@
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-import 'package:signals/signals_flutter.dart';
-import 'package:zentrio_admin/presentation/features/products/products_view_model.dart';
 
-import '../../../di/init.dart';
-import 'components/products_table.dart';
-
-class ProductsPage extends StatefulWidget {
-  const ProductsPage({super.key});
-
-  @override
-  State<ProductsPage> createState() => _ProductsPageState();
-}
-
-class _ProductsPageState extends State<ProductsPage> {
-  final ProductsViewModel viewModel = getIt<ProductsViewModel>();
+class BannersPage extends StatelessWidget {
+  const BannersPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +19,7 @@ class _ProductsPageState extends State<ProductsPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Products",
+              "Banners",
               style: ShadTheme.of(context).textTheme.table,
             ),
             ShadButton(
@@ -46,7 +35,7 @@ class _ProductsPageState extends State<ProductsPage> {
         child: Column(
           children: [
             const Divider(height: 1),
-            Expanded(
+           /* Expanded(
               child: ProductsTable(
                 products: viewModel.products.watch(context),
                 onClick: (product) async {
@@ -59,7 +48,7 @@ class _ProductsPageState extends State<ProductsPage> {
                   }
                 },
               ),
-            ),
+            ),*/
           ],
         ),
       ),

@@ -15,7 +15,7 @@ class SideBarItem extends Equatable {
   final Function()? onTap;
 
   const SideBarItem({
-    required this.label,
+    this.label = "",
     this.route = "",
     this.type = SideBarItemType.list,
     this.selected = false,

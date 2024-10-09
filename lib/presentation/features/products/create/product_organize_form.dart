@@ -26,6 +26,9 @@ class ProductOrganizeForm extends StatelessWidget {
       columnSpacing: 16,
       columnCrossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const ResponsiveRowColumnItem(
+          child: SizedBox(height: 16),
+        ),
         ResponsiveRowColumnItem(
           child: Text(
             "Organize",

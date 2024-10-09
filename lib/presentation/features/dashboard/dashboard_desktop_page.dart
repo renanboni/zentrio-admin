@@ -43,7 +43,9 @@ class _DashboardDesktopPageState extends State<DashboardDesktopPage> {
             vendor: viewModel.vendor.watch(context),
             onTap: (item) {
               viewModel.onTap(item);
-              GoRouter.of(context).go(item.route);
+              if (item.route.isNotEmpty) {
+                GoRouter.of(context).go(item.route);
+              }
             },
             footer: const SideBarItem(
               label: "Sign out",

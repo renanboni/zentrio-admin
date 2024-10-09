@@ -64,7 +64,6 @@ class _StepperState extends State<HorizontalStepper> {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    const SizedBox(width: 16),
                     for (var i = 0; i < widget.steps.length; i++) ...[
                       Watch(
                         (context) => InkWell(
@@ -73,7 +72,7 @@ class _StepperState extends State<HorizontalStepper> {
                               : () => _currentIndex.value = i,
                           child: Container(
                             color: widget.steps[i].state == HorizontalStepState.disabled
-                                ? theme.ghostButtonTheme.hoverBackgroundColor
+                                ? theme.colorScheme.primaryForeground
                                 : theme.ghostButtonTheme.backgroundColor,
                             width: widget.steps[i].width,
                             child: Row(
@@ -105,13 +104,10 @@ class _StepperState extends State<HorizontalStepper> {
         const Divider(height: 1),
         Expanded(
           key: _keys[_currentIndex.value],
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Watch(
-              (context) => ShadForm(
-                key: _formKeys[_currentIndex.value],
-                child: widget.steps[_currentIndex.value].content,
-              ),
+          child: Watch(
+            (context) => ShadForm(
+              key: _formKeys[_currentIndex.value],
+              child: widget.steps[_currentIndex.value].content,
             ),
           ),
         ),
