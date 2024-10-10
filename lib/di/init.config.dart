@@ -50,6 +50,8 @@ import 'package:zentrio_admin/domain/usecase/collection_use_case.dart' as _i464;
 import 'package:zentrio_admin/domain/usecase/file_usecase.dart' as _i850;
 import 'package:zentrio_admin/domain/usecase/product_usecase.dart' as _i977;
 import 'package:zentrio_admin/domain/usecase/vendor_usecase.dart' as _i97;
+import 'package:zentrio_admin/presentation/features/banners/banners_view_model.dart'
+    as _i330;
 import 'package:zentrio_admin/presentation/features/banners/create/create_banner_view_model.dart'
     as _i986;
 import 'package:zentrio_admin/presentation/features/categories/categories_view_model.dart'
@@ -183,6 +185,8 @@ extension GetItInjectableX on _i174.GetIt {
         _i671.AuthenticationLocalDataSourceImpl(gh<_i460.SharedPreferences>()));
     gh.factory<_i97.VendorUseCase>(
         () => _i97.VendorUseCase(gh<_i74.VendorRepository>()));
+    gh.factory<_i330.BannersViewModel>(
+        () => _i330.BannersViewModel(gh<_i725.BannerUseCase>()));
     gh.lazySingleton<_i132.AuthenticationRepository>(
         () => _i132.AuthenticationRepository(
               gh<_i311.AuthService>(),

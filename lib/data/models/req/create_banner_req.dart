@@ -5,16 +5,16 @@ part 'create_banner_req.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class CreateBannerReq {
-  final String image;
-  final String? imageMobile;
-  final String? cta;
+  final String imageUrl;
+  final String? imageMobileUrl;
+  final String? ctaText;
   final String? ctaLink;
   final int? position;
 
   CreateBannerReq({
-    required this.image,
-    this.imageMobile,
-    this.cta,
+    required this.imageUrl,
+    this.imageMobileUrl,
+    this.ctaText,
     this.ctaLink,
     this.position,
   });

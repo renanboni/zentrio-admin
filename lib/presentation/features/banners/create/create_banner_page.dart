@@ -10,7 +10,6 @@ import 'package:zentrio_admin/presentation/components/dialog_header.dart';
 import 'package:zentrio_admin/presentation/components/image_picker.dart';
 import 'package:zentrio_admin/presentation/components/optional_label.dart';
 import 'package:zentrio_admin/presentation/features/banners/create/create_banner_view_model.dart';
-import 'package:zentrio_admin/presentation/features/collection/collection_page.dart';
 import 'package:zentrio_admin/utils/extensions/context_ext.dart';
 import 'package:zentrio_admin/utils/extensions/miscellaneous_ext.dart';
 import 'package:zentrio_admin/utils/extensions/sizes_ext.dart';

@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:injectable/injectable.dart';
@@ -34,17 +33,14 @@ class CreateBannerViewModel {
     final ctaLinkValue = ctaLink.value;
 
     try {
-      final bytes = [
-        imageFile.bytes ?? Uint8List(0),
-        mobileImageFile.bytes ?? Uint8List(0)
-      ];
-      final uploadedFile = await _fileUseCase.uploadBytes(bytes);
+      final uploadedFile = await _fileUseCase.uploadFiles([imageFile]);
 
       final banner = CreateBannerReq(
-          image: uploadedFile[0].url,
-          cta: ctaValue,
-          ctaLink: ctaLinkValue,
-          position: 0);
+        imageUrl: uploadedFile[0].url,
+        ctaText: ctaValue,
+        ctaLink: ctaLinkValue,
+        position: 0,
+      );
 
       await _bannerUseCase.createBanner(banner);
       onSuccess();

@@ -1,10 +1,20 @@
-
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
+import 'package:signals/signals_flutter.dart';
+import 'package:zentrio_admin/di/init.dart';
+import 'package:flutter/material.dart' hide Banner;
+import 'package:zentrio_admin/presentation/features/banners/banners_view_model.dart';
+import 'package:zentrio_admin/presentation/features/banners/components/banner_table.dart';
 
-class BannersPage extends StatelessWidget {
+class BannersPage extends StatefulWidget {
   const BannersPage({super.key});
+
+  @override
+  State<BannersPage> createState() => _BannersPageState();
+}
+
+class _BannersPageState extends State<BannersPage> {
+  final BannersViewModel viewModel = getIt<BannersViewModel>();
 
   @override
   Widget build(BuildContext context) {
@@ -35,20 +45,11 @@ class BannersPage extends StatelessWidget {
         child: Column(
           children: [
             const Divider(height: 1),
-           /* Expanded(
-              child: ProductsTable(
-                products: viewModel.products.watch(context),
-                onClick: (product) async {
-                  final result = await GoRouter.of(context).push(
-                    "/products/${product.id}",
-                  );
-
-                  if (result != null) {
-                    viewModel.refresh();
-                  }
-                },
+            Expanded(
+              child: BannerTable(
+                banners: viewModel.banners.watch(context),
               ),
-            ),*/
+            ),
           ],
         ),
       ),
