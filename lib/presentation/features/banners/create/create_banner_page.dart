@@ -68,12 +68,14 @@ class _CreateBannerPageState extends State<CreateBannerPage> {
                             rowFlex: 1,
                             child: ShadInputFormField(
                               label: const Text('CTA'),
+                              onChanged: viewModel.cta.set,
                             ),
                           ),
                           ResponsiveRowColumnItem(
                             rowFlex: 1,
                             child: ShadInputFormField(
                               label: const Text('CTA Link'),
+                              onChanged: viewModel.ctaLink.set,
                             ),
                           ),
                         ],
@@ -125,7 +127,22 @@ class _CreateBannerPageState extends State<CreateBannerPage> {
         ),
         DialogFooter(
           onCancel: () => GoRouter.of(context).pop(),
-          onCreate: () {},
+          onCreate: () {
+            if (viewModel.image.value == MediaFile.empty()) {
+              context.error("Please select an image");
+              return;
+            }
+
+            viewModel.onSave(
+              () {
+                context.success("Banner created successfully");
+                GoRouter.of(context).pop(true);
+              },
+              () {
+                context.error("Failed to create banner");
+              },
+            );
+          },
         )
       ],
     );

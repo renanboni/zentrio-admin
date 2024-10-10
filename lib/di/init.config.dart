@@ -44,6 +44,7 @@ import 'package:zentrio_admin/domain/repositories/vendor_repository.dart'
     as _i74;
 import 'package:zentrio_admin/domain/usecase/api_key_usecase.dart' as _i116;
 import 'package:zentrio_admin/domain/usecase/auth_usecase.dart' as _i620;
+import 'package:zentrio_admin/domain/usecase/banner_usecase.dart' as _i725;
 import 'package:zentrio_admin/domain/usecase/category_usecase.dart' as _i311;
 import 'package:zentrio_admin/domain/usecase/collection_use_case.dart' as _i464;
 import 'package:zentrio_admin/domain/usecase/file_usecase.dart' as _i850;
@@ -111,8 +112,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => dataModule.prefs,
       preResolve: true,
     );
-    gh.factory<_i986.CreateBannerViewModel>(
-        () => _i986.CreateBannerViewModel());
     gh.lazySingleton<_i311.AuthService>(() => networkModule.authService);
     gh.lazySingleton<_i451.VendorService>(() => networkModule.vendorService);
     gh.lazySingleton<_i134.ProductService>(() => networkModule.productService);
@@ -148,6 +147,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i311.CategoryUseCase(gh<_i785.CategoryRepository>()));
     gh.factory<_i464.CollectionUseCase>(
         () => _i464.CollectionUseCase(gh<_i612.CollectionRepository>()));
+    gh.factory<_i725.BannerUseCase>(
+        () => _i725.BannerUseCase(gh<_i1069.BannerRepository>()));
     gh.lazySingleton<_i361.Dio>(
       () => networkModule.authenticatedDio,
       instanceName: 'authenticated',
@@ -174,6 +175,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i722.CategoriesViewModel(gh<_i311.CategoryUseCase>()));
     gh.factory<_i1019.CreateCategoryViewModel>(
         () => _i1019.CreateCategoryViewModel(gh<_i311.CategoryUseCase>()));
+    gh.factory<_i986.CreateBannerViewModel>(() => _i986.CreateBannerViewModel(
+          gh<_i725.BannerUseCase>(),
+          gh<_i850.FileUseCase>(),
+        ));
     gh.factory<_i671.AuthenticationLocalDataSourceImpl>(() =>
         _i671.AuthenticationLocalDataSourceImpl(gh<_i460.SharedPreferences>()));
     gh.factory<_i97.VendorUseCase>(

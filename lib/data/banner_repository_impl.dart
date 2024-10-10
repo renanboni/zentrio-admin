@@ -1,4 +1,5 @@
 
+import 'package:zentrio_admin/data/mappers/banner_mapper.dart';
 import 'package:zentrio_admin/data/models/req/create_banner_req.dart';
 import 'package:zentrio_admin/data/remote/banner_service.dart';
 import 'package:zentrio_admin/domain/models/Banner.dart';
@@ -12,13 +13,12 @@ class BannerRepositoryImpl implements BannerRepository {
 
   @override
   Future<void> createBanner(CreateBannerReq req) {
-    // TODO: implement createBanner
-    throw UnimplementedError();
+    return _bannerService.createBanner(req);
   }
 
   @override
   Future<List<Banner>> getBanners() {
-    // TODO: implement getBanners
-    throw UnimplementedError();
+    return _bannerService.getBanners()
+      .then((e) => e.map((e) => e.toBanner()).toList());
   }
 }
