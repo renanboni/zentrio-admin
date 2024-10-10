@@ -48,13 +48,35 @@ class _CreateBannerPageState extends State<CreateBannerPage> {
                   rowSpacing: 16,
                   columnSpacing: 16,
                   children: [
-                    const ResponsiveRowColumnItem(
-                      child: SizedBox(height: 16),
-                    ),
                     ResponsiveRowColumnItem(
                       child: Text(
                         "Banner",
                         style: theme.textTheme.large,
+                      ),
+                    ),
+                    ResponsiveRowColumnItem(
+                      child: ResponsiveRowColumn(
+                        rowSpacing: 12,
+                        columnSpacing: 8,
+                        rowCrossAxisAlignment: CrossAxisAlignment.start,
+                        layout:
+                        ResponsiveBreakpoints.of(context).smallerThan(DESKTOP)
+                            ? ResponsiveRowColumnType.COLUMN
+                            : ResponsiveRowColumnType.ROW,
+                        children: [
+                          ResponsiveRowColumnItem(
+                            rowFlex: 1,
+                            child: ShadInputFormField(
+                              label: const Text('CTA'),
+                            ),
+                          ),
+                          ResponsiveRowColumnItem(
+                            rowFlex: 1,
+                            child: ShadInputFormField(
+                              label: const Text('CTA Link'),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     ResponsiveRowColumnItem(
@@ -93,34 +115,6 @@ class _CreateBannerPageState extends State<CreateBannerPage> {
                               onDelete: () async {},
                             )
                         ].separatedBy(const SizedBox(height: 8)),
-                      ),
-                    ),
-                    const ResponsiveRowColumnItem(
-                      child: SizedBox(height: 12),
-                    ),
-                    ResponsiveRowColumnItem(
-                      child: ResponsiveRowColumn(
-                        rowSpacing: 12,
-                        columnSpacing: 8,
-                        rowCrossAxisAlignment: CrossAxisAlignment.start,
-                        layout:
-                            ResponsiveBreakpoints.of(context).smallerThan(DESKTOP)
-                                ? ResponsiveRowColumnType.COLUMN
-                                : ResponsiveRowColumnType.ROW,
-                        children: [
-                          ResponsiveRowColumnItem(
-                            rowFlex: 1,
-                            child: ShadInputFormField(
-                              label: const Text('CTA'),
-                            ),
-                          ),
-                          ResponsiveRowColumnItem(
-                            rowFlex: 1,
-                            child: ShadInputFormField(
-                              label: const Text('CTA Link'),
-                            ),
-                          ),
-                        ],
                       ),
                     ),
                   ],

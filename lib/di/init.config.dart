@@ -18,6 +18,7 @@ import 'package:zentrio_admin/data/interceptors/auth_interceptor.dart' as _i660;
 import 'package:zentrio_admin/data/local/auth_local_data_source.dart' as _i671;
 import 'package:zentrio_admin/data/remote/api_key_service.dart' as _i216;
 import 'package:zentrio_admin/data/remote/auth_service.dart' as _i311;
+import 'package:zentrio_admin/data/remote/banner_service.dart' as _i641;
 import 'package:zentrio_admin/data/remote/category_service.dart' as _i676;
 import 'package:zentrio_admin/data/remote/collection_service.dart' as _i658;
 import 'package:zentrio_admin/data/remote/file_service.dart' as _i1013;
@@ -27,6 +28,8 @@ import 'package:zentrio_admin/di/modules/data_module.dart' as _i555;
 import 'package:zentrio_admin/di/modules/network_module.dart' as _i184;
 import 'package:zentrio_admin/domain/repositories/api_key_repository.dart'
     as _i830;
+import 'package:zentrio_admin/domain/repositories/banner_repository.dart'
+    as _i1069;
 import 'package:zentrio_admin/domain/repositories/category_repository.dart'
     as _i785;
 import 'package:zentrio_admin/domain/repositories/collection_repository.dart'
@@ -119,6 +122,7 @@ extension GetItInjectableX on _i174.GetIt {
         () => networkModule.collectionService);
     gh.lazySingleton<_i1013.FileService>(() => networkModule.fileService);
     gh.lazySingleton<_i216.ApiKeyService>(() => networkModule.apiKeyService);
+    gh.lazySingleton<_i641.BannerService>(() => networkModule.bannerService);
     gh.lazySingleton<_i671.AuthenticationLocalDataSource>(
         () => dataModule.medusaClient);
     gh.lazySingleton<_i74.VendorRepository>(() => dataModule.vendorRepository);
@@ -132,6 +136,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i830.ApiKeyRepository>(() => dataModule.apiKeyRepository);
     gh.lazySingleton<_i612.CollectionRepository>(
         () => dataModule.collectionRepository);
+    gh.lazySingleton<_i1069.BannerRepository>(
+        () => dataModule.bannersRepository);
     gh.lazySingleton<_i660.AuthInterceptor>(() => _i660.AuthInterceptor(
         authLocalDataSource: gh<_i671.AuthenticationLocalDataSource>()));
     gh.lazySingleton<_i361.Dio>(
