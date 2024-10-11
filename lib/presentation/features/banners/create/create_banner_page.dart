@@ -14,6 +14,7 @@ import 'package:zentrio_admin/utils/extensions/context_ext.dart';
 import 'package:zentrio_admin/utils/extensions/miscellaneous_ext.dart';
 import 'package:zentrio_admin/utils/extensions/sizes_ext.dart';
 
+import '../../../components/switch_card.dart';
 import '../../products/create/components/media_item_list.dart';
 
 class CreateBannerPage extends StatefulWidget {
@@ -58,8 +59,8 @@ class _CreateBannerPageState extends State<CreateBannerPage> {
                         rowSpacing: 12,
                         columnSpacing: 8,
                         rowCrossAxisAlignment: CrossAxisAlignment.start,
-                        layout:
-                        ResponsiveBreakpoints.of(context).smallerThan(DESKTOP)
+                        layout: ResponsiveBreakpoints.of(context)
+                                .smallerThan(DESKTOP)
                             ? ResponsiveRowColumnType.COLUMN
                             : ResponsiveRowColumnType.ROW,
                         children: [
@@ -91,7 +92,8 @@ class _CreateBannerPageState extends State<CreateBannerPage> {
                           ImagePicker(onFilesSelected: (images) {
                             viewModel.onImageChanged(images.first);
                           }),
-                          if (viewModel.image.watch(context) != MediaFile.empty())
+                          if (viewModel.image.watch(context) !=
+                              MediaFile.empty())
                             MediaItemList(
                               mediaFile: viewModel.image.watch(context),
                               onDelete: () async {},
@@ -116,6 +118,15 @@ class _CreateBannerPageState extends State<CreateBannerPage> {
                               onDelete: () async {},
                             )
                         ].separatedBy(const SizedBox(height: 8)),
+                      ),
+                    ),
+                    ResponsiveRowColumnItem(
+                      child: SwitchCard(
+                        title: "Enabled",
+                        description:
+                            "If enabled, the banner will be displayed on the website",
+                        value: viewModel.enabled.watch(context),
+                        onChanged: viewModel.enabled.set,
                       ),
                     ),
                   ],
