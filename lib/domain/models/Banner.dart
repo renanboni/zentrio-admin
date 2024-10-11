@@ -1,22 +1,23 @@
 import 'package:equatable/equatable.dart';
+import 'package:zentrio_admin/domain/models/banner_image.dart';
 
 class Banner extends Equatable {
   final String id;
-  final String image;
-  final String imageMobile;
-  final String cta;
+  final String ctaText;
   final String ctaLink;
-  final int position;
+  final bool enabled;
+  final String thumbnail;
+  final List<BannerImage> images;
 
   const Banner({
     required this.id,
-    required this.image,
-    required this.imageMobile,
-    required this.cta,
+    required this.ctaText,
     required this.ctaLink,
-    required this.position,
+    required this.enabled,
+    required this.thumbnail,
+    required this.images,
   });
 
   @override
-  List<Object?> get props => [id, image, imageMobile, cta, ctaLink, position];
+  List<Object?> get props => [id, ctaText, ctaLink, enabled, images, thumbnail];
 }

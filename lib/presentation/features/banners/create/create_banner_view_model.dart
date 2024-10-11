@@ -2,9 +2,11 @@ import 'dart:ui';
 
 import 'package:injectable/injectable.dart';
 import 'package:signals/signals.dart';
+import 'package:zentrio_admin/data/models/api_banner_image.dart';
 import 'package:zentrio_admin/domain/models/media_file.dart';
 import 'package:zentrio_admin/domain/usecase/banner_usecase.dart';
-import 'package:zentrio_admin/domain/usecase/file_usecase.dart';
+import 'package:collection/collection.dart';
+
 
 import '../../../../data/models/req/create_banner_req.dart';
 
@@ -14,13 +16,12 @@ class CreateBannerViewModel {
   final Signal<MediaFile> mobileImage = Signal(MediaFile.empty());
   final Signal<String> cta = Signal('');
   final Signal<String> ctaLink = Signal('');
+  final Signal<bool> enabled = Signal(false);
 
   final BannerUseCase _bannerUseCase;
-  final FileUseCase _fileUseCase;
 
   CreateBannerViewModel(
     this._bannerUseCase,
-    this._fileUseCase,
   );
 
   void onSave(
@@ -29,17 +30,22 @@ class CreateBannerViewModel {
   ) async {
     final imageFile = image.value;
     final mobileImageFile = mobileImage.value;
-    final ctaValue = cta.value;
-    final ctaLinkValue = ctaLink.value;
 
     try {
-      final uploadedFile = await _fileUseCase.uploadFiles([imageFile]);
+      final uploadedFile = await _bannerUseCase.uploadFiles([imageFile]);
 
       final banner = CreateBannerReq(
-        imageUrl: uploadedFile[0].url,
-        ctaText: ctaValue,
-        ctaLink: ctaLinkValue,
-        position: 0,
+        ctaText: cta.value,
+        ctaLink: ctaLink.value,
+        enabled: enabled.value,
+        images: uploadedFile.mapIndexed(
+          (index, e) => ApiBannerImage(
+            fileId: e.id,
+            position: index,
+            isMobile: false,
+            mimeType: "png"
+          ),
+        ).toList(),
       );
 
       await _bannerUseCase.createBanner(banner);

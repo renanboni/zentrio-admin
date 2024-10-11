@@ -177,14 +177,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i722.CategoriesViewModel(gh<_i311.CategoryUseCase>()));
     gh.factory<_i1019.CreateCategoryViewModel>(
         () => _i1019.CreateCategoryViewModel(gh<_i311.CategoryUseCase>()));
-    gh.factory<_i986.CreateBannerViewModel>(() => _i986.CreateBannerViewModel(
-          gh<_i725.BannerUseCase>(),
-          gh<_i850.FileUseCase>(),
-        ));
     gh.factory<_i671.AuthenticationLocalDataSourceImpl>(() =>
         _i671.AuthenticationLocalDataSourceImpl(gh<_i460.SharedPreferences>()));
     gh.factory<_i97.VendorUseCase>(
         () => _i97.VendorUseCase(gh<_i74.VendorRepository>()));
+    gh.factory<_i986.CreateBannerViewModel>(
+        () => _i986.CreateBannerViewModel(gh<_i725.BannerUseCase>()));
     gh.factory<_i330.BannersViewModel>(
         () => _i330.BannersViewModel(gh<_i725.BannerUseCase>()));
     gh.lazySingleton<_i132.AuthenticationRepository>(

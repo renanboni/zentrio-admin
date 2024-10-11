@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' hide Banner;
 import 'package:shadcn_ui/shadcn_ui.dart';
+import 'package:zentrio_admin/presentation/components/edit_context_menu.dart';
 import '../../../../domain/models/Banner.dart';
 
 class BannerTable extends StatelessWidget {
@@ -37,17 +38,25 @@ class _BannerItemList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        if (banner.image.isNotEmpty)
-        ClipRRect(
-          borderRadius: BorderRadius.circular(4),
-          child: ShadImage(
-            banner.image,
-            width: 80,
-            height: 40,
-            fit: BoxFit.fitWidth,
+        const SizedBox(width: 16),
+        SizedBox(
+          width: 80,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: ShadImage(
+              banner.thumbnail,
+              width: 80,
+              height: 40,
+              fit: BoxFit.fitWidth,
+            ),
           ),
         ),
-        Text(banner.cta)
+        const SizedBox(width: 16),
+        SizedBox(width: 100, child: Text(banner.ctaText)),
+        SizedBox(width: 100, child: banner.enabled ? const Text('Enabled') : const Text('Disabled')),
+        const Spacer(),
+        EditContextMenu(onEdit: () {}),
+        const SizedBox(width: 16)
       ],
     );
   }
