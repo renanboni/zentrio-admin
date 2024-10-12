@@ -25,36 +25,51 @@ class SheetPage<T> extends Page<T> {
   });
 
   @override
-  Route<T> createRoute(BuildContext context) => DialogRoute<T>(
-        context: context,
-        settings: this,
-        builder: (context) => Align(
+  Route<T> createRoute(BuildContext context) {
+    return RawDialogRoute<T>(
+      pageBuilder: (
+        BuildContext context,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+      ) {
+        return Align(
           alignment: Alignment.centerRight,
           child: ConstrainedBox(
             constraints: const BoxConstraints(
               maxWidth: 512,
               minWidth: 0,
             ),
-            child: Dialog(
-              insetPadding: const EdgeInsets.all(8),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height,
-                child: ShadCard(
-                  padding: const EdgeInsets.all(0),
-                  child: builder(context),
-                ),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: ShadCard(
+                padding: const EdgeInsets.all(0),
+                child: builder(context),
               ),
             ),
           ),
-        ),
-        anchorPoint: anchorPoint,
-        barrierColor: barrierColor,
-        barrierDismissible: barrierDismissible,
-        barrierLabel: barrierLabel,
-        useSafeArea: useSafeArea,
-        themes: themes,
-      );
+        );
+      },
+      barrierColor: barrierColor,
+      barrierDismissible: barrierDismissible,
+      barrierLabel: barrierLabel,
+      anchorPoint: anchorPoint,
+      settings: this,
+      transitionDuration: const Duration(milliseconds: 300),
+      transitionBuilder: (
+        BuildContext context,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+        Widget child,
+      ) {
+        final offsetAnimation = Tween<Offset>(
+          begin: const Offset(1.0, 0.0),
+          end: Offset.zero,
+        ).animate(animation);
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+    );
+  }
 }
