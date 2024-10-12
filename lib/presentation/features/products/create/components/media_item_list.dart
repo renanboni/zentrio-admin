@@ -6,11 +6,15 @@ class MediaItemList extends StatelessWidget {
   final MediaFile mediaFile;
   final VoidCallback onDelete;
   final VoidCallback? onMakeThumbnail;
+  final double thumbnailWidth;
+  final double thumbnailHeight;
 
   const MediaItemList({
     super.key,
     required this.mediaFile,
     required this.onDelete,
+    this.thumbnailWidth = 32,
+    this.thumbnailHeight = 36,
     this.onMakeThumbnail,
   });
 
@@ -27,8 +31,8 @@ class MediaItemList extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.0),
             child: Image.network(
               mediaFile.url,
-              width: 32,
-              height: 36,
+              width: thumbnailWidth,
+              height: thumbnailHeight,
               fit: BoxFit.cover,
             ),
           ),
@@ -86,6 +90,7 @@ class MediaItemList extends StatelessWidget {
                         style: theme.textTheme.muted,
                       ),
                     ),
+                  if (onMakeThumbnail != null)
                   const Divider(height: 8),
                   ShadContextMenuItem(
                     onPressed: onDelete,

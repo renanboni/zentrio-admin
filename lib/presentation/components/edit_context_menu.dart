@@ -61,8 +61,8 @@ class _EditContextMenuState extends State<EditContextMenu> {
   _deleteDialog() {
     return InkWell(
       child: const Text("Delete"),
-      onTap: () {
-        showShadDialog(
+      onTap: () async {
+        await showShadDialog(
           context: context,
           builder: (context) => ShadDialog.alert(
             title: Text(widget.deleteDialogTitle),

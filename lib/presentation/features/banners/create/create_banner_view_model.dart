@@ -7,13 +7,12 @@ import 'package:zentrio_admin/domain/models/media_file.dart';
 import 'package:zentrio_admin/domain/usecase/banner_usecase.dart';
 import 'package:collection/collection.dart';
 
-
 import '../../../../data/models/req/create_banner_req.dart';
 
 @Injectable()
 class CreateBannerViewModel {
-  final Signal<MediaFile> image = Signal(MediaFile.empty());
-  final Signal<MediaFile> mobileImage = Signal(MediaFile.empty());
+  final ListSignal<MediaFile> image = ListSignal([]);
+  final ListSignal<MediaFile> mobileImage = ListSignal([]);
   final Signal<String> cta = Signal('');
   final Signal<String> ctaLink = Signal('');
   final Signal<bool> enabled = Signal(false);
@@ -28,11 +27,9 @@ class CreateBannerViewModel {
     VoidCallback onSuccess,
     VoidCallback onError,
   ) async {
-    final imageFile = image.value;
-    final mobileImageFile = mobileImage.value;
-
     try {
-      final uploadedFile = await _bannerUseCase.uploadFiles([imageFile]);
+      final uploadedFile = await _bannerUseCase.uploadFiles(image.value);
+      //final uploadedMobileFile = await _bannerUseCase.uploadFiles(mobileImage.value);
 
       final banner = CreateBannerReq(
         ctaText: cta.value,
@@ -45,7 +42,14 @@ class CreateBannerViewModel {
             isMobile: false,
             mimeType: "png"
           ),
-        ).toList(),
+        ).toList()/* + uploadedMobileFile.mapIndexed(
+          (index, e) => ApiBannerImage(
+            fileId: e.id,
+            position: index,
+            isMobile: true,
+            mimeType: "png"
+          ),
+        ).toList()*/,
       );
 
       await _bannerUseCase.createBanner(banner);
@@ -56,19 +60,19 @@ class CreateBannerViewModel {
     }
   }
 
-  void onImageChanged(MediaFile file) {
-    image.value = file;
+  void onAddImages(List<MediaFile> files) {
+    image.addAll(files);
   }
 
-  void onRemoveImage() {
-    image.value = MediaFile.empty();
+  void onDeleteImage(int index) {
+    image.removeAt(index);
   }
 
-  void onMobileImageChanged(MediaFile file) {
-    mobileImage.value = file;
+  void onAddMobileImages(List<MediaFile> files) {
+    mobileImage.addAll(files);
   }
 
-  void onRemoveMobileImage() {
-    mobileImage.value = MediaFile.empty();
+  void onDeleteMobileImage(int index) {
+    mobileImage.removeAt(index);
   }
 }

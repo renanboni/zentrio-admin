@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
@@ -28,6 +29,7 @@ class CreateBannerPage extends StatefulWidget {
 
 class _CreateBannerPageState extends State<CreateBannerPage> {
   final CreateBannerViewModel viewModel = getIt<CreateBannerViewModel>();
+  DropzoneViewController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -89,15 +91,35 @@ class _CreateBannerPageState extends State<CreateBannerPage> {
                             "Image",
                             style: theme.textTheme.small,
                           ),
-                          ImagePicker(onFilesSelected: (images) {
-                            viewModel.onImageChanged(images.first);
-                          }),
-                          if (viewModel.image.watch(context) !=
-                              MediaFile.empty())
-                            MediaItemList(
-                              mediaFile: viewModel.image.watch(context),
-                              onDelete: () async {},
-                            )
+                          ImagePicker(
+                            onFilesSelected: (images) {
+                              viewModel.onAddImages(images);
+                            },
+                            onControllerCreated: (controller) {
+                              this.controller = controller;
+                            },
+                          ),
+                          if (viewModel.image.watch(context).isNotEmpty)
+                            ListView.separated(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: viewModel.image.length,
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(height: 8),
+                              itemBuilder: (context, index) {
+                                final file = viewModel.image[index];
+
+                                return MediaItemList(
+                                  mediaFile: file,
+                                  thumbnailWidth: 80,
+                                  thumbnailHeight: 40,
+                                  onDelete: () async {
+                                    await controller!.releaseFileUrl(file.url);
+                                    viewModel.onDeleteImage(index);
+                                  },
+                                );
+                              },
+                            ),
                         ].separatedBy(const SizedBox(height: 8)),
                       ),
                     ),
@@ -109,13 +131,28 @@ class _CreateBannerPageState extends State<CreateBannerPage> {
                         children: [
                           const OptionalLabel(label: "Mobile Image"),
                           ImagePicker(onFilesSelected: (images) {
-                            viewModel.onMobileImageChanged(images.first);
+                            viewModel.onAddMobileImages(images);
                           }),
-                          if (viewModel.mobileImage.watch(context) !=
-                              MediaFile.empty())
-                            MediaItemList(
-                              mediaFile: viewModel.mobileImage.watch(context),
-                              onDelete: () async {},
+                          if (viewModel.mobileImage.watch(context).isNotEmpty)
+                            ListView.separated(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: viewModel.mobileImage.length,
+                              separatorBuilder: (context, index) =>
+                              const SizedBox(height: 8),
+                              itemBuilder: (context, index) {
+                                final file = viewModel.mobileImage[index];
+
+                                return MediaItemList(
+                                  mediaFile: file,
+                                  thumbnailWidth: 80,
+                                  thumbnailHeight: 40,
+                                  onDelete: () async {
+                                    await controller!.releaseFileUrl(file.url);
+                                    viewModel.onDeleteMobileImage(index);
+                                  },
+                                );
+                              },
                             )
                         ].separatedBy(const SizedBox(height: 8)),
                       ),
@@ -138,7 +175,7 @@ class _CreateBannerPageState extends State<CreateBannerPage> {
         DialogFooter(
           onCancel: () => GoRouter.of(context).pop(),
           onCreate: () {
-            if (viewModel.image.value == MediaFile.empty()) {
+            if (viewModel.image.isEmpty) {
               context.error("Please select an image");
               return;
             }

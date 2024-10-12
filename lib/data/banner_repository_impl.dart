@@ -42,4 +42,9 @@ class BannerRepositoryImpl implements BannerRepository {
         .upload(multipartFiles)
         .then((value) => value.files.map((e) => e.toMediaFile()).toList());
   }
+
+  @override
+  Future<void> deleteBanner(String id) {
+    return _bannerService.deleteBanner(id);
+  }
 }

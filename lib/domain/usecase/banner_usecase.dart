@@ -23,4 +23,8 @@ class BannerUseCase {
   Future<List<MedusaFile>> uploadFiles(List<MediaFile> files) {
     return _bannerRepository.uploadFiles(files);
   }
+
+  Future<void> deleteBanner(String id) {
+    return _bannerRepository.deleteBanner(id);
+  }
 }

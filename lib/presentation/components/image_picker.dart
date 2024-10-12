@@ -17,10 +17,12 @@ const mime = [
 
 class ImagePicker extends StatefulWidget {
   final ValueChanged<List<MediaFile>> onFilesSelected;
+  final Function(DropzoneViewController)? onControllerCreated;
 
   const ImagePicker({
     super.key,
     required this.onFilesSelected,
+    this.onControllerCreated,
   });
 
   @override
@@ -82,6 +84,7 @@ class _ImagePickerState extends State<ImagePicker> {
                   cursor: CursorType.grab,
                   onCreated: (ctrl) {
                     controller = ctrl;
+                    widget.onControllerCreated?.call(controller);
                   },
                   onError: (error) {},
                   onDropInvalid: (event) async {},

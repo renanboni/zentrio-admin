@@ -11,4 +11,6 @@ abstract class BannerRepository {
   Future<void> createBanner(CreateBannerReq req);
 
   Future<List<MedusaFile>> uploadFiles(List<MediaFile> files);
+
+  Future<void> deleteBanner(String id);
 }

@@ -22,4 +22,9 @@ class ApiBannerImage {
   factory ApiBannerImage.fromJson(Map<String, dynamic> json) => _$ApiBannerImageFromJson(json);
 
   Map<String, dynamic> toJson() => _$ApiBannerImageToJson(this);
+
+  @override
+  String toString() {
+    return 'ApiBannerImage(id: $id, position: $position, fileId: $fileId, mimeType: $mimeType, isMobile: $isMobile)';
+  }
 }

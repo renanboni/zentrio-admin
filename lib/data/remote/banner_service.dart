@@ -20,6 +20,9 @@ abstract class BannerService {
   @POST("/vendor/banners")
   Future<void> createBanner(@Body() CreateBannerReq req);
 
+  @DELETE("/vendor/banners/{id}")
+  Future<void> deleteBanner(@Path("id") String id);
+
   @POST("/vendor/banners/upload")
   @MultiPart()
   Future<FilesResponse> upload(@Part(name: "files") List<MultipartFile> files);

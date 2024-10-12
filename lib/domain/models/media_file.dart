@@ -53,9 +53,6 @@ class MediaFile extends Equatable {
   @override
   List<Object?> get props => [
         name,
-        size,
-        mimeType,
         url,
-        isThumbnail,
       ];
 }

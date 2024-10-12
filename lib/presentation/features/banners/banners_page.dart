@@ -5,6 +5,8 @@ import 'package:zentrio_admin/di/init.dart';
 import 'package:flutter/material.dart' hide Banner;
 import 'package:zentrio_admin/presentation/features/banners/banners_view_model.dart';
 import 'package:zentrio_admin/presentation/features/banners/components/banner_table.dart';
+import 'package:zentrio_admin/presentation/features/banners/create/create_banner_page.dart';
+import 'package:zentrio_admin/utils/extensions/context_ext.dart';
 
 class BannersPage extends StatefulWidget {
   const BannersPage({super.key});
@@ -34,8 +36,13 @@ class _BannersPageState extends State<BannersPage> {
             ),
             ShadButton(
               child: const Text('Create'),
-              onPressed: () {
-                GoRouter.of(context).go("/banners/create");
+              onPressed: () async {
+                final result =
+                    await GoRouter.of(context).push("/banners/create");
+
+                if (result == true) {
+                  viewModel.refresh();
+                }
               },
             )
           ],
@@ -48,6 +55,16 @@ class _BannersPageState extends State<BannersPage> {
             Expanded(
               child: BannerTable(
                 banners: viewModel.banners.watch(context),
+                onDelete: (banner) {
+                  viewModel.deleteBanner(
+                    banner,
+                    () {
+                      context.success("Banner deleted");
+                      GoRouter.of(context).pop();
+                    },
+                    () => context.error("Failed to delete banner"),
+                  );
+                },
               ),
             ),
           ],
