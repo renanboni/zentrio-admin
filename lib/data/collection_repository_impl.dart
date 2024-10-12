@@ -27,4 +27,9 @@ class CollectionRepositoryImpl implements CollectionRepository {
         .getCollectionById(id, expand.join(','))
         .then((value) => value.toCollection());
   }
+
+  @override
+  Future<void> deleteCollection(String id) {
+    return _service.deleteCollection(id);
+  }
 }

@@ -11,4 +11,6 @@ abstract class CollectionRepository {
   );
 
   Future<void> createCollection(CreateCollectionRequest collection);
+
+  Future<void> deleteCollection(String id);
 }

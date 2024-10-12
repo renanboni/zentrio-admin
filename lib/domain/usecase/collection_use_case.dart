@@ -24,4 +24,8 @@ class CollectionUseCase {
   Future<void> createCollection(CreateCollectionRequest collection) {
     return _collectionRepository.createCollection(collection);
   }
+
+  Future<void> deleteCollection(String id) {
+    return _collectionRepository.deleteCollection(id);
+  }
 }

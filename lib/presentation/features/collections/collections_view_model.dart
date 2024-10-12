@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:injectable/injectable.dart';
 import 'package:signals/signals.dart';
 import 'package:zentrio_admin/domain/usecase/collection_use_case.dart';
@@ -19,6 +21,21 @@ class CollectionsViewModel {
       final result = await _collectionUseCase.getCollections();
       collections.value = result;
     } catch (e) {
+      print(e);
+    }
+  }
+
+  void deleteCollection(
+    String id,
+    VoidCallback onSuccess,
+    VoidCallback onFailure,
+  ) async {
+    try {
+      await _collectionUseCase.deleteCollection(id);
+      onSuccess();
+      _getCollections();
+    } catch (e) {
+      onFailure();
       print(e);
     }
   }

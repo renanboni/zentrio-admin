@@ -4,8 +4,10 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/di/init.dart';
 import 'package:zentrio_admin/main.dart';
+import 'package:zentrio_admin/presentation/features/banners/banners_page.dart';
 import 'package:zentrio_admin/presentation/features/collections/collections_view_model.dart';
 import 'package:zentrio_admin/presentation/features/collections/components/collections_table.dart';
+import 'package:zentrio_admin/utils/extensions/context_ext.dart';
 
 class CollectionsPage extends StatefulWidget {
   const CollectionsPage({super.key});
@@ -58,10 +60,17 @@ class _CollectionsPageState extends State<CollectionsPage> {
                   GoRouter.of(context).go("/collections/${collection.id}");
                 },
                 onEdit: (collection) {
-                  //GoRouter.of(context).go("/collections/${collection.id}/edit");
+                  GoRouter.of(context).go("/collections/${collection.id}");
                 },
                 onDelete: (collection) {
-                  //GoRouter.of(context).go("/collections/${collection.id}/delete");
+                  _viewModel.deleteCollection(
+                    collection.id,
+                    () {
+                      context.success("Collection deleted successfully");
+                      GoRouter.of(context).pop();
+                    },
+                    () => context.error("Failed to delete collection"),
+                  );
                 },
               ),
             ),

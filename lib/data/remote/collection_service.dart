@@ -33,4 +33,7 @@ abstract class CollectionService {
 
   @POST("/vendor/collections")
   Future<void> createCollection(@Body() CreateCollectionRequest collection);
+
+  @DELETE("/vendor/collections/{id}")
+  Future<void> deleteCollection(@Path("id") String id);
 }
