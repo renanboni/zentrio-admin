@@ -21,6 +21,7 @@ import 'package:zentrio_admin/data/remote/auth_service.dart' as _i311;
 import 'package:zentrio_admin/data/remote/banner_service.dart' as _i641;
 import 'package:zentrio_admin/data/remote/category_service.dart' as _i676;
 import 'package:zentrio_admin/data/remote/collection_service.dart' as _i658;
+import 'package:zentrio_admin/data/remote/customer_service.dart' as _i774;
 import 'package:zentrio_admin/data/remote/file_service.dart' as _i1013;
 import 'package:zentrio_admin/data/remote/product_service.dart' as _i134;
 import 'package:zentrio_admin/data/remote/vendor_service.dart' as _i451;
@@ -34,6 +35,8 @@ import 'package:zentrio_admin/domain/repositories/category_repository.dart'
     as _i785;
 import 'package:zentrio_admin/domain/repositories/collection_repository.dart'
     as _i612;
+import 'package:zentrio_admin/domain/repositories/customer_repository.dart'
+    as _i204;
 import 'package:zentrio_admin/domain/repositories/file_repository.dart'
     as _i182;
 import 'package:zentrio_admin/domain/repositories/preferences_repository.dart'
@@ -47,6 +50,7 @@ import 'package:zentrio_admin/domain/usecase/auth_usecase.dart' as _i620;
 import 'package:zentrio_admin/domain/usecase/banner_usecase.dart' as _i725;
 import 'package:zentrio_admin/domain/usecase/category_usecase.dart' as _i311;
 import 'package:zentrio_admin/domain/usecase/collection_use_case.dart' as _i464;
+import 'package:zentrio_admin/domain/usecase/customer_usecase.dart' as _i340;
 import 'package:zentrio_admin/domain/usecase/file_usecase.dart' as _i850;
 import 'package:zentrio_admin/domain/usecase/product_usecase.dart' as _i977;
 import 'package:zentrio_admin/domain/usecase/vendor_usecase.dart' as _i97;
@@ -124,6 +128,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1013.FileService>(() => networkModule.fileService);
     gh.lazySingleton<_i216.ApiKeyService>(() => networkModule.apiKeyService);
     gh.lazySingleton<_i641.BannerService>(() => networkModule.bannerService);
+    gh.lazySingleton<_i774.CustomerService>(
+        () => networkModule.customerService);
     gh.lazySingleton<_i671.AuthenticationLocalDataSource>(
         () => dataModule.medusaClient);
     gh.lazySingleton<_i74.VendorRepository>(() => dataModule.vendorRepository);
@@ -139,8 +145,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => dataModule.collectionRepository);
     gh.lazySingleton<_i1069.BannerRepository>(
         () => dataModule.bannersRepository);
+    gh.lazySingleton<_i204.CustomerRepository>(
+        () => dataModule.customerRepository);
     gh.lazySingleton<_i660.AuthInterceptor>(() => _i660.AuthInterceptor(
         authLocalDataSource: gh<_i671.AuthenticationLocalDataSource>()));
+    gh.factory<_i340.CustomerUseCase>(
+        () => _i340.CustomerUseCase(gh<_i204.CustomerRepository>()));
     gh.lazySingleton<_i361.Dio>(
       () => networkModule.unauthenticatedDio,
       instanceName: 'unauthenticated',
