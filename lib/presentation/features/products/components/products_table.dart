@@ -68,7 +68,6 @@ class ProductsTable extends StatelessWidget {
                 onDelete: () => {},
               ),
             );
-            ;
         }
       },
       columnCount: headings.length,

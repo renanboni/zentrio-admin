@@ -72,6 +72,8 @@ import 'package:zentrio_admin/presentation/features/collections/collections_view
     as _i255;
 import 'package:zentrio_admin/presentation/features/collections/create/create_collection_view_model.dart'
     as _i440;
+import 'package:zentrio_admin/presentation/features/customers/customers_view_model.dart'
+    as _i611;
 import 'package:zentrio_admin/presentation/features/dashboard/side_bar_controller.dart'
     as _i857;
 import 'package:zentrio_admin/presentation/features/dashboard/vendors/vendors_view_model.dart'
@@ -195,6 +197,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i986.CreateBannerViewModel(gh<_i725.BannerUseCase>()));
     gh.factory<_i330.BannersViewModel>(
         () => _i330.BannersViewModel(gh<_i725.BannerUseCase>()));
+    gh.factory<_i611.CustomersViewModel>(
+        () => _i611.CustomersViewModel(gh<_i340.CustomerUseCase>()));
     gh.lazySingleton<_i132.AuthenticationRepository>(
         () => _i132.AuthenticationRepository(
               gh<_i311.AuthService>(),

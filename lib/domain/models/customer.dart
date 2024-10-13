@@ -10,6 +10,7 @@ class Customer extends Equatable {
   final String phone;
   final bool hasAccount;
   final Map<String, dynamic> metadata;
+  final String createdAt;
 
   const Customer({
     required this.id,
@@ -20,6 +21,7 @@ class Customer extends Equatable {
     required this.phone,
     required this.hasAccount,
     required this.metadata,
+    this.createdAt = '',
   });
 
   @override
@@ -32,5 +34,6 @@ class Customer extends Equatable {
     phone,
     hasAccount,
     metadata,
+    createdAt,
   ];
 }
