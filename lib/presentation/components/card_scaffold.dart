@@ -27,9 +27,19 @@ class CardScaffold extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              title,
-              style: ShadTheme.of(context).textTheme.table,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: ShadTheme.of(context).textTheme.table,
+                ),
+                if (subtitle.isNotEmpty)
+                  Text(
+                    subtitle,
+                    style: ShadTheme.of(context).textTheme.muted,
+                  ),
+              ],
             ),
             const Spacer(),
             if (trailing != null) trailing!

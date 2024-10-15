@@ -98,6 +98,10 @@ import 'package:zentrio_admin/presentation/features/products/create/create_produ
     as _i531;
 import 'package:zentrio_admin/presentation/features/products/products_view_model.dart'
     as _i91;
+import 'package:zentrio_admin/presentation/features/productTypes/create/create_product_type_view_model.dart'
+    as _i214;
+import 'package:zentrio_admin/presentation/features/productTypes/product_types_view_model.dart'
+    as _i633;
 import 'package:zentrio_admin/presentation/features/ranking/ranking_view_model.dart'
     as _i473;
 import 'package:zentrio_admin/presentation/features/vendor/vendor_view_model.dart'
@@ -120,6 +124,10 @@ extension GetItInjectableX on _i174.GetIt {
       () => dataModule.prefs,
       preResolve: true,
     );
+    gh.factory<_i633.ProductTypesViewModel>(
+        () => _i633.ProductTypesViewModel());
+    gh.factory<_i214.CreateProductTypeViewModel>(
+        () => _i214.CreateProductTypeViewModel());
     gh.lazySingleton<_i311.AuthService>(() => networkModule.authService);
     gh.lazySingleton<_i451.VendorService>(() => networkModule.vendorService);
     gh.lazySingleton<_i134.ProductService>(() => networkModule.productService);

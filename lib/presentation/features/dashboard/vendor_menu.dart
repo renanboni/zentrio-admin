@@ -6,20 +6,29 @@ import '../../components/sidebar/side_bar_item_list.dart';
 getVendorMenu() {
   return [
     const SideBarItem(
-        label: "Products",
-        icon: LucideIcons.tag,
-        selected: true,
-        route: "/products",
-        children: [
-          SideBarItem(
-            label: "Collections",
-            route: "/collections",
-          ),
-          SideBarItem(
-            label: "Categories",
-            route: "/categories",
-          ),
-        ]),
+      label: "Products",
+      icon: LucideIcons.tag,
+      selected: true,
+      route: "/products",
+      children: [
+        SideBarItem(
+          label: "Collections",
+          route: "/collections",
+        ),
+        SideBarItem(
+          label: "Categories",
+          route: "/categories",
+        ),
+        SideBarItem(
+          label: "Product Types",
+          route: "/product_types",
+        ),
+        SideBarItem(
+          label: "Product Tags",
+          route: "/tags",
+        ),
+      ],
+    ),
     const SideBarItem(
       label: "Customers",
       icon: LucideIcons.users,
