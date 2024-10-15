@@ -8,9 +8,11 @@ import 'package:zentrio_admin/data/models/api_product.dart';
 import 'package:zentrio_admin/data/models/api_product_option.dart';
 import 'package:zentrio_admin/data/models/create_product_option_req.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
+import 'package:zentrio_admin/domain/models/collection.dart';
 import 'package:zentrio_admin/domain/models/product_option_value.dart';
 import 'package:zentrio_admin/domain/models/product_variant.dart';
 import 'package:zentrio_admin/domain/usecase/category_usecase.dart';
+import 'package:zentrio_admin/domain/usecase/collection_use_case.dart';
 import 'package:zentrio_admin/domain/usecase/file_usecase.dart';
 import 'package:zentrio_admin/domain/usecase/product_usecase.dart';
 
@@ -24,6 +26,7 @@ class CreateProductViewModel {
   final productTitle = signal('');
   final files = listSignal<MediaFile>([]);
   final categories = signal<List<Category>>([]);
+  final ListSignal<Collection> collections = ListSignal([]);
   final discountable = signal(false);
   final checkAll = signal(false);
   final ListSignal<ProductOption> productOptions = ListSignal(
@@ -42,13 +45,16 @@ class CreateProductViewModel {
   final ProductUseCase _productUseCase;
   final CategoryUseCase _categoryUseCase;
   final FileUseCase _fileUseCase;
+  final CollectionUseCase _collectionUseCase;
 
   CreateProductViewModel(
     this._productUseCase,
     this._fileUseCase,
     this._categoryUseCase,
+    this._collectionUseCase,
   ) {
     _getCategories();
+    _getCollections();
   }
 
   void createProduct(
@@ -88,6 +94,14 @@ class CreateProductViewModel {
   _getCategories() async {
     try {
       categories.value = await _categoryUseCase.getCategories();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  _getCollections() async {
+    try {
+      collections.value = await _collectionUseCase.getCollections();
     } catch (e) {
       print(e);
     }

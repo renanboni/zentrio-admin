@@ -7,7 +7,7 @@ import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/presentation/features/products/components/variants.dart';
 import 'package:zentrio_admin/presentation/features/products/create/components/media_list.dart';
 import 'package:zentrio_admin/presentation/features/products/create/create_product_viewmodel.dart';
-import 'package:zentrio_admin/presentation/features/products/create/product_options.dart';
+import 'package:zentrio_admin/presentation/features/products/create/components/product_options.dart';
 
 class ProductsDetailForm extends StatefulWidget {
   final CreateProductViewModel viewModel;

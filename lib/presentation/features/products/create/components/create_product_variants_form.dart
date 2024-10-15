@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zentrio_admin/presentation/components/product_variants_table.dart';
 
-import '../../../../domain/models/product_variant.dart';
+import '../../../../../domain/models/product_variant.dart';
 
 class CreateProductVariantsForm extends StatelessWidget {
   final List<ProductVariant> variants;

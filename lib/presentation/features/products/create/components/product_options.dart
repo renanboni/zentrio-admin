@@ -1,15 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-import 'package:tuple/tuple.dart';
 import 'package:zentrio_admin/domain/models/product_option.dart';
 import 'package:zentrio_admin/domain/models/product_option_value.dart';
-import 'package:zentrio_admin/presentation/components/action_item_list.dart';
 import 'package:zentrio_admin/presentation/components/form_action_label.dart';
-import 'package:zentrio_admin/presentation/features/products/create/product_option_list_item.dart';
+import 'package:zentrio_admin/presentation/features/products/create/components/product_option_list_item.dart';
 import 'package:zentrio_admin/utils/extensions/sizes_ext.dart';
 
-import '../../../../domain/models/product_variant.dart';
+import '../../../../../domain/models/product_variant.dart';
 
 class ProductOptions extends StatelessWidget {
   final List<ProductOption> productOptions;

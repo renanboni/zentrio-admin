@@ -4,14 +4,14 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/presentation/features/products/create/create_product_viewmodel.dart';
-import 'package:zentrio_admin/presentation/features/products/create/product_organize_form.dart';
-import 'package:zentrio_admin/presentation/features/products/create/products_detail_form.dart';
+import 'package:zentrio_admin/presentation/features/products/create/components/product_organize_form.dart';
+import 'package:zentrio_admin/presentation/features/products/create/components/products_detail_form.dart';
 import 'package:zentrio_admin/utils/extensions/context_ext.dart';
 
 import '../../../../di/init.dart';
 import '../../../components/stepper/horizontal_stepper.dart';
 import '../../../components/stepper/step_item_list.dart';
-import 'create_product_variants_form.dart';
+import 'components/create_product_variants_form.dart';
 
 class CreateProductForm extends StatefulWidget {
   const CreateProductForm({super.key});
@@ -47,6 +47,7 @@ class _CreateProductFormState extends State<CreateProductForm> {
               (_) {
                 return ProductOrganizeForm(
                   categories: viewModel.categories.value,
+                  collections: viewModel.collections.value,
                   discountable: viewModel.discountable.value,
                   onDiscountableChanged: viewModel.discountable.set,
                 );

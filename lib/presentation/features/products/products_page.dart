@@ -36,7 +36,7 @@ class _ProductsPageState extends State<ProductsPage> {
             ShadButton(
               child: const Text('Create'),
               onPressed: () {
-                GoRouter.of(context).go("/banners/create");
+                GoRouter.of(context).go("/products/create");
               },
             )
           ],

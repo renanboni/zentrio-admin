@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
+import 'package:zentrio_admin/domain/models/collection.dart';
+import 'package:zentrio_admin/presentation/components/optional_label.dart';
 import 'package:zentrio_admin/presentation/components/switch_card.dart';
+import 'package:zentrio_admin/utils/extensions/string_ext.dart';
 
 class ProductOrganizeForm extends StatelessWidget {
   final List<Category> categories;
+  final List<Collection> collections;
   final bool discountable;
   final ValueChanged<bool> onDiscountableChanged;
 
   const ProductOrganizeForm({
     super.key,
     required this.categories,
+    required this.collections,
     required this.discountable,
     required this.onDiscountableChanged,
   });
@@ -66,14 +71,31 @@ class ProductOrganizeForm extends StatelessWidget {
               ),
               ResponsiveRowColumnItem(
                 rowFlex: 1,
-                child: ShadSelectFormField<String>(
-                  id: 'collection',
-                  minWidth: double.infinity,
-                  label: const Text('Collection (optional)'),
-                  initialValue: "",
-                  onChanged: (value) {},
-                  options: const [],
-                  selectedOptionBuilder: (context, value) => const Text(""),
+                child: Column(
+                  children: [
+                    const OptionalLabel(label: "Collection"),
+                    const SizedBox(height: 8),
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        return ShadSelect<Collection>(
+                          maxWidth: constraints.maxWidth,
+                          minWidth: constraints.maxWidth,
+                          placeholder: const Text(""),
+                          onChanged: (value) {},
+                          options: collections
+                              .map(
+                                (e) => ShadOption(
+                                  value: e,
+                                  child: Text(e.title),
+                                ),
+                              )
+                              .toList(),
+                          selectedOptionBuilder: (context, value) =>
+                              Text(value.title),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -89,28 +111,35 @@ class ProductOrganizeForm extends StatelessWidget {
             children: [
               ResponsiveRowColumnItem(
                 rowFlex: 1,
-                child: LayoutBuilder(
-                  builder: (context, constraints) {
-                    return ShadSelectFormField<Category>(
-                      id: 'category',
-                      maxWidth: constraints.maxWidth,
-                      minWidth: constraints.maxWidth,
-                      placeholder: const Text(""),
-                      label: const Text('Categories (optional)'),
-                      initialValue: null,
-                      onChanged: (value) {},
-                      options: categories
-                          .map(
-                            (e) => ShadOption(
-                              value: e,
-                              child: Text(e.name),
-                            ),
-                          )
-                          .toList(),
-                      selectedOptionBuilder: (context, value) =>
-                          Text(value.name),
-                    );
-                  },
+                child: Column(
+                  children: [
+                    const OptionalLabel(label: "Categories"),
+                    const SizedBox(height: 8),
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        return ShadSelect<Category>.multiple(
+                          maxWidth: constraints.maxWidth,
+                          minWidth: constraints.maxWidth,
+                          closeOnSelect: false,
+                          closeOnTapOutside: true,
+                          allowDeselection: true,
+                          placeholder: const Text(""),
+                          onChanged: (value) {},
+                          options: categories
+                              .map(
+                                (e) => ShadOption(
+                                  value: e,
+                                  child: Text(e.name),
+                                ),
+                              )
+                              .toList(),
+                          selectedOptionsBuilder: (context, values) => Text(
+                            values.map((v) => v.name.capitalize()).join(', '),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
               ResponsiveRowColumnItem(
