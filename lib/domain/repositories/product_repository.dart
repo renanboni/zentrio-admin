@@ -36,4 +36,6 @@ abstract class ProductRepository {
   Future<void> createProductTag(CreateProductTagReq req);
 
   Future<List<ProductTag>> getProductTags();
+
+  Future<ProductTag> getProductTagById(String id);
 }

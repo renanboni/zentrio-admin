@@ -78,4 +78,8 @@ class ProductUseCase {
   Future<List<ProductTag>> getProductTags() {
     return _productRepository.getProductTags();
   }
+
+  Future<ProductTag> getProductTagById(String id) {
+    return _productRepository.getProductTagById(id);
+  }
 }

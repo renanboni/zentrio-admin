@@ -4,6 +4,7 @@ import 'package:zentrio_admin/domain/models/product_type.dart';
 
 import '../components/dialog_page.dart';
 import '../components/sheet_page.dart';
+import '../features/productTag/product_tag_page.dart';
 import '../features/productTags/product_tags_page.dart';
 import '../features/productType/edit/edit_product_type_page.dart';
 import '../features/productType/product_type_page.dart';
@@ -29,9 +30,9 @@ final productTagsRoute = GoRoute(
     GoRoute(
         path: ":id",
         builder: (BuildContext context, GoRouterState state) {
-          final productTypeId = state.pathParameters['id'];
-          return ProductTypePage(
-            productTypeId: productTypeId ?? '',
+          final productTagId = state.pathParameters['id'];
+          return ProductTagPage(
+            productTagId: productTagId ?? '',
           );
         },
         routes: [

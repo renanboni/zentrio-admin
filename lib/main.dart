@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
       themeMode: preferencesRepository.theme().watch(context),
       theme: ShadThemeData(
         brightness: Brightness.light,
-        colorScheme: const ShadZincColorScheme.light(),
+        colorScheme: const ShadZincColorScheme.dark(),
         disableSecondaryBorder: true,
       ),
       darkTheme: ShadThemeData(

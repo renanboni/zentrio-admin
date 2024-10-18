@@ -74,4 +74,7 @@ abstract class ProductService {
 
   @GET("/vendor/product-tags")
   Future<List<ApiProductTag>> getProductTags();
+
+  @GET("/vendor/product-tags/{id}")
+  Future<ApiProductTag> getProductTagById(@Path("id") String id);
 }

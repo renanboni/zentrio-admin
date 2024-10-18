@@ -31,7 +31,7 @@ class _ProductTagsPageState extends State<ProductTagsPage> {
         child: const Text('Create'),
         onPressed: () async {
           final result =
-              await GoRouter.of(context).push("/product_types/create");
+              await GoRouter.of(context).push("/product_tags/create");
           if (result == true) {
             viewModel.refresh();
           }
@@ -49,11 +49,11 @@ class _ProductTagsPageState extends State<ProductTagsPage> {
               child: ProductTagsTable(
                 productTags: viewModel.productTags,
                 onClick: (productType) {
-                  GoRouter.of(context).push("/product_types/${productType.id}");
+                  GoRouter.of(context).push("/product_tags/${productType.id}");
                 },
                 onEdit: (productType) async {
                    GoRouter.of(context).go(
-                    "/product_types/${productType.id}/edit",
+                    "/product_tags/${productType.id}/edit",
                     extra: productType,
                   );
                 },
