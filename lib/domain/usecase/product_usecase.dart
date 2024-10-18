@@ -82,4 +82,12 @@ class ProductUseCase {
   Future<ProductTag> getProductTagById(String id) {
     return _productRepository.getProductTagById(id);
   }
+
+  Future<void> deleteProductTag(String id) {
+    return _productRepository.deleteProductTag(id);
+  }
+
+  Future<void> deleteProductType(String id) {
+    return _productRepository.deleteProductType(id);
+  }
 }

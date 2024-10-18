@@ -15,12 +15,14 @@ class ProductTagsTable extends StatelessWidget {
   final List<ProductTag> productTags;
   final Function(ProductTag) onClick;
   final Function(ProductTag) onEdit;
+  final Function(ProductTag) onDelete;
 
   const ProductTagsTable({
     super.key,
     required this.productTags,
     required this.onClick,
     required this.onEdit,
+    required this.onDelete,
   });
 
   @override
@@ -47,7 +49,9 @@ class ProductTagsTable extends StatelessWidget {
                 onEdit: () => {
                   onEdit(productTag),
                 },
-                onDelete: () => {},
+                onDelete: () => {
+                  onDelete(productTag),
+                },
               ),
             );
         }

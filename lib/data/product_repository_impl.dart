@@ -102,4 +102,14 @@ class ProductRepositoryImpl implements ProductRepository {
         .getProductTagById(id)
         .then((value) => value.toProductTag());
   }
+
+  @override
+  Future<void> deleteProductTag(String id) {
+    return _service.deleteProductTag(id);
+  }
+
+  @override
+  Future<void> deleteProductType(String id) {
+    return _service.deleteProductType(id);
+  }
 }

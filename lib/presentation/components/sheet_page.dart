@@ -32,18 +32,21 @@ class SheetPage<T> extends Page<T> {
         Animation<double> animation,
         Animation<double> secondaryAnimation,
       ) {
-        return Align(
-          alignment: Alignment.centerRight,
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxWidth: 512,
-              minWidth: 0,
-            ),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height,
-              child: ShadCard(
-                padding: const EdgeInsets.all(0),
-                child: builder(context),
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxWidth: 512,
+                minWidth: 0,
+              ),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: ShadCard(
+                  padding: const EdgeInsets.all(0),
+                  child: builder(context),
+                ),
               ),
             ),
           ),

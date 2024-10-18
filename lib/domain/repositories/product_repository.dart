@@ -38,4 +38,8 @@ abstract class ProductRepository {
   Future<List<ProductTag>> getProductTags();
 
   Future<ProductTag> getProductTagById(String id);
+
+  Future<void> deleteProductTag(String id);
+
+  Future<void> deleteProductType(String id);
 }

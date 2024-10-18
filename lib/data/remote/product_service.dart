@@ -77,4 +77,10 @@ abstract class ProductService {
 
   @GET("/vendor/product-tags/{id}")
   Future<ApiProductTag> getProductTagById(@Path("id") String id);
+
+  @DELETE("/vendor/product-tags/{id}")
+  Future<void> deleteProductTag(@Path("id") String id);
+
+  @DELETE("/vendor/product-types/{id}")
+  Future<void> deleteProductType(@Path("id") String id);
 }

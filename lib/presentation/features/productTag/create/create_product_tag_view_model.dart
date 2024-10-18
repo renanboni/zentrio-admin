@@ -18,9 +18,9 @@ class CreateProductTagViewModel {
   void onCreate(
     VoidCallback onSuccess,
     VoidCallback onError,
-  ) {
+  ) async {
     try {
-      _productUseCase.createProductTag(
+      await _productUseCase.createProductTag(
         CreateProductTagReq(value: value.value),
       );
       onSuccess();

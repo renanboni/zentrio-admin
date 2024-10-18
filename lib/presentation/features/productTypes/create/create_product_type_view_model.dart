@@ -16,9 +16,9 @@ class CreateProductTypeViewModel {
   void onCreate(
     VoidCallback onSuccess,
     VoidCallback onError,
-  ) {
+  ) async {
     try {
-      _productUseCase.createProductType(
+      await _productUseCase.createProductType(
         CreateProductTypeReq(value: value.value),
       );
       onSuccess();

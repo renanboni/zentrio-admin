@@ -5,9 +5,11 @@ import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/di/init.dart';
 import 'package:zentrio_admin/presentation/components/card_scaffold.dart';
 import 'package:zentrio_admin/presentation/components/empty_list_placeholder.dart';
+import 'package:zentrio_admin/presentation/features/banners/banners_page.dart';
 import 'package:zentrio_admin/presentation/features/productTags/product_tags_view_model.dart';
 import 'package:zentrio_admin/presentation/features/productTypes/components/product_types_table.dart';
 import 'package:zentrio_admin/presentation/features/productTypes/product_types_view_model.dart';
+import 'package:zentrio_admin/utils/extensions/context_ext.dart';
 
 import 'components/product_types_table.dart';
 
@@ -55,6 +57,16 @@ class _ProductTagsPageState extends State<ProductTagsPage> {
                    GoRouter.of(context).go(
                     "/product_tags/${productType.id}/edit",
                     extra: productType,
+                  );
+                },
+                onDelete: (productType) {
+                  viewModel.deleteProductTag(
+                    productType,
+                    () {
+                      GoRouter.of(context).pop();
+                      context.success("Product tag deleted successfully.");
+                    },
+                    () => context.error("Failed to delete product tag."),
                   );
                 },
               ),

@@ -104,7 +104,7 @@ class _SideBarItemListState extends State<SideBarItemList> {
       size: ShadButtonSize.sm,
       child: Text(
         item.label,
-        style: ShadTheme.of(context).textTheme.small,
+        style: ShadTheme.of(context).textTheme.muted,
       ),
     );
   }

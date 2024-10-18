@@ -12,12 +12,14 @@ class ProductTypesTable extends StatelessWidget {
   final List<ProductType> productTypes;
   final Function(ProductType) onClick;
   final Function(ProductType) onEdit;
+  final Function(ProductType) onDelete;
 
   const ProductTypesTable({
     super.key,
     required this.productTypes,
     required this.onClick,
     required this.onEdit,
+    required this.onDelete,
   });
 
   @override
@@ -44,7 +46,9 @@ class ProductTypesTable extends StatelessWidget {
                 onEdit: () => {
                   onEdit(productType),
                 },
-                onDelete: () => {},
+                onDelete: () => {
+                  onDelete(productType),
+                },
               ),
             );
         }
