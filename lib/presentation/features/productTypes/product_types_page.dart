@@ -45,7 +45,15 @@ class _ProductTypesPageState extends State<ProductTypesPage> {
             Expanded(
               child: ProductTypesTable(
                 productTypes: viewModel.productTypes,
-                onClick: (ProductType) {},
+                onClick: (productType) {
+                  GoRouter.of(context).push("/product_types/${productType.id}");
+                },
+                onEdit: (productType) async {
+                   GoRouter.of(context).go(
+                    "/product_types/${productType.id}/edit",
+                    extra: productType,
+                  );
+                },
               ),
             )
         ],

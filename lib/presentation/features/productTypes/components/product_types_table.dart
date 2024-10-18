@@ -11,11 +11,13 @@ final headings = ['Value', 'Created', 'Updated', ''];
 class ProductTypesTable extends StatelessWidget {
   final List<ProductType> productTypes;
   final Function(ProductType) onClick;
+  final Function(ProductType) onEdit;
 
   const ProductTypesTable({
     super.key,
     required this.productTypes,
     required this.onClick,
+    required this.onEdit,
   });
 
   @override
@@ -39,7 +41,9 @@ class ProductTypesTable extends StatelessWidget {
                 deleteDialogTitle: "Are you sure?",
                 deleteDialogDescription:
                     "You are about to delete the product type ${productType.value}. This action cannot be undone.",
-                onEdit: () => {},
+                onEdit: () => {
+                  onEdit(productType),
+                },
                 onDelete: () => {},
               ),
             );

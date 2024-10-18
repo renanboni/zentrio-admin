@@ -3,7 +3,6 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
 import 'package:zentrio_admin/presentation/components/empty_list_placeholder.dart';
 import 'package:zentrio_admin/presentation/features/products/components/products_table.dart';
-import 'package:zentrio_admin/utils/extensions/sizes_ext.dart';
 
 import '../../../components/edit_context_menu.dart';
 

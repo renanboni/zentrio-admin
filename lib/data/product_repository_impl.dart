@@ -88,4 +88,11 @@ class ProductRepositoryImpl implements ProductRepository {
         .getProductTypes()
         .then((value) => value.map((e) => e.toProductType()).toList());
   }
+
+  @override
+  Future<ProductType> getProductTypeById(String id) {
+    return _service
+        .getProductTypeById(id)
+        .then((value) => value.toProductType());
+  }
 }

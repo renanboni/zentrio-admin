@@ -67,6 +67,10 @@ class ProductUseCase {
     return _productRepository.getProductTypes();
   }
 
+  Future<ProductType> getProductTypeById(String id) {
+    return _productRepository.getProductTypeById(id);
+  }
+
   Future<void> createProductTag(CreateProductTagReq req) {
     return _productRepository.createProductTag(req);
   }
