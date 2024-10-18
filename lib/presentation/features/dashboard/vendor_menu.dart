@@ -25,7 +25,7 @@ getVendorMenu() {
         ),
         SideBarItem(
           label: "Product Tags",
-          route: "/tags",
+          route: "/product_tags",
         ),
       ],
     ),
