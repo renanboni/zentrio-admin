@@ -18,9 +18,9 @@ class CreateProductTypePage extends StatefulWidget {
 }
 
 class _CreateProductTypePageState extends State<CreateProductTypePage> {
-
   final formKey = GlobalKey<ShadFormState>();
-  final CreateProductTypeViewModel viewModel = getIt<CreateProductTypeViewModel>();
+  final CreateProductTypeViewModel viewModel =
+      getIt<CreateProductTypeViewModel>();
 
   @override
   Widget build(BuildContext context) {
@@ -60,16 +60,16 @@ class _CreateProductTypePageState extends State<CreateProductTypePage> {
                   ),
                   ResponsiveRowColumnItem(
                     child: ResponsiveRowColumn(
-                      layout: ResponsiveBreakpoints.of(context).smallerThan(DESKTOP)
-                          ? ResponsiveRowColumnType.COLUMN
-                          : ResponsiveRowColumnType.ROW,
+                      layout:
+                          ResponsiveBreakpoints.of(context).smallerThan(DESKTOP)
+                              ? ResponsiveRowColumnType.COLUMN
+                              : ResponsiveRowColumnType.ROW,
                       rowSpacing: 8,
                       columnSpacing: 8,
                       children: [
                         ResponsiveRowColumnItem(
                           rowFlex: 1,
-                          child:
-                          ShadInputFormField(
+                          child: ShadInputFormField(
                             label: const Text("Value"),
                             validator: FormBuilderValidators.compose([
                               FormBuilderValidators.required(),
@@ -93,7 +93,12 @@ class _CreateProductTypePageState extends State<CreateProductTypePage> {
           onCancel: () => GoRouter.of(context).pop(),
           onCreate: () {
             if (formKey.currentState?.validate() == true) {
-
+              viewModel.onCreate(() {
+                context.success("Product Type saved successfully");
+                GoRouter.of(context).pop(true);
+              }, () {
+                context.error("Failed to save Product Type");
+              });
             }
           },
         )

@@ -106,6 +106,8 @@ extension ProductTagMapper on ApiProductTag {
       id: id ?? '',
       value: value ?? '',
       metadata: metadata ?? {},
+      createdAt: createdAt ?? '',
+      updatedAt: updatedAt ?? '',
     );
   }
 }
@@ -116,6 +118,8 @@ extension ProductTypeMapper on ApiProductType {
       id: id ?? '',
       value: value ?? '',
       metadata: metadata ?? {},
+      createdAt: createdAt ?? '',
+      updatedAt: updatedAt ?? '',
     );
   }
 }

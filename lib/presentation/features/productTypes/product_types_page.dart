@@ -16,7 +16,6 @@ class ProductTypesPage extends StatefulWidget {
 }
 
 class _ProductTypesPageState extends State<ProductTypesPage> {
-
   final ProductTypesViewModel viewModel = getIt<ProductTypesViewModel>();
 
   @override
@@ -27,22 +26,29 @@ class _ProductTypesPageState extends State<ProductTypesPage> {
       trailing: ShadButton(
         size: ShadButtonSize.sm,
         child: const Text('Create'),
-        onPressed: () {
-          GoRouter.of(context).go("/product_types/create");
+        onPressed: () async {
+          final result =
+              await GoRouter.of(context).push("/product_types/create");
+          if (result == true) {
+            viewModel.refresh();
+          }
         },
       ),
-      child:  Expanded(
-        child: Column(
-          children: [
-            const Divider(
-              height: 1,
-            ),
-            if (viewModel.productTypes.watch(context).isEmpty)
-              const EmptyListPlaceholder()
-            else
-              ProductTypesTable(productTypes: viewModel.productTypes)
-          ],
-        ),
+      child: Column(
+        children: [
+          const Divider(
+            height: 1,
+          ),
+          if (viewModel.productTypes.watch(context).isEmpty)
+            const EmptyListPlaceholder()
+          else
+            Expanded(
+              child: ProductTypesTable(
+                productTypes: viewModel.productTypes,
+                onClick: (ProductType) {},
+              ),
+            )
+        ],
       ),
     );
   }

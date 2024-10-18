@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:intl/intl.dart';
+
 extension ByteConversion on int {
   String formatBytes(int decimals) {
     if (this <= 0) return "0 B";
@@ -8,7 +10,6 @@ extension ByteConversion on int {
     return '${(this / pow(1024, i)).toStringAsFixed(decimals)} ${suffixes[i]}';
   }
 }
-
 
 /// String extensions
 extension StringExt on String {
@@ -98,4 +99,9 @@ extension StringExt on String {
 
   /// Checks whether this regular expression has a match in the [pattern].
   bool hasMatch(String pattern) => RegExp(pattern).hasMatch(this);
+}
+
+extension DateExtension on String {
+  /// Formats the date to a string
+  String yMMMd() => DateFormat.yMMMd().format(DateTime.parse(this));
 }
