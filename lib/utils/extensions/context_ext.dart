@@ -4,12 +4,16 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 
 extension ResponsiveMaxWidth on BuildContext {
   double get maxWidth {
-    final isMobileOrPhone = ResponsiveBreakpoints.of(this).isMobile ||
-        ResponsiveBreakpoints.of(this).isPhone;
+    final breakpoints = ResponsiveBreakpoints.of(this);
+    final screenWidth = MediaQuery.sizeOf(this).width;
 
-    return isMobileOrPhone
-        ? MediaQuery.sizeOf(this).width
-        : MediaQuery.sizeOf(this).width * 0.5;
+    if (breakpoints.isTablet) {
+      return screenWidth * 0.75;
+    }
+
+    return breakpoints.isMobile || breakpoints.isPhone
+        ? screenWidth
+        : screenWidth * 0.5;
   }
 }
 

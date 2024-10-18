@@ -21,7 +21,7 @@ class CardScaffold extends StatelessWidget {
       padding: const EdgeInsets.all(0),
       title: Padding(
         padding: const EdgeInsets.symmetric(
-          vertical: 8,
+          vertical: 16,
           horizontal: 16,
         ),
         child: Row(

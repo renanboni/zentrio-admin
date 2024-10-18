@@ -3,11 +3,15 @@ import 'package:injectable/injectable.dart';
 import 'package:retrofit/http.dart';
 import 'package:zentrio_admin/data/models/api_product.dart';
 import 'package:zentrio_admin/data/models/api_product_option.dart';
+import 'package:zentrio_admin/data/models/api_product_type.dart';
 import 'package:zentrio_admin/data/models/create_product_option_req.dart';
 import 'package:zentrio_admin/data/models/req/create_category_req.dart';
+import 'package:zentrio_admin/data/models/req/create_product_tag_req.dart';
+import 'package:zentrio_admin/data/models/req/create_product_type_req.dart';
 import 'package:zentrio_admin/data/models/res/categories_response.dart';
 import 'package:zentrio_admin/data/models/res/products_response.dart';
 
+import '../models/api_product_tag.dart';
 import '../models/create_product_request.dart';
 import '../models/res/category_response.dart';
 import '../models/res/product_response.dart';
@@ -55,4 +59,16 @@ abstract class ProductService {
   Future<List<ApiProductOption>> getProductOptions(
     @Path("id") String id,
   );
+
+  @POST("/vendor/product-types")
+  Future<void> createProductType(@Body() CreateProductTypeReq req);
+
+  @GET("/vendor/product-types")
+  Future<List<ApiProductType>> getProductTypes();
+
+  @POST("/vendor/product-types")
+  Future<void> createProductTag(@Body() CreateProductTagReq req);
+
+  @GET("/vendor/product-types")
+  Future<List<ApiProductTag>> getProductTags();
 }

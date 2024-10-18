@@ -105,6 +105,7 @@ extension ProductTagMapper on ApiProductTag {
     return ProductTag(
       id: id ?? '',
       value: value ?? '',
+      metadata: metadata ?? {},
     );
   }
 }
@@ -114,6 +115,7 @@ extension ProductTypeMapper on ApiProductType {
     return ProductType(
       id: id ?? '',
       value: value ?? '',
+      metadata: metadata ?? {},
     );
   }
 }

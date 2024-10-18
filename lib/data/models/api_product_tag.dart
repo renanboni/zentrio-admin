@@ -7,6 +7,7 @@ part 'api_product_tag.g.dart';
 class ApiProductTag {
   final String? id;
   final String? value;
+  final Map<String, dynamic>? metadata;
   final String? createdAt;
   final String? updatedAt;
   final String? deletedAt;
@@ -14,6 +15,7 @@ class ApiProductTag {
   ApiProductTag({
     this.id,
     this.value,
+    this.metadata,
     this.createdAt,
     this.updatedAt,
     this.deletedAt,

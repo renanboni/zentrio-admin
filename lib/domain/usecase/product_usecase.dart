@@ -1,13 +1,17 @@
 import 'package:injectable/injectable.dart';
 import 'package:zentrio_admin/data/models/api_product.dart';
 import 'package:zentrio_admin/data/models/create_product_option_req.dart';
+import 'package:zentrio_admin/data/models/req/create_product_type_req.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
 import 'package:zentrio_admin/domain/models/medusa_file.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
 import 'package:zentrio_admin/domain/models/product_option.dart';
+import 'package:zentrio_admin/domain/models/product_type.dart';
 import 'package:zentrio_admin/domain/repositories/product_repository.dart';
 
 import '../../data/models/create_product_request.dart';
+import '../../data/models/req/create_product_tag_req.dart';
+import '../models/product_tag.dart';
 
 @injectable
 class ProductUseCase {
@@ -53,5 +57,21 @@ class ProductUseCase {
 
   Future<List<ProductOption>> getProductOptions(String productId) {
     return _productRepository.getProductOptions(productId);
+  }
+
+  Future<void> createProductType(CreateProductTypeReq req) {
+    return _productRepository.createProductType(req);
+  }
+
+  Future<List<ProductType>> getProductTypes() {
+    return _productRepository.getProductTypes();
+  }
+
+  Future<void> createProductTag(CreateProductTagReq req) {
+    return _productRepository.createProductTag(req);
+  }
+
+  Future<List<ProductTag>> getProductTags() {
+    return _productRepository.getProductTags();
   }
 }
