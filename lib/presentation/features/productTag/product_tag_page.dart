@@ -45,7 +45,7 @@ class _ProductTagPageState extends State<ProductTagPage> {
                 "You are about to delete the product type ${viewModel.productTag.value.value}. This action cannot be undone.",
             onEdit: () => {
               GoRouter.of(context).go(
-                "/product_types/${viewModel.productTag.value.id}/edit",
+                "/product_tags/${viewModel.productTag.value.id}/edit",
                 extra: viewModel.productTag.value,
               ),
             },

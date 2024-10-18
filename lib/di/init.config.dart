@@ -98,6 +98,10 @@ import 'package:zentrio_admin/presentation/features/products/create/create_produ
     as _i531;
 import 'package:zentrio_admin/presentation/features/products/products_view_model.dart'
     as _i91;
+import 'package:zentrio_admin/presentation/features/productTag/create/create_product_tag_view_model.dart'
+    as _i518;
+import 'package:zentrio_admin/presentation/features/productTag/edit/edit_product_tag_view_model.dart'
+    as _i384;
 import 'package:zentrio_admin/presentation/features/productTag/product_tag_view_model.dart'
     as _i471;
 import 'package:zentrio_admin/presentation/features/productTags/product_tags_view_model.dart'
@@ -266,6 +270,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i93.ProductTagsViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i471.ProductTagViewModel>(
         () => _i471.ProductTagViewModel(gh<_i977.ProductUseCase>()));
+    gh.factory<_i384.EditProductTagViewModel>(
+        () => _i384.EditProductTagViewModel(gh<_i977.ProductUseCase>()));
+    gh.factory<_i518.CreateProductTagViewModel>(
+        () => _i518.CreateProductTagViewModel(gh<_i977.ProductUseCase>()));
     gh.lazySingleton<_i857.DashboardViewModel>(() => _i857.DashboardViewModel(
           gh<_i620.AuthUseCase>(),
           gh<_i97.VendorUseCase>(),

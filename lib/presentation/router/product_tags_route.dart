@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zentrio_admin/domain/models/product_tag.dart';
 import 'package:zentrio_admin/domain/models/product_type.dart';
 
 import '../components/dialog_page.dart';
 import '../components/sheet_page.dart';
+import '../features/productTag/create/create_product_tag_page.dart';
+import '../features/productTag/edit/edit_product_tag_page.dart';
 import '../features/productTag/product_tag_page.dart';
 import '../features/productTags/product_tags_page.dart';
 import '../features/productType/edit/edit_product_type_page.dart';
@@ -23,7 +26,7 @@ final productTagsRoute = GoRoute(
       parentNavigatorKey: rootNavigatorKey,
       pageBuilder: (BuildContext context, GoRouterState state) {
         return DialogPage(
-          builder: (_) => const CreateProductTypePage(),
+          builder: (_) => const CreateProductTagPage(),
         );
       },
     ),
@@ -40,10 +43,10 @@ final productTagsRoute = GoRoute(
             path: "edit",
             parentNavigatorKey: rootNavigatorKey,
             pageBuilder: (BuildContext context, GoRouterState state) {
-              final productType = state.extra as ProductType;
+              final productTag = state.extra as ProductTag;
               return SheetPage(
-                builder: (_) => EditProductTypePage(
-                  productType: productType,
+                builder: (_) => EditProductTagPage(
+                  productTag: productTag,
                 ),
               );
             },
