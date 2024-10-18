@@ -31,26 +31,27 @@ final productTagsRoute = GoRoute(
       },
     ),
     GoRoute(
-        path: ":id",
-        builder: (BuildContext context, GoRouterState state) {
-          final productTagId = state.pathParameters['id'];
-          return ProductTagPage(
-            productTagId: productTagId ?? '',
-          );
-        },
-        routes: [
-          GoRoute(
-            path: "edit",
-            parentNavigatorKey: rootNavigatorKey,
-            pageBuilder: (BuildContext context, GoRouterState state) {
-              final productTag = state.extra as ProductTag;
-              return SheetPage(
-                builder: (_) => EditProductTagPage(
-                  productTag: productTag,
-                ),
-              );
-            },
-          ),
-        ]),
+      path: ":id",
+      builder: (BuildContext context, GoRouterState state) {
+        final productTagId = state.pathParameters['id'];
+        return ProductTagPage(
+          productTagId: productTagId ?? '',
+        );
+      },
+      routes: [
+        GoRoute(
+          path: "edit",
+          parentNavigatorKey: rootNavigatorKey,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            final productTag = state.extra as ProductTag;
+            return SheetPage(
+              builder: (_) => EditProductTagPage(
+                productTag: productTag,
+              ),
+            );
+          },
+        ),
+      ],
+    ),
   ],
 );

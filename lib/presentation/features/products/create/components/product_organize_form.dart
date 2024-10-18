@@ -3,6 +3,8 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
 import 'package:zentrio_admin/domain/models/collection.dart';
+import 'package:zentrio_admin/domain/models/product_tag.dart';
+import 'package:zentrio_admin/domain/models/product_type.dart';
 import 'package:zentrio_admin/presentation/components/optional_label.dart';
 import 'package:zentrio_admin/presentation/components/switch_card.dart';
 import 'package:zentrio_admin/utils/extensions/string_ext.dart';
@@ -10,6 +12,8 @@ import 'package:zentrio_admin/utils/extensions/string_ext.dart';
 class ProductOrganizeForm extends StatelessWidget {
   final List<Category> categories;
   final List<Collection> collections;
+  final List<ProductType> types;
+  final List<ProductTag> tags;
   final bool discountable;
   final ValueChanged<bool> onDiscountableChanged;
 
@@ -17,6 +21,8 @@ class ProductOrganizeForm extends StatelessWidget {
     super.key,
     required this.categories,
     required this.collections,
+    required this.types,
+    required this.tags,
     required this.discountable,
     required this.onDiscountableChanged,
   });
@@ -59,14 +65,31 @@ class ProductOrganizeForm extends StatelessWidget {
             children: [
               ResponsiveRowColumnItem(
                 rowFlex: 1,
-                child: ShadSelectFormField<String>(
-                  id: 'type',
-                  minWidth: double.infinity,
-                  label: const Text('Type (optional)'),
-                  initialValue: "",
-                  onChanged: (value) {},
-                  options: const [],
-                  selectedOptionBuilder: (context, value) => const Text(""),
+                child: Column(
+                  children: [
+                    const OptionalLabel(label: "Type"),
+                    const SizedBox(height: 8),
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        return ShadSelect<ProductType>(
+                          maxWidth: constraints.maxWidth,
+                          minWidth: constraints.maxWidth,
+                          placeholder: const Text(""),
+                          onChanged: (value) {},
+                          options: types
+                              .map(
+                                (e) => ShadOption(
+                              value: e,
+                              child: Text(e.value),
+                            ),
+                          )
+                              .toList(),
+                          selectedOptionBuilder: (context, value) =>
+                              Text(value.value),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
               ResponsiveRowColumnItem(
@@ -144,14 +167,31 @@ class ProductOrganizeForm extends StatelessWidget {
               ),
               ResponsiveRowColumnItem(
                 rowFlex: 1,
-                child: ShadSelectFormField<String>(
-                  id: 'tags',
-                  minWidth: double.infinity,
-                  label: const Text('Tags (optional)'),
-                  initialValue: "",
-                  onChanged: (value) {},
-                  options: const [],
-                  selectedOptionBuilder: (context, value) => const Text(""),
+                child: Column(
+                  children: [
+                    const OptionalLabel(label: "Tags"),
+                    const SizedBox(height: 8),
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        return ShadSelect<ProductTag>(
+                          maxWidth: constraints.maxWidth,
+                          minWidth: constraints.maxWidth,
+                          placeholder: const Text(""),
+                          onChanged: (value) {},
+                          options: tags
+                              .map(
+                                (e) => ShadOption(
+                              value: e,
+                              child: Text(e.value),
+                            ),
+                          )
+                              .toList(),
+                          selectedOptionBuilder: (context, value) =>
+                              Text(value.value),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
             ],

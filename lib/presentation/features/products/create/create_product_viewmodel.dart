@@ -19,6 +19,8 @@ import 'package:zentrio_admin/domain/usecase/product_usecase.dart';
 import '../../../../data/models/create_product_request.dart';
 import '../../../../domain/models/media_file.dart';
 import '../../../../domain/models/product_option.dart';
+import '../../../../domain/models/product_tag.dart';
+import '../../../../domain/models/product_type.dart';
 
 @injectable
 class CreateProductViewModel {
@@ -26,6 +28,8 @@ class CreateProductViewModel {
   final productTitle = signal('');
   final files = listSignal<MediaFile>([]);
   final categories = signal<List<Category>>([]);
+  final ListSignal<ProductTag> tags = ListSignal([]);
+  final ListSignal<ProductType> types = ListSignal([]);
   final ListSignal<Collection> collections = ListSignal([]);
   final discountable = signal(false);
   final checkAll = signal(false);
@@ -55,6 +59,8 @@ class CreateProductViewModel {
   ) {
     _getCategories();
     _getCollections();
+    _getTags();
+    _getTypes();
   }
 
   void createProduct(
@@ -87,6 +93,22 @@ class CreateProductViewModel {
       onSuccess();
     } catch (e) {
       onError();
+      print(e);
+    }
+  }
+
+  _getTags() async {
+    try {
+      tags.value = await _productUseCase.getProductTags();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  _getTypes() async {
+    try {
+      types.value = await _productUseCase.getProductTypes();
+    } catch (e) {
       print(e);
     }
   }

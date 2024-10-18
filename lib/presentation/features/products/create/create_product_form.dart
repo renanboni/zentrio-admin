@@ -49,6 +49,8 @@ class _CreateProductFormState extends State<CreateProductForm> {
                   categories: viewModel.categories.value,
                   collections: viewModel.collections.value,
                   discountable: viewModel.discountable.value,
+                  tags: viewModel.tags.value,
+                  types: viewModel.types.value,
                   onDiscountableChanged: viewModel.discountable.set,
                 );
               },
