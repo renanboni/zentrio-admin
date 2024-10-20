@@ -26,9 +26,7 @@ final categoriesRoute = GoRoute(
       parentNavigatorKey: rootNavigatorKey,
       pageBuilder: (BuildContext context, GoRouterState state) {
         return DialogPage(
-          builder: (_) => CreateCategoryPage(
-            viewModel: getIt<CreateCategoryViewModel>(),
-          ),
+          builder: (_) => const CreateCategoryPage(),
         );
       },
     ),

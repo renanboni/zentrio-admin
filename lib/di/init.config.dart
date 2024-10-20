@@ -24,6 +24,7 @@ import 'package:zentrio_admin/data/remote/collection_service.dart' as _i658;
 import 'package:zentrio_admin/data/remote/customer_service.dart' as _i774;
 import 'package:zentrio_admin/data/remote/file_service.dart' as _i1013;
 import 'package:zentrio_admin/data/remote/product_service.dart' as _i134;
+import 'package:zentrio_admin/data/remote/sales_channel_service.dart' as _i705;
 import 'package:zentrio_admin/data/remote/vendor_service.dart' as _i451;
 import 'package:zentrio_admin/di/modules/data_module.dart' as _i555;
 import 'package:zentrio_admin/di/modules/network_module.dart' as _i184;
@@ -43,6 +44,8 @@ import 'package:zentrio_admin/domain/repositories/preferences_repository.dart'
     as _i789;
 import 'package:zentrio_admin/domain/repositories/product_repository.dart'
     as _i999;
+import 'package:zentrio_admin/domain/repositories/sales_channel_repository.dart'
+    as _i545;
 import 'package:zentrio_admin/domain/repositories/vendor_repository.dart'
     as _i74;
 import 'package:zentrio_admin/domain/usecase/api_key_usecase.dart' as _i116;
@@ -53,6 +56,8 @@ import 'package:zentrio_admin/domain/usecase/collection_use_case.dart' as _i464;
 import 'package:zentrio_admin/domain/usecase/customer_usecase.dart' as _i340;
 import 'package:zentrio_admin/domain/usecase/file_usecase.dart' as _i850;
 import 'package:zentrio_admin/domain/usecase/product_usecase.dart' as _i977;
+import 'package:zentrio_admin/domain/usecase/sales_channel_usecase.dart'
+    as _i168;
 import 'package:zentrio_admin/domain/usecase/vendor_usecase.dart' as _i97;
 import 'package:zentrio_admin/presentation/features/banners/banners_view_model.dart'
     as _i330;
@@ -116,6 +121,8 @@ import 'package:zentrio_admin/presentation/features/productTypes/product_types_v
     as _i633;
 import 'package:zentrio_admin/presentation/features/ranking/ranking_view_model.dart'
     as _i473;
+import 'package:zentrio_admin/presentation/features/salesChannels/sales_channels_view_model.dart'
+    as _i365;
 import 'package:zentrio_admin/presentation/features/vendor/vendor_view_model.dart'
     as _i78;
 
@@ -148,6 +155,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i641.BannerService>(() => networkModule.bannerService);
     gh.lazySingleton<_i774.CustomerService>(
         () => networkModule.customerService);
+    gh.lazySingleton<_i705.SalesChannelService>(
+        () => networkModule.salesChannelService);
     gh.lazySingleton<_i671.AuthenticationLocalDataSource>(
         () => dataModule.medusaClient);
     gh.lazySingleton<_i74.VendorRepository>(() => dataModule.vendorRepository);
@@ -165,6 +174,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => dataModule.bannersRepository);
     gh.lazySingleton<_i204.CustomerRepository>(
         () => dataModule.customerRepository);
+    gh.lazySingleton<_i545.SalesChannelRepository>(
+        () => dataModule.salesChannelRepository);
     gh.lazySingleton<_i660.AuthInterceptor>(() => _i660.AuthInterceptor(
         authLocalDataSource: gh<_i671.AuthenticationLocalDataSource>()));
     gh.factory<_i340.CustomerUseCase>(
@@ -179,6 +190,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i464.CollectionUseCase(gh<_i612.CollectionRepository>()));
     gh.factory<_i725.BannerUseCase>(
         () => _i725.BannerUseCase(gh<_i1069.BannerRepository>()));
+    gh.factory<_i168.SalesChannelUseCase>(
+        () => _i168.SalesChannelUseCase(gh<_i545.SalesChannelRepository>()));
     gh.lazySingleton<_i361.Dio>(
       () => networkModule.authenticatedDio,
       instanceName: 'authenticated',
@@ -189,6 +202,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i255.CollectionsViewModel(gh<_i464.CollectionUseCase>()));
     gh.factory<_i440.CreateCollectionViewModel>(
         () => _i440.CreateCollectionViewModel(gh<_i464.CollectionUseCase>()));
+    gh.factory<_i365.SalesChannelsViewModel>(
+        () => _i365.SalesChannelsViewModel(gh<_i168.SalesChannelUseCase>()));
     gh.factory<_i850.FileUseCase>(
         () => _i850.FileUseCase(gh<_i182.FileRepository>()));
     gh.factory<_i977.ProductUseCase>(
@@ -244,8 +259,18 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i149.VendorsViewModel(gh<_i97.VendorUseCase>()));
     gh.factory<_i939.LoginViewModel>(
         () => _i939.LoginViewModel(gh<_i620.AuthUseCase>()));
+    gh.factory<_i633.ProductTypesViewModel>(
+        () => _i633.ProductTypesViewModel(gh<_i977.ProductUseCase>()));
+    gh.factory<_i214.CreateProductTypeViewModel>(
+        () => _i214.CreateProductTypeViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i91.ProductsViewModel>(
         () => _i91.ProductsViewModel(gh<_i977.ProductUseCase>()));
+    gh.factory<_i384.EditProductTagViewModel>(
+        () => _i384.EditProductTagViewModel(gh<_i977.ProductUseCase>()));
+    gh.factory<_i471.ProductTagViewModel>(
+        () => _i471.ProductTagViewModel(gh<_i977.ProductUseCase>()));
+    gh.factory<_i518.CreateProductTagViewModel>(
+        () => _i518.CreateProductTagViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i462.CreateProductOptionViewModel>(
         () => _i462.CreateProductOptionViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i264.ProductCreateVariantsViewModel>(
@@ -258,22 +283,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i922.ProductMetadataViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i740.ProductAttributesViewModel>(
         () => _i740.ProductAttributesViewModel(gh<_i977.ProductUseCase>()));
-    gh.factory<_i633.ProductTypesViewModel>(
-        () => _i633.ProductTypesViewModel(gh<_i977.ProductUseCase>()));
-    gh.factory<_i214.CreateProductTypeViewModel>(
-        () => _i214.CreateProductTypeViewModel(gh<_i977.ProductUseCase>()));
-    gh.factory<_i864.ProductTypeViewModel>(
-        () => _i864.ProductTypeViewModel(gh<_i977.ProductUseCase>()));
-    gh.factory<_i163.EditProductTypeViewModel>(
-        () => _i163.EditProductTypeViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i93.ProductTagsViewModel>(
         () => _i93.ProductTagsViewModel(gh<_i977.ProductUseCase>()));
-    gh.factory<_i471.ProductTagViewModel>(
-        () => _i471.ProductTagViewModel(gh<_i977.ProductUseCase>()));
-    gh.factory<_i384.EditProductTagViewModel>(
-        () => _i384.EditProductTagViewModel(gh<_i977.ProductUseCase>()));
-    gh.factory<_i518.CreateProductTagViewModel>(
-        () => _i518.CreateProductTagViewModel(gh<_i977.ProductUseCase>()));
+    gh.factory<_i163.EditProductTypeViewModel>(
+        () => _i163.EditProductTypeViewModel(gh<_i977.ProductUseCase>()));
+    gh.factory<_i864.ProductTypeViewModel>(
+        () => _i864.ProductTypeViewModel(gh<_i977.ProductUseCase>()));
     gh.lazySingleton<_i857.DashboardViewModel>(() => _i857.DashboardViewModel(
           gh<_i620.AuthUseCase>(),
           gh<_i97.VendorUseCase>(),

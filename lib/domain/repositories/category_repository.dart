@@ -1,10 +1,13 @@
 
+import 'package:zentrio_admin/domain/models/paginated_response.dart';
+
+import '../../data/models/req/create_category_req.dart';
 import '../models/category.dart';
 
 abstract class CategoryRepository {
-  Future<List<Category>> getCategories();
+  Future<PaginatedResponse<Category>> getCategories({int limit = 10, int offset = 0});
 
-  Future<void> createCategory(Category category);
+  Future<void> createCategory(CreateCategoryRequest req);
 
   Future<void> deleteCategory(String id);
 

@@ -92,7 +92,7 @@ class ProductOrganizationViewModel {
   _getCategories() async {
     try {
       final result = await _categoryUseCase.getCategories();
-      categories.value = result;
+      categories.value = result.data;
     } catch (e) {
       print(e);
     }

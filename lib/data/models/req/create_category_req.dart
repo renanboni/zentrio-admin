@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'create_category_req.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class CreateCategoryRequest {
   final String? id;
   final String? name;

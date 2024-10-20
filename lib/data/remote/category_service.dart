@@ -16,7 +16,10 @@ abstract class CategoryService {
   }) = _CategoryService;
 
   @GET("/vendor/categories")
-  Future<CategoriesResponse> getCategories();
+  Future<CategoriesResponse> getCategories(
+    @Query("limit") int limit,
+    @Query("offset") int offset,
+  );
 
   @POST("/vendor/categories")
   Future<void> createCategory(@Body() CreateCategoryRequest req);

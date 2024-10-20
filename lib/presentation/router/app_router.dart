@@ -7,6 +7,7 @@ import 'package:zentrio_admin/presentation/router/collections_route.dart';
 import 'package:zentrio_admin/presentation/router/product_tags_route.dart';
 import 'package:zentrio_admin/presentation/router/product_types_route.dart';
 import 'package:zentrio_admin/presentation/router/products_route.dart';
+import 'package:zentrio_admin/presentation/router/sales_channels_route.dart';
 import 'package:zentrio_admin/presentation/router/vendors_route.dart';
 
 import '../features/dashboard/side_bar_controller.dart';
@@ -55,6 +56,7 @@ final GoRouter router = GoRouter(
         customerRoute,
         productTypesRoute,
         productTagsRoute,
+        salesChannelsRoute,
       ],
     )
   ],

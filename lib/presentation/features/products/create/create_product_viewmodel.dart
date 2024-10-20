@@ -115,7 +115,7 @@ class CreateProductViewModel {
 
   _getCategories() async {
     try {
-      categories.value = await _categoryUseCase.getCategories();
+      categories.value = (await _categoryUseCase.getCategories()).data;
     } catch (e) {
       print(e);
     }

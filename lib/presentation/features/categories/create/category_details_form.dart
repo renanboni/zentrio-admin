@@ -45,6 +45,7 @@ class _CategoryDetailsFormState extends State<CategoryDetailsForm> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(height: 32),
               Text(
                 "Create Category",
                 style: theme.textTheme.h4,

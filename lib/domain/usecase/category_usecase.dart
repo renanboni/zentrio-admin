@@ -1,6 +1,8 @@
 
 import 'package:injectable/injectable.dart';
+import 'package:zentrio_admin/domain/models/paginated_response.dart';
 
+import '../../data/models/req/create_category_req.dart';
 import '../models/category.dart';
 import '../repositories/category_repository.dart';
 
@@ -10,12 +12,12 @@ class CategoryUseCase {
 
   CategoryUseCase(this._categoryRepository);
 
-  Future<List<Category>> getCategories() {
-    return _categoryRepository.getCategories();
+  Future<PaginatedResponse<Category>> getCategories({int limit = 10, int offset = 0}) {
+    return _categoryRepository.getCategories(limit: limit, offset: offset);
   }
 
-  Future<void> createCategory(Category category) {
-    return _categoryRepository.createCategory(category);
+  Future<void> createCategory(CreateCategoryRequest req) {
+    return _categoryRepository.createCategory(req);
   }
 
   Future<void> deleteCategory(String id) {

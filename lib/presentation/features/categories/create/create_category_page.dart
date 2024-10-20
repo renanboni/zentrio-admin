@@ -7,18 +7,23 @@ import 'package:zentrio_admin/presentation/features/categories/create/create_cat
 import 'package:zentrio_admin/presentation/features/products/create/create_product_form.dart';
 import 'package:zentrio_admin/utils/extensions/context_ext.dart';
 
+import '../../../../di/init.dart';
 import '../../../components/stepper/horizontal_stepper.dart';
 import '../../../components/stepper/step_item_list.dart';
 import 'categories_rank.dart';
 import 'category_details_form.dart';
 
-class CreateCategoryPage extends StatelessWidget {
-  final CreateCategoryViewModel viewModel;
-
+class CreateCategoryPage extends StatefulWidget {
   const CreateCategoryPage({
     super.key,
-    required this.viewModel,
   });
+
+  @override
+  State<CreateCategoryPage> createState() => _CreateCategoryPageState();
+}
+
+class _CreateCategoryPageState extends State<CreateCategoryPage> {
+  final CreateCategoryViewModel viewModel = getIt<CreateCategoryViewModel>();
 
   @override
   Widget build(BuildContext context) {
@@ -35,38 +40,27 @@ class CreateCategoryPage extends StatelessWidget {
             ),
           ),
         ),
-        StepItemList(
-          title: 'Organize Ranking',
-          state: HorizontalStepState.disabled,
-          content: MaxWidthBox(
-            maxWidth: context.maxWidth,
-            child: CategoriesRank(
-              categories: viewModel.ranking.watch(context),
-              newCategoryName: viewModel.title.value,
-              onRankChanged: viewModel.categories.set,
+        if (viewModel.categories.watch(context).isNotEmpty)
+          StepItemList(
+            title: 'Organize Ranking',
+            state: HorizontalStepState.disabled,
+            content: MaxWidthBox(
+              maxWidth: context.maxWidth,
+              child: CategoriesRank(
+                categories: viewModel.ranking.watch(context),
+                newCategoryName: viewModel.title.value,
+                onRankChanged: viewModel.categories.set,
+              ),
             ),
           ),
-        ),
       ],
       onComplete: () async {
         viewModel.createCategory(
           () {
-            ShadToaster.of(context).show(
-              const ShadToast(
-                description: Text('Category created successfully'),
-              ),
-            );
+            context.success("Category created successfully");
             GoRouter.of(context).pop();
           },
-          () {
-            ShadToaster.of(context).show(
-              const ShadToast.destructive(
-                title: Text('Uh oh! Something went wrong'),
-                description:
-                Text('There was a problem with your request'),
-              ),
-            );
-          },
+          () => context.error("Failed to create category"),
         );
       },
     );

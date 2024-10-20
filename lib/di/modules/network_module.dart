@@ -15,6 +15,7 @@ import 'package:zentrio_admin/di/init.dart';
 
 import '../../data/interceptors/auth_interceptor.dart';
 import '../../data/remote/customer_service.dart';
+import '../../data/remote/sales_channel_service.dart';
 
 @module
 abstract class NetworkModule {
@@ -44,6 +45,9 @@ abstract class NetworkModule {
 
   @lazySingleton
   CustomerService get customerService => CustomerService(getIt<Dio>(instanceName: 'authenticated'));
+
+  @lazySingleton
+  SalesChannelService get salesChannelService => SalesChannelService(getIt<Dio>(instanceName: 'authenticated'));
 
   final Interceptor _loggerInterceptor = PrettyDioLogger(
     requestHeader: true,

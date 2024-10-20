@@ -6,6 +6,7 @@ import 'package:zentrio_admin/domain/models/category_visibility.dart';
 import 'package:zentrio_admin/domain/usecase/category_usecase.dart';
 import 'package:zentrio_admin/domain/usecase/product_usecase.dart';
 
+import '../../../../data/models/req/create_category_req.dart';
 import '../../../../domain/models/category.dart';
 
 @Injectable()
@@ -13,7 +14,8 @@ class CreateCategoryViewModel {
   final CategoryUseCase _categoryUseCase;
 
   final Signal<CategoryStatus> categoryStatus = signal(CategoryStatus.active);
-  final Signal<CategoryVisibility> categoryVisibility = signal(CategoryVisibility.public);
+  final Signal<CategoryVisibility> categoryVisibility =
+      signal(CategoryVisibility.public);
   final Signal<List<Category>> categories = signal([]);
 
   final title = signal("");
@@ -23,9 +25,7 @@ class CreateCategoryViewModel {
   late final ranking = computed(
     () {
       final sortedCategories = categories.value
-          .map(
-            (e) => e.isNew ? e.copyWith(name: title.value) : e,
-          )
+          .map((e) => e.isNew ? e.copyWith(name: title.value) : e)
           .toList();
 
       return sortedCategories;
@@ -42,11 +42,11 @@ class CreateCategoryViewModel {
   ) async {
     try {
       await _categoryUseCase.createCategory(
-        Category(
+        CreateCategoryRequest(
           name: title.value,
           handle: handle.value,
           description: description.value,
-          rank: categories.value.indexWhere((element) => element.isNew),
+          rank: categories.value.isEmpty ? 0 : categories.value.indexWhere((element) => element.isNew),
           isActive: categoryStatus.value == CategoryStatus.active,
           isInternal: categoryVisibility.value == CategoryVisibility.internal,
         ),
@@ -65,7 +65,7 @@ class CreateCategoryViewModel {
           rank: -1,
           isNew: true,
         ),
-        ...(await _categoryUseCase.getCategories())
+        ...(await _categoryUseCase.getCategories()).data
       ];
     } catch (e) {
       print(e);

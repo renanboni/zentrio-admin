@@ -8,6 +8,7 @@ import 'package:zentrio_admin/data/remote/collection_service.dart';
 import 'package:zentrio_admin/data/remote/customer_service.dart';
 import 'package:zentrio_admin/data/remote/file_service.dart';
 import 'package:zentrio_admin/data/remote/product_service.dart';
+import 'package:zentrio_admin/data/remote/sales_channel_service.dart';
 import 'package:zentrio_admin/data/remote/vendor_service.dart';
 import 'package:zentrio_admin/data/vendor_repository_impl.dart';
 import 'package:zentrio_admin/domain/repositories/api_key_repository.dart';
@@ -19,6 +20,8 @@ import 'package:zentrio_admin/domain/repositories/customer_repository.dart';
 import 'package:zentrio_admin/domain/repositories/customer_repository.dart';
 import 'package:zentrio_admin/domain/repositories/file_repository.dart';
 import 'package:zentrio_admin/domain/repositories/product_repository.dart';
+import 'package:zentrio_admin/domain/repositories/sales_channel_repository.dart';
+import 'package:zentrio_admin/domain/repositories/sales_channel_repository.dart';
 
 import '../../data/api_key_repository_impl.dart';
 import '../../data/banner_repository_impl.dart';
@@ -28,6 +31,7 @@ import '../../data/customer_repository_impl.dart';
 import '../../data/file_repository_impl.dart';
 import '../../data/preferences_repository_impl.dart';
 import '../../data/product_repository_impl.dart';
+import '../../data/sales_channel_repository_impl.dart';
 import '../../domain/repositories/collection_repository.dart';
 import '../../domain/repositories/preferences_repository.dart';
 import '../../domain/repositories/vendor_repository.dart';
@@ -77,4 +81,8 @@ abstract class DataModule {
   @lazySingleton
   CustomerRepository get customerRepository =>
       CustomerRepositoryImpl(getIt<CustomerService>());
+
+  @lazySingleton
+  SalesChannelRepository get salesChannelRepository =>
+      SalesChannelRepositoryImpl(getIt<SalesChannelService>());
 }

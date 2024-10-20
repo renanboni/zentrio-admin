@@ -1,8 +1,10 @@
 import 'package:zentrio_admin/data/mappers/product_mapper.dart';
 import 'package:zentrio_admin/data/remote/category_service.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
+import 'package:zentrio_admin/domain/models/paginated_response.dart';
 
 import '../domain/repositories/category_repository.dart';
+import 'models/req/create_category_req.dart';
 
 class CategoryRepositoryImpl implements CategoryRepository {
   final CategoryService _service;
@@ -10,15 +12,22 @@ class CategoryRepositoryImpl implements CategoryRepository {
   CategoryRepositoryImpl(this._service);
 
   @override
-  Future<List<Category>> getCategories() {
-    return _service
-        .getCategories()
-        .then((value) => value.categories.map((e) => e.toCategory()).toList());
+  Future<PaginatedResponse<Category>> getCategories({int limit = 10, int offset = 0}) {
+    return _service.getCategories(limit, offset).then(
+          (response) {
+        return PaginatedResponse<Category>(
+          count: response.count ?? 0,
+          offset: response.offset ?? 0,
+          limit: response.limit ?? 0,
+          data: response.data?.map((e) => e.toCategory()).toList() ?? [],
+        );
+      },
+    );
   }
 
   @override
-  Future<void> createCategory(Category category) {
-    return _service.createCategory(category.createCategoryRequest());
+  Future<void> createCategory(CreateCategoryRequest request) {
+    return _service.createCategory(request);
   }
 
   @override

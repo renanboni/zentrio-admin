@@ -30,6 +30,11 @@ getVendorMenu() {
       ],
     ),
     const SideBarItem(
+      label: "Sales Channels",
+      icon: LucideIcons.store,
+      route: "/sales_channels",
+    ),
+    const SideBarItem(
       label: "Customers",
       icon: LucideIcons.users,
       route: "/customers",
