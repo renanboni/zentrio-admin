@@ -6,6 +6,7 @@ import 'package:zentrio_admin/data/models/req/create_product_tag_req.dart';
 import 'package:zentrio_admin/data/models/req/create_product_type_req.dart';
 import 'package:zentrio_admin/data/remote/product_service.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
+import 'package:zentrio_admin/domain/models/paginated_response.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
 import 'package:zentrio_admin/domain/models/product_tag.dart';
 import 'package:zentrio_admin/domain/models/product_type.dart';
@@ -76,17 +77,27 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<List<ProductTag>> getProductTags() {
-    return _service
-        .getProductTags()
-        .then((value) => value.map((e) => e.toProductTag()).toList());
+  Future<PaginatedResponse<ProductTag>> getProductTags(
+      {int limit = 10, int offset = 0}) {
+    return _service.getProductTags(limit, offset).then(
+          (value) => PaginatedResponse(
+              data: value.data?.map((e) => e.toProductTag()).toList() ?? [],
+              count: value.count ?? 0,
+              offset: value.offset ?? 0,
+              limit: value.limit ?? 0),
+        );
   }
 
   @override
-  Future<List<ProductType>> getProductTypes() {
-    return _service
-        .getProductTypes()
-        .then((value) => value.map((e) => e.toProductType()).toList());
+  Future<PaginatedResponse<ProductType>> getProductTypes(
+      {int limit = 10, int offset = 0}) {
+    return _service.getProductTypes(limit, offset).then(
+          (value) => PaginatedResponse(
+              data: value.data?.map((e) => e.toProductType()).toList() ?? [],
+              count: value.count ?? 0,
+              offset: value.offset ?? 0,
+              limit: value.limit ?? 0),
+        );
   }
 
   @override
@@ -98,9 +109,7 @@ class ProductRepositoryImpl implements ProductRepository {
 
   @override
   Future<ProductTag> getProductTagById(String id) {
-    return _service
-        .getProductTagById(id)
-        .then((value) => value.toProductTag());
+    return _service.getProductTagById(id).then((value) => value.toProductTag());
   }
 
   @override

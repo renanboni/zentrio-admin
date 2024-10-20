@@ -99,7 +99,7 @@ class CreateProductViewModel {
 
   _getTags() async {
     try {
-      tags.value = await _productUseCase.getProductTags();
+      tags.value = (await _productUseCase.getProductTags()).data;
     } catch (e) {
       print(e);
     }
@@ -107,7 +107,7 @@ class CreateProductViewModel {
 
   _getTypes() async {
     try {
-      types.value = await _productUseCase.getProductTypes();
+      types.value = (await _productUseCase.getProductTypes()).data;
     } catch (e) {
       print(e);
     }

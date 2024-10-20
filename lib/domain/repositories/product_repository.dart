@@ -1,6 +1,7 @@
 import 'package:zentrio_admin/data/models/api_product.dart';
 import 'package:zentrio_admin/data/models/req/create_product_tag_req.dart';
 import 'package:zentrio_admin/data/models/req/create_product_type_req.dart';
+import 'package:zentrio_admin/domain/models/paginated_response.dart';
 import 'package:zentrio_admin/domain/models/product_option.dart';
 
 import '../../data/models/create_product_option_req.dart';
@@ -29,13 +30,13 @@ abstract class ProductRepository {
 
   Future<void> createProductType(CreateProductTypeReq req);
 
-  Future<List<ProductType>> getProductTypes();
+  Future<PaginatedResponse<ProductType>> getProductTypes({int limit = 10, int offset = 0});
 
   Future<ProductType> getProductTypeById(String id);
 
   Future<void> createProductTag(CreateProductTagReq req);
 
-  Future<List<ProductTag>> getProductTags();
+  Future<PaginatedResponse<ProductTag>> getProductTags({int limit = 10, int offset = 0});
 
   Future<ProductTag> getProductTagById(String id);
 

@@ -4,11 +4,11 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/di/init.dart';
 import 'package:zentrio_admin/presentation/components/card_scaffold.dart';
-import 'package:zentrio_admin/presentation/components/empty_list_placeholder.dart';
-import 'package:zentrio_admin/presentation/features/banners/banners_page.dart';
-import 'package:zentrio_admin/presentation/features/productTypes/components/product_types_table.dart';
 import 'package:zentrio_admin/presentation/features/productTypes/product_types_view_model.dart';
-import 'package:zentrio_admin/utils/extensions/context_ext.dart';
+import 'package:zentrio_admin/utils/extensions/string_ext.dart';
+
+import '../../components/data_table_view.dart';
+import '../../components/edit_context_menu.dart';
 
 class ProductTypesPage extends StatefulWidget {
   const ProductTypesPage({super.key});
@@ -38,38 +38,48 @@ class _ProductTypesPageState extends State<ProductTypesPage> {
       ),
       child: Column(
         children: [
-          const Divider(
-            height: 1,
-          ),
-          Expanded(
-            child: Watch(
-              (_) {
-                if (viewModel.productTypes.isEmpty) {
-                  const EmptyListPlaceholder();
-                }
-                return ProductTypesTable(
-                  productTypes: viewModel.productTypes,
-                  onClick: (productType) {
-                    GoRouter.of(context).push("/product_types/${productType.id}");
-                  },
-                  onEdit: (productType) {
-                    GoRouter.of(context).go(
-                      "/product_types/${productType.id}/edit",
-                      extra: productType,
-                    );
-                  },
-                  onDelete: (productType) {
-                    viewModel.onDeleted(
-                      productType,
-                      () {
-                        GoRouter.of(context).pop();
-                        context.success("Product type deleted successfully");
-                      },
-                      () => context.error("Failed to delete product type"),
-                    );
-                  },
-                );
-              },
+          const Divider(height: 1),
+          Watch(
+                (_) => Expanded(
+              child: DataTableView(
+                onRowTap: (productType) {
+                  GoRouter.of(context).go("/product_types/${productType.id}");
+                },
+                columns: const [
+                  "Value",
+                  "Created",
+                  "Updated",
+                  "",
+                ],
+                data: viewModel.productTypes.value.data,
+                cellBuilder: (productType) => [
+                  DataCell(Text(productType.value)),
+                  DataCell(Text(productType.createdAt.yMMMd())),
+                  DataCell(Text(productType.updatedAt.yMMMd())),
+                  DataCell(
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: EditContextMenu(
+                        deleteDialogTitle: "Are you sure?",
+                        deleteDialogDescription:
+                        "You are about to delete the product type ${productType.value}. This action cannot be undone.",
+                        onEdit: () => {
+                          GoRouter.of(context)
+                              .go("/product_types/${productType.id}/edit")
+                        },
+                        onDelete: () => {
+                          /*   viewModel.deleteCategory(collection, () {
+                            context.success("Category deleted successfully");
+                            GoRouter.of(context).pop();
+                          }, () {
+                            context.error("Failed to delete collection");
+                          })*/
+                        },
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ],

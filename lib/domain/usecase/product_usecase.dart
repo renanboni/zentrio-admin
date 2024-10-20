@@ -4,6 +4,7 @@ import 'package:zentrio_admin/data/models/create_product_option_req.dart';
 import 'package:zentrio_admin/data/models/req/create_product_type_req.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
 import 'package:zentrio_admin/domain/models/medusa_file.dart';
+import 'package:zentrio_admin/domain/models/paginated_response.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
 import 'package:zentrio_admin/domain/models/product_option.dart';
 import 'package:zentrio_admin/domain/models/product_type.dart';
@@ -63,8 +64,8 @@ class ProductUseCase {
     return _productRepository.createProductType(req);
   }
 
-  Future<List<ProductType>> getProductTypes() {
-    return _productRepository.getProductTypes();
+  Future<PaginatedResponse<ProductType>> getProductTypes({int limit = 10, int offset = 0}) {
+    return _productRepository.getProductTypes(limit: limit, offset: offset);
   }
 
   Future<ProductType> getProductTypeById(String id) {
@@ -75,8 +76,8 @@ class ProductUseCase {
     return _productRepository.createProductTag(req);
   }
 
-  Future<List<ProductTag>> getProductTags() {
-    return _productRepository.getProductTags();
+  Future<PaginatedResponse<ProductTag>> getProductTags({int limit = 10, int offset = 0}) {
+    return _productRepository.getProductTags(limit: limit, offset: offset);
   }
 
   Future<ProductTag> getProductTagById(String id) {

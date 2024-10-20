@@ -4,10 +4,11 @@ import 'package:signals/signals.dart';
 import 'package:zentrio_admin/domain/models/product_type.dart';
 import 'package:zentrio_admin/domain/usecase/product_usecase.dart';
 
+import '../../../domain/models/paginated_response.dart';
+
 @Injectable()
 class ProductTypesViewModel {
-  final ListSignal<ProductType> productTypes = ListSignal<ProductType>([]);
-
+  final Signal<PaginatedResponse<ProductType>> productTypes = Signal(PaginatedResponse.empty());
   final ProductUseCase _productUseCase;
 
   ProductTypesViewModel(this._productUseCase) {

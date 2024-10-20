@@ -10,7 +10,10 @@ import 'package:zentrio_admin/presentation/features/productTags/product_tags_vie
 import 'package:zentrio_admin/presentation/features/productTypes/components/product_types_table.dart';
 import 'package:zentrio_admin/presentation/features/productTypes/product_types_view_model.dart';
 import 'package:zentrio_admin/utils/extensions/context_ext.dart';
+import 'package:zentrio_admin/utils/extensions/string_ext.dart';
 
+import '../../components/data_table_view.dart';
+import '../../components/edit_context_menu.dart';
 import 'components/product_types_table.dart';
 
 class ProductTagsPage extends StatefulWidget {
@@ -41,36 +44,50 @@ class _ProductTagsPageState extends State<ProductTagsPage> {
       ),
       child: Column(
         children: [
-          const Divider(
-            height: 1,
-          ),
-          if (viewModel.productTags.watch(context).isEmpty)
-            const EmptyListPlaceholder()
-          else
-            Expanded(
-              child: ProductTagsTable(
-                productTags: viewModel.productTags,
-                onClick: (productType) {
-                  GoRouter.of(context).push("/product_tags/${productType.id}");
+          const Divider(height: 1),
+          Watch(
+                (_) => Expanded(
+              child: DataTableView(
+                onRowTap: (productTag) {
+                  GoRouter.of(context).go("/product_tags/${productTag.id}");
                 },
-                onEdit: (productType) async {
-                   GoRouter.of(context).go(
-                    "/product_tags/${productType.id}/edit",
-                    extra: productType,
-                  );
-                },
-                onDelete: (productType) {
-                  viewModel.deleteProductTag(
-                    productType,
-                    () {
-                      GoRouter.of(context).pop();
-                      context.success("Product tag deleted successfully.");
-                    },
-                    () => context.error("Failed to delete product tag."),
-                  );
-                },
+                columns: const [
+                  "Value",
+                  "Created",
+                  "Updated",
+                  "",
+                ],
+                data: viewModel.productTags.value.data,
+                cellBuilder: (productTag) => [
+                  DataCell(Text(productTag.value)),
+                  DataCell(Text(productTag.createdAt.yMMMd())),
+                  DataCell(Text(productTag.updatedAt.yMMMd())),
+                  DataCell(
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: EditContextMenu(
+                        deleteDialogTitle: "Are you sure?",
+                        deleteDialogDescription:
+                        "You are about to delete the product tag ${productTag.value}. This action cannot be undone.",
+                        onEdit: () => {
+                          GoRouter.of(context)
+                              .go("/product_tags/${productTag.id}/edit")
+                        },
+                        onDelete: () => {
+                          /*   viewModel.deleteCategory(collection, () {
+                            context.success("Category deleted successfully");
+                            GoRouter.of(context).pop();
+                          }, () {
+                            context.error("Failed to delete collection");
+                          })*/
+                        },
+                      ),
+                    ),
+                  )
+                ],
               ),
-            )
+            ),
+          ),
         ],
       ),
     );
