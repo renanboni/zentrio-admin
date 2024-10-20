@@ -8,12 +8,18 @@ class DataTableView<T> extends StatelessWidget {
   final List<String> columns;
   final List<T> data;
   final List<DataCell> Function(T) cellBuilder;
+  final List<Widget>? actions;
+  final bool showCheckboxColumn;
+  final Function(T)? onRowTap;
 
   const DataTableView({
     super.key,
     required this.columns,
     required this.data,
     required this.cellBuilder,
+    this.actions,
+    this.onRowTap,
+    this.showCheckboxColumn = false,
   });
 
   @override
@@ -21,24 +27,27 @@ class DataTableView<T> extends StatelessWidget {
     final theme = ShadTheme.of(context);
 
     return PaginatedDataTable2(
-      columns: columns.map((column) => DataColumn2(label: Text(column))).toList(),
-      source: _DataSource(data, cellBuilder),
+      columns:
+          columns.map((column) => DataColumn2(label: Text(column))).toList(),
+      source: _DataSource(data, cellBuilder, onRowTap: onRowTap),
       fit: FlexFit.tight,
+      showCheckboxColumn: showCheckboxColumn,
       isVerticalScrollBarVisible: false,
       wrapInCard: false,
       headingTextStyle: theme.tableTheme.cellHeaderStyle,
       dataTextStyle: theme.tableTheme.cellStyle,
+      actions: actions,
       empty: const EmptyListPlaceholder(),
     );
   }
 }
 
 class _DataSource<T> extends DataTableSource {
-
   final List<T> data;
   final List<DataCell> Function(T) cellBuilder;
+  final Function(T)? onRowTap;
 
-  _DataSource(this.data, this.cellBuilder);
+  _DataSource(this.data, this.cellBuilder, {this.onRowTap});
 
   @override
   DataRow? getRow(int index) {
@@ -50,6 +59,7 @@ class _DataSource<T> extends DataTableSource {
     return DataRow.byIndex(
       index: index,
       cells: cellBuilder(item),
+      onSelectChanged: onRowTap != null ? (_) => onRowTap!(item) : null,
     );
   }
 

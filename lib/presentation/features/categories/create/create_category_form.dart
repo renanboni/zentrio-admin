@@ -5,6 +5,7 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 
 import '../../../../domain/models/category_status.dart';
 import '../../../../domain/models/category_visibility.dart';
+import '../../../components/optional_label.dart';
 
 class CreateCategoryForm extends StatelessWidget {
   final String title;
@@ -35,6 +36,8 @@ class CreateCategoryForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = ShadTheme.of(context);
+
     return ResponsiveRowColumn(
       layout: ResponsiveRowColumnType.COLUMN,
       columnSpacing: 16,
@@ -87,40 +90,66 @@ class CreateCategoryForm extends StatelessWidget {
             children: [
               ResponsiveRowColumnItem(
                 rowFlex: 1,
-                child: ShadSelectFormField<CategoryStatus>(
-                  id: 'active',
-                  minWidth: double.infinity,
-                  label: const Text('Status'),
-                  initialValue: initialStatus ?? CategoryStatus.active,
-                  onChanged: onStatusChanged,
-                  options: CategoryStatus.values
-                      .map(
-                        (status) => ShadOption(
-                      value: status,
-                      child: Text(status.name),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Status",
+                      style: theme.textTheme.small,
                     ),
-                  )
-                      .toList(),
-                  selectedOptionBuilder: (context, value) => Text(value.name),
+                    const SizedBox(height: 8),
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        return ShadSelect<CategoryStatus>(
+                          minWidth: constraints.maxWidth,
+                          maxWidth: constraints.maxWidth,
+                          initialValue: initialStatus ?? CategoryStatus.active,
+                          onChanged: onStatusChanged,
+                          options: CategoryStatus.values
+                              .map(
+                                (status) => ShadOption(
+                              value: status,
+                              child: Text(status.name),
+                            ),
+                          )
+                              .toList(),
+                          selectedOptionBuilder: (context, value) => Text(value.name),
+                        );
+                      }
+                    ),
+                  ],
                 ),
               ),
               ResponsiveRowColumnItem(
                 rowFlex: 1,
-                child: ShadSelectFormField<CategoryVisibility>(
-                  id: 'visibility',
-                  minWidth: double.infinity,
-                  label: const Text('Visibility'),
-                  initialValue: initialVisibility ?? CategoryVisibility.public,
-                  onChanged: onVisibilityChanged,
-                  options: CategoryVisibility.values
-                      .map(
-                        (visibility) => ShadOption(
-                      value: visibility,
-                      child: SizedBox(width: 250, child: Text(visibility.name)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Visibility",
+                      style: theme.textTheme.small,
                     ),
-                  )
-                      .toList(),
-                  selectedOptionBuilder: (context, value) => Text(value.name),
+                    const SizedBox(height: 8),
+                    LayoutBuilder(
+                        builder: (context, constraints) {
+                        return ShadSelect<CategoryVisibility>(
+                          minWidth: constraints.maxWidth,
+                          maxWidth: constraints.maxWidth,
+                          initialValue: initialVisibility ?? CategoryVisibility.public,
+                          onChanged: onVisibilityChanged,
+                          options: CategoryVisibility.values
+                              .map(
+                                (visibility) => ShadOption(
+                              value: visibility,
+                              child: SizedBox(width: 250, child: Text(visibility.name)),
+                            ),
+                          )
+                              .toList(),
+                          selectedOptionBuilder: (context, value) => Text(value.name),
+                        );
+                      }
+                    ),
+                  ],
                 ),
               ),
             ],

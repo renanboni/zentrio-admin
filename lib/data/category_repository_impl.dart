@@ -5,6 +5,7 @@ import 'package:zentrio_admin/domain/models/paginated_response.dart';
 
 import '../domain/repositories/category_repository.dart';
 import 'models/req/create_category_req.dart';
+import 'models/req/update_category_req.dart';
 
 class CategoryRepositoryImpl implements CategoryRepository {
   final CategoryService _service;
@@ -43,7 +44,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
   }
 
   @override
-  Future<void> updateCategory(String id, Map<String, dynamic> fields) {
-    return _service.updateCategory(id, fields);
+  Future<void> updateCategory(String id, UpdateCategoryRequest req) {
+    return _service.updateCategory(id, req);
   }
 }

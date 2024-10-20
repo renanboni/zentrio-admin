@@ -31,60 +31,67 @@ class _CategoriesRankState extends State<CategoriesRank> {
   Widget build(BuildContext context) {
     final theme = ShadTheme.of(context);
 
-    return ReorderableListView.builder(
-      buildDefaultDragHandles: false,
-      itemBuilder: (context, index) {
-        return Column(
-          key: Key("${_categories[index].rank}-${_categories[index].name}"),
-          children: [
-            ReorderableDragStartListener(
-              enabled: _categories[index].isNew,
-              index: index,
-              child: ListTile(
-                mouseCursor: _categories[index].isNew ? SystemMouseCursors.click : null,
-                tileColor: !_categories[index].isNew ? theme.colorScheme.muted : null,
-                leading: Icon(
-                  size: 16,
-                  LucideIcons.tags,
-                  color: theme.textTheme.muted.color,
-                ),
-                trailing: Icon(
-                  size: 16,
-                  LucideIcons.gripVertical,
-                  color: theme.textTheme.muted.color,
-                ),
-                title: Row(
-                  children: [
-                    Text(
-                      _categories[index].name,
-                      style: theme.textTheme.muted,
-                    ),
-                    if (_categories[index].isNew) const SizedBox(width: 8),
-                    if (_categories[index].isNew)
-                      const ShadBadge.secondary(
-                        child: Text('New'),
+    return Column(
+      children: [
+        const SizedBox(height: 32),
+        Expanded(
+          child: ReorderableListView.builder(
+            buildDefaultDragHandles: false,
+            itemBuilder: (context, index) {
+              return Column(
+                key: Key("${_categories[index].rank}-${_categories[index].name}"),
+                children: [
+                  ReorderableDragStartListener(
+                    enabled: _categories[index].isNew,
+                    index: index,
+                    child: ListTile(
+                      mouseCursor: _categories[index].isNew ? SystemMouseCursors.click : null,
+                      tileColor: !_categories[index].isNew ? theme.colorScheme.muted : null,
+                      leading: Icon(
+                        size: 16,
+                        LucideIcons.tags,
+                        color: theme.textTheme.muted.color,
                       ),
-                  ],
-                ),
-              ),
-            ),
-            if (index < _categories.length - 1) const Divider(height: 1),
-          ],
-        );
-      },
-      itemCount: _categories.length,
-      onReorder: (oldIndex, newIndex) {
-        setState(
-          () {
-            if (oldIndex < newIndex) {
-              newIndex -= 1;
-            }
-            final Category item = _categories.removeAt(oldIndex);
-            _categories.insert(newIndex, item);
-            widget.onRankChanged(_categories);
-          },
-        );
-      },
+                      trailing: Icon(
+                        size: 16,
+                        LucideIcons.gripVertical,
+                        color: theme.textTheme.muted.color,
+                      ),
+                      title: Row(
+                        children: [
+                          Text(
+                            _categories[index].name,
+                            style: theme.textTheme.muted,
+                          ),
+                          if (_categories[index].isNew) const SizedBox(width: 8),
+                          if (_categories[index].isNew)
+                            const ShadBadge.secondary(
+                              child: Text('New'),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  if (index < _categories.length - 1) const Divider(height: 1),
+                ],
+              );
+            },
+            itemCount: _categories.length,
+            onReorder: (oldIndex, newIndex) {
+              setState(
+                () {
+                  if (oldIndex < newIndex) {
+                    newIndex -= 1;
+                  }
+                  final Category item = _categories.removeAt(oldIndex);
+                  _categories.insert(newIndex, item);
+                  widget.onRankChanged(_categories);
+                },
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

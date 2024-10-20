@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:injectable/injectable.dart';
 import 'package:signals/signals.dart';
+import 'package:zentrio_admin/data/models/req/update_category_req.dart';
 import 'package:zentrio_admin/domain/usecase/category_usecase.dart';
 
 import '../../../../domain/models/category.dart';
@@ -15,13 +16,13 @@ class CategoryEditViewModel {
     CategoryVisibility.public,
   );
 
-  final title = signal("");
+  final name = signal("");
   final handle = signal("");
   final description = signal("");
 
   final loading = signal(false);
 
-  final Signal<Category?> category = signal(null);
+  final Signal<Category> category = signal(Category.empty());
 
   final CategoryUseCase _categoryUseCase;
 
@@ -33,14 +34,15 @@ class CategoryEditViewModel {
 
       category.value = await _categoryUseCase.getCategoryById(categoryId);
 
-      title.value = category.value?.name ?? "";
-      handle.value = category.value?.handle ?? "";
-      description.value = category.value?.description ?? "";
+      name.value = category.value.name;
+      handle.value = category.value.handle;
+      description.value = category.value.description;
 
-      categoryStatus.value = category.value?.isActive == true
+      categoryStatus.value = category.value.isActive
           ? CategoryStatus.active
           : CategoryStatus.inactive;
-      categoryVisibility.value = category.value?.isInternal == true
+
+      categoryVisibility.value = category.value.isInternal
           ? CategoryVisibility.internal
           : CategoryVisibility.public;
     } catch (e) {
@@ -54,50 +56,21 @@ class CategoryEditViewModel {
     VoidCallback onSuccess,
     VoidCallback onError,
   ) async {
-    final fields = <String, dynamic>{};
-
-    addIfChanged(fields, 'name', title.value, category.value?.name);
-    addIfChanged(fields, 'handle', handle.value, category.value?.handle);
-    addIfChanged(
-      fields,
-      'description',
-      description.value,
-      category.value?.description,
-    );
-    addIfChanged(
-      fields,
-      'is_active',
-      categoryStatus.value == CategoryStatus.active ? true : false,
-      category.value?.isActive,
-    );
-    addIfChanged(
-      fields,
-      'is_internal',
-      categoryVisibility.value == CategoryVisibility.internal ? true : false,
-      category.value?.isInternal,
-    );
-
-    if (fields.isEmpty) {
-      return;
-    }
-
     try {
-      await _categoryUseCase.updateCategory(category.value?.id ?? "", fields);
+      await _categoryUseCase.updateCategory(
+        category.value.id ?? "",
+        UpdateCategoryRequest(
+          name: name.value,
+          handle: handle.value,
+          description: description.value,
+          isActive: categoryStatus.value == CategoryStatus.active,
+          isInternal: categoryVisibility.value == CategoryVisibility.internal,
+        ),
+      );
       onSuccess();
     } catch (e) {
       onError();
       print(e);
-    }
-  }
-
-  void addIfChanged(
-    Map fields,
-    String fieldName,
-    dynamic newValue,
-    dynamic oldValue,
-  ) {
-    if (newValue != oldValue) {
-      fields[fieldName] = newValue;
     }
   }
 

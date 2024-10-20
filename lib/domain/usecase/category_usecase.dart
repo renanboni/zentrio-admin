@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:zentrio_admin/domain/models/paginated_response.dart';
 
 import '../../data/models/req/create_category_req.dart';
+import '../../data/models/req/update_category_req.dart';
 import '../models/category.dart';
 import '../repositories/category_repository.dart';
 
@@ -28,7 +29,7 @@ class CategoryUseCase {
     return _categoryRepository.getCategoryById(id);
   }
 
-  Future<void> updateCategory(String id, Map<String, dynamic> fields) {
-    return _categoryRepository.updateCategory(id, fields);
+  Future<void> updateCategory(String id, UpdateCategoryRequest req) {
+    return _categoryRepository.updateCategory(id, req);
   }
 }

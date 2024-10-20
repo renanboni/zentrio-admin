@@ -2,6 +2,7 @@
 import 'package:zentrio_admin/domain/models/paginated_response.dart';
 
 import '../../data/models/req/create_category_req.dart';
+import '../../data/models/req/update_category_req.dart';
 import '../models/category.dart';
 
 abstract class CategoryRepository {
@@ -13,5 +14,5 @@ abstract class CategoryRepository {
 
   Future<Category> getCategoryById(String id);
 
-  Future<void> updateCategory(String id, Map<String, dynamic> fields);
+  Future<void> updateCategory(String id, UpdateCategoryRequest req);
 }

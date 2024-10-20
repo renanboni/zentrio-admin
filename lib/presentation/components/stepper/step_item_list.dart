@@ -16,7 +16,7 @@ class StepItemList {
   final HorizontalStepState state;
 
   const StepItemList({
-    this.width = 160,
+    this.width = 200,
     this.state = HorizontalStepState.editing,
     required this.content,
     required this.title,

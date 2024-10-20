@@ -17,6 +17,10 @@ class CategoriesViewModel {
     _getCategories();
   }
 
+  void refresh() {
+    _getCategories();
+  }
+
   _getCategories() async {
     try {
       categories.value = await _categoryUseCase.getCategories();

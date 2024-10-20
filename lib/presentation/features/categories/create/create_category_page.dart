@@ -40,25 +40,24 @@ class _CreateCategoryPageState extends State<CreateCategoryPage> {
             ),
           ),
         ),
-        if (viewModel.categories.watch(context).isNotEmpty)
-          StepItemList(
-            title: 'Organize Ranking',
-            state: HorizontalStepState.disabled,
-            content: MaxWidthBox(
-              maxWidth: context.maxWidth,
-              child: CategoriesRank(
-                categories: viewModel.ranking.watch(context),
-                newCategoryName: viewModel.title.value,
-                onRankChanged: viewModel.categories.set,
-              ),
+        StepItemList(
+          title: 'Organize Ranking',
+          state: HorizontalStepState.disabled,
+          content: MaxWidthBox(
+            maxWidth: context.maxWidth,
+            child: CategoriesRank(
+              categories: viewModel.ranking.watch(context),
+              newCategoryName: viewModel.title.value,
+              onRankChanged: viewModel.categories.set,
             ),
           ),
+        ),
       ],
       onComplete: () async {
         viewModel.createCategory(
           () {
             context.success("Category created successfully");
-            GoRouter.of(context).pop();
+            GoRouter.of(context).pop(true);
           },
           () => context.error("Failed to create category"),
         );

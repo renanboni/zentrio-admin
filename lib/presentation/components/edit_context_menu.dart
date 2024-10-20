@@ -47,8 +47,6 @@ class _EditContextMenuState extends State<EditContextMenu> {
           ),
       ],
       child: ShadButton.ghost(
-        width: 20,
-        height: 20,
         icon: const Icon(
           LucideIcons.ellipsis,
           size: 16,

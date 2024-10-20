@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:retrofit/http.dart';
 
 import '../models/req/create_category_req.dart';
+import '../models/req/update_category_req.dart';
 import '../models/res/categories_response.dart';
 import '../models/res/category_response.dart';
 
@@ -33,6 +34,6 @@ abstract class CategoryService {
   @POST("/vendor/categories/{id}")
   Future<void> updateCategory(
     @Path("id") String id,
-    @Body() Map<String, dynamic> fields,
+    @Body() UpdateCategoryRequest req,
   );
 }
