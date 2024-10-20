@@ -83,7 +83,7 @@ class ProductOrganizationViewModel {
   _getCollection() async {
     try {
       final result = await _collectionUseCase.getCollections();
-      collections.value = result;
+      collections.value = result.data;
     } catch (e) {
       print(e);
     }

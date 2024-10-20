@@ -2,6 +2,7 @@ import 'package:zentrio_admin/data/mappers/collection_mapper.dart';
 import 'package:zentrio_admin/data/models/create_collection_request.dart';
 import 'package:zentrio_admin/data/remote/collection_service.dart';
 import 'package:zentrio_admin/domain/models/collection.dart';
+import 'package:zentrio_admin/domain/models/paginated_response.dart';
 
 import '../domain/repositories/collection_repository.dart';
 
@@ -16,9 +17,17 @@ class CollectionRepositoryImpl implements CollectionRepository {
   }
 
   @override
-  Future<List<Collection>> getCollections() {
-    return _service.getAll().then((value) =>
-        value.collections?.map((e) => e.toCollection()).toList() ?? []);
+  Future<PaginatedResponse<Collection>> getCollections({int limit = 10, int offset = 0}) {
+    return _service.getAll(limit, offset).then(
+          (response) {
+        return PaginatedResponse<Collection>(
+          count: response.count ?? 0,
+          offset: response.offset ?? 0,
+          limit: response.limit ?? 0,
+          data: response.data?.map((e) => e.toCollection()).toList() ?? [],
+        );
+      },
+    );
   }
 
   @override

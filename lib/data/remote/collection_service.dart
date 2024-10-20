@@ -23,7 +23,10 @@ abstract class CollectionService {
   }) = _CollectionService;
 
   @GET("/vendor/collections")
-  Future<CollectionsResponse> getAll();
+  Future<CollectionsResponse> getAll(
+    @Query("limit") int limit,
+    @Query("offset") int offset,
+  );
 
   @GET("/vendor/collections/{id}")
   Future<ApiCollection> getCollectionById(

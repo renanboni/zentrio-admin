@@ -123,7 +123,7 @@ class CreateProductViewModel {
 
   _getCollections() async {
     try {
-      collections.value = await _collectionUseCase.getCollections();
+      collections.value = (await _collectionUseCase.getCollections()).data;
     } catch (e) {
       print(e);
     }

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:injectable/injectable.dart';
 import 'package:signals/signals.dart';
+import 'package:zentrio_admin/domain/models/paginated_response.dart';
 import 'package:zentrio_admin/domain/usecase/collection_use_case.dart';
 
 import '../../../domain/models/collection.dart';
@@ -10,7 +11,7 @@ import '../../../domain/models/collection.dart';
 class CollectionsViewModel {
   final CollectionUseCase _collectionUseCase;
 
-  final ListSignal<Collection> collections = listSignal([]);
+  final Signal<PaginatedResponse<Collection>> collections = Signal(PaginatedResponse.empty());
 
   CollectionsViewModel(this._collectionUseCase) {
     _getCollections();
