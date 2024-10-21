@@ -7,15 +7,21 @@ import 'package:zentrio_admin/domain/models/product_tag.dart';
 import 'package:zentrio_admin/domain/models/product_type.dart';
 import 'package:zentrio_admin/presentation/components/optional_label.dart';
 import 'package:zentrio_admin/presentation/components/switch_card.dart';
+import 'package:zentrio_admin/presentation/features/products/create/components/sales_channels_item_list.dart';
 import 'package:zentrio_admin/utils/extensions/string_ext.dart';
+
+import '../../../../../domain/models/sales_channel.dart';
 
 class ProductOrganizeForm extends StatelessWidget {
   final List<Category> categories;
   final List<Collection> collections;
   final List<ProductType> types;
   final List<ProductTag> tags;
+  final List<SalesChannel> salesChannels;
+  final List<SalesChannel> selectedSalesChannels;
   final bool discountable;
   final ValueChanged<bool> onDiscountableChanged;
+  final ValueChanged<SalesChannel> onSalesChannelUnselected;
 
   const ProductOrganizeForm({
     super.key,
@@ -23,8 +29,11 @@ class ProductOrganizeForm extends StatelessWidget {
     required this.collections,
     required this.types,
     required this.tags,
+    required this.salesChannels,
+    required this.selectedSalesChannels,
     required this.discountable,
     required this.onDiscountableChanged,
+    required this.onSalesChannelUnselected,
   });
 
   @override
@@ -33,7 +42,7 @@ class ProductOrganizeForm extends StatelessWidget {
 
     return ResponsiveRowColumn(
       layout: ResponsiveRowColumnType.COLUMN,
-      rowSpacing: 4,
+      rowSpacing: 16,
       columnSpacing: 16,
       columnCrossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -60,8 +69,8 @@ class ProductOrganizeForm extends StatelessWidget {
             layout: ResponsiveBreakpoints.of(context).smallerThan(DESKTOP)
                 ? ResponsiveRowColumnType.COLUMN
                 : ResponsiveRowColumnType.ROW,
-            rowSpacing: 12,
-            columnSpacing: 12,
+            rowSpacing: 16,
+            columnSpacing: 16,
             children: [
               ResponsiveRowColumnItem(
                 rowFlex: 1,
@@ -79,10 +88,10 @@ class ProductOrganizeForm extends StatelessWidget {
                           options: types
                               .map(
                                 (e) => ShadOption(
-                              value: e,
-                              child: Text(e.value),
-                            ),
-                          )
+                                  value: e,
+                                  child: Text(e.value),
+                                ),
+                              )
                               .toList(),
                           selectedOptionBuilder: (context, value) =>
                               Text(value.value),
@@ -129,8 +138,8 @@ class ProductOrganizeForm extends StatelessWidget {
             layout: ResponsiveBreakpoints.of(context).smallerThan(DESKTOP)
                 ? ResponsiveRowColumnType.COLUMN
                 : ResponsiveRowColumnType.ROW,
-            rowSpacing: 12,
-            columnSpacing: 12,
+            rowSpacing: 16,
+            columnSpacing: 16,
             children: [
               ResponsiveRowColumnItem(
                 rowFlex: 1,
@@ -181,10 +190,10 @@ class ProductOrganizeForm extends StatelessWidget {
                           options: tags
                               .map(
                                 (e) => ShadOption(
-                              value: e,
-                              child: Text(e.value),
-                            ),
-                          )
+                                  value: e,
+                                  child: Text(e.value),
+                                ),
+                              )
                               .toList(),
                           selectedOptionBuilder: (context, value) =>
                               Text(value.value),
@@ -195,6 +204,24 @@ class ProductOrganizeForm extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+        ),
+        ResponsiveRowColumnItem(
+          child: SalesChannelsItemList(
+            salesChannels: selectedSalesChannels,
+            onRemove: onSalesChannelUnselected,
+            onAdd: () {
+              showShadSheet(
+                side: ShadSheetSide.right,
+                context: context,
+                builder: (context) => SizedBox(
+                  height: 500,
+                  child: SalesChannelsSheet(
+                    salesChannels: salesChannels,
+                  ),
+                ),
+              );
+            },
           ),
         )
       ],

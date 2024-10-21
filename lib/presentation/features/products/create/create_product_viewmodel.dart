@@ -9,12 +9,15 @@ import 'package:zentrio_admin/data/models/api_product_option.dart';
 import 'package:zentrio_admin/data/models/create_product_option_req.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
 import 'package:zentrio_admin/domain/models/collection.dart';
+import 'package:zentrio_admin/domain/models/paginated_response.dart';
 import 'package:zentrio_admin/domain/models/product_option_value.dart';
 import 'package:zentrio_admin/domain/models/product_variant.dart';
+import 'package:zentrio_admin/domain/models/sales_channel.dart';
 import 'package:zentrio_admin/domain/usecase/category_usecase.dart';
 import 'package:zentrio_admin/domain/usecase/collection_use_case.dart';
 import 'package:zentrio_admin/domain/usecase/file_usecase.dart';
 import 'package:zentrio_admin/domain/usecase/product_usecase.dart';
+import 'package:zentrio_admin/domain/usecase/sales_channel_usecase.dart';
 
 import '../../../../data/models/create_product_request.dart';
 import '../../../../domain/models/media_file.dart';
@@ -36,6 +39,8 @@ class CreateProductViewModel {
   final ListSignal<ProductOption> productOptions = ListSignal(
     [ProductOption.empty()],
   );
+  final Signal<PaginatedResponse<SalesChannel>> salesChannels = Signal(PaginatedResponse.empty());
+  final ListSignal<SalesChannel> selectedSalesChannels = ListSignal([]);
 
   final ListSignal<ProductVariant> variants = ListSignal([]);
 
@@ -50,17 +55,20 @@ class CreateProductViewModel {
   final CategoryUseCase _categoryUseCase;
   final FileUseCase _fileUseCase;
   final CollectionUseCase _collectionUseCase;
+  final SalesChannelUseCase _salesChannelUseCase;
 
   CreateProductViewModel(
     this._productUseCase,
     this._fileUseCase,
     this._categoryUseCase,
     this._collectionUseCase,
+    this._salesChannelUseCase,
   ) {
     _getCategories();
     _getCollections();
     _getTags();
     _getTypes();
+    _getSalesChannels();
   }
 
   void createProduct(
@@ -127,6 +135,21 @@ class CreateProductViewModel {
     } catch (e) {
       print(e);
     }
+  }
+
+  _getSalesChannels() async {
+    try {
+      salesChannels.value = await _salesChannelUseCase.getAll();
+      selectedSalesChannels.value = [salesChannels.value.data[0]];
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void unselectSalesChannel(SalesChannel salesChannel) {
+    selectedSalesChannels.value = selectedSalesChannels.value
+        .where((e) => e.id != salesChannel.id)
+        .toList();
   }
 
   void onMakeThumbnail(MediaFile file) {

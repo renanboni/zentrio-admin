@@ -51,7 +51,10 @@ class _CreateProductFormState extends State<CreateProductForm> {
                   discountable: viewModel.discountable.value,
                   tags: viewModel.tags.value,
                   types: viewModel.types.value,
+                  salesChannels: viewModel.salesChannels.value.data,
+                  selectedSalesChannels: viewModel.selectedSalesChannels.value,
                   onDiscountableChanged: viewModel.discountable.set,
+                  onSalesChannelUnselected: viewModel.unselectSalesChannel,
                 );
               },
             ),
