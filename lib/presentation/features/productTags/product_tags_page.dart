@@ -46,7 +46,7 @@ class _ProductTagsPageState extends State<ProductTagsPage> {
         children: [
           const Divider(height: 1),
           Watch(
-                (_) => Expanded(
+            (_) => Expanded(
               child: DataTableView(
                 onRowTap: (productTag) {
                   GoRouter.of(context).go("/product_tags/${productTag.id}");
@@ -68,18 +68,18 @@ class _ProductTagsPageState extends State<ProductTagsPage> {
                       child: EditContextMenu(
                         deleteDialogTitle: "Are you sure?",
                         deleteDialogDescription:
-                        "You are about to delete the product tag ${productTag.value}. This action cannot be undone.",
+                            "You are about to delete the product tag ${productTag.value}. This action cannot be undone.",
                         onEdit: () => {
                           GoRouter.of(context)
                               .go("/product_tags/${productTag.id}/edit")
                         },
                         onDelete: () => {
-                          /*   viewModel.deleteCategory(collection, () {
-                            context.success("Category deleted successfully");
+                          viewModel.deleteProductTag(productTag, () {
+                            context.success("Tag deleted successfully");
                             GoRouter.of(context).pop();
                           }, () {
-                            context.error("Failed to delete collection");
-                          })*/
+                            context.error("Failed to delete tag");
+                          })
                         },
                       ),
                     ),

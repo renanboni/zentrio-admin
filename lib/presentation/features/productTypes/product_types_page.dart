@@ -5,6 +5,7 @@ import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/di/init.dart';
 import 'package:zentrio_admin/presentation/components/card_scaffold.dart';
 import 'package:zentrio_admin/presentation/features/productTypes/product_types_view_model.dart';
+import 'package:zentrio_admin/utils/extensions/context_ext.dart';
 import 'package:zentrio_admin/utils/extensions/string_ext.dart';
 
 import '../../components/data_table_view.dart';
@@ -40,7 +41,7 @@ class _ProductTypesPageState extends State<ProductTypesPage> {
         children: [
           const Divider(height: 1),
           Watch(
-                (_) => Expanded(
+            (_) => Expanded(
               child: DataTableView(
                 onRowTap: (productType) {
                   GoRouter.of(context).go("/product_types/${productType.id}");
@@ -62,18 +63,18 @@ class _ProductTypesPageState extends State<ProductTypesPage> {
                       child: EditContextMenu(
                         deleteDialogTitle: "Are you sure?",
                         deleteDialogDescription:
-                        "You are about to delete the product type ${productType.value}. This action cannot be undone.",
+                            "You are about to delete the product type ${productType.value}. This action cannot be undone.",
                         onEdit: () => {
                           GoRouter.of(context)
                               .go("/product_types/${productType.id}/edit")
                         },
                         onDelete: () => {
-                          /*   viewModel.deleteCategory(collection, () {
-                            context.success("Category deleted successfully");
+                          viewModel.onDeleted(productType, () {
+                            context.success("Type deleted successfully");
                             GoRouter.of(context).pop();
                           }, () {
-                            context.error("Failed to delete collection");
-                          })*/
+                            context.error("Failed to delete type");
+                          })
                         },
                       ),
                     ),
