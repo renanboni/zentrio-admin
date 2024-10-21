@@ -5,7 +5,6 @@ import 'package:zentrio_admin/domain/models/category.dart';
 import 'package:zentrio_admin/domain/models/paginated_response.dart';
 import 'package:zentrio_admin/domain/usecase/category_usecase.dart';
 
-import '../../../domain/usecase/product_usecase.dart';
 
 @injectable
 class CategoriesViewModel {

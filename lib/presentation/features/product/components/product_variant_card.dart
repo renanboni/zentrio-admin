@@ -35,7 +35,7 @@ class ProductVariantCard extends StatelessWidget {
         children: [
           _buildHeader(context),
           const Divider(height: 1),
-          EmptyListPlaceholder()
+          const EmptyListPlaceholder()
         ],
       ),
     );

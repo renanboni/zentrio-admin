@@ -5,7 +5,6 @@ import 'package:zentrio_admin/di/init.dart';
 import 'package:flutter/material.dart' hide Banner;
 import 'package:zentrio_admin/presentation/features/banners/banners_view_model.dart';
 import 'package:zentrio_admin/presentation/features/banners/components/banner_table.dart';
-import 'package:zentrio_admin/presentation/features/banners/create/create_banner_page.dart';
 import 'package:zentrio_admin/utils/extensions/context_ext.dart';
 
 class BannersPage extends StatefulWidget {

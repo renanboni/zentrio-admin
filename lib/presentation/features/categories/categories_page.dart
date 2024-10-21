@@ -5,10 +5,8 @@ import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/di/init.dart';
 import 'package:zentrio_admin/presentation/components/card_scaffold.dart';
 import 'package:zentrio_admin/presentation/features/categories/categories_view_model.dart';
-import 'package:zentrio_admin/presentation/features/categories/components/category_table.dart';
 import 'package:zentrio_admin/utils/extensions/context_ext.dart';
 
-import '../../../domain/models/category.dart';
 import '../../components/data_table_view.dart';
 import '../../components/edit_context_menu.dart';
 

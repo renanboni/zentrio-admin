@@ -4,7 +4,6 @@ import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/presentation/features/category/category_view_model.dart';
 import 'package:zentrio_admin/presentation/features/category/components/category_card.dart';
 import 'package:zentrio_admin/presentation/features/category/components/category_organize_card.dart';
-import 'package:zentrio_admin/presentation/features/category/components/products_card.dart';
 
 import '../../../di/init.dart';
 

@@ -4,17 +4,12 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/di/init.dart';
 import 'package:zentrio_admin/presentation/components/card_scaffold.dart';
-import 'package:zentrio_admin/presentation/components/empty_list_placeholder.dart';
-import 'package:zentrio_admin/presentation/features/banners/banners_page.dart';
 import 'package:zentrio_admin/presentation/features/productTags/product_tags_view_model.dart';
-import 'package:zentrio_admin/presentation/features/productTypes/components/product_types_table.dart';
-import 'package:zentrio_admin/presentation/features/productTypes/product_types_view_model.dart';
 import 'package:zentrio_admin/utils/extensions/context_ext.dart';
 import 'package:zentrio_admin/utils/extensions/string_ext.dart';
 
 import '../../components/data_table_view.dart';
 import '../../components/edit_context_menu.dart';
-import 'components/product_types_table.dart';
 
 class ProductTagsPage extends StatefulWidget {
   const ProductTagsPage({super.key});

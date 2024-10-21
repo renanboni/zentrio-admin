@@ -4,7 +4,6 @@ import 'package:signals/signals.dart';
 import 'package:zentrio_admin/domain/models/category_status.dart';
 import 'package:zentrio_admin/domain/models/category_visibility.dart';
 import 'package:zentrio_admin/domain/usecase/category_usecase.dart';
-import 'package:zentrio_admin/domain/usecase/product_usecase.dart';
 
 import '../../../../data/models/req/create_category_req.dart';
 import '../../../../domain/models/category.dart';

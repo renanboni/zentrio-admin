@@ -5,16 +5,12 @@ import 'package:zentrio_admin/data/models/api_product.dart';
 import 'package:zentrio_admin/data/models/api_product_option.dart';
 import 'package:zentrio_admin/data/models/api_product_type.dart';
 import 'package:zentrio_admin/data/models/create_product_option_req.dart';
-import 'package:zentrio_admin/data/models/req/create_category_req.dart';
 import 'package:zentrio_admin/data/models/req/create_product_tag_req.dart';
 import 'package:zentrio_admin/data/models/req/create_product_type_req.dart';
-import 'package:zentrio_admin/data/models/res/api_paginated_response.dart';
-import 'package:zentrio_admin/data/models/res/categories_response.dart';
 import 'package:zentrio_admin/data/models/res/products_response.dart';
 
 import '../models/api_product_tag.dart';
 import '../models/create_product_request.dart';
-import '../models/res/category_response.dart';
 import '../models/res/product_response.dart';
 import '../models/res/product_tag_response.dart';
 import '../models/res/product_type_response.dart';

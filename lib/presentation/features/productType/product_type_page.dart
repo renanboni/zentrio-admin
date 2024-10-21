@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:signals/signals_flutter.dart';
-import 'package:zentrio_admin/main.dart';
 import 'package:zentrio_admin/presentation/components/action_item_list.dart';
 import 'package:zentrio_admin/presentation/components/empty_list_placeholder.dart';
 import 'package:zentrio_admin/presentation/features/productType/product_type_view_model.dart';

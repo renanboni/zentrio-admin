@@ -1,11 +1,9 @@
 
-import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/http.dart';
 
-import '../models/api_file.dart';
 import '../models/res/files_response.dart';
 
 part 'file_service.g.dart';

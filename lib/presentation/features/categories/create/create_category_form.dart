@@ -5,7 +5,6 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 
 import '../../../../domain/models/category_status.dart';
 import '../../../../domain/models/category_visibility.dart';
-import '../../../components/optional_label.dart';
 
 class CreateCategoryForm extends StatelessWidget {
   final String title;

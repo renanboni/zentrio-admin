@@ -1,7 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:zentrio_admin/data/models/api_file.dart';
-import 'package:zentrio_admin/data/models/api_product_option.dart';
-import 'package:zentrio_admin/data/models/req/create_category_req.dart';
 
 part 'create_collection_request.g.dart';
 

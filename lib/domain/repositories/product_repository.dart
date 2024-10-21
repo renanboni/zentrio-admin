@@ -1,4 +1,3 @@
-import 'package:zentrio_admin/data/models/api_product.dart';
 import 'package:zentrio_admin/data/models/req/create_product_tag_req.dart';
 import 'package:zentrio_admin/data/models/req/create_product_type_req.dart';
 import 'package:zentrio_admin/domain/models/paginated_response.dart';

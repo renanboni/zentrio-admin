@@ -1,9 +1,6 @@
 import 'package:injectable/injectable.dart';
-import 'package:zentrio_admin/data/models/api_product.dart';
 import 'package:zentrio_admin/data/models/create_product_option_req.dart';
 import 'package:zentrio_admin/data/models/req/create_product_type_req.dart';
-import 'package:zentrio_admin/domain/models/category.dart';
-import 'package:zentrio_admin/domain/models/medusa_file.dart';
 import 'package:zentrio_admin/domain/models/paginated_response.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
 import 'package:zentrio_admin/domain/models/product_option.dart';

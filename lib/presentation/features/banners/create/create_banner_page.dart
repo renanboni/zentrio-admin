@@ -5,7 +5,6 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/di/init.dart';
-import 'package:zentrio_admin/domain/models/media_file.dart';
 import 'package:zentrio_admin/presentation/components/dialog_footer.dart';
 import 'package:zentrio_admin/presentation/components/dialog_header.dart';
 import 'package:zentrio_admin/presentation/components/image_picker.dart';

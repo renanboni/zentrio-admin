@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:signals/signals_flutter.dart';
-import 'package:zentrio_admin/main.dart';
 import 'package:zentrio_admin/presentation/features/product/variants/create/components/product_variant_details_form.dart';
 import 'package:zentrio_admin/presentation/features/product/variants/create/product_create_variants_view_model.dart';
 import 'package:zentrio_admin/utils/extensions/context_ext.dart';

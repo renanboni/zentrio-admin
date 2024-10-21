@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:zentrio_admin/domain/models/product_variant.dart';
-import 'package:zentrio_admin/presentation/components/action_item_list.dart';
-import 'package:zentrio_admin/utils/extensions/sizes_ext.dart';
 
 enum ProductVariantTableColumn {
   options,
