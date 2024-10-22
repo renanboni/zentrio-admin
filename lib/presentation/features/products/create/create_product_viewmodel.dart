@@ -25,22 +25,27 @@ import '../../../../domain/models/product_type.dart';
 
 @injectable
 class CreateProductViewModel {
-  final showProductOptions = signal(false);
-  final productTitle = signal('');
-  final files = listSignal<MediaFile>([]);
-  final categories = signal<List<Category>>([]);
+  final Signal<bool> hasVariants = signal(false);
+  final Signal<String> productTitle = signal('');
+  final ListSignal<MediaFile> files = listSignal<MediaFile>([]);
+  final Signal<List<Category>> categories = signal<List<Category>>([]);
   final ListSignal<ProductTag> tags = ListSignal([]);
   final ListSignal<ProductType> types = ListSignal([]);
   final ListSignal<Collection> collections = ListSignal([]);
-  final discountable = signal(false);
-  final checkAll = signal(false);
+  final Signal<bool> discountable = signal(false);
+  final Signal<bool> checkAll = signal(false);
+  final Signal<bool> showAtLeastOneOptionAlert = Signal(false);
+
   final ListSignal<ProductOption> productOptions = ListSignal(
     [ProductOption.empty()],
   );
-  final Signal<PaginatedResponse<SalesChannel>> salesChannels = Signal(PaginatedResponse.empty());
+  final Signal<PaginatedResponse<SalesChannel>> salesChannels =
+      Signal(PaginatedResponse.empty());
   final ListSignal<SalesChannel> selectedSalesChannels = ListSignal([]);
 
-  final ListSignal<ProductVariant> variants = ListSignal([]);
+  final ListSignal<ProductVariant> variants = ListSignal([
+    ProductVariant.defaultVariant(),
+  ]);
 
   late final showAddOptionsAlert = computed(() {
     return productOptions.value
@@ -167,7 +172,13 @@ class CreateProductViewModel {
   }
 
   void onToggleProductOptions(bool isChecked) {
-    showProductOptions.value = isChecked;
+    hasVariants.value = isChecked;
+
+    if (!isChecked) {
+      variants.value = [ProductVariant.defaultVariant()];
+    } else {
+      variants.value = [];
+    }
   }
 
   void onAddProductOption() {
@@ -200,11 +211,13 @@ class CreateProductViewModel {
 
   void onCheckAll(bool isChecked) {
     checkAll.value = isChecked;
-    variants.value = variants.value.map((e) => e.copyWith(selected: isChecked)).toList();
+    variants.value =
+        variants.value.map((e) => e.copyWith(selected: isChecked)).toList();
   }
 
   void onManageInventoryChanged(int index, bool manageInventory) {
-    variants[index] = variants[index].copyWith(manageInventory: manageInventory);
+    variants[index] =
+        variants[index].copyWith(manageInventory: manageInventory);
   }
 
   void onAllowBackorderChanged(int index, bool allowBackorder) {
@@ -212,7 +225,8 @@ class CreateProductViewModel {
   }
 
   void onHasInventoryKitChanged(int index, bool hasInventoryKit) {
-    variants[index] = variants[index].copyWith(hasInventoryKit: hasInventoryKit);
+    variants[index] =
+        variants[index].copyWith(hasInventoryKit: hasInventoryKit);
   }
 
   void onVariantTitleChanged(int index, String title) {
@@ -229,6 +243,12 @@ class CreateProductViewModel {
 
   void _updateVariants() {
     variants.value = _generateVariants(productOptions.value);
+  }
+
+  bool hasValidVariants() {
+    final isValid = hasVariants.value && productOptions.isNotEmpty && productOptions[0] != ProductOption.empty();
+    showAtLeastOneOptionAlert.value = !isValid;
+    return isValid;
   }
 
   List<ProductVariant> _generateVariants(List<ProductOption> options) {

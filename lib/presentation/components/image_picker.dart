@@ -39,7 +39,7 @@ class _ImagePickerState extends State<ImagePicker> {
     return DottedBorder(
       borderType: BorderType.RRect,
       radius: const Radius.circular(8),
-      color: theme.colorScheme.mutedForeground,
+      color: theme.colorScheme.border,
       child: SizedBox(
         width: double.infinity,
         height: 128,

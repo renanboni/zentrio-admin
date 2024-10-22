@@ -30,6 +30,7 @@ class _CreateProductFormState extends State<CreateProductForm> {
         StepItemList(
           title: 'Details',
           state: HorizontalStepState.editing,
+          extraValidator: () => viewModel.hasValidVariants(),
           content: MaxWidthBox(
             maxWidth: context.maxWidth,
             child: ProductsDetailForm(

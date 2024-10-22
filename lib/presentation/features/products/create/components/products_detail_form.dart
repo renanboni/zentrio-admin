@@ -102,13 +102,15 @@ class _ProductsDetailFormState extends State<ProductsDetailForm> {
             ResponsiveRowColumnItem(
               child: Variants(
                 showProductOptions:
-                    widget.viewModel.showProductOptions.watch(context),
+                    widget.viewModel.hasVariants.watch(context),
                 onChanged: widget.viewModel.onToggleProductOptions,
               ),
             ),
-            if (widget.viewModel.showProductOptions.watch(context))
+            if (widget.viewModel.hasVariants.watch(context))
               ResponsiveRowColumnItem(
                 child: ProductOptions(
+                  showAtLeastOneOptionAlert: widget.viewModel
+                      .showAtLeastOneOptionAlert.watch(context),
                   productOptions:
                       widget.viewModel.productOptions.watch(context),
                   productVariants: widget.viewModel.variants.watch(context),

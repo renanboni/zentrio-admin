@@ -46,7 +46,8 @@ class _MediaListState extends State<MediaList> {
         DottedBorder(
           borderType: BorderType.RRect,
           radius: const Radius.circular(8),
-          color: theme.colorScheme.mutedForeground,
+          color: theme.colorScheme.border,
+          strokeWidth: 2,
           child: SizedBox(
             width: double.infinity,
             height: 128,

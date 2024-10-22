@@ -16,6 +16,7 @@ class ProductOptions extends StatelessWidget {
   final bool showAddOptionsAlert;
   final bool checkAll;
   final ValueChanged<bool> onCheckAll;
+  final bool showAtLeastOneOptionAlert;
   final Function(int index, String title) onTitleChanged;
   final Function(int index, List<ProductOptionValue> options) onValuesChanged;
   final Function(int index, String value) onValueRemoved;
@@ -26,6 +27,7 @@ class ProductOptions extends StatelessWidget {
     required this.productOptions,
     required this.productVariants,
     this.showAddOptionsAlert = false,
+    this.showAtLeastOneOptionAlert = false,
     required this.onAddProductOption,
     required this.onTitleChanged,
     required this.onValuesChanged,
@@ -47,6 +49,13 @@ class ProductOptions extends StatelessWidget {
           cta: "Add",
           onPressed: onAddProductOption,
         ),
+        const SizedBox(height: 16),
+        if (showAtLeastOneOptionAlert)
+        const ShadAlert.destructive(
+          iconSrc: LucideIcons.circleAlert,
+          description: Text('Please create at least one option.'),
+        ),
+        if (showAtLeastOneOptionAlert)
         const SizedBox(height: 16),
         ListView.separated(
           key: ValueKey(productOptions.length),

@@ -214,11 +214,8 @@ class ProductOrganizeForm extends StatelessWidget {
               showShadSheet(
                 side: ShadSheetSide.right,
                 context: context,
-                builder: (context) => SizedBox(
-                  height: 500,
-                  child: SalesChannelsSheet(
-                    salesChannels: salesChannels,
-                  ),
+                builder: (context) => SalesChannelsSheet(
+                  salesChannels: salesChannels,
                 ),
               );
             },

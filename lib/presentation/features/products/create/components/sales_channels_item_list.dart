@@ -68,10 +68,6 @@ class SalesChannelsSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShadSheet(
-      constraints: const BoxConstraints(
-        maxWidth: 512,
-        minWidth: 512,
-      ),
       child: Expanded(child: SalesChannelsTable(salesChannels: salesChannels)),
     );
   }

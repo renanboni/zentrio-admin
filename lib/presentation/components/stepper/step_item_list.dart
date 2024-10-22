@@ -14,12 +14,14 @@ class StepItemList {
   final String title;
   final double width;
   final HorizontalStepState state;
+  final bool Function()? extraValidator;
 
   const StepItemList({
     this.width = 200,
     this.state = HorizontalStepState.editing,
     required this.content,
     required this.title,
+    this.extraValidator,
   });
 }
 

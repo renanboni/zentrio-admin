@@ -110,6 +110,7 @@ class ProductVariantsTable extends StatelessWidget {
               child: Center(
                 child: ShadCheckbox(
                   value: variant.hasInventoryKit,
+                  enabled: variant.manageInventory,
                   onChanged: (value) {
                     onHasInventoryKitChanged?.call(index.row, value);
                   },

@@ -137,7 +137,9 @@ class _StepperState extends State<HorizontalStepper> {
 
   _validateStep() {
     final isValid = _formKeys[_currentIndex.value]?.currentState?.validate();
-    if (isValid == true) {
+    final extraValidator = widget.steps[_currentIndex.value].extraValidator;
+
+    if (isValid == true && (extraValidator?.call() ?? true)) {
       _currentIndex.value = _currentIndex.value + 1;
     }
   }

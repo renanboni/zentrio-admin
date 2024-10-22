@@ -19,6 +19,13 @@ class ProductVariant extends Equatable {
     this.selected = false,
   });
 
+  factory ProductVariant.defaultVariant() {
+    return const ProductVariant(
+      title: "Default",
+      options: {"Default option": "Default Option Value"},
+    );
+  }
+
   ProductVariant copyWith({
     String? title,
     String? sku,
