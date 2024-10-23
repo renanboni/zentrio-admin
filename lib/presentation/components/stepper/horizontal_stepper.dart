@@ -67,7 +67,7 @@ class _StepperState extends State<HorizontalStepper> {
                     for (var i = 0; i < widget.steps.length; i++) ...[
                       Watch(
                         (context) => InkWell(
-                          onTap: widget.steps[i].state == HorizontalStepState.disabled
+                          onTap: (widget.steps[i].state == HorizontalStepState.disabled && i > _currentIndex.value)
                               ? () => _validateStep()
                               : () => _currentIndex.value = i,
                           child: Container(

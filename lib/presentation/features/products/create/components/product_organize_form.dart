@@ -93,6 +93,10 @@ class ProductOrganizeForm extends StatelessWidget {
                           maxWidth: constraints.maxWidth,
                           minWidth: constraints.maxWidth,
                           placeholder: const Text(""),
+                          initialValue: types.firstWhere(
+                                (e) => e.selected,
+                            orElse: () => ProductType.empty(),
+                          ),
                           onChanged: (value) => onTypeSelected(value),
                           options: types
                               .map(
@@ -121,6 +125,9 @@ class ProductOrganizeForm extends StatelessWidget {
                         return ShadSelect<Collection>(
                           maxWidth: constraints.maxWidth,
                           minWidth: constraints.maxWidth,
+                          initialValue: collections.firstWhere(
+                              (e) => e.selected,
+                              orElse: () => Collection.empty()),
                           placeholder: const Text(""),
                           onChanged: (value) => onCollectionSelected(value),
                           options: collections
@@ -165,9 +172,8 @@ class ProductOrganizeForm extends StatelessWidget {
                           closeOnTapOutside: true,
                           allowDeselection: true,
                           placeholder: const Text(""),
-                          initialValues: categories
-                              .where((e) => e.selected)
-                              .toList(),
+                          initialValues:
+                              categories.where((e) => e.selected).toList(),
                           onChanged: (value) => onCategoriesSelected(value),
                           options: categories
                               .map(
@@ -198,6 +204,10 @@ class ProductOrganizeForm extends StatelessWidget {
                           maxWidth: constraints.maxWidth,
                           minWidth: constraints.maxWidth,
                           placeholder: const Text(""),
+                          initialValue: tags.firstWhere(
+                            (e) => e.selected,
+                            orElse: () => ProductTag.empty(),
+                          ),
                           onChanged: (value) => onTagSelected(value),
                           options: tags
                               .map(
