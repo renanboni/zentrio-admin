@@ -6,12 +6,14 @@ class Collection extends Equatable {
   final String title;
   final String handle;
   final List<Product> products;
+  final bool selected;
 
   const Collection({
     required this.id,
     required this.title,
     required this.handle,
     this.products = const [],
+    this.selected = false,
   });
 
   factory Collection.empty() {
@@ -20,9 +22,32 @@ class Collection extends Equatable {
       title: '',
       handle: '',
       products: [],
+      selected: false,
+    );
+  }
+
+  Collection copyWith({
+    String? id,
+    String? title,
+    String? handle,
+    List<Product>? products,
+    bool? selected,
+  }) {
+    return Collection(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      handle: handle ?? this.handle,
+      products: products ?? this.products,
+      selected: selected ?? this.selected,
     );
   }
 
   @override
-  List<Object?> get props => [id, title, handle, products];
+  List<Object?> get props => [
+        id,
+        title,
+        handle,
+        products,
+        selected,
+      ];
 }

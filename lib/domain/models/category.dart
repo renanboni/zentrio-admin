@@ -14,6 +14,7 @@ class Category extends Equatable {
   final DateTime? updatedAt;
   final DateTime? deletedAt;
   final bool isNew;
+  final bool selected;
 
   const Category({
     this.id,
@@ -28,6 +29,7 @@ class Category extends Equatable {
     this.deletedAt,
     this.isNew = false,
     this.products = const [],
+    this.selected = false,
   });
 
   factory Category.empty() => const Category(
@@ -42,7 +44,8 @@ class Category extends Equatable {
         updatedAt: null,
         deletedAt: null,
         isNew: false,
-        products: []
+        products: [],
+        selected: false,
       );
 
   Category copyWith({
@@ -53,11 +56,12 @@ class Category extends Equatable {
     bool? isActive,
     bool? isInternal,
     int? rank,
+    List<Product>? products,
     DateTime? createdAt,
     DateTime? updatedAt,
     DateTime? deletedAt,
     bool? isNew,
-    List<Product>? products,
+    bool? selected,
   }) {
     return Category(
       id: id ?? this.id,
@@ -67,11 +71,12 @@ class Category extends Equatable {
       isActive: isActive ?? this.isActive,
       isInternal: isInternal ?? this.isInternal,
       rank: rank ?? this.rank,
+      products: products ?? this.products,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       deletedAt: deletedAt ?? this.deletedAt,
       isNew: isNew ?? this.isNew,
-      products: products ?? this.products,
+      selected: selected ?? this.selected,
     );
   }
 
@@ -89,5 +94,6 @@ class Category extends Equatable {
         deletedAt,
         isNew,
         products,
+        selected,
       ];
 }

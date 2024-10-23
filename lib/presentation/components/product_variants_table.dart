@@ -1,3 +1,4 @@
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:zentrio_admin/domain/models/product_variant.dart';
@@ -9,27 +10,31 @@ enum ProductVariantTableColumn {
   manageInventory,
   allowBackorder,
   hasInventoryKit,
+  price
 }
 
 class ProductVariantsTable extends StatelessWidget {
   final List<ProductVariant> variants;
   final List<ProductVariantTableColumn> columns;
-
+  final CurrencyTextInputFormatter formatter;
   final Function(int index, bool manageInventory)? onManageInventoryChanged;
   final Function(int index, bool allowBackorder)? onAllowBackorderChanged;
   final Function(int index, bool hasInventoryKit)? onHasInventoryKitChanged;
   final Function(int index, String title)? onTitleChanged;
   final Function(int index, String sku)? onSkuChanged;
+  final Function(int index, String price)? onPriceChanged;
 
   const ProductVariantsTable({
     super.key,
     required this.variants,
     required this.columns,
+    required this.formatter,
     this.onManageInventoryChanged,
     this.onAllowBackorderChanged,
     this.onHasInventoryKitChanged,
     this.onTitleChanged,
     this.onSkuChanged,
+    this.onPriceChanged,
   });
 
   @override
@@ -117,6 +122,24 @@ class ProductVariantsTable extends StatelessWidget {
                 ),
               ),
             );
+          case ProductVariantTableColumn.price:
+            return ShadTableCell(
+              child: ShadInput(
+                onChanged: (value) {
+                  onPriceChanged?.call(index.row, value);
+                },
+                //initialValue: formatter.format('2000'),
+                inputFormatters: [formatter],
+                keyboardType: TextInputType.number,
+                style: theme.textTheme.small,
+                decoration: const ShadDecoration(
+                  border: ShadBorder(),
+                  focusedBorder: ShadBorder(),
+                  shape: null,
+                  fallbackToBorder: false,
+                ),
+              ),
+            );
           default:
             return const ShadTableCell(child: SizedBox());
         }
@@ -150,6 +173,9 @@ class ProductVariantsTable extends StatelessWidget {
           case ProductVariantTableColumn.hasInventoryKit:
             columnName = "Has Inventory Kit";
             alignment = Alignment.center;
+            break;
+          case ProductVariantTableColumn.price:
+            columnName = "Price";
             break;
           default:
             break;

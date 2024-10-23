@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'create_product_option_req.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class CreateProductOptionRequest {
   String? title;
   List<String>? values;

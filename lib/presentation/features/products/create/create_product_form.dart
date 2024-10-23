@@ -1,3 +1,4 @@
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -21,6 +22,10 @@ class CreateProductForm extends StatefulWidget {
 
 class _CreateProductFormState extends State<CreateProductForm> {
   final CreateProductViewModel viewModel = getIt<CreateProductViewModel>();
+  final CurrencyTextInputFormatter _formatter = CurrencyTextInputFormatter.currency(
+    locale: "pt_BR",
+    symbol: "R\$",
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +60,10 @@ class _CreateProductFormState extends State<CreateProductForm> {
                   selectedSalesChannels: viewModel.selectedSalesChannels.value,
                   onDiscountableChanged: viewModel.discountable.set,
                   onSalesChannelUnselected: viewModel.unselectSalesChannel,
+                  onCollectionSelected: viewModel.onCollectionSelected,
+                  onTypeSelected: viewModel.onProductTypeSelected,
+                  onTagSelected: viewModel.onProductTagSelected,
+                  onCategoriesSelected: viewModel.onCategoriesSelected,
                 );
               },
             ),
@@ -69,6 +78,7 @@ class _CreateProductFormState extends State<CreateProductForm> {
               (_) {
                 return CreateProductVariantsForm(
                   variants: viewModel.variants.value,
+                  formatter: _formatter,
                   onManageInventoryChanged: viewModel.onManageInventoryChanged,
                   onAllowBackorderChanged: viewModel.onAllowBackorderChanged,
                   onHasInventoryKitChanged: viewModel.onHasInventoryKitChanged,

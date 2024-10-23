@@ -1,3 +1,4 @@
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:zentrio_admin/presentation/components/product_variants_table.dart';
 
@@ -5,6 +6,7 @@ import '../../../../../domain/models/product_variant.dart';
 
 class CreateProductVariantsForm extends StatelessWidget {
   final List<ProductVariant> variants;
+  final CurrencyTextInputFormatter formatter;
   final Function(int index, bool manageInventory)? onManageInventoryChanged;
   final Function(int index, bool allowBackorder)? onAllowBackorderChanged;
   final Function(int index, bool hasInventoryKit)? onHasInventoryKitChanged;
@@ -14,6 +16,7 @@ class CreateProductVariantsForm extends StatelessWidget {
   const CreateProductVariantsForm({
     super.key,
     required this.variants,
+    required this.formatter,
     this.onManageInventoryChanged,
     this.onAllowBackorderChanged,
     this.onHasInventoryKitChanged,
@@ -24,6 +27,7 @@ class CreateProductVariantsForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProductVariantsTable(
+      formatter: formatter,
       variants: variants,
       onManageInventoryChanged: onManageInventoryChanged,
       onAllowBackorderChanged: onAllowBackorderChanged,
@@ -37,6 +41,7 @@ class CreateProductVariantsForm extends StatelessWidget {
         ProductVariantTableColumn.manageInventory,
         ProductVariantTableColumn.allowBackorder,
         ProductVariantTableColumn.hasInventoryKit,
+        ProductVariantTableColumn.price,
       ],
     );
   }

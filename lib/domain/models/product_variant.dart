@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:zentrio_admin/domain/models/price.dart';
 
 class ProductVariant extends Equatable {
   final String title;
@@ -8,6 +9,7 @@ class ProductVariant extends Equatable {
   final bool allowBackorder;
   final bool hasInventoryKit;
   final bool selected;
+  final List<Price> prices;
 
   const ProductVariant({
     required this.title,
@@ -17,6 +19,7 @@ class ProductVariant extends Equatable {
     this.allowBackorder = false,
     this.hasInventoryKit = false,
     this.selected = false,
+    this.prices = const [],
   });
 
   factory ProductVariant.defaultVariant() {
@@ -34,6 +37,7 @@ class ProductVariant extends Equatable {
     bool? allowBackorder,
     bool? hasInventoryKit,
     bool? selected,
+    List<Price>? prices,
   }) {
     return ProductVariant(
       title: title ?? this.title,
@@ -43,6 +47,7 @@ class ProductVariant extends Equatable {
       allowBackorder: allowBackorder ?? this.allowBackorder,
       hasInventoryKit: hasInventoryKit ?? this.hasInventoryKit,
       selected: selected ?? this.selected,
+      prices: prices ?? this.prices,
     );
   }
 
@@ -55,5 +60,6 @@ class ProductVariant extends Equatable {
         allowBackorder,
         hasInventoryKit,
         selected,
+        prices,
       ];
 }

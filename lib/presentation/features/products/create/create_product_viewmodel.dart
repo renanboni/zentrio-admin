@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:signals/signals.dart';
 import 'package:zentrio_admin/data/models/api_file.dart';
 import 'package:zentrio_admin/data/models/create_product_option_req.dart';
+import 'package:zentrio_admin/data/models/req/create_variant_req.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
 import 'package:zentrio_admin/domain/models/collection.dart';
 import 'package:zentrio_admin/domain/models/paginated_response.dart';
@@ -28,7 +29,7 @@ class CreateProductViewModel {
   final Signal<bool> hasVariants = signal(false);
   final Signal<String> productTitle = signal('');
   final ListSignal<MediaFile> files = listSignal<MediaFile>([]);
-  final Signal<List<Category>> categories = signal<List<Category>>([]);
+  final ListSignal<Category> categories = ListSignal([]);
   final ListSignal<ProductTag> tags = ListSignal([]);
   final ListSignal<ProductType> types = ListSignal([]);
   final ListSignal<Collection> collections = ListSignal([]);
@@ -94,9 +95,17 @@ class CreateProductViewModel {
               )
               .toList(),
           status: 'published',
-          images: uploadedFiles
+          images:
+              uploadedFiles.map((e) => ApiFile(id: e.id, url: e.url)).toList(),
+          variants: variants.value
               .map(
-                (e) => ApiFile(id: e.id, url: e.url),
+                (e) => CreateVariantRequest(
+                  title: e.title,
+                  sku: e.sku,
+                  manageInventory: e.manageInventory,
+                  allowBackorder: e.allowBackorder,
+                  options: e.options.map((key, value) => MapEntry(key, value)),
+                ),
               )
               .toList(),
         ),
@@ -241,12 +250,40 @@ class CreateProductViewModel {
     variants[index] = variants[index].copyWith(selected: isSelected);
   }
 
+  void onCollectionSelected(Collection collection) {
+    collections.value = collections.value
+        .map((e) => e.copyWith(selected: e.id == collection.id))
+        .toList();
+  }
+
+  void onProductTagSelected(ProductTag tag) {
+    tags.value = tags.value
+        .map((e) => e.copyWith(selected: e.id == tag.id))
+        .toList();
+  }
+
+  void onProductTypeSelected(ProductType type) {
+    types.value = types.value
+        .map((e) => e.copyWith(selected: e.id == type.id))
+        .toList();
+  }
+
+  void onCategoriesSelected(List<Category> selectedCategories) {
+    List<String> ids = selectedCategories.map((e) => e.id ?? "").toList();
+    categories.value = categories.value
+        .map((e) => e.copyWith(selected: ids.contains(e.id)))
+        .toList();
+  }
+
   void _updateVariants() {
     variants.value = _generateVariants(productOptions.value);
   }
 
   bool hasValidVariants() {
-    final isValid = hasVariants.value && productOptions.isNotEmpty && productOptions[0] != ProductOption.empty();
+    final isValid = hasVariants.value &&
+            (productOptions.isNotEmpty &&
+                productOptions[0] != ProductOption.empty()) ||
+        !hasVariants.value;
     showAtLeastOneOptionAlert.value = !isValid;
     return isValid;
   }
@@ -256,23 +293,18 @@ class CreateProductViewModel {
       return [];
     }
 
-    // Step 1: Extract the list of option values
     List<List<ProductOptionValue>> optionValues =
         options.map((option) => option.values).toList();
 
-    // Step 2: Generate the Cartesian product of the option values
     List<List<ProductOptionValue>> combinations =
         _cartesianProduct(optionValues);
 
-    // Step 3: Map the combinations to ProductVariant objects
     return combinations.map((combination) {
-      // Create a map of option titles and selected values
       Map<String, String> optionMap = {
         for (int i = 0; i < combination.length; i++)
           options[i].title: combination[i].value
       };
 
-      // Create a title by concatenating the selected values with '/'
       String title = combination.map((e) => e.value).join('/');
 
       return ProductVariant(
@@ -282,7 +314,6 @@ class CreateProductViewModel {
     }).toList();
   }
 
-  // TODO: improve the performance of this function
   List<List<ProductOptionValue>> _cartesianProduct(
       List<List<ProductOptionValue>> lists) {
     List<List<ProductOptionValue>> result = [[]];

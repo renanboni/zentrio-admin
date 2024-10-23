@@ -1,3 +1,4 @@
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
@@ -22,6 +23,10 @@ class ProductOrganizeForm extends StatelessWidget {
   final bool discountable;
   final ValueChanged<bool> onDiscountableChanged;
   final ValueChanged<SalesChannel> onSalesChannelUnselected;
+  final ValueChanged<Collection> onCollectionSelected;
+  final ValueChanged<ProductType> onTypeSelected;
+  final ValueChanged<ProductTag> onTagSelected;
+  final ValueChanged<List<Category>> onCategoriesSelected;
 
   const ProductOrganizeForm({
     super.key,
@@ -34,6 +39,10 @@ class ProductOrganizeForm extends StatelessWidget {
     required this.discountable,
     required this.onDiscountableChanged,
     required this.onSalesChannelUnselected,
+    required this.onCollectionSelected,
+    required this.onTypeSelected,
+    required this.onTagSelected,
+    required this.onCategoriesSelected,
   });
 
   @override
@@ -84,7 +93,7 @@ class ProductOrganizeForm extends StatelessWidget {
                           maxWidth: constraints.maxWidth,
                           minWidth: constraints.maxWidth,
                           placeholder: const Text(""),
-                          onChanged: (value) {},
+                          onChanged: (value) => onTypeSelected(value),
                           options: types
                               .map(
                                 (e) => ShadOption(
@@ -113,7 +122,7 @@ class ProductOrganizeForm extends StatelessWidget {
                           maxWidth: constraints.maxWidth,
                           minWidth: constraints.maxWidth,
                           placeholder: const Text(""),
-                          onChanged: (value) {},
+                          onChanged: (value) => onCollectionSelected(value),
                           options: collections
                               .map(
                                 (e) => ShadOption(
@@ -156,7 +165,10 @@ class ProductOrganizeForm extends StatelessWidget {
                           closeOnTapOutside: true,
                           allowDeselection: true,
                           placeholder: const Text(""),
-                          onChanged: (value) {},
+                          initialValues: categories
+                              .where((e) => e.selected)
+                              .toList(),
+                          onChanged: (value) => onCategoriesSelected(value),
                           options: categories
                               .map(
                                 (e) => ShadOption(
@@ -186,7 +198,7 @@ class ProductOrganizeForm extends StatelessWidget {
                           maxWidth: constraints.maxWidth,
                           minWidth: constraints.maxWidth,
                           placeholder: const Text(""),
-                          onChanged: (value) {},
+                          onChanged: (value) => onTagSelected(value),
                           options: tags
                               .map(
                                 (e) => ShadOption(
