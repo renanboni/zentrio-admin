@@ -5,6 +5,7 @@ import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
 import 'package:zentrio_admin/domain/models/product_status.dart';
 import 'package:zentrio_admin/presentation/features/product/edit/product_edit_view_model.dart';
+import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 import '../../../../di/init.dart';
 import '../../../components/sheet_footer.dart';
@@ -83,7 +84,7 @@ class _ProductEditPageState extends State<ProductEditPage> {
                     ),
                     const SizedBox(height: 16),
                     ShadInputFormField(
-                      label: const Text("Handle"),
+                      label: Text(context.loc.handle),
                       initialValue: viewModel.product.watch(context).handle,
                       onChanged: viewModel.handle.set,
                     ),

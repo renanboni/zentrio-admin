@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:tuple/tuple.dart';
 import 'package:zentrio_admin/domain/models/collection.dart';
+import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 import '../../../components/edit_context_menu.dart';
 import '../../../components/key_value_item_list.dart';
@@ -25,7 +26,7 @@ class CollectionDetailCard extends StatelessWidget {
         children: [
           _buildHeader(context, collection),
           const Divider(height: 1),
-          KeyValueItemList(pair: Tuple2("Handle", collection.handle)),
+          KeyValueItemList(pair: Tuple2(context.loc.handle, collection.handle)),
         ],
       ),
     );

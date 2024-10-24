@@ -1,0 +1,18 @@
+{
+  "product": "Produto",
+  "products": "Produtos",
+  "collection": "Coleção",
+  "collections": "Coleções",
+  "salesChannel": "Canal de Vendas",
+  "variants": "Variantes",
+  "status": "Status",
+  "areYouSure": "Você tem certeza?",
+  "nVariants": "{count, plural, =0{Sem variantes} =1{1 variante} other{# variantes}}",
+  "productWithVariantLabel": "Sim, este é um produto com variantes",
+  "productWithVariantDescription": "Quando desmarcado, criaremos uma variante padrão para você",
+  "edit": "Editar",
+  "delete": "Excluir",
+  "organizeProductsLabel": "Organize produtos em coleções.",
+  "title": "Título",
+  "handle": "Identificador"
+}

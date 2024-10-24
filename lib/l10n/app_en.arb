@@ -1,0 +1,18 @@
+{
+  "product": "Product",
+  "products": "Products",
+  "collection": "Collection",
+  "collections": "Collections",
+  "salesChannel": "Sales Channel",
+  "variants": "Variants",
+  "status": "Status",
+  "areYouSure": "Are you sure?",
+  "nVariants": "{count, plural, =0{No variants} =1{1 variant} other{# variants}}",
+  "productWithVariantLabel": "Yes, this is a product with variants",
+  "productWithVariantDescription": "When unchecked, we will create a default variant for you",
+  "edit": "Edit",
+  "delete": "Delete",
+  "organizeProductsLabel": "Organize products into collections.",
+  "title": "Title",
+  "handle": "Handle"
+}

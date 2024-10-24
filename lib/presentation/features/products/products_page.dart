@@ -4,11 +4,13 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/presentation/features/products/products_view_model.dart';
 import 'package:zentrio_admin/utils/extensions/context_ext.dart';
+import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 import '../../../di/init.dart';
 import '../../components/data_table_view.dart';
 import '../../components/edit_context_menu.dart';
 import 'components/products_table.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductsPage extends StatefulWidget {
   const ProductsPage({super.key});
@@ -35,7 +37,7 @@ class _ProductsPageState extends State<ProductsPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Products",
+              context.loc.products,
               style: ShadTheme.of(context).textTheme.table,
             ),
             ShadButton(
@@ -57,12 +59,12 @@ class _ProductsPageState extends State<ProductsPage> {
                   onRowTap: (product) {
                     GoRouter.of(context).go("/products/${product.id}");
                   },
-                  columns: const [
-                    'Product',
-                    'Collection',
-                    'Sales Channels',
-                    'Variants',
-                    'Status',
+                  columns: [
+                    context.loc.product,
+                    context.loc.collection,
+                    context.loc.salesChannel,
+                    context.loc.variants,
+                    context.loc.status,
                     ''
                   ],
                   data: viewModel.products.value.data,
@@ -85,7 +87,7 @@ class _ProductsPageState extends State<ProductsPage> {
                               product.title,
                               overflow: TextOverflow.ellipsis,
                               style:
-                                  theme.textTheme.muted.copyWith(fontSize: 12),
+                                  theme.textTheme.small.copyWith(fontSize: 12),
                             ),
                           ),
                         ],
@@ -93,27 +95,27 @@ class _ProductsPageState extends State<ProductsPage> {
                     ),
                     DataCell(Text(
                       product.collection.title,
-                      style: theme.textTheme.muted.copyWith(fontSize: 12),
+                      style: theme.textTheme.small.copyWith(fontSize: 12),
                     )),
                     DataCell(Text(
                       product.salesChannels.map((e) => e.name).join(", "),
-                      style: theme.textTheme.muted.copyWith(fontSize: 12),
+                      style: theme.textTheme.small.copyWith(fontSize: 12),
                     )),
                     DataCell(Text(
-                      "${product.variants.length} Variants",
-                      style: theme.textTheme.muted.copyWith(fontSize: 12),
+                      context.loc.nVariants(product.variants.length),
+                      style: theme.textTheme.small.copyWith(fontSize: 12),
                     )),
                     DataCell(Text(
                       product.status,
-                      style: theme.textTheme.muted.copyWith(fontSize: 12),
+                      style: theme.textTheme.small.copyWith(fontSize: 12),
                     )),
                     DataCell(
                       Align(
                         alignment: Alignment.centerRight,
                         child: EditContextMenu(
-                          deleteDialogTitle: "Are you sure?",
+                          deleteDialogTitle: context.loc.areYouSure,
                           deleteDialogDescription:
-                              "You are about to delete the product  ${product.title}. This action cannot be undone.",
+                              "You are about to delete the product ${product.title}. This action cannot be undone.",
                           onEdit: () => {
                             GoRouter.of(context)
                                 .go("/products/${product.id}/edit")

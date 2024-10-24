@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
+import 'package:zentrio_admin/presentation/features/products/components/variants.dart';
+import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 class EditContextMenu extends StatefulWidget {
   final String deleteDialogTitle;
@@ -34,7 +36,7 @@ class _EditContextMenuState extends State<EditContextMenu> {
             size: 16,
           ),
           onPressed: widget.onEdit,
-          child: const Text("Edit"),
+          child: Text(context.loc.edit),
         ),
         if (widget.onDelete != null) const Divider(height: 8),
         if (widget.onDelete != null)
@@ -43,7 +45,7 @@ class _EditContextMenuState extends State<EditContextMenu> {
               LucideIcons.trash,
               size: 16,
             ),
-            child: _deleteDialog(),
+            child: _deleteDialog(context),
           ),
       ],
       child: ShadButton.ghost(
@@ -58,9 +60,9 @@ class _EditContextMenuState extends State<EditContextMenu> {
     );
   }
 
-  _deleteDialog() {
+  _deleteDialog(BuildContext context) {
     return InkWell(
-      child: const Text("Delete"),
+      child: Text(context.loc.delete),
       onTap: () async {
         await showShadDialog(
           context: context,

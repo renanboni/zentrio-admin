@@ -4,6 +4,7 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:tuple/tuple.dart';
 import 'package:zentrio_admin/domain/models/product.dart';
 import 'package:zentrio_admin/presentation/components/item_status.dart';
+import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 import '../../../components/edit_context_menu.dart';
 import '../../../components/key_value_item_list.dart';
@@ -30,7 +31,7 @@ class ProductDetailsCard extends StatelessWidget {
           const Divider(height: 1),
           KeyValueItemList(pair: Tuple2("Subtitle", product.subtitle)),
           const Divider(height: 1),
-          KeyValueItemList(pair: Tuple2("Handle", product.handle)),
+          KeyValueItemList(pair: Tuple2(context.loc.handle, product.handle)),
           const Divider(height: 1),
           KeyValueItemList(pair: Tuple2("Discountable", product.discountable)),
         ],

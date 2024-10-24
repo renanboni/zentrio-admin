@@ -7,6 +7,7 @@ import 'package:zentrio_admin/presentation/components/category/category_status.d
 import 'package:zentrio_admin/presentation/components/category/category_visibility.dart';
 import 'package:zentrio_admin/presentation/components/edit_context_menu.dart';
 import 'package:zentrio_admin/presentation/components/key_value_item_list.dart';
+import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 class CategoryCard extends StatelessWidget {
   final Category category;
@@ -28,7 +29,7 @@ class CategoryCard extends StatelessWidget {
           const Divider(height: 1),
           KeyValueItemList(pair: Tuple2("Description", category.description)),
           const Divider(height: 1),
-          KeyValueItemList(pair: Tuple2("Handle", category.handle)),
+          KeyValueItemList(pair: Tuple2(context.loc.handle, category.handle)),
         ],
       ),
     );

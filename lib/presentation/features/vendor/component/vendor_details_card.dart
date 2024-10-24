@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:tuple/tuple.dart';
 import 'package:zentrio_admin/domain/models/vendor.dart';
+import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 import '../../../components/edit_context_menu.dart';
 import '../../../components/key_value_item_list.dart';
@@ -26,7 +27,7 @@ class VendorDetailsCard extends StatelessWidget {
           const Divider(height: 1),
           KeyValueItemList(pair: Tuple2("Name", vendor.name)),
           const Divider(height: 1),
-          KeyValueItemList(pair: Tuple2("Handle", vendor.handle)),
+          KeyValueItemList(pair: Tuple2(context.loc.handle, vendor.handle)),
           const Divider(height: 1),
         ],
       ),
