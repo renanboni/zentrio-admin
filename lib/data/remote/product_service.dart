@@ -25,7 +25,10 @@ abstract class ProductService {
   }) = _ProductService;
 
   @GET("/vendor/products")
-  Future<ProductsResponse> getAll();
+  Future<ProductsResponse> getAll(
+    @Query("limit") int limit,
+    @Query("offset") int offset,
+  );
 
   @POST("/vendor/products")
   Future<ApiProduct> createProduct(@Body() CreateProductRequest product);
@@ -35,6 +38,9 @@ abstract class ProductService {
     @Path("id") String id,
     @Query("expand") String expand,
   );
+
+  @DELETE("/vendor/products/{id}")
+  Future<void> deleteProductById(@Path("id") String id);
 
   @POST("/vendor/products/{id}")
   Future<ApiProduct> updateProduct(

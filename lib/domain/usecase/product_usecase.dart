@@ -28,7 +28,7 @@ class ProductUseCase {
     return _productRepository.getProductById(id, expand: expand);
   }
 
-  Future<List<Product>> getAll() {
+  Future<PaginatedResponse<Product>> getAll() {
     return _productRepository.getAll();
   }
 
@@ -37,6 +37,10 @@ class ProductUseCase {
     Map<String, dynamic> fields,
   ) {
     return _productRepository.updateProduct(id, fields);
+  }
+
+  Future<void> deleteProductById(String id) {
+    return _productRepository.deleteProductById(id);
   }
 
   Future<void> createProductOption(

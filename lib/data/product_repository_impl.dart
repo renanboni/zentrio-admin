@@ -18,10 +18,15 @@ class ProductRepositoryImpl implements ProductRepository {
   ProductRepositoryImpl(this._service);
 
   @override
-  Future<List<Product>> getAll() {
-    return _service
-        .getAll()
-        .then((value) => value.products.map((e) => e.toProduct()).toList());
+  Future<PaginatedResponse<Product>> getAll({int limit = 10, int offset = 0}) {
+    return _service.getAll(limit, offset).then(
+          (value) => PaginatedResponse(
+            data: value.data?.map((e) => e.toProduct()).toList() ?? [],
+            count: value.count ?? 0,
+            offset: value.offset ?? 0,
+            limit: value.limit ?? 0,
+          ),
+        );
   }
 
   @override
@@ -115,5 +120,10 @@ class ProductRepositoryImpl implements ProductRepository {
   @override
   Future<void> deleteProductType(String id) {
     return _service.deleteProductType(id);
+  }
+
+  @override
+  Future<void> deleteProductById(String id) {
+    return _service.deleteProductById(id);
   }
 }

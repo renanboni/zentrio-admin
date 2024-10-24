@@ -10,11 +10,13 @@ import '../models/product_tag.dart';
 import '../models/product_type.dart';
 
 abstract class ProductRepository {
-  Future<List<Product>> getAll();
+  Future<PaginatedResponse<Product>> getAll({int limit = 10, int offset = 0});
 
   Future<void> createProduct(CreateProductRequest product);
 
   Future<Product> getProductById(String id, {List<String> expand = const []});
+
+  Future<void> deleteProductById(String id);
 
   Future<void> updateProduct(String productId, Map<String, dynamic> fields);
 

@@ -3,8 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/presentation/features/products/products_view_model.dart';
+import 'package:zentrio_admin/utils/extensions/context_ext.dart';
 
 import '../../../di/init.dart';
+import '../../components/data_table_view.dart';
+import '../../components/edit_context_menu.dart';
 import 'components/products_table.dart';
 
 class ProductsPage extends StatefulWidget {
@@ -46,18 +49,67 @@ class _ProductsPageState extends State<ProductsPage> {
         child: Column(
           children: [
             const Divider(height: 1),
-            Expanded(
-              child: ProductsTable(
-                products: viewModel.products.watch(context),
-                onClick: (product) async {
-                  final result = await GoRouter.of(context).push(
-                    "/products/${product.id}",
-                  );
-
-                  if (result != null) {
-                    viewModel.refresh();
-                  }
-                },
+            Watch(
+              (_) => Expanded(
+                child: DataTableView(
+                  onRowTap: (product) {
+                    GoRouter.of(context).go("/products/${product.id}");
+                  },
+                  columns: const [
+                    'Product',
+                    'Collection',
+                    'Sales Channels',
+                    'Variants',
+                    'Status',
+                    ''
+                  ],
+                  data: viewModel.products.value.data,
+                  cellBuilder: (product) => [
+                    DataCell(
+                      Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(4),
+                            child: ShadImage(
+                              product.thumbnail,
+                              width: 40,
+                              height: 40,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(product.title),
+                        ],
+                      ),
+                    ),
+                    DataCell(Text(product.collection.title)),
+                    const DataCell(Text("-")),
+                    const DataCell(Text("-")),
+                    DataCell(Text(product.status)),
+                    DataCell(
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: EditContextMenu(
+                          deleteDialogTitle: "Are you sure?",
+                          deleteDialogDescription:
+                              "You are about to delete the product  ${product.title}. This action cannot be undone.",
+                          onEdit: () => {
+                            GoRouter.of(context)
+                                .go("/products/${product.id}/edit")
+                          },
+                          onDelete: () => {
+                            viewModel.onDeleteProduct(product.id, () {
+                              context.success("Product deleted successfully");
+                              GoRouter.of(context).pop();
+                            }, () {
+                              context.error("Failed to delete product");
+                            })
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
