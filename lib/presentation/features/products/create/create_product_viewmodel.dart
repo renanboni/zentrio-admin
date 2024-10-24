@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 import 'dart:ui';
 
+import 'package:collection/collection.dart';
+import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:signals/signals.dart';
 import 'package:zentrio_admin/data/models/api_file.dart';
@@ -19,6 +21,9 @@ import 'package:zentrio_admin/domain/usecase/product_usecase.dart';
 import 'package:zentrio_admin/domain/usecase/sales_channel_usecase.dart';
 
 import '../../../../data/models/create_product_request.dart';
+import '../../../../data/models/req/create_category_req.dart';
+import '../../../../data/models/req/create_product_tag_req.dart';
+import '../../../../data/models/req/create_sales_channel_req.dart';
 import '../../../../domain/models/media_file.dart';
 import '../../../../domain/models/product_option.dart';
 import '../../../../domain/models/product_tag.dart';
@@ -95,8 +100,22 @@ class CreateProductViewModel {
               )
               .toList(),
           status: 'published',
+          tags: tags.value
+              .where((e) => e.selected)
+              .map((e) => CreateProductTagReq(id: e.id))
+              .toList(),
+          typeId: types.value.firstWhereOrNull((e) => e.selected)?.id,
+          categories: categories.value
+              .where((e) => e.selected)
+              .map((e) => CreateCategoryRequest(id: e.id))
+              .toList(),
+          collectionId: collections.value.firstWhereOrNull((e) => e.selected)?.id,
           images:
               uploadedFiles.map((e) => ApiFile(id: e.id, url: e.url)).toList(),
+          salesChannels: selectedSalesChannels.value
+              .where((e) => e.selected)
+              .map((e) => CreateSalesChannelReq(id: e.id))
+              .toList(),
           variants: variants.value
               .map(
                 (e) => CreateVariantRequest(
@@ -152,7 +171,9 @@ class CreateProductViewModel {
   _getSalesChannels() async {
     try {
       salesChannels.value = await _salesChannelUseCase.getAll();
-      selectedSalesChannels.value = [salesChannels.value.data[0]];
+      selectedSalesChannels.value = [
+        salesChannels.value.data[0].copyWith(selected: true)
+      ];
     } catch (e) {
       print(e);
     }
@@ -256,21 +277,21 @@ class CreateProductViewModel {
         .toList();
   }
 
-  void onProductTagSelected(ProductTag tag) {
-    tags.value = tags.value
-        .map((e) => e.copyWith(selected: e.id == tag.id))
-        .toList();
-  }
-
   void onProductTypeSelected(ProductType type) {
-    types.value = types.value
-        .map((e) => e.copyWith(selected: e.id == type.id))
-        .toList();
+    types.value =
+        types.value.map((e) => e.copyWith(selected: e.id == type.id)).toList();
   }
 
   void onCategoriesSelected(List<Category> selectedCategories) {
     List<String> ids = selectedCategories.map((e) => e.id ?? "").toList();
     categories.value = categories.value
+        .map((e) => e.copyWith(selected: ids.contains(e.id)))
+        .toList();
+  }
+
+  void onProductTagsSelected(List<ProductTag> selectedTags) {
+    List<String> ids = selectedTags.map((e) => e.id).toList();
+    tags.value = tags.value
         .map((e) => e.copyWith(selected: ids.contains(e.id)))
         .toList();
   }

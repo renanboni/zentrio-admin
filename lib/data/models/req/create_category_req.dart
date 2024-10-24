@@ -15,12 +15,12 @@ class CreateCategoryRequest {
 
   CreateCategoryRequest({
     this.id,
-    required this.name,
-    required this.description,
-    required this.handle,
-    required this.isActive,
-    required this.isInternal,
-    required this.rank,
+    this.name,
+    this.description,
+    this.handle,
+    this.isActive,
+    this.isInternal,
+    this.rank,
   });
 
   factory CreateCategoryRequest.fromJson(Map<String, dynamic> json) => _$CreateCategoryRequestFromJson(json);

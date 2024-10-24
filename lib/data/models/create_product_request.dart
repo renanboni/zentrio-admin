@@ -1,6 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:zentrio_admin/data/models/api_file.dart';
 import 'package:zentrio_admin/data/models/req/create_category_req.dart';
+import 'package:zentrio_admin/data/models/req/create_product_tag_req.dart';
+import 'package:zentrio_admin/data/models/req/create_sales_channel_req.dart';
 import 'package:zentrio_admin/data/models/req/create_variant_req.dart';
 
 import 'create_product_option_req.dart';
@@ -20,6 +22,9 @@ class CreateProductRequest {
   final List<CreateProductOptionRequest>? options;
   final List<CreateCategoryRequest>? categories;
   final List<CreateVariantRequest>? variants;
+  final List<CreateSalesChannelReq>? salesChannels;
+  final List<CreateProductTagReq>? tags;
+  final String? collectionId;
   final List<ApiFile>? images;
   final num? weight;
   final num? width;
@@ -63,6 +68,9 @@ class CreateProductRequest {
     this.images,
     this.categories,
     this.variants,
+    this.salesChannels,
+    this.collectionId,
+    this.tags,
   });
 
   factory CreateProductRequest.fromJson(Map<String, dynamic> json) => _$CreateProductRequestFromJson(json);

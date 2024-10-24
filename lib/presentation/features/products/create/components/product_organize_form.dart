@@ -25,7 +25,7 @@ class ProductOrganizeForm extends StatelessWidget {
   final ValueChanged<SalesChannel> onSalesChannelUnselected;
   final ValueChanged<Collection> onCollectionSelected;
   final ValueChanged<ProductType> onTypeSelected;
-  final ValueChanged<ProductTag> onTagSelected;
+  final ValueChanged<List<ProductTag>> onTagsSelected;
   final ValueChanged<List<Category>> onCategoriesSelected;
 
   const ProductOrganizeForm({
@@ -41,7 +41,7 @@ class ProductOrganizeForm extends StatelessWidget {
     required this.onSalesChannelUnselected,
     required this.onCollectionSelected,
     required this.onTypeSelected,
-    required this.onTagSelected,
+    required this.onTagsSelected,
     required this.onCategoriesSelected,
   });
 
@@ -200,15 +200,15 @@ class ProductOrganizeForm extends StatelessWidget {
                     const SizedBox(height: 8),
                     LayoutBuilder(
                       builder: (context, constraints) {
-                        return ShadSelect<ProductTag>(
+                        return ShadSelect<ProductTag>.multiple(
                           maxWidth: constraints.maxWidth,
                           minWidth: constraints.maxWidth,
+                          closeOnSelect: false,
+                          closeOnTapOutside: true,
+                          allowDeselection: true,
                           placeholder: const Text(""),
-                          initialValue: tags.firstWhere(
-                            (e) => e.selected,
-                            orElse: () => ProductTag.empty(),
-                          ),
-                          onChanged: (value) => onTagSelected(value),
+                          initialValues: tags.where((e) => e.selected).toList(),
+                          onChanged: (tags) => onTagsSelected(tags),
                           options: tags
                               .map(
                                 (e) => ShadOption(
@@ -217,8 +217,9 @@ class ProductOrganizeForm extends StatelessWidget {
                                 ),
                               )
                               .toList(),
-                          selectedOptionBuilder: (context, value) =>
-                              Text(value.value),
+                          selectedOptionsBuilder: (context, values) => Text(
+                            values.map((v) => v.value).join(', '),
+                          ),
                         );
                       },
                     ),

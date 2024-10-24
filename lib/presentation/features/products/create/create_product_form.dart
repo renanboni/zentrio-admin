@@ -62,7 +62,7 @@ class _CreateProductFormState extends State<CreateProductForm> {
                   onSalesChannelUnselected: viewModel.unselectSalesChannel,
                   onCollectionSelected: viewModel.onCollectionSelected,
                   onTypeSelected: viewModel.onProductTypeSelected,
-                  onTagSelected: viewModel.onProductTagSelected,
+                  onTagsSelected: viewModel.onProductTagsSelected,
                   onCategoriesSelected: viewModel.onCategoriesSelected,
                 );
               },
