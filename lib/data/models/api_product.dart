@@ -4,6 +4,8 @@ import 'package:zentrio_admin/data/models/api_collection.dart';
 import 'package:zentrio_admin/data/models/api_file.dart';
 import 'package:zentrio_admin/data/models/api_product_option.dart';
 import 'package:zentrio_admin/data/models/api_product_type.dart';
+import 'package:zentrio_admin/data/models/api_sales_channel.dart';
+import 'package:zentrio_admin/data/models/api_variant.dart';
 
 import 'api_product_tag.dart';
 
@@ -21,6 +23,8 @@ class ApiProduct {
   final String? thumbnail;
   final List<ApiProductOption>? options;
   final List<ApiFile>? images;
+  final List<ApiSalesChannel> salesChannels;
+  final List<ApiVariant> variants;
   final String? weight;
   final String? width;
   final String? height;
@@ -70,7 +74,9 @@ class ApiProduct {
     this.type,
     this.tags,
     this.metadata,
+    this.salesChannels = const [],
     this.categories = const [],
+    this.variants = const [],
   });
 
   factory ApiProduct.fromJson(Map<String, dynamic> json) => _$ApiProductFromJson(json);

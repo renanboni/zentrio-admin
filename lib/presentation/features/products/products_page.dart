@@ -22,6 +22,8 @@ class _ProductsPageState extends State<ProductsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = ShadTheme.of(context);
+
     return ShadCard(
       padding: const EdgeInsets.all(0),
       title: Padding(
@@ -78,14 +80,33 @@ class _ProductsPageState extends State<ProductsPage> {
                             ),
                           ),
                           const SizedBox(width: 8),
-                          Text(product.title),
+                          Expanded(
+                            child: Text(
+                              product.title,
+                              overflow: TextOverflow.ellipsis,
+                              style:
+                                  theme.textTheme.muted.copyWith(fontSize: 12),
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                    DataCell(Text(product.collection.title)),
-                    const DataCell(Text("-")),
-                    const DataCell(Text("-")),
-                    DataCell(Text(product.status)),
+                    DataCell(Text(
+                      product.collection.title,
+                      style: theme.textTheme.muted.copyWith(fontSize: 12),
+                    )),
+                    DataCell(Text(
+                      product.salesChannels.map((e) => e.name).join(", "),
+                      style: theme.textTheme.muted.copyWith(fontSize: 12),
+                    )),
+                    DataCell(Text(
+                      "${product.variants.length} Variants",
+                      style: theme.textTheme.muted.copyWith(fontSize: 12),
+                    )),
+                    DataCell(Text(
+                      product.status,
+                      style: theme.textTheme.muted.copyWith(fontSize: 12),
+                    )),
                     DataCell(
                       Align(
                         alignment: Alignment.centerRight,

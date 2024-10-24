@@ -1,6 +1,8 @@
+import 'package:zentrio_admin/data/mappers/api_sales_channel_mapper.dart';
 import 'package:zentrio_admin/data/mappers/collection_mapper.dart';
 import 'package:zentrio_admin/data/mappers/file_mapper.dart';
 import 'package:zentrio_admin/data/models/api_product_tag.dart';
+import 'package:zentrio_admin/data/models/api_variant.dart';
 import 'package:zentrio_admin/data/models/req/create_category_req.dart';
 import 'package:zentrio_admin/domain/models/metadata.dart';
 import 'package:zentrio_admin/domain/models/product_option.dart';
@@ -11,6 +13,7 @@ import 'package:zentrio_admin/domain/models/product_type.dart';
 import '../../domain/models/category.dart';
 import '../../domain/models/collection.dart';
 import '../../domain/models/product.dart';
+import '../../domain/models/product_variant.dart';
 import '../models/api_category.dart';
 import '../models/api_product.dart';
 import '../models/api_product_option.dart';
@@ -51,6 +54,8 @@ extension ApiProductMapper on ApiProduct {
               .map((e) => Metadata(key: e.key, value: e.value.toString()))
               .toList() ??
           [],
+      salesChannels: salesChannels.map((e) => e.toSalesChannel()).toList(),
+      variants: variants.map((e) => e.toProductVariant()).toList(),
     );
   }
 }
@@ -120,6 +125,20 @@ extension ProductTypeMapper on ApiProductType {
       metadata: metadata ?? {},
       createdAt: createdAt ?? '',
       updatedAt: updatedAt ?? '',
+    );
+  }
+}
+
+// TODO: Implement options
+extension ProductVariantMapper on ApiVariant {
+  ProductVariant toProductVariant() {
+    return ProductVariant(
+      id: id ?? '',
+      title: title ?? '',
+      sku: sku ?? '',
+      allowBackorder: allowBackorder ?? false,
+      manageInventory: manageInventory ?? false,
+      options: const {},
     );
   }
 }

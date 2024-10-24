@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:zentrio_admin/domain/models/price.dart';
 
 class ProductVariant extends Equatable {
+  final String? id;
   final String title;
   final String sku;
   final Map<String, String> options;
@@ -12,6 +13,7 @@ class ProductVariant extends Equatable {
   final List<Price> prices;
 
   const ProductVariant({
+    this.id,
     required this.title,
     required this.options,
     this.sku = "",
@@ -30,6 +32,7 @@ class ProductVariant extends Equatable {
   }
 
   ProductVariant copyWith({
+    String? id,
     String? title,
     String? sku,
     Map<String, String>? options,
@@ -40,6 +43,7 @@ class ProductVariant extends Equatable {
     List<Price>? prices,
   }) {
     return ProductVariant(
+      id: id ?? this.id,
       title: title ?? this.title,
       sku: sku ?? this.sku,
       options: options ?? this.options,
@@ -53,6 +57,7 @@ class ProductVariant extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         title,
         options,
         sku,

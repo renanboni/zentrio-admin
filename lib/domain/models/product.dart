@@ -6,6 +6,8 @@ import 'package:zentrio_admin/domain/models/metadata.dart';
 import 'package:zentrio_admin/domain/models/product_option.dart';
 import 'package:zentrio_admin/domain/models/product_tag.dart';
 import 'package:zentrio_admin/domain/models/product_type.dart';
+import 'package:zentrio_admin/domain/models/product_variant.dart';
+import 'package:zentrio_admin/domain/models/sales_channel.dart';
 
 class Product extends Equatable {
   final String id;
@@ -29,6 +31,8 @@ class Product extends Equatable {
   final String externalId;
   final List<ProductOption> options;
   final List<MedusaFile> images;
+  final List<SalesChannel> salesChannels;
+  final List<ProductVariant> variants;
   final ProductType type;
   final List<ProductTag> tags;
   final Collection collection;
@@ -68,6 +72,8 @@ class Product extends Equatable {
     required this.collection,
     required this.categories,
     required this.metadata,
+    required this.salesChannels,
+    required this.variants,
   });
 
   factory Product.empty() {
@@ -98,6 +104,8 @@ class Product extends Equatable {
       metadata: const [],
       tags: const [],
       categories: const [],
+      salesChannels: const [],
+      variants: const [],
       createdAt: null,
       updatedAt: null,
       deletedAt: null,
@@ -124,16 +132,18 @@ class Product extends Equatable {
     String? typeId,
     bool? discountable,
     String? externalId,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-    DateTime? deletedAt,
     List<ProductOption>? options,
     List<MedusaFile>? images,
+    List<SalesChannel>? salesChannels,
+    List<ProductVariant>? variants,
     ProductType? type,
     List<ProductTag>? tags,
     Collection? collection,
     List<Category>? categories,
     List<Metadata>? metadata,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    DateTime? deletedAt,
   }) {
     return Product(
       id: id ?? this.id,
@@ -155,16 +165,18 @@ class Product extends Equatable {
       typeId: typeId ?? this.typeId,
       discountable: discountable ?? this.discountable,
       externalId: externalId ?? this.externalId,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
-      deletedAt: deletedAt ?? this.deletedAt,
       options: options ?? this.options,
       images: images ?? this.images,
+      salesChannels: salesChannels ?? this.salesChannels,
+      variants: variants ?? this.variants,
       type: type ?? this.type,
       tags: tags ?? this.tags,
       collection: collection ?? this.collection,
       categories: categories ?? this.categories,
       metadata: metadata ?? this.metadata,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
     );
   }
 
@@ -196,6 +208,8 @@ class Product extends Equatable {
         metadata,
         categories,
         collection,
+        salesChannels,
+        variants,
         createdAt,
         updatedAt,
         deletedAt,
