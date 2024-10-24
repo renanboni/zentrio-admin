@@ -1,7 +1,9 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
+import 'package:zentrio_admin/domain/models/media_file.dart';
 import 'package:zentrio_admin/domain/models/product_variant.dart';
+import 'package:zentrio_admin/utils/extensions/string_ext.dart';
 
 enum ProductVariantTableColumn {
   options,
@@ -22,7 +24,7 @@ class ProductVariantsTable extends StatelessWidget {
   final Function(int index, bool hasInventoryKit)? onHasInventoryKitChanged;
   final Function(int index, String title)? onTitleChanged;
   final Function(int index, String sku)? onSkuChanged;
-  final Function(int index, String price)? onPriceChanged;
+  final Function(int index, num price)? onPriceChanged;
 
   const ProductVariantsTable({
     super.key,
@@ -126,7 +128,7 @@ class ProductVariantsTable extends StatelessWidget {
             return ShadTableCell(
               child: ShadInput(
                 onChanged: (value) {
-                  onPriceChanged?.call(index.row, value);
+                  onPriceChanged?.call(index.row, formatter.getUnformattedValue());
                 },
                 //initialValue: formatter.format('2000'),
                 inputFormatters: [formatter],

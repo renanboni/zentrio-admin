@@ -84,6 +84,7 @@ class _CreateProductFormState extends State<CreateProductForm> {
                   onHasInventoryKitChanged: viewModel.onHasInventoryKitChanged,
                   onTitleChanged: viewModel.onVariantTitleChanged,
                   onSkuChanged: viewModel.onVariantSkuChanged,
+                  onPriceChanged: viewModel.onVariantPriceChanged,
                 );
               },
             ),

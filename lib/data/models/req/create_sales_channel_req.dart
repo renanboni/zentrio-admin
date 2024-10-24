@@ -14,4 +14,9 @@ class CreateSalesChannelReq {
   factory CreateSalesChannelReq.fromJson(Map<String, dynamic> json) => _$CreateSalesChannelReqFromJson(json);
 
   Map<String, dynamic> toJson() => _$CreateSalesChannelReqToJson(this);
+
+  @override
+  String toString() {
+    return 'CreateSalesChannelReq{id: $id}';
+  }
 }

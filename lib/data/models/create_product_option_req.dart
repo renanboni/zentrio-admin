@@ -17,4 +17,9 @@ class CreateProductOptionRequest {
       _$CreateProductOptionRequestFromJson(json);
 
   Map<String, dynamic> toJson() => _$CreateProductOptionRequestToJson(this);
+
+  @override
+  String toString() {
+    return 'CreateProductOptionRequest{title: $title, values: $values}';
+  }
 }

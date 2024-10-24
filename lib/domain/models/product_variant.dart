@@ -25,7 +25,7 @@ class ProductVariant extends Equatable {
   factory ProductVariant.defaultVariant() {
     return const ProductVariant(
       title: "Default",
-      options: {"Default option": "Default Option Value"},
+      options: {"Default Option": "Default Option Value"},
     );
   }
 

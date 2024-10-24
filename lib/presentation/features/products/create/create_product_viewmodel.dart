@@ -6,6 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:signals/signals.dart';
 import 'package:zentrio_admin/data/models/api_file.dart';
+import 'package:zentrio_admin/data/models/create_price_req.dart';
 import 'package:zentrio_admin/data/models/create_product_option_req.dart';
 import 'package:zentrio_admin/data/models/req/create_variant_req.dart';
 import 'package:zentrio_admin/domain/models/category.dart';
@@ -25,6 +26,7 @@ import '../../../../data/models/req/create_category_req.dart';
 import '../../../../data/models/req/create_product_tag_req.dart';
 import '../../../../data/models/req/create_sales_channel_req.dart';
 import '../../../../domain/models/media_file.dart';
+import '../../../../domain/models/price.dart';
 import '../../../../domain/models/product_option.dart';
 import '../../../../domain/models/product_tag.dart';
 import '../../../../domain/models/product_type.dart';
@@ -43,7 +45,7 @@ class CreateProductViewModel {
   final Signal<bool> showAtLeastOneOptionAlert = Signal(false);
 
   final ListSignal<ProductOption> productOptions = ListSignal(
-    [ProductOption.empty()],
+    [ProductOption.withDefaultValues()],
   );
   final Signal<PaginatedResponse<SalesChannel>> salesChannels =
       Signal(PaginatedResponse.empty());
@@ -85,8 +87,7 @@ class CreateProductViewModel {
     VoidCallback onError,
   ) async {
     try {
-      final bytes = files.value.map((e) => e.bytes ?? Uint8List(0)).toList();
-      final uploadedFiles = await _fileUseCase.uploadBytes(bytes);
+      final uploadedFiles = await _fileUseCase.uploadFiles(files.value);
 
       await _productUseCase.createProduct(
         CreateProductRequest(
@@ -109,7 +110,8 @@ class CreateProductViewModel {
               .where((e) => e.selected)
               .map((e) => CreateCategoryRequest(id: e.id))
               .toList(),
-          collectionId: collections.value.firstWhereOrNull((e) => e.selected)?.id,
+          collectionId:
+              collections.value.firstWhereOrNull((e) => e.selected)?.id,
           images:
               uploadedFiles.map((e) => ApiFile(id: e.id, url: e.url)).toList(),
           salesChannels: selectedSalesChannels.value
@@ -124,6 +126,14 @@ class CreateProductViewModel {
                   manageInventory: e.manageInventory,
                   allowBackorder: e.allowBackorder,
                   options: e.options.map((key, value) => MapEntry(key, value)),
+                  prices: e.prices
+                      .map(
+                        (e) => CreatePriceReq(
+                          amount: (e.amount * 100).toInt(),
+                          currencyCode: "brl",
+                        ),
+                      )
+                      .toList(),
                 ),
               )
               .toList(),
@@ -206,8 +216,10 @@ class CreateProductViewModel {
 
     if (!isChecked) {
       variants.value = [ProductVariant.defaultVariant()];
+      productOptions.value = [ProductOption.withDefaultValues()];
     } else {
       variants.value = [];
+      productOptions.value = [ProductOption.empty()];
     }
   }
 
@@ -265,6 +277,12 @@ class CreateProductViewModel {
 
   void onVariantSkuChanged(int index, String sku) {
     variants[index] = variants[index].copyWith(sku: sku);
+  }
+
+  void onVariantPriceChanged(int index, num price) {
+    variants[index] = variants[index].copyWith(
+      prices: [Price(currencyCode: "brl", amount: price)],
+    );
   }
 
   void onVariantSelected(int index, bool isSelected) {

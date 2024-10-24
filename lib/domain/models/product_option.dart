@@ -17,6 +17,14 @@ class ProductOption extends Equatable {
         title = "",
         values = [];
 
+  factory ProductOption.withDefaultValues() {
+    return const ProductOption(
+      id: "",
+      title: "Default Option",
+      values: [ProductOptionValue(value: "Default Option Value")],
+    );
+  }
+
   ProductOption copyWith({
     String? id,
     String? title,

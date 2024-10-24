@@ -12,6 +12,7 @@ class CreateProductVariantsForm extends StatelessWidget {
   final Function(int index, bool hasInventoryKit)? onHasInventoryKitChanged;
   final Function(int index, String title)? onTitleChanged;
   final Function(int index, String sku)? onSkuChanged;
+  final Function(int index, num price)? onPriceChanged;
 
   const CreateProductVariantsForm({
     super.key,
@@ -22,6 +23,7 @@ class CreateProductVariantsForm extends StatelessWidget {
     this.onHasInventoryKitChanged,
     this.onTitleChanged,
     this.onSkuChanged,
+    this.onPriceChanged,
   });
 
   @override
@@ -34,6 +36,7 @@ class CreateProductVariantsForm extends StatelessWidget {
       onHasInventoryKitChanged: onHasInventoryKitChanged,
       onTitleChanged: onTitleChanged,
       onSkuChanged: onSkuChanged,
+      onPriceChanged: onPriceChanged,
       columns: const [
         ProductVariantTableColumn.options,
         ProductVariantTableColumn.title,

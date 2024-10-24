@@ -11,16 +11,21 @@ class CreatePriceReq {
   final num? minQuantity;
   final num? maxQuantity;
 
-  CreatePriceReq(
+  CreatePriceReq({
     this.id,
     this.title,
     this.currencyCode,
     this.amount,
     this.minQuantity,
     this.maxQuantity,
-  );
+  });
 
   factory CreatePriceReq.fromJson(Map<String, dynamic> json) => _$CreatePriceReqFromJson(json);
 
   Map<String, dynamic> toJson() => _$CreatePriceReqToJson(this);
+
+  @override
+  String toString() {
+    return 'CreatePriceReq{id: $id, title: $title, currencyCode: $currencyCode, amount: $amount, minQuantity: $minQuantity, maxQuantity: $maxQuantity}';
+  }
 }

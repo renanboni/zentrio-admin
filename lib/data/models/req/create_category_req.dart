@@ -26,4 +26,9 @@ class CreateCategoryRequest {
   factory CreateCategoryRequest.fromJson(Map<String, dynamic> json) => _$CreateCategoryRequestFromJson(json);
 
   Map<String, dynamic> toJson() => _$CreateCategoryRequestToJson(this);
+
+  @override
+  String toString() {
+    return 'CreateCategoryRequest{id: $id, name: $name, description: $description, handle: $handle, isActive: $isActive, isInternal: $isInternal, rank: $rank}';
+  }
 }

@@ -24,7 +24,6 @@ class ProductsViewModel {
   _getProducts() async {
     try {
       products.value = await _productUseCase.getAll();
-      print(products.value);
     } catch (e) {
       print(e);
     }

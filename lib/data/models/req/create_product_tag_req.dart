@@ -16,4 +16,9 @@ class CreateProductTagReq {
   factory CreateProductTagReq.fromJson(Map<String, dynamic> json) => _$CreateProductTagReqFromJson(json);
 
   Map<String, dynamic> toJson() => _$CreateProductTagReqToJson(this);
+
+  @override
+  String toString() {
+    return 'CreateProductTagReq{id: $id, value: $value}';
+  }
 }
