@@ -121,6 +121,8 @@ import 'package:zentrio_admin/presentation/features/productTypes/product_types_v
     as _i633;
 import 'package:zentrio_admin/presentation/features/ranking/ranking_view_model.dart'
     as _i473;
+import 'package:zentrio_admin/presentation/features/salesChannels/create/create_sales_channel_view_model.dart'
+    as _i215;
 import 'package:zentrio_admin/presentation/features/salesChannels/sales_channels_view_model.dart'
     as _i365;
 import 'package:zentrio_admin/presentation/features/vendor/vendor_view_model.dart'
@@ -204,6 +206,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i440.CreateCollectionViewModel(gh<_i464.CollectionUseCase>()));
     gh.factory<_i365.SalesChannelsViewModel>(
         () => _i365.SalesChannelsViewModel(gh<_i168.SalesChannelUseCase>()));
+    gh.factory<_i215.CreateSalesChannelViewModel>(() =>
+        _i215.CreateSalesChannelViewModel(gh<_i168.SalesChannelUseCase>()));
     gh.factory<_i850.FileUseCase>(
         () => _i850.FileUseCase(gh<_i182.FileRepository>()));
     gh.factory<_i977.ProductUseCase>(

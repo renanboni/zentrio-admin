@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/di/init.dart';
 import 'package:zentrio_admin/presentation/components/card_scaffold.dart';
+import 'package:zentrio_admin/presentation/features/banners/banners_page.dart';
 import 'package:zentrio_admin/presentation/features/salesChannels/sales_channels_view_model.dart';
+import 'package:zentrio_admin/utils/extensions/context_ext.dart';
+import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 import '../../components/sales_channels_table.dart';
 
@@ -20,11 +24,18 @@ class _SalesChannelsPageState extends State<SalesChannelsPage> {
   @override
   Widget build(BuildContext context) {
     return CardScaffold(
-      title: "Sales Channels",
-      subtitle: "Manage the online and offline channels you sell products on.",
-      trailing: const ShadButton(
+      title: context.loc.salesChannel,
+      subtitle: context.loc.salesChannelsDescription,
+      trailing: ShadButton(
         size: ShadButtonSize.sm,
-        child: Text("Create"),
+        child: Text(context.loc.create),
+        onPressed: () async {
+          final result = await GoRouter.of(context).push('/sales-channels/create');
+
+          if (result == true) {
+            viewModel.refresh();
+          }
+        },
       ),
       child: Column(
         children: [
@@ -34,7 +45,16 @@ class _SalesChannelsPageState extends State<SalesChannelsPage> {
               child: SalesChannelsTable(
                 salesChannels: viewModel.salesChannels.value.data,
                 onEdit: (salesChannel) {},
-                onDelete: (salesChannel) {},
+                onDelete: (salesChannel) {
+                  viewModel.onDeleteSalesChannel(
+                    salesChannel.id,
+                    () {
+                      GoRouter.of(context).pop();
+                      context.success("Sales channel deleted successfully");
+                    },
+                    () => context.error("Failed to delete sales channel"),
+                  );
+                },
               ),
             ),
           ),

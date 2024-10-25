@@ -1,4 +1,3 @@
-import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
@@ -237,8 +236,10 @@ class ProductOrganizeForm extends StatelessWidget {
               showShadSheet(
                 side: ShadSheetSide.right,
                 context: context,
-                builder: (context) => SalesChannelsSheet(
-                  salesChannels: salesChannels,
+                builder: (context) => Expanded(
+                  child: SalesChannelsSheet(
+                    salesChannels: salesChannels,
+                  ),
                 ),
               );
             },

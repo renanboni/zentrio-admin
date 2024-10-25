@@ -68,7 +68,7 @@ class SalesChannelsSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShadSheet(
-      child: Expanded(child: SalesChannelsTable(salesChannels: salesChannels)),
+      child: SalesChannelsTable(salesChannels: salesChannels),
     );
   }
 }

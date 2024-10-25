@@ -59,7 +59,10 @@ class _StepperState extends State<HorizontalStepper> {
           height: 56,
           child: Row(
             children: [
-              if (widget.showEsc) EscButton(onTap: widget.onEsc ?? () {}),
+              if (widget.showEsc)
+                EscButton(
+                  onTap: widget.onEsc ?? () => GoRouter.of(context).pop(),
+                ),
               Expanded(
                 child: ListView(
                   scrollDirection: Axis.horizontal,
@@ -67,11 +70,14 @@ class _StepperState extends State<HorizontalStepper> {
                     for (var i = 0; i < widget.steps.length; i++) ...[
                       Watch(
                         (context) => InkWell(
-                          onTap: (widget.steps[i].state == HorizontalStepState.disabled && i > _currentIndex.value)
+                          onTap: (widget.steps[i].state ==
+                                      HorizontalStepState.disabled &&
+                                  i > _currentIndex.value)
                               ? () => _validateStep()
                               : () => _currentIndex.value = i,
                           child: Container(
-                            color: widget.steps[i].state == HorizontalStepState.disabled
+                            color: widget.steps[i].state ==
+                                    HorizontalStepState.disabled
                                 ? theme.colorScheme.primaryForeground
                                 : theme.ghostButtonTheme.backgroundColor,
                             width: widget.steps[i].width,

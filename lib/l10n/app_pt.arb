@@ -39,5 +39,12 @@
   "values": "Valores",
   "color": "Cor",
   "continueLabel": "Continuar",
-  "cancel": "Cancelar"
+  "cancel": "Cancelar",
+  "salesChannelsDescription": "Gerencie os canais online e offline nos quais você vende produtos.",
+  "createSalesChannel": "Criar Canal de Vendas",
+  "createSalesChannelDescription": "Crie um novo canal de vendas para vender seus produtos.",
+  "description": "Descrição",
+  "enabled": "Ativado",
+  "salesChannelEnabledDescription": "Especifique se o canal de vendas está ativado.",
+  "name": "Nome"
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
+import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 class DialogFooter extends StatelessWidget {
   final VoidCallback onCancel;
@@ -24,13 +25,13 @@ class DialogFooter extends StatelessWidget {
               ShadButton.outline(
                 onPressed: onCancel,
                 size: ShadButtonSize.sm,
-                child: const Text('Cancel'),
+                child: Text(context.loc.cancel),
               ),
               const SizedBox(width: 8),
               ShadButton(
                 onPressed: onCreate,
                 size: ShadButtonSize.sm,
-                child: const Text('Create'),
+                child: Text(context.loc.create),
               ),
             ],
           ),

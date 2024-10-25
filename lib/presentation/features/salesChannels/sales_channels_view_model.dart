@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:injectable/injectable.dart';
 import 'package:signals/signals.dart';
 import 'package:zentrio_admin/domain/models/paginated_response.dart';
@@ -6,7 +8,6 @@ import 'package:zentrio_admin/domain/usecase/sales_channel_usecase.dart';
 
 @Injectable()
 class SalesChannelsViewModel {
-
   Signal<PaginatedResponse<SalesChannel>> salesChannels =
       Signal<PaginatedResponse<SalesChannel>>(
     PaginatedResponse.empty(),
@@ -22,6 +23,25 @@ class SalesChannelsViewModel {
     try {
       salesChannels.value = await _salesChannelUseCase.getAll();
     } catch (e) {
+      print(e);
+    }
+  }
+
+  void refresh() {
+    _getSalesChannels();
+  }
+
+  void onDeleteSalesChannel(
+    String id,
+    VoidCallback onSuccess,
+    VoidCallback onError,
+  ) async {
+    try {
+      await _salesChannelUseCase.deleteSalesChannel(id);
+      _getSalesChannels();
+      onSuccess();
+    } catch (e) {
+      onError();
       print(e);
     }
   }

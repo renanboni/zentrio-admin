@@ -1,4 +1,5 @@
 import 'package:zentrio_admin/data/mappers/api_sales_channel_mapper.dart';
+import 'package:zentrio_admin/data/models/req/create_sales_channel_req.dart';
 import 'package:zentrio_admin/data/remote/sales_channel_service.dart';
 import 'package:zentrio_admin/domain/models/paginated_response.dart';
 import 'package:zentrio_admin/domain/models/sales_channel.dart';
@@ -22,5 +23,15 @@ class SalesChannelRepositoryImpl extends SalesChannelRepository {
         );
       },
     );
+  }
+
+  @override
+  Future<void> createSalesChannel(CreateSalesChannelReq req) {
+    return _service.createSalesChannel(req);
+  }
+
+  @override
+  Future<void> deleteSalesChannel(String id) {
+    return _service.deleteSalesChannel(id);
   }
 }
