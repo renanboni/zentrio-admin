@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:signals/signals_flutter.dart';
+import 'package:zentrio_admin/presentation/components/edit_context_menu.dart';
 import 'package:zentrio_admin/presentation/features/products/create/create_product_viewmodel.dart';
 import 'package:zentrio_admin/presentation/features/products/create/components/product_organize_form.dart';
 import 'package:zentrio_admin/presentation/features/products/create/components/products_detail_form.dart';
 import 'package:zentrio_admin/utils/extensions/context_ext.dart';
+import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 import '../../../../di/init.dart';
 import '../../../components/stepper/horizontal_stepper.dart';
@@ -33,7 +35,7 @@ class _CreateProductFormState extends State<CreateProductForm> {
       showEsc: true,
       steps: [
         StepItemList(
-          title: 'Details',
+          title: context.loc.details,
           state: HorizontalStepState.editing,
           extraValidator: () => viewModel.hasValidVariants(),
           content: MaxWidthBox(
@@ -44,7 +46,7 @@ class _CreateProductFormState extends State<CreateProductForm> {
           ),
         ),
         StepItemList(
-          title: 'Organize',
+          title: context.loc.organize,
           state: HorizontalStepState.disabled,
           content: MaxWidthBox(
             maxWidth: context.maxWidth,
@@ -70,7 +72,7 @@ class _CreateProductFormState extends State<CreateProductForm> {
           ),
         ),
         StepItemList(
-          title: 'Variants',
+          title: context.loc.variants,
           state: HorizontalStepState.disabled,
           content: MaxWidthBox(
             maxWidth: double.infinity,

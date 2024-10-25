@@ -6,6 +6,7 @@ import 'package:zentrio_admin/di/init.dart';
 import 'package:zentrio_admin/presentation/components/card_scaffold.dart';
 import 'package:zentrio_admin/presentation/features/productTypes/product_types_view_model.dart';
 import 'package:zentrio_admin/utils/extensions/context_ext.dart';
+import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 import 'package:zentrio_admin/utils/extensions/string_ext.dart';
 
 import '../../components/data_table_view.dart';
@@ -24,8 +25,8 @@ class _ProductTypesPageState extends State<ProductTypesPage> {
   @override
   Widget build(BuildContext context) {
     return CardScaffold(
-      title: "Product Types",
-      subtitle: "Organize your products into types.",
+      title: context.loc.productTypes,
+      subtitle: context.loc.productTypesDescription,
       trailing: ShadButton(
         size: ShadButtonSize.sm,
         child: const Text('Create'),

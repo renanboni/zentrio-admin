@@ -35,7 +35,11 @@ class _CollectionPageState extends State<CollectionPage> {
           collection: _viewModel.collection.watch(context),
           onRefresh: () {},
         ),
-        Expanded(child: ProductsCard(products: _viewModel.collection.watch(context).products)),
+        Expanded(
+          child: ProductsCard(
+            products: _viewModel.collection.watch(context).products,
+          ),
+        ),
       ].separatedBy(const SizedBox(height: 16)),
     );
   }

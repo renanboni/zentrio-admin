@@ -6,6 +6,7 @@ import 'package:zentrio_admin/presentation/features/category/components/category
 import 'package:zentrio_admin/presentation/features/category/components/category_organize_card.dart';
 
 import '../../../di/init.dart';
+import 'components/products_card.dart';
 
 class CategoryPage extends StatefulWidget {
   final String categoryId;
@@ -40,6 +41,7 @@ class _CategoryPageState extends State<CategoryPage> {
             child: ResponsiveRowColumn(
               rowSpacing: 12,
               columnSpacing: 8,
+              columnMainAxisSize: MainAxisSize.max,
               rowCrossAxisAlignment: CrossAxisAlignment.start,
               layout: ResponsiveBreakpoints.of(context).smallerThan(DESKTOP)
                   ? ResponsiveRowColumnType.COLUMN
@@ -47,16 +49,17 @@ class _CategoryPageState extends State<CategoryPage> {
               children: [
                 ResponsiveRowColumnItem(
                   rowFlex: 2,
-                  child: Column(
-                    children: [
-                      CategoryCard(
-                        category: viewModel.category.watch(context),
-                        onRefresh: () => viewModel.getCategory(widget.categoryId),
-                      ),
-                      const SizedBox(height: 16),
-                      // TODO Fix: Layout broken due to collection page
-                      // const ProductsCard(products: []),
-                    ],
+                  child: Expanded(
+                    child: Column(
+                      children: [
+                        CategoryCard(
+                          category: viewModel.category.watch(context),
+                          onRefresh: () => viewModel.getCategory(widget.categoryId),
+                        ),
+                        const SizedBox(height: 16),
+                        IntrinsicHeight(child: ProductsCard(products: viewModel.category.watch(context).products)),
+                      ],
+                    ),
                   ),
                 ),
                 ResponsiveRowColumnItem(

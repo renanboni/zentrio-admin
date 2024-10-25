@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
+import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 class StepperControls extends StatelessWidget {
   final VoidCallback onCancel;
@@ -23,14 +24,14 @@ class StepperControls extends StatelessWidget {
           ShadButton.outline(
             onPressed: onCancel,
             size: ShadButtonSize.sm,
-            child: const Text('Cancel'),
+            child: Text(context.loc.cancel),
           ),
           const SizedBox(width: 4),
           ShadButton(
             enabled: isContinueEnabled,
             onPressed: onContinue,
             size: ShadButtonSize.sm,
-            child: const Text('Continue'),
+            child: Text(context.loc.continueLabel),
           ),
         ],
       ),

@@ -4,6 +4,7 @@ import 'package:zentrio_admin/domain/models/product_option.dart';
 import 'package:zentrio_admin/domain/models/product_option_value.dart';
 import 'package:zentrio_admin/presentation/components/inputChip/chips_input.dart';
 import 'package:zentrio_admin/presentation/components/inputChip/input_chip.dart';
+import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 class ProductOptionListItem extends StatelessWidget {
   final bool enabled;
@@ -39,13 +40,13 @@ class ProductOptionListItem extends StatelessWidget {
                     SizedBox(
                       width: 64,
                       child: Text(
-                        "Title",
+                        context.loc.title,
                         style: theme.textTheme.small,
                       ),
                     ),
                     Expanded(
                       child: ShadInput(
-                        placeholder: const Text("Color"),
+                        placeholder: Text(context.loc.color),
                         initialValue: productOption.title,
                         onChanged: (value) {
                           onTitleChanged?.call(value);
@@ -60,13 +61,13 @@ class ProductOptionListItem extends StatelessWidget {
                     SizedBox(
                       width: 64,
                       child: Text(
-                        "Values",
+                        context.loc.values,
                         style: theme.textTheme.small,
                       ),
                     ),
                     Expanded(
                       child: ChipsInput(
-                        placeholder: "Red, Green, Blue",
+                        placeholder: context.loc.productOptionValueLabel,
                         values: productOption.values,
                         onChanged: (values) {
                           //onValuesChanged?.call(values);

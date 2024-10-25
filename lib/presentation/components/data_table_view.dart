@@ -30,7 +30,6 @@ class DataTableView<T> extends StatelessWidget {
       columns:
           columns.map((column) => DataColumn2(label: Text(column))).toList(),
       source: _DataSource(data, cellBuilder, onRowTap: onRowTap),
-      fit: FlexFit.tight,
       showCheckboxColumn: showCheckboxColumn,
       isVerticalScrollBarVisible: false,
       wrapInCard: false,

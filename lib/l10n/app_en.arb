@@ -14,5 +14,35 @@
   "delete": "Delete",
   "organizeProductsLabel": "Organize products into collections.",
   "title": "Title",
-  "handle": "Handle"
+  "handle": "Handle",
+  "productTypes": "Product Types",
+  "productTypesDescription": "Organize your products into types.",
+  "details": "Details",
+  "organize": "Organize",
+  "create": "Create",
+  "general": "General",
+  "subtitle": "Subtitle",
+  "handlePlaceholder": "Winter Jacket",
+  "productSubtitlePlaceholder": "Warm and cosy",
+  "productHandlePlaceholder": "winter-jacket",
+  "uploadImages": "Upload Images",
+  "uploadImagesDescription": "Drag and drop images here or click to upload",
+  "productOptions": "Product Options",
+  "productOptionsDescription": "Define the options for the product, e.g. color, size, etc.",
+  "add": "Add",
+  "productVariants": "Product Variants",
+  "productVariantsDescription": "Define the variants for the product, e.g. red, blue, etc.",
+  "addOptionsToCreateVariants": "Add options to create variants.",
+  "variantsRankingDescription": "This ranking will affect the variants' order in your storefront.",
+  "createAtLeastOneOption": "Please create at least one option.",
+  "productOptionValueLabel": "Red, Green, Blue",
+  "values": "Values",
+  "color": "Color",
+  "continueLabel": "Continue",
+  "cancel": "Cancel"
 }
+
+
+
+
+

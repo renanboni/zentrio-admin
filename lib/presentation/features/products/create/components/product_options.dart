@@ -4,6 +4,7 @@ import 'package:zentrio_admin/domain/models/product_option.dart';
 import 'package:zentrio_admin/domain/models/product_option_value.dart';
 import 'package:zentrio_admin/presentation/components/form_action_label.dart';
 import 'package:zentrio_admin/presentation/features/products/create/components/product_option_list_item.dart';
+import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 import 'package:zentrio_admin/utils/extensions/sizes_ext.dart';
 
 import '../../../../../domain/models/product_variant.dart';
@@ -43,20 +44,18 @@ class ProductOptions extends StatelessWidget {
     return Column(
       children: [
         FormActionLabel(
-          title: "Product options",
-          description:
-              "Define the options for the product, e.g. color, size, etc.",
-          cta: "Add",
+          title: context.loc.productOptions,
+          description: context.loc.productOptionsDescription,
+          cta: context.loc.add,
           onPressed: onAddProductOption,
         ),
         const SizedBox(height: 16),
         if (showAtLeastOneOptionAlert)
-        const ShadAlert.destructive(
-          iconSrc: LucideIcons.circleAlert,
-          description: Text('Please create at least one option.'),
-        ),
-        if (showAtLeastOneOptionAlert)
-        const SizedBox(height: 16),
+          ShadAlert.destructive(
+            iconSrc: LucideIcons.circleAlert,
+            description: Text(context.loc.createAtLeastOneOption),
+          ),
+        if (showAtLeastOneOptionAlert) const SizedBox(height: 16),
         ListView.separated(
           key: ValueKey(productOptions.length),
           shrinkWrap: true,
@@ -73,10 +72,9 @@ class ProductOptions extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        const FormActionLabel(
-          title: "Product variants",
-          description:
-              "This ranking will affect the variants' order in your storefront.",
+        FormActionLabel(
+          title: context.loc.productVariants,
+          description: context.loc.variantsRankingDescription,
         ),
         const SizedBox(height: 16),
         if (productOptions.any(
@@ -90,9 +88,9 @@ class ProductOptions extends StatelessWidget {
             onVariantChecked: onVariantChecked,
           ),
         if (showAddOptionsAlert)
-          const ShadAlert(
+          ShadAlert(
             iconSrc: LucideIcons.info,
-            description: Text('Add options to create variants.'),
+            description: Text(context.loc.addOptionsToCreateVariants),
           ),
       ],
     );

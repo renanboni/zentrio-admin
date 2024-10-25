@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
+import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 class MediaListDropzonePlaceholder extends StatelessWidget {
   const MediaListDropzonePlaceholder({super.key});
@@ -22,14 +23,14 @@ class MediaListDropzonePlaceholder extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                "Upload images",
+                context.loc.uploadImages,
                 style: theme.textTheme.muted,
               ),
             ],
           ),
           const SizedBox(height: 4),
           Text(
-            'Drag and drop images here or click to upload',
+            context.loc.uploadImagesDescription,
             style: theme.textTheme.muted,
           ),
         ],

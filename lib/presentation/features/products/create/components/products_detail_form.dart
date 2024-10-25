@@ -4,10 +4,12 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
+import 'package:zentrio_admin/presentation/components/edit_context_menu.dart';
 import 'package:zentrio_admin/presentation/features/products/components/variants.dart';
 import 'package:zentrio_admin/presentation/features/products/create/components/media_list.dart';
 import 'package:zentrio_admin/presentation/features/products/create/create_product_viewmodel.dart';
 import 'package:zentrio_admin/presentation/features/products/create/components/product_options.dart';
+import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 class ProductsDetailForm extends StatefulWidget {
   final CreateProductViewModel viewModel;
@@ -44,7 +46,7 @@ class _ProductsDetailFormState extends State<ProductsDetailForm> {
             ),
             ResponsiveRowColumnItem(
               child: Text(
-                "General",
+                context.loc.general,
                 style: theme.textTheme.large,
               ),
             ),
@@ -59,10 +61,10 @@ class _ProductsDetailFormState extends State<ProductsDetailForm> {
                   ResponsiveRowColumnItem(
                     rowFlex: 1,
                     child: ShadInputFormField(
-                      label: const Text('Title'),
+                      label: Text(context.loc.title),
                       controller: title,
                       onChanged: widget.viewModel.productTitle.set,
-                      placeholder: const Text("Winter Jacket"),
+                      placeholder: Text(context.loc.handlePlaceholder),
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(),
                       ]),
@@ -71,15 +73,15 @@ class _ProductsDetailFormState extends State<ProductsDetailForm> {
                   ResponsiveRowColumnItem(
                     rowFlex: 1,
                     child: ShadInputFormField(
-                      label: const Text('Subtitle'),
-                      placeholder: const Text("Warm and cosy"),
+                      label: Text(context.loc.subtitle),
+                      placeholder: Text(context.loc.productSubtitlePlaceholder),
                     ),
                   ),
                   ResponsiveRowColumnItem(
                     rowFlex: 1,
                     child: ShadInputFormField(
-                      label: const Text('Handle'),
-                      placeholder: const Text("winter-jacket"),
+                      label: Text(context.loc.handle),
+                      placeholder: Text(context.loc.productHandlePlaceholder),
                     ),
                   ),
                 ],
@@ -101,16 +103,15 @@ class _ProductsDetailFormState extends State<ProductsDetailForm> {
             ),
             ResponsiveRowColumnItem(
               child: Variants(
-                showProductOptions:
-                    widget.viewModel.hasVariants.watch(context),
+                showProductOptions: widget.viewModel.hasVariants.watch(context),
                 onChanged: widget.viewModel.onToggleProductOptions,
               ),
             ),
             if (widget.viewModel.hasVariants.watch(context))
               ResponsiveRowColumnItem(
                 child: ProductOptions(
-                  showAtLeastOneOptionAlert: widget.viewModel
-                      .showAtLeastOneOptionAlert.watch(context),
+                  showAtLeastOneOptionAlert:
+                      widget.viewModel.showAtLeastOneOptionAlert.watch(context),
                   productOptions:
                       widget.viewModel.productOptions.watch(context),
                   productVariants: widget.viewModel.variants.watch(context),
