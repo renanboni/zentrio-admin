@@ -3,11 +3,18 @@ import 'package:injectable/injectable.dart';
 import 'package:signals/signals.dart';
 import 'package:zentrio_admin/domain/models/medusa_file.dart';
 import 'package:zentrio_admin/domain/usecase/product_usecase.dart';
-import 'package:zentrio_admin/presentation/features/banners/create/create_banner_view_model.dart';
+
+import '../../../../domain/models/media_file.dart';
+
+enum ViewMode {
+  edit,
+  gallery,
+}
 
 @Injectable()
 class ProductMediaViewModel {
   final ListSignal<MedusaFile> medias = ListSignal<MedusaFile>([]);
+  final Signal<ViewMode> viewMode = Signal<ViewMode>(ViewMode.gallery);
 
   final ProductUseCase _productUseCase;
 
@@ -30,6 +37,10 @@ class ProductMediaViewModel {
     } catch (e) {
       print(e);
     }
+  }
+
+  void onFileSelected(List<MediaFile> files) {
+    medias.value = medias.value + files.map((e) => MedusaFile(url: e.url)).toList();
   }
 
   void onMediaSelected(MedusaFile file) {

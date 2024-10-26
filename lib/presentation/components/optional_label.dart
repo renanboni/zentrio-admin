@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
+import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 class OptionalLabel extends StatelessWidget {
   final String label;
@@ -20,7 +21,7 @@ class OptionalLabel extends StatelessWidget {
           style: theme.textTheme.small,
         ),
         Text(
-          ' (Optional)',
+          ' (${context.loc.optional})',
           style: theme.textTheme.muted,
         ),
       ],

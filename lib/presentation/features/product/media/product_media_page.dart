@@ -1,19 +1,17 @@
-import 'package:collection/collection.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/domain/models/medusa_file.dart';
+import 'package:zentrio_admin/presentation/components/dialog_footer.dart';
 import 'package:zentrio_admin/presentation/components/dialog_header.dart';
-import 'package:zentrio_admin/presentation/features/banners/banners_page.dart';
+import 'package:zentrio_admin/presentation/features/product/media/gallery/product_gallery.dart';
 import 'package:zentrio_admin/presentation/features/product/media/product_media_view_model.dart';
-import 'package:zentrio_admin/utils/extensions/context_ext.dart';
+import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 import 'package:zentrio_admin/utils/extensions/miscellaneous_ext.dart';
 
 import '../../../../di/init.dart';
+import 'edit/product_gallery_edit.dart';
 
 class ProductMediaPage extends StatefulWidget {
   final String productId;
@@ -32,8 +30,6 @@ class ProductMediaPage extends StatefulWidget {
 class _ProductMediaPageState extends State<ProductMediaPage> {
   final ProductMediaViewModel viewModel = getIt<ProductMediaViewModel>();
 
-  double? imageWidth;
-
   @override
   void initState() {
     viewModel.getMedias(
@@ -45,55 +41,88 @@ class _ProductMediaPageState extends State<ProductMediaPage> {
 
   @override
   Widget build(BuildContext context) {
-    imageWidth ??= _getWidth(context);
-
     return Column(
       children: [
-        DialogHeader(onTap: () => GoRouter.of(context).pop()),
-        Expanded(
-          child: MaxWidthBox(
-            maxWidth: imageWidth,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: ShadImage(
-                  viewModel.medias
-                          .watch(context)
-                          .firstWhereOrNull(
-                            (element) => element.selected,
-                          )
-                          ?.url ??
-                      '',
-                  fit: BoxFit.cover,
-                  height: double.infinity,
+        DialogHeader(
+          onTap: () => GoRouter.of(context).pop(),
+          trailing: viewModel.viewMode.watch(context) == ViewMode.edit
+              ? ShadButton(
+                  size: ShadButtonSize.sm,
+                  child: Text(context.loc.gallery),
+                  onPressed: () => viewModel.viewMode.set(ViewMode.gallery),
+                )
+              : _GalleryTrailing(
+                  productId: widget.productId,
+                  onEdit: () => viewModel.viewMode.set(ViewMode.edit),
                 ),
-              ),
-            ),
+        ),
+        Expanded(
+          child: Watch(
+            (_) {
+              if (viewModel.medias.isEmpty) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              return viewModel.viewMode.value == ViewMode.gallery
+                  ? ProductGallery(files: viewModel.medias.value)
+                  : ProductGalleryEdit(
+                      files: viewModel.medias.value,
+                      onFilesSelected: viewModel.onFileSelected,
+                    );
+            },
           ),
         ),
         const Divider(height: 1),
-        _ProductMediaFooter(
-          files: viewModel.medias.watch(context),
-          onMediaSelected: viewModel.onMediaSelected,
-          onNextSelected: viewModel.onNextSelected,
-          onPreviousSelected: viewModel.onPreviousSelected,
-        ),
+        if (viewModel.viewMode.watch(context) == ViewMode.gallery)
+          _ProductMediaFooter(
+            files: viewModel.medias.watch(context),
+            onMediaSelected: viewModel.onMediaSelected,
+            onNextSelected: viewModel.onNextSelected,
+            onPreviousSelected: viewModel.onPreviousSelected,
+          )
+        else
+          DialogFooter(
+            onCancel: () => GoRouter.of(context).pop(),
+            onCreate: () {},
+          )
       ],
     );
   }
+}
 
-  double _getWidth(BuildContext context) {
-    final breakpoints = ResponsiveBreakpoints.of(context);
-    final screenWidth = MediaQuery.sizeOf(context).width;
+class _GalleryTrailing extends StatelessWidget {
+  final String productId;
+  final VoidCallback onEdit;
 
-    if (breakpoints.isTablet) {
-      return screenWidth * 0.75;
-    }
+  const _GalleryTrailing({
+    required this.productId,
+    required this.onEdit,
+  });
 
-    return breakpoints.isMobile || breakpoints.isPhone
-        ? screenWidth
-        : screenWidth * 0.33;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        ShadButton.outline(
+          icon: const Icon(
+            LucideIcons.trash2,
+            size: 16,
+          ),
+          onPressed: () {},
+        ),
+        ShadButton.outline(
+          icon: const Icon(
+            LucideIcons.download,
+            size: 16,
+          ),
+          onPressed: () {},
+        ),
+        ShadButton(
+          size: ShadButtonSize.sm,
+          onPressed: onEdit,
+          child: Text(context.loc.edit),
+        )
+      ].separatedBy(const SizedBox(width: 8)),
+    );
   }
 }
 

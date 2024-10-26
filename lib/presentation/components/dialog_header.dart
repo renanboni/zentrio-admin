@@ -3,8 +3,13 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 
 class DialogHeader extends StatelessWidget {
   final void Function() onTap;
+  final Widget? trailing;
 
-  const DialogHeader({super.key, required this.onTap});
+  const DialogHeader({
+    super.key,
+    this.trailing,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +30,8 @@ class DialogHeader extends StatelessWidget {
               const ShadBadge(
                 child: Text('esc'),
               ),
+              const Spacer(),
+              if (trailing != null) trailing!,
             ],
           ),
         ),

@@ -48,5 +48,8 @@
   "salesChannelEnabledDescription": "Especifique se o canal de vendas está ativado.",
   "name": "Nome",
   "notAvailableInChannelSales": "Não disponível em nenhum canal de vendas",
-  "availableInChannelSales": "Disponível em {count, plural, =1{1 canal de vendas} other{# canais de vendas}} de {total, plural, =1{1} other{#}}"
+  "availableInChannelSales": "Disponível em {count, plural, =1{1 canal de vendas} other{# canais de vendas}} de {total, plural, =1{1} other{#}}",
+  "gallery": "Galeria",
+  "optional": "Opcional",
+  "addProductMediaDescription": "Adicione mídia ao produto para exibi-lo em sua loja."
 }

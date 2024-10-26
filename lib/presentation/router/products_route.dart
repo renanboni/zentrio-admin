@@ -118,8 +118,10 @@ final productsRoute = GoRoute(
           pageBuilder: (BuildContext context, GoRouterState state) {
             final productId = state.pathParameters['id'];
             final selectedMediaId = state.extra as String?;
+
             return DialogPage(
               builder: (_) => ProductMediaPage(
+                key: UniqueKey(),
                 productId: productId ?? '',
                 selectedMediaId: selectedMediaId,
               ),
