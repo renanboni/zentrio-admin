@@ -46,5 +46,7 @@
   "description": "Descrição",
   "enabled": "Ativado",
   "salesChannelEnabledDescription": "Especifique se o canal de vendas está ativado.",
-  "name": "Nome"
+  "name": "Nome",
+  "notAvailableInChannelSales": "Não disponível em nenhum canal de vendas",
+  "availableInChannelSales": "Disponível em {count, plural, =1{1 canal de vendas} other{# canais de vendas}} de {total, plural, =1{1} other{#}}"
 }

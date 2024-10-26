@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-import 'package:zentrio_admin/presentation/features/products/components/variants.dart';
 import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 class EditContextMenu extends StatefulWidget {

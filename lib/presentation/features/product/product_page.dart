@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -9,6 +8,7 @@ import 'package:zentrio_admin/presentation/features/product/components/product_d
 import 'package:zentrio_admin/presentation/features/product/components/product_images_card.dart';
 import 'package:zentrio_admin/presentation/features/product/components/product_organize_attributes.dart';
 import 'package:zentrio_admin/presentation/features/product/components/product_organize_card.dart';
+import 'package:zentrio_admin/presentation/features/product/components/product_sales_channels.dart';
 import 'package:zentrio_admin/presentation/features/product/components/product_variant_card.dart';
 import 'package:zentrio_admin/presentation/features/product/product_view_model.dart';
 
@@ -61,9 +61,8 @@ class _ProductPageState extends State<ProductPage> {
                       ResponsiveRowColumnItem(
                         child: ProductDetailsCard(
                           product: viewModel.product.watch(context),
-                          onRefresh: () {
-                            viewModel.getProductById(widget.productId);
-                          },
+                          onRefresh: () =>
+                              viewModel.getProductById(widget.productId),
                         ),
                       ),
                       ResponsiveRowColumnItem(
@@ -108,6 +107,12 @@ class _ProductPageState extends State<ProductPage> {
                     layout: ResponsiveRowColumnType.COLUMN,
                     columnSpacing: 16,
                     children: [
+                      ResponsiveRowColumnItem(
+                        child: ProductSalesChannels(
+                          product: viewModel.product.watch(context),
+                          salesChannels: const [],
+                        ),
+                      ),
                       ResponsiveRowColumnItem(
                         child: ProductOrganizeCard(
                           product: viewModel.product.watch(context),

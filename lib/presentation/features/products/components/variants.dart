@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:zentrio_admin/presentation/components/switch_card.dart';
-import 'package:zentrio_admin/presentation/features/products/products_page.dart';
 import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 class Variants extends StatelessWidget {

@@ -6,6 +6,7 @@ class CardScaffold extends StatelessWidget {
   final Widget? trailing;
   final String title;
   final String subtitle;
+  final EdgeInsets? padding;
 
   const CardScaffold({
     super.key,
@@ -13,6 +14,7 @@ class CardScaffold extends StatelessWidget {
     required this.child,
     this.trailing,
     this.subtitle = "",
+    this.padding,
   });
 
   @override
@@ -20,10 +22,11 @@ class CardScaffold extends StatelessWidget {
     return ShadCard(
       padding: const EdgeInsets.all(0),
       title: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 16,
-          horizontal: 16,
-        ),
+        padding: padding ??
+            const EdgeInsets.symmetric(
+              vertical: 16,
+              horizontal: 16,
+            ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -46,9 +49,7 @@ class CardScaffold extends StatelessWidget {
           ],
         ),
       ),
-      child: Expanded(
-        child: child,
-      ),
+      child: child,
     );
   }
 }

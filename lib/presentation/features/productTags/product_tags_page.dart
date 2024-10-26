@@ -37,53 +37,55 @@ class _ProductTagsPageState extends State<ProductTagsPage> {
           }
         },
       ),
-      child: Column(
-        children: [
-          const Divider(height: 1),
-          Watch(
-            (_) => Expanded(
-              child: DataTableView(
-                onRowTap: (productTag) {
-                  GoRouter.of(context).go("/product_tags/${productTag.id}");
-                },
-                columns: const [
-                  "Value",
-                  "Created",
-                  "Updated",
-                  "",
-                ],
-                data: viewModel.productTags.value.data,
-                cellBuilder: (productTag) => [
-                  DataCell(Text(productTag.value)),
-                  DataCell(Text(productTag.createdAt.yMMMd())),
-                  DataCell(Text(productTag.updatedAt.yMMMd())),
-                  DataCell(
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: EditContextMenu(
-                        deleteDialogTitle: "Are you sure?",
-                        deleteDialogDescription:
-                            "You are about to delete the product tag ${productTag.value}. This action cannot be undone.",
-                        onEdit: () => {
-                          GoRouter.of(context)
-                              .go("/product_tags/${productTag.id}/edit")
-                        },
-                        onDelete: () => {
-                          viewModel.deleteProductTag(productTag, () {
-                            context.success("Tag deleted successfully");
-                            GoRouter.of(context).pop();
-                          }, () {
-                            context.error("Failed to delete tag");
-                          })
-                        },
+      child: Expanded(
+        child: Column(
+          children: [
+            const Divider(height: 1),
+            Watch(
+              (_) => Expanded(
+                child: DataTableView(
+                  onRowTap: (productTag) {
+                    GoRouter.of(context).go("/product_tags/${productTag.id}");
+                  },
+                  columns: const [
+                    "Value",
+                    "Created",
+                    "Updated",
+                    "",
+                  ],
+                  data: viewModel.productTags.value.data,
+                  cellBuilder: (productTag) => [
+                    DataCell(Text(productTag.value)),
+                    DataCell(Text(productTag.createdAt.yMMMd())),
+                    DataCell(Text(productTag.updatedAt.yMMMd())),
+                    DataCell(
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: EditContextMenu(
+                          deleteDialogTitle: "Are you sure?",
+                          deleteDialogDescription:
+                              "You are about to delete the product tag ${productTag.value}. This action cannot be undone.",
+                          onEdit: () => {
+                            GoRouter.of(context)
+                                .go("/product_tags/${productTag.id}/edit")
+                          },
+                          onDelete: () => {
+                            viewModel.deleteProductTag(productTag, () {
+                              context.success("Tag deleted successfully");
+                              GoRouter.of(context).pop();
+                            }, () {
+                              context.error("Failed to delete tag");
+                            })
+                          },
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

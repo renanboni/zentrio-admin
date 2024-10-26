@@ -38,53 +38,55 @@ class _ProductTypesPageState extends State<ProductTypesPage> {
           }
         },
       ),
-      child: Column(
-        children: [
-          const Divider(height: 1),
-          Watch(
-            (_) => Expanded(
-              child: DataTableView(
-                onRowTap: (productType) {
-                  GoRouter.of(context).go("/product_types/${productType.id}");
-                },
-                columns: const [
-                  "Value",
-                  "Created",
-                  "Updated",
-                  "",
-                ],
-                data: viewModel.productTypes.value.data,
-                cellBuilder: (productType) => [
-                  DataCell(Text(productType.value)),
-                  DataCell(Text(productType.createdAt.yMMMd())),
-                  DataCell(Text(productType.updatedAt.yMMMd())),
-                  DataCell(
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: EditContextMenu(
-                        deleteDialogTitle: "Are you sure?",
-                        deleteDialogDescription:
-                            "You are about to delete the product type ${productType.value}. This action cannot be undone.",
-                        onEdit: () => {
-                          GoRouter.of(context)
-                              .go("/product_types/${productType.id}/edit")
-                        },
-                        onDelete: () => {
-                          viewModel.onDeleted(productType, () {
-                            context.success("Type deleted successfully");
-                            GoRouter.of(context).pop();
-                          }, () {
-                            context.error("Failed to delete type");
-                          })
-                        },
+      child: Expanded(
+        child: Column(
+          children: [
+            const Divider(height: 1),
+            Watch(
+              (_) => Expanded(
+                child: DataTableView(
+                  onRowTap: (productType) {
+                    GoRouter.of(context).go("/product_types/${productType.id}");
+                  },
+                  columns: const [
+                    "Value",
+                    "Created",
+                    "Updated",
+                    "",
+                  ],
+                  data: viewModel.productTypes.value.data,
+                  cellBuilder: (productType) => [
+                    DataCell(Text(productType.value)),
+                    DataCell(Text(productType.createdAt.yMMMd())),
+                    DataCell(Text(productType.updatedAt.yMMMd())),
+                    DataCell(
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: EditContextMenu(
+                          deleteDialogTitle: "Are you sure?",
+                          deleteDialogDescription:
+                              "You are about to delete the product type ${productType.value}. This action cannot be undone.",
+                          onEdit: () => {
+                            GoRouter.of(context)
+                                .go("/product_types/${productType.id}/edit")
+                          },
+                          onDelete: () => {
+                            viewModel.onDeleted(productType, () {
+                              context.success("Type deleted successfully");
+                              GoRouter.of(context).pop();
+                            }, () {
+                              context.error("Failed to delete type");
+                            })
+                          },
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

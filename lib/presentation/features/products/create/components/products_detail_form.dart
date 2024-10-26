@@ -4,7 +4,6 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
-import 'package:zentrio_admin/presentation/components/edit_context_menu.dart';
 import 'package:zentrio_admin/presentation/features/products/components/variants.dart';
 import 'package:zentrio_admin/presentation/features/products/create/components/media_list.dart';
 import 'package:zentrio_admin/presentation/features/products/create/create_product_viewmodel.dart';

@@ -1,9 +1,7 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-import 'package:zentrio_admin/domain/models/media_file.dart';
 import 'package:zentrio_admin/domain/models/product_variant.dart';
-import 'package:zentrio_admin/utils/extensions/string_ext.dart';
 
 enum ProductVariantTableColumn {
   options,

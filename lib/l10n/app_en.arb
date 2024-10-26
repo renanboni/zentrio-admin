@@ -46,7 +46,9 @@
   "description": "Description",
   "enabled": "Enabled",
   "salesChannelEnabledDescription": "Specify whether the sales channel is enabled.",
-  "name": "Name"
+  "name": "Name",
+  "notAvailableInChannelSales": "Not available in any sales channels",
+  "availableInChannelSales": "Available in {count, plural, =1{1 sales channel} other{# sales channels}} of {total, plural, =1{1} other{#}}"
 }
 
 

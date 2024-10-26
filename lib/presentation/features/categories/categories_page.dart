@@ -51,60 +51,62 @@ class _CategoriesPageState extends State<CategoriesPage> {
           ],
         ),
       ),
-      child: Column(
-        children: [
-          const Divider(height: 1),
-          Watch(
-            (_) => Expanded(
-              child: DataTableView(
-                onRowTap: (category) {
-                  GoRouter.of(context).go("/categories/${category.id}");
-                },
-                columns: const [
-                  "Name",
-                  "Description",
-                  "Handle",
-                  "Status",
-                  "Visibility",
-                  "",
-                ],
-                data: viewModel.categories.value.data,
-                cellBuilder: (category) => [
-                  DataCell(Text(category.name)),
-                  DataCell(Text(category.description)),
-                  DataCell(Text(category.handle)),
-                  DataCell(
-                    Text(category.isActive ? "Active" : "Inactive"),
-                  ),
-                  DataCell(
-                    Text(category.isInternal ? "Internal" : "Public"),
-                  ),
-                  DataCell(
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: EditContextMenu(
-                        deleteDialogTitle: "Are you sure?",
-                        deleteDialogDescription:
-                            "You are about to delete the category ${category.name}. This action cannot be undone.",
-                        onEdit: () => {
-                          GoRouter.of(context).go("/categories/${category.id}/edit")
-                        },
-                        onDelete: () => {
-                          viewModel.deleteCategory(category, () {
-                            context.success("Category deleted successfully");
-                            GoRouter.of(context).pop();
-                          }, () {
-                            context.error("Failed to delete category");
-                          })
-                        },
-                      ),
+      child: Expanded(
+        child: Column(
+          children: [
+            const Divider(height: 1),
+            Watch(
+              (_) => Expanded(
+                child: DataTableView(
+                  onRowTap: (category) {
+                    GoRouter.of(context).go("/categories/${category.id}");
+                  },
+                  columns: const [
+                    "Name",
+                    "Description",
+                    "Handle",
+                    "Status",
+                    "Visibility",
+                    "",
+                  ],
+                  data: viewModel.categories.value.data,
+                  cellBuilder: (category) => [
+                    DataCell(Text(category.name)),
+                    DataCell(Text(category.description)),
+                    DataCell(Text(category.handle)),
+                    DataCell(
+                      Text(category.isActive ? "Active" : "Inactive"),
                     ),
-                  )
-                ],
+                    DataCell(
+                      Text(category.isInternal ? "Internal" : "Public"),
+                    ),
+                    DataCell(
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: EditContextMenu(
+                          deleteDialogTitle: "Are you sure?",
+                          deleteDialogDescription:
+                              "You are about to delete the category ${category.name}. This action cannot be undone.",
+                          onEdit: () => {
+                            GoRouter.of(context).go("/categories/${category.id}/edit")
+                          },
+                          onDelete: () => {
+                            viewModel.deleteCategory(category, () {
+                              context.success("Category deleted successfully");
+                              GoRouter.of(context).pop();
+                            }, () {
+                              context.error("Failed to delete category");
+                            })
+                          },
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

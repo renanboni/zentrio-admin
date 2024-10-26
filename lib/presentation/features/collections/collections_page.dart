@@ -24,53 +24,55 @@ class _CollectionsPageState extends State<CollectionsPage> {
     return CardScaffold(
       title: context.loc.collections,
       subtitle: context.loc.organizeProductsLabel,
-      child: Column(
-        children: [
-          const Divider(height: 1),
-          Watch(
-            (_) => Expanded(
-              child: DataTableView(
-                onRowTap: (collection) {
-                  GoRouter.of(context).go("/collections/${collection.id}");
-                },
-                columns: [
-                  context.loc.title,
-                  context.loc.handle,
-                  context.loc.products,
-                  "",
-                ],
-                data: viewModel.collections.value.data,
-                cellBuilder: (collection) => [
-                  DataCell(Text(collection.title)),
-                  DataCell(Text(collection.handle)),
-                  DataCell(Text(collection.products.length.toString())),
-                  DataCell(
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: EditContextMenu(
-                        deleteDialogTitle: context.loc.areYouSure,
-                        deleteDialogDescription:
-                            "You are about to delete the collection ${collection.title}. This action cannot be undone.",
-                        onEdit: () => {
-                          GoRouter.of(context)
-                              .go("/collections/${collection.id}/edit")
-                        },
-                        onDelete: () => {
-                       /*   viewModel.deleteCategory(collection, () {
-                            context.success("Category deleted successfully");
-                            GoRouter.of(context).pop();
-                          }, () {
-                            context.error("Failed to delete collection");
-                          })*/
-                        },
+      child: Expanded(
+        child: Column(
+          children: [
+            const Divider(height: 1),
+            Watch(
+              (_) => Expanded(
+                child: DataTableView(
+                  onRowTap: (collection) {
+                    GoRouter.of(context).go("/collections/${collection.id}");
+                  },
+                  columns: [
+                    context.loc.title,
+                    context.loc.handle,
+                    context.loc.products,
+                    "",
+                  ],
+                  data: viewModel.collections.value.data,
+                  cellBuilder: (collection) => [
+                    DataCell(Text(collection.title)),
+                    DataCell(Text(collection.handle)),
+                    DataCell(Text(collection.products.length.toString())),
+                    DataCell(
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: EditContextMenu(
+                          deleteDialogTitle: context.loc.areYouSure,
+                          deleteDialogDescription:
+                              "You are about to delete the collection ${collection.title}. This action cannot be undone.",
+                          onEdit: () => {
+                            GoRouter.of(context)
+                                .go("/collections/${collection.id}/edit")
+                          },
+                          onDelete: () => {
+                         /*   viewModel.deleteCategory(collection, () {
+                              context.success("Category deleted successfully");
+                              GoRouter.of(context).pop();
+                            }, () {
+                              context.error("Failed to delete collection");
+                            })*/
+                          },
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
