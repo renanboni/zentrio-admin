@@ -6,6 +6,7 @@ import 'package:zentrio_admin/presentation/features/product/organization/product
 
 import '../components/dialog_page.dart';
 import '../components/sheet_page.dart';
+import '../features/product/media/product_media_page.dart';
 import '../features/product/metadata/product_metadata_page.dart';
 import '../features/product/options/create_product_option_page.dart';
 import '../features/product/product_page.dart';
@@ -107,6 +108,20 @@ final productsRoute = GoRoute(
             return DialogPage(
               builder: (_) => ProductCreateVariantPage(
                 productId: productId ?? '',
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: "media",
+          parentNavigatorKey: rootNavigatorKey,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            final productId = state.pathParameters['id'];
+            final selectedMediaId = state.extra as String?;
+            return DialogPage(
+              builder: (_) => ProductMediaPage(
+                productId: productId ?? '',
+                selectedMediaId: selectedMediaId,
               ),
             );
           },

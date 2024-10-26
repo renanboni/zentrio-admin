@@ -68,6 +68,12 @@ class _ProductPageState extends State<ProductPage> {
                       ResponsiveRowColumnItem(
                         child: ProductImagesCard(
                           images: viewModel.product.watch(context).images,
+                          onImageTap: (image) {
+                            GoRouter.of(context).push(
+                              "/products/${widget.productId}/media",
+                              extra: image.id,
+                            );
+                          },
                         ),
                       ),
                       ResponsiveRowColumnItem(

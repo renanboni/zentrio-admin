@@ -6,8 +6,8 @@ import '../models/api_file.dart';
 extension ApiFileMapper on ApiFile {
   MedusaFile toMediaFile() {
     return MedusaFile(
-      id ?? '',
-      url ?? '',
+      id: id ?? "",
+      url: url ?? "",
     );
   }
 }

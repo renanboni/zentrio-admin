@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
 import '../../../../domain/models/medusa_file.dart';
@@ -7,10 +8,12 @@ const double _kImageWidth = 128;
 
 class ProductImageList extends StatelessWidget {
   final List<MedusaFile> images;
+  final Function(MedusaFile) onImageTap;
 
   const ProductImageList({
     super.key,
     required this.images,
+    required this.onImageTap,
   });
 
   @override
@@ -19,13 +22,15 @@ class ProductImageList extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: SizedBox(
         height: _kImageWidth,
-        child: ListView.builder(
-          shrinkWrap: false,
+        child: ListView.separated(
           scrollDirection: Axis.horizontal,
           itemCount: images.length,
-          itemBuilder: (context, index) {
-            return ProductImageItemList(
-              image: images[index],
+          separatorBuilder: (_, __) => const SizedBox(width: 8),
+          itemBuilder: (_, index) {
+            final image = images[index];
+            return InkWell(
+              onTap: () => onImageTap(image),
+              child: ProductImageItemList(image: image),
             );
           },
         ),

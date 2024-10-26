@@ -7,10 +7,12 @@ import '../../../components/edit_context_menu.dart';
 
 class ProductImagesCard extends StatelessWidget {
   final List<MedusaFile> images;
+  final Function(MedusaFile) onImageTap;
 
   const ProductImagesCard({
     super.key,
     required this.images,
+    required this.onImageTap,
   });
 
   @override
@@ -21,7 +23,10 @@ class ProductImagesCard extends StatelessWidget {
         children: [
           _buildHeader(context),
           const Divider(height: 1),
-          ProductImageList(images: images),
+          ProductImageList(
+            images: images,
+            onImageTap: onImageTap,
+          ),
         ],
       ),
     );
@@ -43,9 +48,7 @@ class ProductImagesCard extends StatelessWidget {
           ),
           const Spacer(),
           EditContextMenu(
-            onEdit: () async {
-
-            },
+            onEdit: () async {},
           )
         ],
       ),
