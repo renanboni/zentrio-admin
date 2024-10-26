@@ -53,7 +53,9 @@
   "optional": "Optional",
   "addProductMediaDescription": "Add media to the product to showcase it in your storefront.",
   "leaveFormConfirmationTitle": "Are you sure you want to leave this form?",
-  "leaveFormConfirmationDescription": "You have unsaved changes that will be lost if you leave this form."
+  "leaveFormConfirmationDescription": "You have unsaved changes that will be lost if you leave this form.",
+  "selectedCount": "{count} selected",
+  "makeThumbnail": "Make Thumbnail"
 }
 
 

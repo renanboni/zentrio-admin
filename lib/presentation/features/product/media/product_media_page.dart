@@ -5,6 +5,7 @@ import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/domain/models/medusa_file.dart';
 import 'package:zentrio_admin/presentation/components/dialog_footer.dart';
 import 'package:zentrio_admin/presentation/components/dialog_header.dart';
+import 'package:zentrio_admin/presentation/features/product/media/components/product_media_select_control.dart';
 import 'package:zentrio_admin/presentation/features/product/media/gallery/product_gallery.dart';
 import 'package:zentrio_admin/presentation/features/product/media/product_media_view_model.dart';
 import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
@@ -70,7 +71,7 @@ class _ProductMediaPageState extends State<ProductMediaPage> {
                             ShadButton.destructive(
                               size: ShadButtonSize.sm,
                               child: Text(context.loc.continueLabel),
-                              onPressed: ()  {
+                              onPressed: () {
                                 viewModel.clearUnsavedMedia();
                                 GoRouter.of(context).pop();
                                 viewModel.viewMode.set(ViewMode.gallery);
@@ -90,18 +91,44 @@ class _ProductMediaPageState extends State<ProductMediaPage> {
                 ),
         ),
         Expanded(
-          child: Watch(
-            (_) {
-              if (viewModel.medias.isEmpty) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              return viewModel.viewMode.value == ViewMode.gallery
-                  ? ProductGallery(files: viewModel.medias.value)
-                  : ProductGalleryEdit(
-                      files: viewModel.medias.value,
-                      onFilesSelected: viewModel.onFileSelected,
-                    );
-            },
+          child: Stack(
+            children: [
+              Watch(
+                (_) {
+                  if (viewModel.medias.isEmpty) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  return viewModel.viewMode.value == ViewMode.gallery
+                      ? ProductGallery(files: viewModel.medias.value)
+                      : ProductGalleryEdit(
+                          files: viewModel.medias.value,
+                          onFilesSelected: viewModel.onFileSelected,
+                          onMediaFileChecked: (file, checked) {
+                            if (checked) {
+                              viewModel.onMediaChecked(file);
+                            } else {
+                              viewModel.onMediaUnchecked(file);
+                            }
+                          },
+                        );
+                },
+              ),
+              if (viewModel.checkedMediaFiles.watch(context).isNotEmpty)
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ProductMediaSelectControl(
+                        files: viewModel.checkedMediaFiles.watch(context),
+                        onDeleted: (){},
+                        onMakeThumbnail: (){},
+                      ),
+                      const SizedBox(height: 8),
+                    ],
+                  ),
+                ),
+            ],
           ),
         ),
         const Divider(height: 1),

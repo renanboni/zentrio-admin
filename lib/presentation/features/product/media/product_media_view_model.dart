@@ -15,6 +15,7 @@ enum ViewMode {
 class ProductMediaViewModel {
   final ListSignal<MedusaFile> medias = ListSignal<MedusaFile>([]);
   final Signal<ViewMode> viewMode = Signal<ViewMode>(ViewMode.gallery);
+  final SetSignal<MedusaFile> checkedMediaFiles = setSignal({});
 
   final ProductUseCase _productUseCase;
 
@@ -37,6 +38,14 @@ class ProductMediaViewModel {
     } catch (e) {
       print(e);
     }
+  }
+
+  void onMediaChecked(MedusaFile file) {
+    checkedMediaFiles.add(file);
+  }
+
+  void onMediaUnchecked(MedusaFile file) {
+    checkedMediaFiles.remove(file);
   }
 
   void onFileSelected(List<MediaFile> files) {

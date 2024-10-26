@@ -53,5 +53,7 @@
   "optional": "Opcional",
   "addProductMediaDescription": "Adicione mídia ao produto para exibi-lo em sua loja.",
   "leaveFormConfirmationTitle": "Tem certeza de que deseja sair deste formulário?",
-  "leaveFormConfirmationDescription": "Você tem alterações não salvas que serão perdidas se sair deste formulário."
+  "leaveFormConfirmationDescription": "Você tem alterações não salvas que serão perdidas se sair deste formulário.",
+  "selectedCount": "{count} selecionados",
+  "makeThumbnail": "Criar Miniatura"
 }

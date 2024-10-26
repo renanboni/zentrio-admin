@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:zentrio_admin/presentation/components/optional_label.dart';
+import 'package:zentrio_admin/presentation/components/product_media.dart';
 import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 import '../../../../../domain/models/media_file.dart';
@@ -11,11 +12,13 @@ import '../../../../components/image_picker.dart';
 class ProductGalleryEdit extends StatelessWidget {
   final List<MedusaFile> files;
   final ValueChanged<List<MediaFile>> onFilesSelected;
+  final Function(MedusaFile file, bool isChecked) onMediaFileChecked;
 
   const ProductGalleryEdit({
     super.key,
     required this.files,
     required this.onFilesSelected,
+    required this.onMediaFileChecked,
   });
 
   @override
@@ -42,13 +45,9 @@ class ProductGalleryEdit extends StatelessWidget {
             itemCount: files.length,
             itemBuilder: (context, index) {
               final file = files[index];
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  file.url,
-                  fit: BoxFit.cover,
-                  height: double.infinity,
-                ),
+              return ProductMedia(
+                file: file,
+                onChecked: onMediaFileChecked,
               );
             },
           ),
@@ -68,8 +67,7 @@ class ProductGalleryEdit extends StatelessWidget {
                   const SizedBox(height: 8),
                   ImagePicker(
                     onFilesSelected: onFilesSelected,
-                    onControllerCreated: (controller) {
-                    },
+                    onControllerCreated: (controller) {},
                   ),
                 ],
               ),
@@ -80,4 +78,3 @@ class ProductGalleryEdit extends StatelessWidget {
     );
   }
 }
-
