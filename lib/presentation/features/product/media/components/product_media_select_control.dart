@@ -23,11 +23,12 @@ class ProductMediaSelectControl extends StatelessWidget {
     return IntrinsicWidth(
       child: Container(
         decoration: BoxDecoration(
-            color: theme.colorScheme.background,
-            border: Border.all(
-              color: theme.colorScheme.border,
-            ),
-            borderRadius: BorderRadius.circular(16.0)),
+          color: theme.colorScheme.background,
+          border: Border.all(
+            color: theme.colorScheme.border,
+          ),
+          borderRadius: BorderRadius.circular(16.0),
+        ),
         height: 40,
         child: Row(
           children: [
@@ -36,16 +37,15 @@ class ProductMediaSelectControl extends StatelessWidget {
               context.loc.selectedCount(files.length),
               style: theme.textTheme.muted,
             ),
+            if (files.length == 1) const VerticalDivider(width: 1),
             if (files.length == 1)
-            const VerticalDivider(width: 1),
-            if (files.length == 1)
-            TextButton(
-              onPressed: onMakeThumbnail,
-              child: Text(
-                context.loc.makeThumbnail,
-                style: theme.textTheme.small,
+              TextButton(
+                onPressed: onMakeThumbnail,
+                child: Text(
+                  context.loc.makeThumbnail,
+                  style: theme.textTheme.small,
+                ),
               ),
-            ),
             const VerticalDivider(width: 1),
             TextButton(
               onPressed: onDeleted,

@@ -55,7 +55,10 @@
   "leaveFormConfirmationTitle": "Are you sure you want to leave this form?",
   "leaveFormConfirmationDescription": "You have unsaved changes that will be lost if you leave this form.",
   "selectedCount": "{count} selected",
-  "makeThumbnail": "Make Thumbnail"
+  "makeThumbnail": "Make Thumbnail",
+  "material": "Material",
+  "discountable": "Discountable",
+  "discountableDescription": "When unchecked, discounts will not be applied to this product"
 }
 
 

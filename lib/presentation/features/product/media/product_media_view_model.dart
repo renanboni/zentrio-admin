@@ -60,6 +60,10 @@ class ProductMediaViewModel {
     medias.value = medias.value.where((element) => element.id.isNotEmpty).toList();
   }
 
+  void clearCheckedMediaFiles() {
+    checkedMediaFiles.clear();
+  }
+
   void onMediaSelected(MedusaFile file) {
     medias.value = medias.value
         .map((e) => e.copyWith(selected: e.id == file.id))

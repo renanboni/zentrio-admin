@@ -73,8 +73,9 @@ class _ProductMediaPageState extends State<ProductMediaPage> {
                               child: Text(context.loc.continueLabel),
                               onPressed: () {
                                 viewModel.clearUnsavedMedia();
-                                GoRouter.of(context).pop();
+                                viewModel.clearCheckedMediaFiles();
                                 viewModel.viewMode.set(ViewMode.gallery);
+                                GoRouter.of(context).pop();
                               },
                             ),
                           ],
@@ -82,6 +83,7 @@ class _ProductMediaPageState extends State<ProductMediaPage> {
                       );
                       return;
                     }
+                    viewModel.clearCheckedMediaFiles();
                     viewModel.viewMode.set(ViewMode.gallery);
                   },
                 )
@@ -131,7 +133,6 @@ class _ProductMediaPageState extends State<ProductMediaPage> {
             ],
           ),
         ),
-        const Divider(height: 1),
         if (viewModel.viewMode.watch(context) == ViewMode.gallery)
           _ProductMediaFooter(
             files: viewModel.medias.watch(context),

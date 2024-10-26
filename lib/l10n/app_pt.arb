@@ -55,5 +55,8 @@
   "leaveFormConfirmationTitle": "Tem certeza de que deseja sair deste formulário?",
   "leaveFormConfirmationDescription": "Você tem alterações não salvas que serão perdidas se sair deste formulário.",
   "selectedCount": "{count} selecionados",
-  "makeThumbnail": "Criar Miniatura"
+  "makeThumbnail": "Criar Miniatura",
+  "material": "Material",
+  "discountable": "Descontável",
+  "discountableDescription": "Quando desmarcado, os descontos não serão aplicados a este produto"
 }

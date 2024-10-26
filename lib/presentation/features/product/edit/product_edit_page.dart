@@ -68,17 +68,18 @@ class _ProductEditPageState extends State<ProductEditPage> {
                             ),
                           )
                           .toList(),
-                      selectedOptionBuilder: (context, value) => Text(value.name),
+                      selectedOptionBuilder: (context, value) =>
+                          Text(value.name),
                     ),
                     const SizedBox(height: 16),
                     ShadInputFormField(
-                      label: const Text("Title"),
+                      label: Text(context.loc.title),
                       initialValue: viewModel.product.watch(context).title,
                       onChanged: viewModel.title.set,
                     ),
                     const SizedBox(height: 16),
                     ShadInputFormField(
-                      label: const Text("Subtitle"),
+                      label: Text(context.loc.subtitle),
                       initialValue: viewModel.product.watch(context).subtitle,
                       onChanged: viewModel.subtitle.set,
                     ),
@@ -90,23 +91,23 @@ class _ProductEditPageState extends State<ProductEditPage> {
                     ),
                     const SizedBox(height: 16),
                     ShadInputFormField(
-                      label: const Text("Material"),
+                      label: Text(context.loc.material),
                       initialValue: viewModel.product.watch(context).material,
                       onChanged: viewModel.material.set,
                       keyboardType: TextInputType.number,
                     ),
                     const SizedBox(height: 16),
                     ShadInputFormField(
-                      label: const Text("Description"),
-                      initialValue: viewModel.product.watch(context).description,
+                      label: Text(context.loc.description),
+                      initialValue:
+                          viewModel.product.watch(context).description,
                       onChanged: viewModel.description.set,
                       maxLines: 5,
                     ),
                     const SizedBox(height: 16),
                     SwitchCard(
-                      title: "Discountable",
-                      description:
-                      "When unchecked, discounts will not be applied to this product",
+                      title: context.loc.discountable,
+                      description: context.loc.discountableDescription,
                       value: viewModel.discountable.watch(context),
                       onChanged: viewModel.discountable.set,
                     )
