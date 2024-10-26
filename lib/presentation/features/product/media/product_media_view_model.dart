@@ -43,6 +43,14 @@ class ProductMediaViewModel {
     medias.value = medias.value + files.map((e) => MedusaFile(url: e.url)).toList();
   }
 
+  bool hasNewMedia() {
+    return medias.value.any((element) => element.id.isEmpty);
+  }
+
+  void clearUnsavedMedia() {
+    medias.value = medias.value.where((element) => element.id.isNotEmpty).toList();
+  }
+
   void onMediaSelected(MedusaFile file) {
     medias.value = medias.value
         .map((e) => e.copyWith(selected: e.id == file.id))

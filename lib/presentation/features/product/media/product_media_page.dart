@@ -49,7 +49,40 @@ class _ProductMediaPageState extends State<ProductMediaPage> {
               ? ShadButton(
                   size: ShadButtonSize.sm,
                   child: Text(context.loc.gallery),
-                  onPressed: () => viewModel.viewMode.set(ViewMode.gallery),
+                  onPressed: () {
+                    if (viewModel.hasNewMedia()) {
+                      showShadDialog(
+                        context: context,
+                        builder: (context) => ShadDialog.alert(
+                          title: Text(context.loc.leaveFormConfirmationTitle),
+                          description: Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: Text(
+                                context.loc.leaveFormConfirmationDescription),
+                          ),
+                          actions: [
+                            ShadButton.outline(
+                              size: ShadButtonSize.sm,
+                              child: Text(context.loc.cancel),
+                              onPressed: () => GoRouter.of(context).pop(false),
+                            ),
+                            const SizedBox(width: 8),
+                            ShadButton.destructive(
+                              size: ShadButtonSize.sm,
+                              child: Text(context.loc.continueLabel),
+                              onPressed: ()  {
+                                viewModel.clearUnsavedMedia();
+                                GoRouter.of(context).pop();
+                                viewModel.viewMode.set(ViewMode.gallery);
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                      return;
+                    }
+                    viewModel.viewMode.set(ViewMode.gallery);
+                  },
                 )
               : _GalleryTrailing(
                   productId: widget.productId,
