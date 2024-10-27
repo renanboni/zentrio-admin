@@ -10,6 +10,7 @@ import 'package:zentrio_admin/utils/extensions/context_ext.dart';
 import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 import '../../../../di/init.dart';
+import '../../../../utils/constants.dart';
 import '../../../components/stepper/horizontal_stepper.dart';
 import '../../../components/stepper/step_item_list.dart';
 import 'components/create_product_variants_form.dart';
@@ -24,8 +25,8 @@ class CreateProductForm extends StatefulWidget {
 class _CreateProductFormState extends State<CreateProductForm> {
   final CreateProductViewModel viewModel = getIt<CreateProductViewModel>();
   final CurrencyTextInputFormatter _formatter = CurrencyTextInputFormatter.currency(
-    locale: "pt_BR",
-    symbol: "R\$",
+    locale: kDefaultLocale,
+    symbol: kCurrencySymbol,
   );
 
   @override

@@ -64,5 +64,17 @@
   "created": "Criado",
   "registered": "Registrado",
   "guest": "Convidado",
-  "customers": "Clientes"
+  "customers": "Clientes",
+  "campaigns": "Campanhas",
+  "createCampaign": "Criar Campanha",
+  "createCampaignDescription": "Crie uma campanha promocional.",
+  "startDate": "Data de Início",
+  "endDate": "Data de Término",
+  "campaignBudget": "Orçamento da Campanha",
+  "campaignBudgetDescription": "Crie um orçamento para a campanha.",
+  "usage": "Uso",
+  "usageDescription": "Defina um limite para quantas vezes as promoções podem ser usadas.",
+  "spend": "Gasto",
+  "spendDescription": "Defina um limite para o valor total descontado de todos os usos da promoção.",
+  "limit": "Limite"
 }

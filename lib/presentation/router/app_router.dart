@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zentrio_admin/di/init.dart';
 import 'package:zentrio_admin/presentation/features/dashboard/dashboard_page.dart';
+import 'package:zentrio_admin/presentation/router/campaigns_route.dart';
 import 'package:zentrio_admin/presentation/router/categories_route.dart';
 import 'package:zentrio_admin/presentation/router/collections_route.dart';
 import 'package:zentrio_admin/presentation/router/product_tags_route.dart';
 import 'package:zentrio_admin/presentation/router/product_types_route.dart';
 import 'package:zentrio_admin/presentation/router/products_route.dart';
+import 'package:zentrio_admin/presentation/router/promotions_route.dart';
 import 'package:zentrio_admin/presentation/router/sales_channels_route.dart';
 import 'package:zentrio_admin/presentation/router/vendors_route.dart';
 
@@ -57,6 +59,8 @@ final GoRouter router = GoRouter(
         productTypesRoute,
         productTagsRoute,
         salesChannelsRoute,
+        campaignsRoute,
+        promotionsRoute,
       ],
     )
   ],

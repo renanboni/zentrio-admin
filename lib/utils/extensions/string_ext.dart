@@ -104,4 +104,6 @@ extension StringExt on String {
 extension DateExtension on String {
   /// Formats the date to a string
   String yMMMd() => DateFormat.yMMMd().format(DateTime.parse(this));
+
+  String ddMMyyyy() => DateFormat('dd/MM/yyyy').format(DateTime.parse(this));
 }

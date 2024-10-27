@@ -40,6 +40,17 @@ getVendorMenu() {
       route: "/customers",
     ),
     const SideBarItem(
+      label: "Promotions",
+      icon: LucideIcons.ticket,
+      route: "/promotions",
+      children: [
+        SideBarItem(
+          label: "Campaigns",
+          route: "/campaigns",
+        ),
+      ]
+    ),
+    const SideBarItem(
       type: SideBarItemType.spacer,
     ),
     const SideBarItem(

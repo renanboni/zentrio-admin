@@ -64,7 +64,19 @@
   "created": "Created",
   "registered": "Registered",
   "guest": "Guest",
-  "customers": "Customers"
+  "customers": "Customers",
+  "campaigns": "Campaigns",
+  "createCampaign": "Create Campaign",
+  "createCampaignDescription": "Create a promotional campaign.",
+  "startDate": "Start Date",
+  "endDate": "End Date",
+  "campaignBudget": "Campaign Budget",
+  "campaignBudgetDescription": "Create a budget for the campaign.",
+  "usage": "Usage",
+  "usageDescription": "Set a limit on how many times the promotions can be used.",
+  "spend": "Spend",
+  "spendDescription": "Set a limit on the total discounted amount of all promotion usages.",
+  "limit": "Limit"
 }
 
 

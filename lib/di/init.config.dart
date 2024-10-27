@@ -63,6 +63,8 @@ import 'package:zentrio_admin/presentation/features/banners/banners_view_model.d
     as _i330;
 import 'package:zentrio_admin/presentation/features/banners/create/create_banner_view_model.dart'
     as _i986;
+import 'package:zentrio_admin/presentation/features/campaigns/create/create_campaign_view_model.dart'
+    as _i100;
 import 'package:zentrio_admin/presentation/features/categories/categories_view_model.dart'
     as _i722;
 import 'package:zentrio_admin/presentation/features/categories/create/create_category_view_model.dart'
@@ -147,6 +149,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => dataModule.prefs,
       preResolve: true,
     );
+    gh.factory<_i100.CreateCampaignViewModel>(
+        () => _i100.CreateCampaignViewModel());
     gh.lazySingleton<_i311.AuthService>(() => networkModule.authService);
     gh.lazySingleton<_i451.VendorService>(() => networkModule.vendorService);
     gh.lazySingleton<_i134.ProductService>(() => networkModule.productService);
