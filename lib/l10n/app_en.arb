@@ -58,7 +58,13 @@
   "makeThumbnail": "Make Thumbnail",
   "material": "Material",
   "discountable": "Discountable",
-  "discountableDescription": "When unchecked, discounts will not be applied to this product"
+  "discountableDescription": "When unchecked, discounts will not be applied to this product",
+  "email": "Email",
+  "account": "Account",
+  "created": "Created",
+  "registered": "Registered",
+  "guest": "Guest",
+  "customers": "Customers"
 }
 
 

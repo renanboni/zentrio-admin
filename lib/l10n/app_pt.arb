@@ -58,5 +58,11 @@
   "makeThumbnail": "Criar Miniatura",
   "material": "Material",
   "discountable": "Descontável",
-  "discountableDescription": "Quando desmarcado, os descontos não serão aplicados a este produto"
+  "discountableDescription": "Quando desmarcado, os descontos não serão aplicados a este produto",
+  "email": "E-mail",
+  "account": "Conta",
+  "created": "Criado",
+  "registered": "Registrado",
+  "guest": "Convidado",
+  "customers": "Clientes"
 }
