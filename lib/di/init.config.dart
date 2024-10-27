@@ -24,6 +24,7 @@ import 'package:zentrio_admin/data/remote/collection_service.dart' as _i658;
 import 'package:zentrio_admin/data/remote/customer_service.dart' as _i774;
 import 'package:zentrio_admin/data/remote/file_service.dart' as _i1013;
 import 'package:zentrio_admin/data/remote/product_service.dart' as _i134;
+import 'package:zentrio_admin/data/remote/promotion_service.dart' as _i225;
 import 'package:zentrio_admin/data/remote/sales_channel_service.dart' as _i705;
 import 'package:zentrio_admin/data/remote/vendor_service.dart' as _i451;
 import 'package:zentrio_admin/di/modules/data_module.dart' as _i555;
@@ -44,6 +45,8 @@ import 'package:zentrio_admin/domain/repositories/preferences_repository.dart'
     as _i789;
 import 'package:zentrio_admin/domain/repositories/product_repository.dart'
     as _i999;
+import 'package:zentrio_admin/domain/repositories/promotion_repository.dart'
+    as _i504;
 import 'package:zentrio_admin/domain/repositories/sales_channel_repository.dart'
     as _i545;
 import 'package:zentrio_admin/domain/repositories/vendor_repository.dart'
@@ -51,6 +54,7 @@ import 'package:zentrio_admin/domain/repositories/vendor_repository.dart'
 import 'package:zentrio_admin/domain/usecase/api_key_usecase.dart' as _i116;
 import 'package:zentrio_admin/domain/usecase/auth_usecase.dart' as _i620;
 import 'package:zentrio_admin/domain/usecase/banner_usecase.dart' as _i725;
+import 'package:zentrio_admin/domain/usecase/campaign_use_case.dart' as _i843;
 import 'package:zentrio_admin/domain/usecase/category_usecase.dart' as _i311;
 import 'package:zentrio_admin/domain/usecase/collection_use_case.dart' as _i464;
 import 'package:zentrio_admin/domain/usecase/customer_usecase.dart' as _i340;
@@ -63,6 +67,8 @@ import 'package:zentrio_admin/presentation/features/banners/banners_view_model.d
     as _i330;
 import 'package:zentrio_admin/presentation/features/banners/create/create_banner_view_model.dart'
     as _i986;
+import 'package:zentrio_admin/presentation/features/campaigns/campaigns_view_model.dart'
+    as _i15;
 import 'package:zentrio_admin/presentation/features/campaigns/create/create_campaign_view_model.dart'
     as _i100;
 import 'package:zentrio_admin/presentation/features/categories/categories_view_model.dart'
@@ -149,8 +155,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => dataModule.prefs,
       preResolve: true,
     );
-    gh.factory<_i100.CreateCampaignViewModel>(
-        () => _i100.CreateCampaignViewModel());
     gh.lazySingleton<_i311.AuthService>(() => networkModule.authService);
     gh.lazySingleton<_i451.VendorService>(() => networkModule.vendorService);
     gh.lazySingleton<_i134.ProductService>(() => networkModule.productService);
@@ -165,6 +169,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => networkModule.customerService);
     gh.lazySingleton<_i705.SalesChannelService>(
         () => networkModule.salesChannelService);
+    gh.lazySingleton<_i225.PromotionService>(
+        () => networkModule.promotionService);
     gh.lazySingleton<_i671.AuthenticationLocalDataSource>(
         () => dataModule.medusaClient);
     gh.lazySingleton<_i74.VendorRepository>(() => dataModule.vendorRepository);
@@ -184,6 +190,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => dataModule.customerRepository);
     gh.lazySingleton<_i545.SalesChannelRepository>(
         () => dataModule.salesChannelRepository);
+    gh.lazySingleton<_i504.PromotionRepository>(
+        () => dataModule.promotionService);
     gh.lazySingleton<_i660.AuthInterceptor>(() => _i660.AuthInterceptor(
         authLocalDataSource: gh<_i671.AuthenticationLocalDataSource>()));
     gh.factory<_i340.CustomerUseCase>(
@@ -237,6 +245,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i464.CollectionUseCase>(),
           gh<_i168.SalesChannelUseCase>(),
         ));
+    gh.factory<_i843.PromotionUseCase>(
+        () => _i843.PromotionUseCase(gh<_i504.PromotionRepository>()));
     gh.factory<_i671.AuthenticationLocalDataSourceImpl>(() =>
         _i671.AuthenticationLocalDataSourceImpl(gh<_i460.SharedPreferences>()));
     gh.factory<_i97.VendorUseCase>(
@@ -270,6 +280,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i149.VendorsViewModel(gh<_i97.VendorUseCase>()));
     gh.factory<_i939.LoginViewModel>(
         () => _i939.LoginViewModel(gh<_i620.AuthUseCase>()));
+    gh.factory<_i100.CreateCampaignViewModel>(
+        () => _i100.CreateCampaignViewModel(gh<_i843.PromotionUseCase>()));
+    gh.factory<_i15.CampaignsViewModel>(
+        () => _i15.CampaignsViewModel(gh<_i843.PromotionUseCase>()));
     gh.factory<_i633.ProductTypesViewModel>(
         () => _i633.ProductTypesViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i214.CreateProductTypeViewModel>(

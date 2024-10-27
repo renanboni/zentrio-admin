@@ -18,6 +18,7 @@ import 'package:zentrio_admin/domain/usecase/collection_use_case.dart';
 import 'package:zentrio_admin/domain/usecase/file_usecase.dart';
 import 'package:zentrio_admin/domain/usecase/product_usecase.dart';
 import 'package:zentrio_admin/domain/usecase/sales_channel_usecase.dart';
+import 'package:zentrio_admin/utils/constants.dart';
 
 import '../../../../data/models/create_product_request.dart';
 import '../../../../data/models/req/create_category_req.dart';
@@ -128,7 +129,7 @@ class CreateProductViewModel {
                       .map(
                         (e) => CreatePriceReq(
                           amount: (e.amount * 100).toInt(),
-                          currencyCode: "brl",
+                          currencyCode: kCurrencyCode,
                         ),
                       )
                       .toList(),

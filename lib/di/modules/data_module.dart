@@ -27,9 +27,12 @@ import '../../data/customer_repository_impl.dart';
 import '../../data/file_repository_impl.dart';
 import '../../data/preferences_repository_impl.dart';
 import '../../data/product_repository_impl.dart';
+import '../../data/promotion_repository_impl.dart';
+import '../../data/remote/promotion_service.dart';
 import '../../data/sales_channel_repository_impl.dart';
 import '../../domain/repositories/collection_repository.dart';
 import '../../domain/repositories/preferences_repository.dart';
+import '../../domain/repositories/promotion_repository.dart';
 import '../../domain/repositories/vendor_repository.dart';
 import '../init.dart';
 
@@ -81,4 +84,8 @@ abstract class DataModule {
   @lazySingleton
   SalesChannelRepository get salesChannelRepository =>
       SalesChannelRepositoryImpl(getIt<SalesChannelService>());
+
+  @lazySingleton
+  PromotionRepository get promotionService =>
+      PromotionRepositoryImpl(getIt<PromotionService>());
 }

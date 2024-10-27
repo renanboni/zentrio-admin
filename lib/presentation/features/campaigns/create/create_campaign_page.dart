@@ -30,6 +30,10 @@ class _CreateCampaignPageState extends State<CreateCampaignPage> {
   final CreateCampaignViewModel viewModel = getIt<CreateCampaignViewModel>();
   final budgetLimitController = TextEditingController();
   final usageLimitController = TextEditingController();
+  final formatter = CurrencyTextInputFormatter.currency(
+    locale: kDefaultLocale,
+    symbol: kCurrencySymbol,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -211,15 +215,13 @@ class _CreateCampaignPageState extends State<CreateCampaignPage> {
                                 )
                               else
                                 ShadInput(
-                                  onChanged: viewModel.budgetLimit.set,
+                                  onChanged: (val) {
+                                    viewModel.budgetLimit.value =
+                                        formatter.getUnformattedValue();
+                                  },
                                   controller: budgetLimitController,
                                   keyboardType: TextInputType.number,
-                                  inputFormatters: [
-                                    CurrencyTextInputFormatter.currency(
-                                      locale: kDefaultLocale,
-                                      symbol: kCurrencySymbol,
-                                    )
-                                  ],
+                                  inputFormatters: [formatter],
                                 ),
                             ],
                           ),
@@ -241,7 +243,15 @@ class _CreateCampaignPageState extends State<CreateCampaignPage> {
         ),
         DialogFooter(
           onCancel: () => GoRouter.of(context).pop(),
-          onCreate: () {},
+          onCreate: () {
+            viewModel.createCampaign(
+              () {
+                context.success("Campaign created successfully");
+                GoRouter.of(context).pop(true);
+              },
+              () => context.error("Failed to create campaign"),
+            );
+          },
         )
       ],
     );
