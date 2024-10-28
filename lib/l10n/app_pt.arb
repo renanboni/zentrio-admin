@@ -76,5 +76,17 @@
   "usageDescription": "Defina um limite para quantas vezes as promoções podem ser usadas.",
   "spend": "Gasto",
   "spendDescription": "Defina um limite para o valor total descontado de todos os usos da promoção.",
-  "limit": "Limite"
+  "limit": "Limite",
+  "promotions": "Promoções",
+  "amountOffProducts": "Valor de desconto nos produtos",
+  "amountOffProductsDescription:": "Desconto em produtos específicos ou coleção de produtos.",
+  "amountOffOrder": "Valor de desconto no pedido",
+  "amountOffOrderDescription": "Desconto no valor total do pedido",
+  "percentageOffProducts": "Porcentagem de desconto no produto",
+  "percentageOffProductsDescription": "Desconto de uma porcentagem em produtos selecionados.",
+  "percentageOffOrder": "Porcentagem de desconto no pedido",
+  "percentageOffOrderDescription": "Desconto de uma porcentagem no valor total do pedido",
+  "buyXGetY": "Compre X e Ganhe Y",
+  "buyXGetYDescription": "Compre um produto e ganhe outro",
+  "types": "Tipos"
 }

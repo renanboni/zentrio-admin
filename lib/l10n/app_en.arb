@@ -76,7 +76,19 @@
   "usageDescription": "Set a limit on how many times the promotions can be used.",
   "spend": "Spend",
   "spendDescription": "Set a limit on the total discounted amount of all promotion usages.",
-  "limit": "Limit"
+  "limit": "Limit",
+  "promotions": "Promotions",
+  "amountOffProducts": "Amount off products",
+  "amountOffProductsDescription": "Discount specific products or collection of products.",
+  "amountOffOrder": "Amount off order",
+  "amountOffOrderDescription": "Discount the total order amount",
+  "percentageOffProducts": "Percentage off product",
+  "percentageOffProductsDescription": "Discount a percentage off selected products.",
+  "percentageOffOrder": "Percentage off order",
+  "percentageOffOrderDescription": "Discount a percentage off the total order amount",
+  "buyXGetY": "Buy X Get Y",
+  "buyXGetYDescription": "Buy X product(s), get Y product(s)",
+  "types": "Types"
 }
 
 

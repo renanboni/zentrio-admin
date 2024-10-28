@@ -129,6 +129,10 @@ import 'package:zentrio_admin/presentation/features/productTypes/create/create_p
     as _i214;
 import 'package:zentrio_admin/presentation/features/productTypes/product_types_view_model.dart'
     as _i633;
+import 'package:zentrio_admin/presentation/features/promotions/create/create_promotion_view_model.dart'
+    as _i758;
+import 'package:zentrio_admin/presentation/features/promotions/promotions_view_model.dart'
+    as _i406;
 import 'package:zentrio_admin/presentation/features/ranking/ranking_view_model.dart'
     as _i473;
 import 'package:zentrio_admin/presentation/features/salesChannels/create/create_sales_channel_view_model.dart'
@@ -155,6 +159,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => dataModule.prefs,
       preResolve: true,
     );
+    gh.factory<_i758.CreatePromotionViewModel>(
+        () => _i758.CreatePromotionViewModel());
     gh.lazySingleton<_i311.AuthService>(() => networkModule.authService);
     gh.lazySingleton<_i451.VendorService>(() => networkModule.vendorService);
     gh.lazySingleton<_i134.ProductService>(() => networkModule.productService);
@@ -284,6 +290,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i100.CreateCampaignViewModel(gh<_i843.PromotionUseCase>()));
     gh.factory<_i15.CampaignsViewModel>(
         () => _i15.CampaignsViewModel(gh<_i843.PromotionUseCase>()));
+    gh.factory<_i406.PromotionsViewModel>(
+        () => _i406.PromotionsViewModel(gh<_i843.PromotionUseCase>()));
     gh.factory<_i633.ProductTypesViewModel>(
         () => _i633.ProductTypesViewModel(gh<_i977.ProductUseCase>()));
     gh.factory<_i214.CreateProductTypeViewModel>(
