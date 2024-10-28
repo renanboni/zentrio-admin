@@ -88,5 +88,21 @@
   "percentageOffOrderDescription": "Desconto de uma porcentagem no valor total do pedido",
   "buyXGetY": "Compre X e Ganhe Y",
   "buyXGetYDescription": "Compre um produto e ganhe outro",
-  "types": "Tipos"
+  "types": "Tipos",
+  "promotionCode": "Código da Promoção",
+  "automatic": "Automático",
+  "promotionCodeDescription": "Os clientes devem inserir este código no checkout",
+  "automaticDescription": "Os clientes verão esta promoção no checkout",
+  "promotionDetails": "Detalhes da Promoção",
+  "code": "Código",
+  "codeHint": "VERAO20",
+  "codeDescription": "O código que os clientes devem inserir no checkout",
+  "whoCanUseThisCode": "Quem pode usar este código?",
+  "whoCanUseThisCodeDescription": "Qual cliente pode usar o código de promoção? O código de promoção pode ser usado por todos os clientes se não for alterado.",
+  "promotionApplicability": "A que itens a promoção será aplicada?",
+  "promotionApplicabilityDescription": "A promoção será aplicada a itens que atendam às seguintes condições.",
+  "addCondition": "Adicionar Condição",
+  "clearAll": "Limpar Tudo",
+  "selectAttribute": "Selecione um Atributo",
+  "and": "e"
 }

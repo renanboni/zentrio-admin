@@ -88,7 +88,23 @@
   "percentageOffOrderDescription": "Discount a percentage off the total order amount",
   "buyXGetY": "Buy X Get Y",
   "buyXGetYDescription": "Buy X product(s), get Y product(s)",
-  "types": "Types"
+  "types": "Types",
+  "promotionCode": "Promotion Code",
+  "automatic": "Automatic",
+  "promotionCodeDescription": "Customers must enter this code at checkout",
+  "automaticDescription": "Customers will see this promotion at checkout",
+  "promotionDetails": "Promotion Details",
+  "code": "Code",
+  "codeHint": "SUMMER20",
+  "codeDescription": "The code your customers will enter during checkout.",
+  "whoCanUseThisCode": "Who can use this code?",
+  "whoCanUseThisCodeDescription": "Which customer is allowed to use the promotion code? Promotion code can be used by all customers if left untouched.",
+  "promotionApplicability": "What items will the promotion be applied to?",
+  "promotionApplicabilityDescription": "The promotion will be applied to items that match the following conditions.",
+  "addCondition": "Add Condition",
+  "clearAll": "Clear All",
+  "selectAttribute": "Select Attribute",
+  "and": "And"
 }
 
 
