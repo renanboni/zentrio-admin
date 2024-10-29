@@ -3,6 +3,7 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/presentation/features/categories/create/create_category_form.dart';
+import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 import 'create_category_view_model.dart';
 
@@ -47,12 +48,12 @@ class _CategoryDetailsFormState extends State<CategoryDetailsForm> {
             children: [
               const SizedBox(height: 32),
               Text(
-                "Create Category",
+                context.loc.createCategory,
                 style: theme.textTheme.h4,
               ),
               const SizedBox(height: 2),
               Text(
-                "Create a new category to organize your products.",
+                context.loc.createCategoryDescription,
                 style: theme.textTheme.muted,
               ),
             ],

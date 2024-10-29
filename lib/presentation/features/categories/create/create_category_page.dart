@@ -4,6 +4,7 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:zentrio_admin/presentation/features/categories/create/create_category_view_model.dart';
 import 'package:zentrio_admin/utils/extensions/context_ext.dart';
+import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 import '../../../../di/init.dart';
 import '../../../components/stepper/horizontal_stepper.dart';
@@ -29,7 +30,7 @@ class _CreateCategoryPageState extends State<CreateCategoryPage> {
       showEsc: true,
       steps: [
         StepItemList(
-          title: 'Details',
+          title: context.loc.details,
           state: HorizontalStepState.editing,
           content: MaxWidthBox(
             maxWidth: context.maxWidth,

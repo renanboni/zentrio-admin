@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
+import 'package:zentrio_admin/utils/extensions/localization_ext.dart';
 
 import '../../../../domain/models/category_status.dart';
 import '../../../../domain/models/category_visibility.dart';
@@ -52,7 +53,7 @@ class CreateCategoryForm extends StatelessWidget {
               ResponsiveRowColumnItem(
                 rowFlex: 1,
                 child: ShadInputFormField(
-                  label: const Text('Title'),
+                  label: Text(context.loc.title),
                   initialValue: title,
                   onChanged: onTitleChanged,
                   validator: FormBuilderValidators.compose([
@@ -63,7 +64,7 @@ class CreateCategoryForm extends StatelessWidget {
               ResponsiveRowColumnItem(
                 rowFlex: 1,
                 child: ShadInputFormField(
-                  label: const Text('Handle'),
+                  label: Text(context.loc.handle),
                   initialValue: handle,
                   onChanged: onHandleChanged,
                 ),
@@ -73,7 +74,7 @@ class CreateCategoryForm extends StatelessWidget {
         ),
         ResponsiveRowColumnItem(
           child: ShadInputFormField(
-            label: const Text('Description'),
+            label:  Text(context.loc.description),
             initialValue: description,
             onChanged: onDescriptionChanged,
             maxLines: 5,
@@ -93,29 +94,28 @@ class CreateCategoryForm extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Status",
+                      context.loc.status,
                       style: theme.textTheme.small,
                     ),
                     const SizedBox(height: 8),
-                    LayoutBuilder(
-                      builder: (context, constraints) {
-                        return ShadSelect<CategoryStatus>(
-                          minWidth: constraints.maxWidth,
-                          maxWidth: constraints.maxWidth,
-                          initialValue: initialStatus ?? CategoryStatus.active,
-                          onChanged: onStatusChanged,
-                          options: CategoryStatus.values
-                              .map(
-                                (status) => ShadOption(
-                              value: status,
-                              child: Text(status.name),
-                            ),
-                          )
-                              .toList(),
-                          selectedOptionBuilder: (context, value) => Text(value.name),
-                        );
-                      }
-                    ),
+                    LayoutBuilder(builder: (context, constraints) {
+                      return ShadSelect<CategoryStatus>(
+                        minWidth: constraints.maxWidth,
+                        maxWidth: constraints.maxWidth,
+                        initialValue: initialStatus ?? CategoryStatus.active,
+                        onChanged: onStatusChanged,
+                        options: CategoryStatus.values
+                            .map(
+                              (status) => ShadOption(
+                                value: status,
+                                child: Text(status.name),
+                              ),
+                            )
+                            .toList(),
+                        selectedOptionBuilder: (context, value) =>
+                            Text(value.name),
+                      );
+                    }),
                   ],
                 ),
               ),
@@ -129,25 +129,26 @@ class CreateCategoryForm extends StatelessWidget {
                       style: theme.textTheme.small,
                     ),
                     const SizedBox(height: 8),
-                    LayoutBuilder(
-                        builder: (context, constraints) {
-                        return ShadSelect<CategoryVisibility>(
-                          minWidth: constraints.maxWidth,
-                          maxWidth: constraints.maxWidth,
-                          initialValue: initialVisibility ?? CategoryVisibility.public,
-                          onChanged: onVisibilityChanged,
-                          options: CategoryVisibility.values
-                              .map(
-                                (visibility) => ShadOption(
-                              value: visibility,
-                              child: SizedBox(width: 250, child: Text(visibility.name)),
-                            ),
-                          )
-                              .toList(),
-                          selectedOptionBuilder: (context, value) => Text(value.name),
-                        );
-                      }
-                    ),
+                    LayoutBuilder(builder: (context, constraints) {
+                      return ShadSelect<CategoryVisibility>(
+                        minWidth: constraints.maxWidth,
+                        maxWidth: constraints.maxWidth,
+                        initialValue:
+                            initialVisibility ?? CategoryVisibility.public,
+                        onChanged: onVisibilityChanged,
+                        options: CategoryVisibility.values
+                            .map(
+                              (visibility) => ShadOption(
+                                value: visibility,
+                                child: SizedBox(
+                                    width: 250, child: Text(visibility.name)),
+                              ),
+                            )
+                            .toList(),
+                        selectedOptionBuilder: (context, value) =>
+                            Text(value.name),
+                      );
+                    }),
                   ],
                 ),
               ),

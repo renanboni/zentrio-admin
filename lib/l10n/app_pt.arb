@@ -104,5 +104,7 @@
   "addCondition": "Adicionar Condição",
   "clearAll": "Limpar Tudo",
   "selectAttribute": "Selecione um Atributo",
-  "and": "e"
+  "and": "e",
+  "createCategory": "Criar Categoria",
+  "createCategoryDescription": "Crie uma nova categoria para organizar seus produtos."
 }

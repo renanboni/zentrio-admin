@@ -46,7 +46,7 @@ class _CategoriesRankState extends State<CategoriesRank> {
                     index: index,
                     child: ListTile(
                       mouseCursor: _categories[index].isNew ? SystemMouseCursors.click : null,
-                      tileColor: !_categories[index].isNew ? theme.colorScheme.muted : null,
+                      tileColor: !_categories[index].isNew ? theme.colorScheme.primaryForeground : null,
                       leading: Icon(
                         size: 16,
                         LucideIcons.tags,
